@@ -6,13 +6,13 @@
 			var vm = $scope;
             vm.peticoes = peticoesService.peticoes;
             vm.selectedCount = 0;
+            vm.selectAll = false;
 
             vm.checkAll = function() {
-                var isChecked = vm.allChecked;
                 vm.peticoes.forEach(function(peticao) {
-                    peticao.selected = isChecked;
+                    peticao.selected = vm.selectAll;
                 });
-                vm.selectedCount = isChecked ? vm.peticoes.length : 0;
+                vm.selectedCount = vm.selectAll ? vm.peticoes.length : 0;
             };
 
             vm.updateSelectedCount = function() {
