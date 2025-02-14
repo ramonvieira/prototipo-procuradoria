@@ -1,3 +1,4 @@
+
 {
   "name": "procuradoria",
   "version": "1.0.0",
@@ -10,8 +11,8 @@
     "url": "http://www.betha.com.br/"
   },
   "scripts": {
-    "start": "hs -c1p 8082",
-    "json-server": "json-server db.json --watch --port 9004 --host 127.0.0.1"
+    "start": "hs -c1 --cors -a 0.0.0.0 -p 8082",
+    "json-server": "json-server db.json --watch --port 9004 --host 0.0.0.0"
   },
   "devDependencies": {
     "bth-design": "^3.15.0",
