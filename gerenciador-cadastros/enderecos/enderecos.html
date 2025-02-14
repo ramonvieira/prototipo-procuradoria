@@ -1,0 +1,14 @@
+<div ng-controller="LocalizacaoCtrl as vm">
+	<div class="row">
+		<div class="col-md-3">
+			<div ng-include src="'gerenciador-cadastros/enderecos/tabs.html'"></div>
+		</div>
+		<div class="col-md-9">
+			<div class="bth-card">
+				<div class="bth-card__body">
+					<div ng-include src="vm.getCurrentState().index"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

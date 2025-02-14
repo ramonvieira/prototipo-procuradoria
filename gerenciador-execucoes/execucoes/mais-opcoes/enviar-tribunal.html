@@ -1,0 +1,58 @@
+<div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h3 class="modal-title">Enviando para o tribunal</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="required">Modelo</label>
+                    <select bf-select2="{}" ng-model="modelo">
+                        <option value="1">Modelo 1</option>
+                        <option value="2">Modelo 2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row bottom">
+                <div class="col-md-12">
+                    <div class="list-item-flex">
+                        <div class="item-content-flex">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="list-item-title">
+                                        <div class="ellipsis" title="Número do processo">
+                                            <strong>01234567890123456789 </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" title="Local de tramitação">
+                                    <span class="ellipsis">Comarca de Criciúma - 1ª vara de Criciúma</span>
+                                </div>
+                                <div class="col-md-3 text-right">
+                                    <label class="label label-info" title="Situação">
+                                        Em tramitação
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6" title="Executado">
+                                    <small>Executado </small><strong class="text-muted"> Ramon Vieira Viquetti</strong>
+                                </div>
+                                <div class="col-md-6" title="Procurador">
+                                    <small>Procurador </small><strong class="text-muted">Aldo de Souza Garcia</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Enviar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<trib-select-template
+        ng-model="ngModel"
+        ng-required="ngRequired"
+        search="vm.AtosService.listTemplate"
+        input-field="nroOficial"
+        input-maxlength="16"
+        on-select="vm.onSelect(item)"
+        restrict-number="restrictNumber">
+    
+    <item-template ng-non-bindable>
+        {{item.nroOficial}}
+        <br>
+        <small>
+            {{item.tiposAtos && item.tiposAtos.descricao ? 'Tipo do Ato: ' + item.tiposAtos.descricao : ''}}
+        </small>
+    </item-template>
+</trib-select-template>

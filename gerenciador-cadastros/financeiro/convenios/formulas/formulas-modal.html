@@ -1,0 +1,52 @@
+<h4>Expressão lógica</h4>
+<div class="row bottom">
+	<div class="col-md-12">
+		<table class="table">
+			<thead>
+				<tr>
+					<th width="14%">Operador</th>
+					<th>Valor</th>
+					<th width="14%">Operador</th>
+					<th>Saída</th>
+					<th width="14%"></th>
+					<th width="5%">
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="condicao in condicoes">
+					<td class="has-edit">
+						<select bf-select2="{}" ng-model="operador1">
+							<option value="1">=</option>
+							<option value="2">></option>
+							<option value="3">>=</option>
+							<option value="4"><</option>
+							<option value="5"><=</option>
+						</select>
+					</td>
+					<td class="has-edit">
+						<input type="text" class="form-control" ng-model="valor">
+					</td>
+					<td>ENTÃO</td>
+					<td class="has-edit">
+						<input type="text" class="form-control" ng-model="saida">
+					</td>
+					<td class="has-edit">
+						<select bf-select2="{}" ng-model="outroOperador">
+							<option value="1">E</option>
+							<option value="2">OU</option>
+						</select>
+					</td>
+					<td class="text-center">
+						<a href ng-click="removeLinha(conjunto)"><i class="fa fa-trash-o text-gray9"></i></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="row bottom">
+	<div class="col-md-12">
+		<button class="btn btn-sm btn-add btn-success pull-right" ng-click="addLinha(conjunto)">Linha</button>
+	</div>
+</div>

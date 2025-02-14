@@ -1,0 +1,227 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">Adicionando dívida</h3>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="pull-right">
+						<form class="form-inline">
+							<!-- Pesquisa inline -->
+							<div class="input-group">
+								<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+									<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+									<ul class="dropdown-menu dropdown-menu-right dropdown-pesquisas-avancada">
+										<li class="dropdown-header">
+											<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">×</span></button>
+											<h1>Pesquisa avançada</h1>
+										</li>
+										<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+										<li>
+											<a href="" data-value="col1Filter">
+												<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true" class="select2-offscreen" tabindex="-1" ng-init="colunasSelect = ['1','2']">
+													<option value="1">Código</option>
+													<option value="2">Referente</option>
+												</select>
+											</a>
+										</li>
+										<li class="dropdown-header">Utilizando como critério</li>
+										<li>
+											<a href="">
+												<div class="radio-inline">
+													<div class="bth-radio">
+														<input id="rdAlguns" type="radio" value="1" ng-model="tipoPesquisa" class=" " name="5">
+														<label for="rdAlguns">
+															Alguns dos termos digitados
+														</label>
+													</div>
+												</div>
+												<div class="radio-inline">
+													<div class="bth-radio">
+														<input id="rdTodos" type="radio" value="2" ng-model="tipoPesquisa" class=" " name="6">
+														<label for="rdTodos">
+															Todos os termos digitados
+														</label>
+													</div>
+												</div>
+												<div class="radio-inline">
+													<div class="bth-radio">
+														<input id="rdNenhum" type="radio" value="2" ng-model="tipoPesquisa" class=" " name="7">
+														<label for="rdTodos">
+															Nenhum dos termos digitados
+														</label>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li role="separator" class="divider"></li>
+										<li class="dropdown-header">
+											<h1>Outras opções</h1>
+										</li>
+										<li class="dropdown-header">
+											Crédito(s)
+										</li>
+										<li>
+											<select bf-select2="{}" ng-model="vm.creditos" multiple="true">
+												<option value="1">IPTU</option>
+												<option value="2">ISS</option>
+												<option value="3">Receitas diversas</option>
+												<option value="4">Notas avulsas</option>
+											</select>
+										</li>
+										<li class="dropdown-header">
+											<div class="row bottom">
+												<div class="col-md-6">
+													Ano
+												</div>
+												<div class="col-md-6">
+													Data de vencimento
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="row bottom">
+												<div class="col-md-6">
+													<div class="input-group">
+														<input class="form-control" type="text" ng-model="de">
+														<span class="input-group-addon">até</span>
+														<input class="form-control" type="text" ng-model="ate">
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="input-group date-range">
+														<div class="input-group">
+															<input class="form-control" type="text" bf-date="" ng-model="de">
+														</div>
+														<span class="input-group-addon">até</span>
+														<div class="input-group">
+															<input class="form-control" type="text" bf-date="" ng-model="ate">
+														</div>
+													</div>
+												</div>
+											</div>
+										</li>
+										<li class="dropdown-header">
+											<div class="row bottom">
+												<div class="col-md-6">
+													Data de emissão
+												</div>
+												<div class="col-md-6">
+													Parcela
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="row bottom">
+												<div class="col-md-6">
+													<div class="input-group date-range">
+														<div class="input-group">
+															<input class="form-control" type="text" bf-date="" ng-model="de">
+														</div>
+														<span class="input-group-addon">até</span>
+														<div class="input-group">
+															<input class="form-control" type="text" bf-date="" ng-model="ate">
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="input-group">
+														<div class="input-group">
+															<input class="form-control" type="text" ng-model="parcelaDe">
+														</div>
+														<span class="input-group-addon">até</span>
+														<div class="input-group">
+															<input class="form-control" type="text" ng-model="parcelaAte">
+														</div>
+													</div>
+												</div>
+											</div>
+										</li>
+										<li class="dropdown-header">
+											<div class="row bottom">
+												<div class="col-md-6">
+													Valor
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="row bottom">
+												<div class="col-md-6">
+													<div class="input-group">
+														<div class="input-group">
+															<input class="form-control" type="text" bf-number="" ng-model="valorDe">
+														</div>
+														<span class="input-group-addon">até</span>
+														<div class="input-group">
+															<input class="form-control" type="text" bf-number="" ng-model="valorAte">
+														</div>
+													</div>
+												</div>
+											</div>
+										</li>
+										<li class="dropdown-footer pull-right">
+											<button class="btn btn-primary dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="true"><i class="fa fa-search"></i> Pesquisar</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h4 ng-if="!dividasDisponiveis.length" class="text-center">Não existem mais dívidas disponíveis</h4>
+					<table class="table" ng-if="dividasDisponiveis.length">
+						<thead>
+							<tr>
+								<th width="40">
+									<div class="bth-checkbox">
+										<input id="checkAll" type="checkbox" ng-model="checkAll" ng-change="setCheckAll(checkAll)">
+										<label for="checkAll">&nbsp;</label>
+									</div>
+								</th>
+								<th ng-repeat="col in cols track by $index" width="{{col.width}}" ng-if="col.name != 'numDocumento'">
+									<a href="">{{col.label}}</a>
+									<i class="icon-sort pull-right"></i>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="divida in dividasDisponiveis track by $index">
+								<td width="30">
+									<div class="bth-checkbox">
+										<input id="check" type="checkbox" ng-model="divida.check" ng-change="checkDiff()">
+										<label for="check">&nbsp;</label>
+									</div>
+								</td>
+								<td>{{divida.id}}</td>
+								<td>{{divida.credito}}</td>
+								<td>
+									<a href="" title="Visualizar cadastro">
+										{{divida.ref}}
+									</a>
+								</td>
+								<td>{{divida.ano}}</td>
+								<td>{{divida.valor | currency}}</td>
+								<td>{{divida.parcela}}</td>
+								<td>
+									<span class="label label-primary center-block">Aberta</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<arrec-pagination ng-if="dividasDisponiveis.length > 10"></arrec-pagination>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="adicionarDividas(dividasDisponiveis)" ng-if="dividasDisponiveis.length" ng-disabled="!hasDiff">Adicionar</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		</div>
+	</div>
+</div>

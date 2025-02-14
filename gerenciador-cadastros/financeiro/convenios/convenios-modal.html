@@ -1,0 +1,584 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">{{isEditando? 'Editando' : 'Adicionando'}} convênio</h3>
+		</div>
+        <div class="modal-body">
+            <!-- <div class="row">
+                <div class="col-md-12">
+                    <div class="bth-passoapasso">
+                        <ol>
+                            <li class="active" ng-init="currentStep = 1" ng-click="currentStep = 1" ng-class="{'active': currentStep == 1, 'completed': currentStep > 1}">
+                                <a href="">Informar dados</a>
+                            </li>
+                            <li ng-click="currentStep = 2" ng-class="{'active': currentStep == 2, 'completed': currentStep > 2}">
+                                <a href="">Configurar dígito verificador</a>
+                            </li>
+                            <li ng-click="currentStep = 3" ng-class="{'active': currentStep == 3, 'completed': currentStep > 3}">
+                                <a href="">Simular código de barras</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div> -->
+            <div class="cards">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="required">Descrição</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="required">Número</label>
+                        <input type="text" class="form-control" ng-model="numero"/>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="" class="required">Disponível para uso?</label>
+                        <select bf-select2="{}" ng-model="disponivelParaUso" ng-init="disponivelParaUso = 2">
+                            <option value="1">Sim</option>
+                            <option value="2">Não</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="required">Banco</label>
+                        <select bf-select2="{}" ng-model="banco">
+                            <option value="">Banco ABC Brasil S.A.</option>
+                            <option value="1">Banco ABC Brasil S.A.</option>
+                            <option value="2">Banco ABC Brasil S.A.</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="required">Agência</label>
+                        <select bf-select2="{}" ng-model="agencia">
+                            <option value=""></option>
+                            <option value="1"></option>
+                            <option value="2"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Fórmula</label>
+                        <!-- Permitar adicionar ou editar uma formula. O adicionar é acessado pelo select2 no modelo padrão -->
+                        <small><a href="" ng-click="formula()" title="Editar fórmula"><i class="fa fa-fw fa-pencil"></i></a></small>
+                        <select bf-select2="{}" ng-model="formulaSelect">
+                            <option value="1">Fórmula 1</option>
+                            <option value="2">Fórmula 2</option>
+                            <option value="3">Fórmula 3</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <label>Conta bancária</label>
+                    <input type="text" class="form-control" ng-model="contaBanc">
+                </div>
+                <div class="col-md-1">
+                    <label>
+                        <abbr title="Dígito Verificador">DV</abbr>
+                    </label>
+                    <input type="text" class="form-control">
+                </div>
+               <!--  <div class="col-md-2">
+                    <label>
+                        <span>Máscara do cedente e <abbr title="Dígito Verificador">DV</abbr>
+                        </span>
+                        <span class="tip" title="Utilizar '#' para caractere numérico (0 a 9), 'X' ou '-' ou '/' para representa o próprio caractere"></span>
+                    </label>
+                    <input type="text" class="form-control" placeholder="Exemplo: #####/X"/>
+                </div> -->
+                <div class="col-md-2">
+                    <label>Cedente
+                    </label>
+                    <input type="text" class="form-control"/>
+                </div>
+                <div class="col-md-1">
+                    <label><abbr title="Dígito Verificador">DV</abbr>
+                    </label>
+                    <input type="text" class="form-control"/>
+                </div>
+                <div class="col-md-2">
+                    <label>Carteira</label>
+                    <input type="text" class="form-control" ng-model="carteira"/>
+                </div>
+                <div class="col-md-4">
+                    <label>Descrição</label>
+                    <input type="text" class="form-control" ng-disabled="carteira==null"/>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-12">
+                    <label for="">Modelo(s)</label>
+                    <select bf-select2="{}" ng-model="modelos" multiple>
+                        <option value="1">Modelo de relatório 1</option>
+                        <option value="2">Modelo de relatório 2</option>
+                    </select>
+                </div>
+            </div> -->
+            <div class="row bottom">
+                <div class="col-md-3">
+                    <label>Pode utilizar em parcelamentos?</label>
+                     <select bf-select2="{}" ng-model="parcelamento">
+                        <option value="1">Sim</option>
+                        <option value="2">Não</option>
+                    </select>
+                </div>
+                <div class="col-md-9">
+                    <label class="{{parcelamento == 2 ? 'required' : ''}}">Crédito(s) tributário(s)</label>
+                    <select bf-select2="{}" ng-model="creditos" multiple>
+                        <option value="1">IPTU</option>
+                        <option value="2">ISS</option>
+                    </select>
+                </div>
+            </div>
+            <!-- <div ng-show="currentStep == 2">
+                <ul id="myTab" role="tablist" class="nav nav-tabs">
+                    <li role="presentation" class="active">
+                        <a data-toggle="tab" role="tab" href="#nossoNumero" target="_self">Nosso número</a>
+                    </li>
+                    <li role="presentation">
+                        <a data-toggle="tab" role="tab" href="#codigoBarras" target="_self">Código de barras</a>
+                    </li>
+                    <li role="presentation">
+                        <a data-toggle="tab" role="tab" href="#linhaDigitavel" target="_self">Linha digitável</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="nossoNumero" class="tab-pane active" role="tabpanel" class="active">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th width="2.5%" class="text-center" rowspan="2">#</th>
+                                            <th rowspan="2">Tipo de dado</th>
+                                            <th rowspan="2">Descrição</th>
+                                            <th rowspan="2" width="7%">Tamanho</th>
+                                            <th colspan="2" class="text-center" width="10%">Posição</th>
+                                            <th rowspan="2" width="10%">Preencher? <i class="fa fa-question-circle" bf-tooltip="Define se espaços em branco serão preenchidos com zero"></i></th>
+                                            <th rowspan="2" width="10%">Posição <i class="fa fa-question-circle" bf-tooltip="Define a posição do preenchimento"></i></th>
+                                            <th rowspan="2" width="10%">Valor <i class="fa fa-question-circle" bf-tooltip="Define um valor fixo para o dado"></i></th>
+                                            <th rowspan="2" width="7%">Calcular?</th>
+                                            <th rowspan="2" width="6%"></th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">Inicial</th>
+                                            <th class="text-center">Final</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="dado in dados">
+                                            <td class="text-center">
+                                                {{dado.id}}
+                                            </td>
+                                            <td class="has-edit">
+                                                <select bf-select2="{}" ng-model="dado.tipo">
+                                                    <option value="1">Agência</option>
+                                                    <option value="2">Conta</option>
+                                                    <option value="3">Carteira</option>
+                                                    <option value="4">NN</option>
+                                                    <option value="5">Livre</option>
+                                                </select>
+                                            </td>
+                                            <td class="has-edit">
+                                                <input type="text" class="form-control" ng-model="dado.descricao" ng-disabled="dado.tipo != 5">
+                                            </td>
+                                            <td class="has-edit">
+                                                <input type="text" class="form-control" ng-model="dado.tamanho">
+                                            </td>
+                                            <td class="has-edit">
+                                                <input type="text" class="form-control" ng-model="dado.posInicial">
+                                            </td>
+                                            <td class="has-edit">
+                                                <input type="text" class="form-control" ng-model="dado.posFinal">
+                                            </td>
+                                            <td class="has-edit">
+                                                <select bf-select2="{}" ng-model="dado.completar">
+                                                    <option value="1">Sim</option>
+                                                    <option value="2">Não</option>
+                                                </select>
+                                            </td>
+                                            <td class="has-edit">
+                                                <select bf-select2="{}" ng-model="dado.posicao" ng-disabled="dado.completar != 1">
+                                                    <option value="1">Esquerda</option>
+                                                    <option value="2">Direita</option>
+                                                </select>
+                                            </td>
+                                            <td class="has-edit">
+                                                <input type="text" class="form-control" ng-model="dado.valor">
+                                            </td>
+                                            <td class="has-edit">
+                                                <select bf-select2="{}" ng-model="dado.calcular">
+                                                    <option value="1">Sim</option>
+                                                    <option value="2">Não</option>
+                                                </select>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="" ng-class="dado.calcular == 1 ? '' : 'link-disabled'" title="Definir parâmetros de cálculo" ng-click="adicionar()">
+                                                    <i class="fa fa-fw fa-superscript"></i>
+                                                </a>
+                                                <a href="" title="Excluir">
+                                                    <i class="fa fa-fw fa-trash-o"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row bottom">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-success btn-sm btn-add pull-right">Campo</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="codigoBarras" class="tab-pane" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th width="2.5%" class="text-center" rowspan="2">#</th>
+                                            <th rowspan="2">Tipo de dado</th>
+                                            <th rowspan="2">Descrição</th>
+                                            <th rowspan="2" width="7%">Tamanho</th>
+                                            <th colspan="2" class="text-center" width="10%">Posição</th>
+                                            <th rowspan="2" width="10%">Preencher? <i class="fa fa-question-circle" bf-tooltip="Define se espaços em branco serão preenchidos com zero"></i></th>
+                                            <th rowspan="2" width="10%">Posição <i class="fa fa-question-circle" bf-tooltip="Define a posição do preenchimento"></i></th>
+                                            <th rowspan="2" width="10%">Valor <i class="fa fa-question-circle" bf-tooltip="Define um valor fixo para o dado"></i></th>
+                                            <th rowspan="2" width="7%">Calcular?</th>
+                                            <th rowspan="2" width="6%"></th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">Inicial</th>
+                                            <th class="text-center">Final</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">
+                                                1
+                                            </td>
+                                            <td class="has-edit">
+                                                <select bf-select2="{}" ng-model="dado.tipo">
+                                                    <option value="1">Agência</option>
+                                                    <option value="2">Conta</option>
+                                                    <option value="3">Carteira</option>
+                                                    <option value="4">NN</option>
+                                                    <option value="5">Livre</option>
+                                                </select>
+                                            </td>
+                                            <td class="has-edit">
+                                                <input type="text" class="form-control" ng-model="dado.descricao" ng-disabled="dado.tipo != 5">
+                                            </td>
+                                            <td class="has-edit">
+                                                <input type="text" class="form-control" ng-model="dado.tamanho">
+                                            </td>
+                                            <td class="has-edit">
+                                                <input type="text" class="form-control" ng-model="dado.posInicial">
+                                            </td>
+                                            <td class="has-edit">
+                                                <input type="text" class="form-control" ng-model="dado.posFinal">
+                                            </td>
+                                            <td class="has-edit">
+                                                <select bf-select2="{}" ng-model="dado.completar">
+                                                    <option value="1">Sim</option>
+                                                    <option value="2">Não</option>
+                                                </select>
+                                            </td>
+                                            <td class="has-edit">
+                                                <select bf-select2="{}" ng-model="dado.posicao" ng-disabled="dado.completar != 1">
+                                                    <option value="1">Esquerda</option>
+                                                    <option value="2">Direita</option>
+                                                </select>
+                                            </td>
+                                            <td class="has-edit">
+                                                <input type="text" class="form-control" ng-model="dado.valor">
+                                            </td>
+                                            <td class="has-edit">
+                                                <select bf-select2="{}" ng-model="dado.calcular">
+                                                    <option value="1">Sim</option>
+                                                    <option value="2">Não</option>
+                                                </select>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="" ng-class="dado.calcular == 1 ? '' : 'link-disabled'" title="Definir parâmetros de cálculo" ng-click="adicionar()">
+                                                    <i class="fa fa-fw fa-superscript"></i>
+                                                </a>
+                                                <a href="" title="Excluir">
+                                                    <i class="fa fa-fw fa-trash-o"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row bottom">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-success btn-sm btn-add pull-right">Campo</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="linhaDigitavel" class="tab-pane" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="">Máscara <i class="fa fa-question-circle" title="Utilizar '#' para caractere numérico (0 a 9), 'E' para espaços em branco e '.' para representar o próprio caractere"></i></label>
+                                <input type="text" class="form-control" placeholder="Exemplo: #####.#####E#####.######E#####.######E6E##############">
+                            </div>
+                        </div>
+                       <div class="row">
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th width="2.5%" class="text-center" rowspan="2">#</th>
+                                            <th rowspan="2">Tipo de dado</th>
+                                            <th rowspan="2">Descrição</th>
+                                            <th rowspan="2" width="7%">Tamanho</th>
+                                            <th colspan="2" class="text-center" width="10%">Posição</th>
+                                            <th rowspan="2" width="10%">Preencher? <i class="fa fa-question-circle" bf-tooltip="Define se espaços em branco serão preenchidos com zero"></i></th>
+                                            <th rowspan="2" width="10%">Posição <i class="fa fa-question-circle" bf-tooltip="Define a posição do preenchimento"></i></th>
+                                            <th rowspan="2" width="10%">Valor <i class="fa fa-question-circle" bf-tooltip="Define um valor fixo para o dado"></i></th>
+                                            <th rowspan="2" width="7%">Calcular?</th>
+                                            <th rowspan="2" width="6%"></th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">Inicial</th>
+                                            <th class="text-center">Final</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">
+                                                1
+                                            </td>
+                                            <td class="has-edit">
+                                                <select bf-select2="{}" ng-model="dado.tipo">
+                                                    <option value="1">Agência</option>
+                                                    <option value="2">Conta</option>
+                                                    <option value="3">Carteira</option>
+                                                    <option value="4">NN</option>
+                                                    <option value="5">Livre</option>
+                                                </select>
+                                            </td>
+                                            <td class="has-edit">
+                                                <input type="text" class="form-control" ng-model="dado.descricao" ng-disabled="dado.tipo != 5">
+                                            </td>
+                                            <td class="has-edit">
+                                                <input type="text" class="form-control" ng-model="dado.tamanho">
+                                            </td>
+                                            <td class="has-edit">
+                                                <input type="text" class="form-control" ng-model="dado.posInicial">
+                                            </td>
+                                            <td class="has-edit">
+                                                <input type="text" class="form-control" ng-model="dado.posFinal">
+                                            </td>
+                                            <td class="has-edit">
+                                                <select bf-select2="{}" ng-model="dado.completar">
+                                                    <option value="1">Sim</option>
+                                                    <option value="2">Não</option>
+                                                </select>
+                                            </td>
+                                            <td class="has-edit">
+                                                <select bf-select2="{}" ng-model="dado.posicao" ng-disabled="dado.completar != 1">
+                                                    <option value="1">Esquerda</option>
+                                                    <option value="2">Direita</option>
+                                                </select>
+                                            </td>
+                                            <td class="has-edit">
+                                                <input type="text" class="form-control" ng-model="dado.valor">
+                                            </td>
+                                            <td class="has-edit">
+                                                <select bf-select2="{}" ng-model="dado.calcular">
+                                                    <option value="1">Sim</option>
+                                                    <option value="2">Não</option>
+                                                </select>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="" ng-class="dado.calcular == 1 ? '' : 'link-disabled'" title="Definir parâmetros de cálculo" ng-click="adicionar()">
+                                                    <i class="fa fa-fw fa-superscript"></i>
+                                                </a>
+                                                <a href="" title="Excluir">
+                                                    <i class="fa fa-fw fa-trash-o"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row bottom">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-success btn-sm btn-add pull-right">Campo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="currentStep == 3">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="">Nº da baixa</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="">Vencimento</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" bf-date ng-model="vencimento">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="">Valor</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">R$</div>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="">Usuário</label>
+                        <input type="text" class="form-control" ng-model="usuario" ng-init="usuario = 'gabriel.valandro'" ng-disabled="true">
+                    </div>
+                    <div class="col-md-1">
+                        <label for="">&nbsp;</label>
+                        <button class="btn btn-default show">
+                            <i class="fa fa-lg fa-fw fa-barcode"></i> Gerar
+                        </button>
+                    </div>
+                </div>
+                <h4>Simulações geradas</h4>
+                <div class="row bottom">
+                    <div class="scrollBar" style="max-height: 500px">
+                        <table class="table bottom">
+                            <thead>
+                                <tr>
+                                    <th width="3%" class="text-center">#</th>
+                                    <th width="9%">Valor</th>
+                                    <th width="12%">Nosso número</th>
+                                    <th width="32%">Código de barras</th>
+                                    <th>Linha digitável</th>
+                                    <th width="6%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">4</td>
+                                    <td class="text-right">20,00</td>
+                                    <td>87760009780-32</td>
+                                    <td>041910010000042202311610035719790000004184</td>
+                                    <td>00190.00009 00502.010184 00016.324186 6 33510000015000</td>
+                                    <td class="text-center">
+                                        <a href="">
+                                            <i class="fa fa-fw fa-info-circle" bf-popover="'cadastros/convenios/mais-informacoes/mais-informacoes.html'" title="Mais informações"></i>
+                                        </a>
+                                        <a href="">
+                                            <i class="fa fa-fw fa-trash-o text-muted" title="Excluir"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="emp-vinculos-add clearfix">
+            <div class="row emp-vinculo-title-add expand" ng-click="mensagens=!mensagens">
+                <div class="col-md-12">
+                    <span>
+                        <i class="fa fa-envelope-o pin left"></i>
+                        <small><span class="notification">0</span></small> Mensagens
+                    </span>
+                    <small class="btn-collapse">{{(mensagens)? '(Fechar)' : '(Abrir)'}}</small>
+                </div>
+            </div>
+            <div class="row emp-vinculos-box-add bottom" uib-collapse="!mensagens">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="" class="required">Identificador</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="required">Descrição</label>
+                        <textarea rows="1" class="form-control"></textarea>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="" class="required">Crédito</label>
+                        <select bf-select2="{}" ng-model="credito">
+                            <option value="1">IPTU</option>
+                            <option value="2">ISS</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <label for="">&nbsp;</label>
+                        <button class="btn btn-default show"> 
+                            <i class="icon-trash"></i> 
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button title="Adiciona uma mensagem" class="btn btn-add btn-default btn-sm">
+                            Mensagem
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="emp-vinculos-add clearfix" ng-show="currentStep == 1">
+            <div class="row emp-vinculo-title-add expand" ng-click="camposAdicionais=!camposAdicionais">
+                <div class="col-md-12">
+                    <span>
+                        <i class="fa fa-bars pin left"></i>
+                        <small><span class="notification">0</span></small> Campos adicionais
+                    </span>
+                    <small class="btn-collapse">{{(camposAdicionais)? '(Fechar)' : '(Abrir)'}}</small>
+                </div>
+            </div>
+            <div class="row emp-vinculos-box-add bottom" uib-collapse="!camposAdicionais">
+                <div class="row">
+                    <div class="col-md-1">
+                        <label for="" class="required">Identificador</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="col-md-7">
+                        <label for="" class="required">Campo adicional</label>
+                        <select bf-select2="{}" ng-model="campoAdicional">
+                            <option value="1">Campo 1</option>
+                            <option value="2">Campo 2</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="" class="required">Crédito</label>
+                        <select bf-select2="{}" ng-model="credito">
+                            <option value="1">IPTU</option>
+                            <option value="2">ISS</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <label for="">&nbsp;</label>
+                        <button class="btn btn-default show"> 
+                            <i class="icon-trash"></i> 
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button title="Adiciona uma mensagem" class="btn btn-add btn-default btn-sm">
+                            Campo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="modal-footer">
+            <!-- <button class="btn btn-default pull-left" ng-click="voltarAba()"><i class="fa fa-arrow-left"></i> Voltar</button>
+            <button class="btn btn-default pull-left" ng-click="avancarAba()">Avançar <i class="fa fa-arrow-right"></i> </button> -->
+            <button class="btn btn-primary">Salvar</button>
+            <button class="btn btn-default">Salvar e adicionar novo</button>
+            <button class="btn btn-default btn-delete">Excluir</button>
+            <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+	</div>
+</div>

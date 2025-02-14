@@ -1,0 +1,16 @@
+<trib-select-template
+        ng-model="ngModel"
+        ng-required="ngRequired"
+        search="vm.CondominiosService.listTemplate"
+        input-field="nome"
+        input-maxlength="50"
+        on-select="vm.onSelect(item)">
+
+    <item-template ng-non-bindable>
+        {{item.nome}}
+        <br>
+        <small>
+            {{item.bairro && item.bairro.descricao ? 'Bairro: ' + item.bairro.descricao : ''}} {{item.tipoCondominio ? 'Tipo: ' + item.tipoCondominio : ''}}
+        </small>
+    </item-template>
+</trib-select-template>

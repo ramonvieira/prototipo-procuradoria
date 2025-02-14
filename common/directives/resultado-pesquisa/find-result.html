@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-12" data-ng-if="isCarregando">
+        <div data-bf-loading="tracker"></div>
+    </div>
+    <div class="col-md-12" data-ng-if="exibir && !isCarregando">
+        <div class="row" ng-show="showImage || (!notExists && !gridConfig.finderConditions)">
+            <div class="col-md-12">
+                <div class="ui-list-blank-container">
+                    <p>Faça uma <a href="" ng-click="pesquisar()">pesquisa</a> ou utilize os <a ng-click="filtrar()" href="">filtros</a> para mostrar resultados</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="!notExists && gridConfig.finderConditions">
+            <div class="col-md-12">
+                <br>
+                <br>
+                <br>
+                <br>
+                <h3 class="text-center">Nenhum resultado encontrado para o(s) filtro(s) utilizado(s)</h3>
+            </div>
+        </div>
+        <div class="row" ng-show="notExists">
+            <div class="col-md-12">
+                <br>
+                <br>
+                <br>
+                <br>
+                <h3 class="text-center">Ainda não há {{ cadastro }} por aqui</h3>
+            </div>
+        </div>
+    </div>
+</div>

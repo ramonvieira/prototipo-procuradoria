@@ -1,0 +1,51 @@
+<!-- Primeiro acesso -->
+<div class="bth-card" ng-if="primAccess">
+	<div class="bth-card__body">
+		<div class="row mTop30">
+			<div class="col-md-8 col-md-offset-2 text-center">
+				<img src="images/im_tarefas.png" width="90px">
+				<p class="text-center lead">Com as tarefas você pode fazer anotações sobre tudo que envolva seu dia a dia de forma mais organizada.</p>
+				<p>Permite que você vincule tarefas com dívidas, protestos, processos, cotribuinte possibilitando distinguir rapidamente cada item</p>
+				<hr>
+				<button type="button" class="btn btn-success btn-lg btn-add" ng-click="adicionar({tipo:'TAREFA'})" title="Adiciona uma tarefa">Criar minha primeira tarefa</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row row-flex bottom" ng-hide="primAccess">
+	<!-- Menu esquerdo -->
+	<div class="col-md-3">
+		<div class="bth-card">
+			<div class="bth-card__body">
+				<div ng-include="'common/agenda/filtro.html'"></div>
+			</div>
+		</div>
+	</div>
+	<!-- Tarefas -->
+	<div class="col-md-9">
+		<div class="bth-card">
+			<div class="bth-card__body">
+				<div ng-include="'agenda/tarefa/tarefa-tab.html'"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="opcoes-tela">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="bth-switch">
+				<input id="primAccess" type="checkbox" ng-model="primAccess" ng-init="primAccess = false">
+				<label for="primAccess">Primeiro acesso</label>
+			</div>
+		</div>
+	</div>
+	<div class="row bottom">
+		<div class="col-md-12">
+			<div class="btn-group">
+				<button type="button" class="btn btn-default btn-xs" ng-click="setTarefasExemplo()">Resetar tarefas</button>
+			</div>
+		</div>
+	</div>
+</div>

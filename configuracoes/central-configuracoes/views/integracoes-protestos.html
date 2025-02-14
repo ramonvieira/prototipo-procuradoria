@@ -1,0 +1,246 @@
+
+<div class="row">
+    <div class="col-md-12">
+        <uib-tabset>
+            <uib-tab class="pointer" heading="Dados gerais">
+                <p>
+                    <strong>
+                        Emissão da guia de pagamento
+                    </strong>
+                </p>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="" class="">
+                            Data base para atualização
+                            <i class="fa fa-fw fa-question-circle" title="Data base utilizada para a atualização monetária dos valores de créditos tributários que irão compor a CDA"></i>
+                        </label>
+                        <select bf-select2="{}" ng-model="dtAtualizacaoCDA" class="form-control">
+                            <option value="1">Definir no momento da emissão da CDA</option>
+                            <option value="2">Data de emissão da CDA</option>
+                            <option value="3">No último dia do mês de emissão da CDA</option>
+                            <option value="4">Conforme número de dias da emissão da CDA</option>
+                            <option value="5">Data do vencimento da parcela da dívida ativa</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2" ng-show="dtAtualizacaoCDA == 4">
+                        <label for="" class="required" >Número de dias</label>
+                        <span class="ui-spinner input-group">
+                            <input id="spinner" class="form-control ui-spinner-input" type="text" name="value" autocomplete="off" role="spinbutton">
+                            <a class="ui-spinner-button ui-spinner-up" tabindex="-1">
+                                <span class="icon-sort-up"></span>
+                            </a>
+                            <a class="ui-spinner-button ui-spinner-down" tabindex="-1">
+                                <span class="icon-sort-down"></span>
+                            </a>
+                        </span>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="" class="">
+                            Cobrança de honorários?
+                        </label>
+                        <select bf-select2="{}" ng-model="cobHonorarios" class="form-control">
+                            <option value="1">Sim</option>
+                            <option value="2">Não</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2" ng-show="cobHonorarios == 1">
+                        <label for="" class="required">Percentual cobrado</label>
+                        <div class="input-group">
+                            <input type="text" ng-model="percentual" bf-number="'6,2'" class="form-control">
+                            <div class="input-group-addon">%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="" class="required">
+                            Emissão da guia?
+                        </label>
+                        <select bf-select2="{}" ng-model="emissaoCDA" class="form-control">
+                            <option value="1">Sim</option>
+                            <option value="2">Não</option>
+                        </select>
+                    </div>
+                    <div class="col-md-7" ng-show="emissaoCDA == 1">
+                        <label for="" class="required">
+                            Vencimento da guia
+                        </label>
+                        <select bf-select2="{}" ng-model="vencimentoGuia" class="form-control">
+                            <option value="1">Vencimento no último dia do mês da emissão da CDA</option>
+                            <option value="2">Vencimento na data da emissão da CDA</option>
+                            <option value="3">Número de dias após a emissão</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2" ng-show="vencimentoGuia == 3">
+                        <label for="" class="required">Número de dias</label>
+                        <span class="ui-spinner input-group">
+                            <input id="spinner" class="form-control ui-spinner-input" type="text" name="value" autocomplete="off" role="spinbutton">
+                            <a class="ui-spinner-button ui-spinner-up" tabindex="-1">
+                                <span class="icon-sort-up"></span>
+                            </a>
+                            <a class="ui-spinner-button ui-spinner-down" tabindex="-1">
+                                <span class="icon-sort-down"></span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <div class="row" ng-show="emissaoCDA == 1">
+                    <div class="col-md-6">
+                        <label for="" class="required">
+                            Modelo da guia?
+                        </label>
+                        <select bf-select2="{}" ng-model="fonteDados" class="form-control">
+                            <option value="1"></option>
+                            <option value="2"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="required">
+                            Convênio?
+                        </label>
+                        <select bf-select2="{}" ng-model="fonteDados" class="form-control">
+                            <option value="1"></option>
+                            <option value="2"></option>
+                        </select>
+                    </div>
+                </div>
+                <p>
+                    <strong>
+                        Integração
+                    </strong>
+                </p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for=""><abbr title="Uniform Resource Locator">URL</abbr></label>
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="">Identificador da entidade</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Cidade da comarca</label>
+                        <select bf-select2="{}" ng-model="cidadeComarca" class="form-control">
+                            <option value="1">Criciúma</option>
+                            <option value="2">Içara</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for=""><abbr title="Unidade Federativa">UF</abbr></label>
+                        <input type="text" class="form-control" value="{{cidadeComarca ? 'SC' : ''}}" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <label for="">Usuário</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="">Senha</label>
+                        <input type="password" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" ng-click="salvarConfiguracao();">Salvar</button>
+                            <button class="btn btn-default" ng-click="$parent.copiarConfiguracaoDocumento();">Copiar</button>
+                            <button class="btn btn-default" title="Restaura a configuração para a última versão salva">Restaurar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </uib-tab>
+            <uib-tab class="pointer" heading="Scripts">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="" class="">
+                            Remessa das <abbr title="Certidão de Dívida Ativa">CDA</abbr>s
+                        </label>
+                        <select bf-select2="{}" ng-model="natureza" class="form-control">
+                            <option value="1">CDA 1</option>
+                            <option value="2">CDA 2</option>
+                            <option value="3">CDA 3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="" class="">
+                            Confirmação da distribuição das <abbr title="Certidão de Dívida Ativa">CDA</abbr>s
+                        </label>
+                        <select bf-select2="{}" ng-model="vincularPor" class="form-control">
+                            <option value="1">CDA</option>
+                            <option value="2">CDA</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="" class="">
+                            Retorno das informações do cartório
+                        </label>
+                        <select bf-select2="{}" ng-model="fonteDados1" class="form-control">
+                            <option value="1">CDA</option>
+                            <option value="2">CDA</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="" class="">
+                            Solicitação de desistência
+                        </label>
+                        <select bf-select2="{}" ng-model="fonteDados2" class="form-control">
+                            <option value="1">CDA</option>
+                            <option value="2">CDA</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="" class="">
+                            Autorização de desistência
+                        </label>
+                        <select bf-select2="{}" ng-model="fonteDados3" class="form-control">
+                            <option value="1">CDA</option>
+                            <option value="2">CDA</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="" class="">
+                            Solicitação de cancelamento
+                        </label>
+                        <select bf-select2="{}" ng-model="fonteDados4" class="form-control">
+                            <option value="1">CDA</option>
+                            <option value="2">CDA</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="" class="">
+                            Autorização de cancelamento
+                        </label>
+                        <select bf-select2="{}" ng-model="fonteDados5" class="form-control">
+                            <option value="1">CDA</option>
+                            <option value="2">CDA</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button class="btn btn-sm btn-primary">
+                            Salvar
+                        </button>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>
+

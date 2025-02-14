@@ -1,0 +1,16 @@
+<trib-select-template
+        ng-model="ngModel"
+        ng-required="ngRequired"
+        search="vm.EstadosService.listTemplate"
+        input-field="nome"
+        input-maxlength="20"
+        on-select="vm.onSelect(item)">
+
+    <item-template ng-non-bindable>
+        {{item.nome}}
+        <br>
+        <small>
+            {{item.pais && item.pais.descricao ? 'País: ' + item.pais.descricao : ''}}
+        </small>
+    </item-template>
+</trib-select-template>

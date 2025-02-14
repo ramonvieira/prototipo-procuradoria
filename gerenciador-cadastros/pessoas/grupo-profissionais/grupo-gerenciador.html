@@ -1,0 +1,135 @@
+<div class="row" ng-if="!grupoTrab && grupos.length > 0">
+	<div class="col-md-12">
+		<div class="btn-group">
+			<button type="button" class="btn btn-success btn-sm btn-add" ng-click="openGrupo({})" title="Adiciona um grupo de trabalho">Grupo</button>
+		</div>
+	</div>
+</div>
+<div class="row bottom" ng-if="!grupoTrab && grupos.length > 0">
+	<div class="col-md-4">
+		<div class="row" ng-repeat="grupo in grupos">
+			<div class="col-md-12">
+				<div class="bth-card bth-card--bordered bth-card--clickable" ng-click="trocaGrupo({grupo: $index,this:this})" ng-class="grupoSelect == $index ? 'bth-card--active bth-card--filled': ''">
+					<div class="bth-card__header text-center">
+						<h4 class="mBottom10">{{grupo.descricao}} <span ng-show="grupo.desativado"><br><span class="badge badge-danger" bf-tooltip="Grupo desativado">Desativado</span></span></h4>
+						<div class="badge-group badge-group--center">
+							<span class="badge" ng-repeat="area in grupo.areas track by $index">{{areas[area].descricao}}</span>
+						</div>
+					</div>
+					<div class="bth-card__body text-center">
+						<div class="row bottom">
+							<div class="col-md-12">
+								<ul class="list-inline">
+									<li ng-repeat="procurador in grupo.procuradores track by $index" style="padding: 0">
+										<img alt="" ng-src="{{procuradores[procurador.proc].procurador.img}}" class="img-circle" width="25px" title="{{procuradores[procurador.proc].procurador.nome}}">
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="bth-card__footer">
+						<small class="text-muted" ng-if="grupo.automatico">Distribuição automática</small>
+						<div class="btn-group pull-right">
+							<button type="button" class="btn btn-link btn-xs" title="Edita as informações do grupo" ng-click="openGrupo({registro:grupo})"><i class="fa fa-fw fa-pencil"></i></button>
+							<button type="button" class="btn btn-link btn-xs" title="Exclui o grupo" ng-click="excluir(grupo)"><i class="fa fa-fw fa-trash"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-8">
+		<div ng-if="grupoSelect == null">
+			<h4 class="text-center">Selecione um grupo de trabalho para editar as permissões</h4>
+		</div>
+		<div ng-if="grupoSelect != null">
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-unstriped table-unfixed table-unbordered table-hover">
+						<thead>
+							<tr>
+								<th><span></span></th>
+								<th width="120"></th>
+								<!-- <th class="text-center col-fit"><span>Leitura</span></th>
+								<th class="text-center col-fit"><span>Edição</span></th> -->
+								<th class="text-center"><span></span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="procurador in grupos[grupoSelect].procuradores">
+								<td>
+									<div class="cell-wrapper">
+										<div class="img-wrapper">
+											<a href="" data-bf-popover="'common/popover-info-procurador.html'" class="popover-active" data-placement="right" bf-popover-size="med-popover"><img alt="" ng-src="{{procuradores[procurador.proc].procurador.img}}"></a>
+										</div>
+									</div>
+									<div class="cell-wrapper">
+										<a href="" ng-click="editarProfissional({procurador:procuradores[procurador.proc]})">{{procuradores[procurador.proc].procurador.nome}}</a><br>
+										<small class="" ng-if="isAusente(procurador.proc)">
+											<i class="fa fa-fw fa-clock-o"></i> Profissional com ausência provisória até 12/12/2020
+										</small>
+									</div>
+								</td>
+								<td><span class="label show" ng-class="procuradores[procurador.proc].funcao == 'Administrador' ? 'label-primary' : procuradores[procurador.proc].funcao == 'Procurador' ? 'label-info' : 'label-default'">{{procuradores[procurador.proc].funcao}}</span></td>
+								<!-- <td class="text-center" ng-click="">
+									<button type="button" class="btn btn-link btn-sm" title="Permite acesso a visualização" ng-click="procurador.perm = 0"><i class="fa fa-fw" ng-class="procurador.perm == 0 ? 'fa-check-circle tx__green' : 'fa-circle-o tx__gray'"></i>
+								</td>
+								<td class="text-center" ng-click="">
+									<button type="button" class="btn btn-link btn-sm" title="Permite acesso a edição" ng-click="procurador.perm = 1"><i class="fa fa-fw" ng-class="procurador.perm == 1 ? 'fa-check-circle tx__green' : 'fa-circle-o tx__gray'"></i>
+								</td> -->
+								<td class="text-right">
+									<div class="btn-group btn-group-xs">
+										<a href="" class="btn btn-link dropdown-toggle" title="Abre a lista de ações disponíveis" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="fa fa-fw fa-ellipsis-v"></i>
+										</a>
+										<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+											<li class="dropdown-header">Ações disponíveis</li>
+											<li><a href="" title="Adiciona uma ausência" ng-click="adicionarAusencia({profissional:procurador.proc})"><i class="fa fa-fw fa-clock-o"></i> Adicionar ausência</a></li>
+											<li><a href="" title="Remove o profissional do grupo" ng-click="removerProfissional({registro:grupos[grupoSelect],procurador:procurador})"><i class="fa fa-fw fa-times"></i> Remover do grupo</a></li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row text-right">
+				<div class="col-md-12">
+					<div class="btn-group">
+						<button type="button" class="btn btn-success btn-add btn-sm" title="Adiciona um profissional ao grupo" ng-click="adicionarMembros({registro:grupos[grupoSelect]})">Profissional</button>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-5 col-md-offset-2 text-right">
+					<div class="bth-powernumber bth-powernumber--small bth-powernumber--has-icon">
+						<div class="bth-powernumber__icon tx__gray">
+							<i class="fa fa-fw fa-balance-scale"></i>
+						</div>
+						<span class="bth-powernumber__value">
+							15973
+						</span>
+						<div class="bth-powernumber__desc">
+							Processos
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5 text-right">
+					<div class="bth-powernumber bth-powernumber--small bth-powernumber--has-icon">
+						<div class="bth-powernumber__icon tx__gray">
+							<i class="fa fa-fw fa-dollar"></i>
+						</div>
+						<span class="bth-powernumber__value">
+							R$ 11.736.098,77
+						</span>
+						<div class="bth-powernumber__desc">
+							Valor total
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

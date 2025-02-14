@@ -1,0 +1,35 @@
+<div class="row">
+	<div class="col-md-3">
+		<div class="list-group bottom">
+			<!-- <a href="" class="list-group-item" data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.contribuinte" data-ui-sref-active="active">
+				Contribuintes
+			</a>
+			<a href="" class="list-group-item" data-ui-sref="main.gerenciadorCadastros.pessoas.cartorios" data-ui-sref-active="active">
+				Cartórios
+			</a>
+			<a href="" class="list-group-item" data-ui-sref="main.gerenciadorCadastros.pessoas.referentes" data-ui-sref-active="active">
+				Referentes
+			</a>
+			<a href="" class="list-group-item" data-ui-sref="main.gerenciadorCadastros.pessoas.profissionais" data-ui-sref-active="active">
+				Procuradores e assessores
+			</a>
+			<a href="" class="list-group-item" data-ui-sref="main.gerenciadorCadastros.pessoas.grupo-profissionais" data-ui-sref-active="active">
+				Grupos de trabalho
+			</a>
+			<a href="" class="list-group-item" data-ui-sref="main.gerenciadorCadastros.pessoas.profissionaisNovo" data-ui-sref-active="active">
+				Profissionais
+			</a>
+			<a href="" class="list-group-item" data-ui-sref="main.gerenciadorCadastros.pessoas.advogados" data-ui-sref-active="active">
+				Advogados
+			</a> -->
+			<a href="" class="list-group-item" ng-repeat="cadastro in cadastros track by cadastro.descricao" data-ui-sref="{{cadastro.caminho}}" data-ui-sref-active="active">
+				{{cadastro.descricao}}
+			</a>
+		</div>
+	</div>
+	<div class="col-md-9">
+		<div class="bth-card">
+			<div class="bth-card__body" ui-view="child"></div>
+		</div>
+	</div>
+</div>

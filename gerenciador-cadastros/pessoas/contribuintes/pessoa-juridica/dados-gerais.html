@@ -1,0 +1,64 @@
+<div class="row row-flex">
+    <div class="col-md-4">
+        <div ng-include="'gerenciador-cadastros/pessoas/contribuintes/endereco/endereco-card.html'" class="bth-card"></div>
+    </div>
+    <div class="col-md-4">
+        <div ng-include="'gerenciador-cadastros/pessoas/contribuintes/telefone/telefone-card.html'" class="bth-card"></div>
+    </div>
+    <div class="col-md-4">
+        <div ng-include="'gerenciador-cadastros/pessoas/contribuintes/email/email-card.html'" class="bth-card"></div>
+    </div>
+</div>
+<div class="row row-flex">
+    <div class="col-md-6">
+        <div ng-include="'gerenciador-cadastros/pessoas/contribuintes/pessoa-juridica/socio/socio-card.html'" class="bth-card"></div>
+    </div>
+    <div class="col-md-6">
+        <div ng-include="'gerenciador-cadastros/pessoas/contribuintes/conta-bancaria/conta-bancaria-card.html'" class="bth-card"></div>
+    </div>
+</div>
+<div class="row row-flex">
+    <div class="col-md-12">
+        <div class="bth-card">
+			<div class="bth-card__header">
+				<div class="row bottom">
+					<div class="col-md-8">
+						<h4>Pesquisa</h4>
+					</div>
+					<div class="col-md-4">
+						<!-- <div class="input-group">
+							<input id="searchInput" type="text" placeholder="Digite o que está buscando e tecle ENTER" class="form-control input-sm" data-toggle="dropdown">
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default  " title="Title">Rótulo</button>
+								<button type="button" class="btn btn-default  " title="Title">Filtro</button>
+							</div>
+						</div> -->
+						<div class="input-group search" ng-init="vm.refine = false" ng-class="vm.refine ? 'refine-active': ''">
+							<input id="searchInput" type="text" placeholder="Digite o que está buscando e tecle ENTER" class="form-control input-sm search-field">
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default btn-sm refine" title="{{vm.refine ? 'Refinamento ativo na pesquisa' : 'Possibilita refinar a pesquisa'}}" uib-popover-template="'gerenciador-cadastros/pessoas/contribuintes/pessoa-juridica/popover-deletar.html'" popover-class="big-popover popover-refine-filter" popover-append-to-body="true" popover-is-open="showRefineFilterPopover" popover-placement="bottom-right" popover-trigger="'outsideClick'">
+									<i class="fa fa-sliders"></i>
+								</button>
+								<button type="button" class="btn btn-default btn-sm" title="Pesquisar (ENTER)">
+									<i class="fa fa-search"></i>
+								</button>
+							</div>
+							<button type="button" class="btn btn-default btn-sm" title="Filtros"><i class="fa fa-fw fa-filter"></i> Filtro</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bth-card__body">
+				
+			</div>
+			<div class="bth-card__footer">
+				
+			</div>
+		</div>
+    </div>
+</div>
+<div class="row row-flex">
+    <div class="col-md-12">
+        <div ng-include="'gerenciador-cadastros/pessoas/contribuintes/campos-adicionais/campos-adicionais-card.html'" class="bth-card"></div>
+    </div>
+</div>

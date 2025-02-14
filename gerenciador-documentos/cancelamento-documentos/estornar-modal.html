@@ -1,0 +1,53 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h3 class="modal-title">Estornando cancelamento</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Data</label>
+
+                    <div class="input-group" ng-init="dataA = '2016-10-14';">
+                        <input bf-date ng-model="dataA" type="text" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <label>Usuário</label>
+
+                    <input type="text" value="fabricio.nazario" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Motivo</label>
+
+                    <select name="" id="" bf-select2="{}"  ng-model="motivo">
+                        <option value="1">motivo 1</option>
+                        <option value="2">motivo 2</option>
+                        <option value="3">motivo 3</option>
+                        <option value="4">motivo 4</option>
+                        <option value="5">motivo 5</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row bottom">
+                <div class="col-md-12">
+                    <label>Observação</label>
+
+                    <textarea row="1" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn btn-default">Cancelar</button>
+        </div>
+    </div>
+</div>

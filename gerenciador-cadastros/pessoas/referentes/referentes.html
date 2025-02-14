@@ -1,0 +1,182 @@
+<div class="row">
+	<div class="col-md-3">
+		<div class="btn-group">
+			<button type="button" class="btn btn-success btn-sm btn-add" data-ng-click="adicionar({})" title="Adiciona um novo referente">Referente</button>
+		</div>
+	</div>
+	<div class="col-md-9">
+		<div class="pull-right">
+			<form class="form-inline">
+				<div class="btn-group">
+
+					<!-- Colunas a exibir -->
+
+					<div class="btn-group">
+						<button id="dropdownColunas" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Definir colunas a exibir">
+							<i class="fa fa-columns"></i> 
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li class="dropdown-header">Colunas a exibir</li>
+							<li>
+								<a href="" data-value="col1">
+									<div class="checkbox bth-checkbox">
+										<input id="coluna1" type="checkbox" ng-model="coluna1IsVisible">
+										<label for="coluna1">Número</label>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="" data-value="col2">
+									<div class="checkbox bth-checkbox">
+										<input id="coluna2" type="checkbox" ng-model="coluna2IsVisible">
+										<label for="coluna2">Tipo</label>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="" data-value="col3">
+									<div class="checkbox bth-checkbox">
+										<input id="coluna3" type="checkbox" ng-model="coluna3IsVisible">
+										<label for="coluna3">Ementa</label>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="" data-value="col4">
+									<div class="checkbox bth-checkbox">
+										<input id="coluna4" type="checkbox" ng-model="coluna4IsVisible">
+										<label for="coluna4">Publicação</label>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="" data-value="col5">
+									<div class="checkbox bth-checkbox">
+										<input id="coluna5" type="checkbox" ng-model="coluna5IsVisible">
+										<label for="coluna5">A vigorar</label>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Altura das linhas -->
+
+					<div class="btn-group">
+						<button id="dropdownAltura" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Definir altura das linhas">
+							<i class="fa fa-reorder"></i> 
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownAltura">
+							<li class="dropdown-header">Altura das linhas</li>
+							<li><a href="" ng-click="setLineHeight('1')" class="btn-check" ng-class="{'active' : lineHeight == 1}">Padrão</a></li>
+							<li><a href="" ng-click="setLineHeight('2')" class="btn-check" ng-class="{'active' : lineHeight == 2}">Condensada</a></li>
+						</ul>
+					</div>
+				</div>
+				<button type="button" class="btn btn-default btn-sm" title="Atualizar">
+					<i class="fa fa-refresh"></i>
+				</button>
+
+				<!-- Pesquisa inline -->
+				<div class="input-group">
+					<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+
+					<!-- Pesquisa avançada -->
+
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+
+						<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
+							<li class="dropdown-header">
+								<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+								<h1>Pesquisa avançada</h1>
+							</li>
+							<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+							<li>
+								<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true" ng-init="colunasSelect=[1,2,3]">
+									<option value="1">Código</option>
+									<option value="2">Contribuinte</option>
+									<option value="3">Atividade</option>
+								</select>
+							</li>
+							<li class="dropdown-header">Utilizando como critério</li>
+							<li>
+								<div class="bth-radio bth-radio-inline">
+									<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+									<label for="rdAlguns">Alguns dos termos digitados</label>
+								</div>
+								<div class="bth-radio bth-radio-inline">
+									<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+									<label for="rdTodos">Todos os termos digitados</label>
+								</div>
+								<div class="bth-radio bth-radio-inline">
+									<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+									<label for="rdNenhum">Nenhum dos termos digitados</label>
+								</div>
+							</li>
+							<li class="dropdown-footer pull-right">
+								<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<table class="table" ng-class="{'table-condensed' : lineHeight == 2}">
+			<thead>
+				<tr>
+					<th width="90"><a href="">Tipo <i class="icon-sort pull-right"></i></a></th>
+					<th width="80"><a href="">Código <i class="icon-sort pull-right"></i></a></th>
+					<th><a href="">Contribuinte <i class="icon-sort pull-right"></i></a></th>
+					<th><a href="">Atividade <i class="icon-sort pull-right"></i></a></th>
+					<th width="31">
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="referente in referentes track by $index">
+					<td>{{referente.tipoRefer == 'IMOVEL' ? 'Imóvel' : referente.tipoRefer == 'ECONOMICO' ? 'Econômico' : 'Pessoa'}}</td>
+					<td>{{referente.codigoRefer}}</td>
+					<td>{{referente.pessoa.nome}}</td>
+					<td>{{referente.descricaoAtividade}}</td>
+					<td class="text-center">
+						<a href title="Editar" ng-click="adicionar(referente)">
+							<i class="fa fa-fw fa-pencil"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<form class="form-inline">
+			1-20 de 126
+			<select class="form-control input-sm" ng-model="numberOfResults">
+				<option value="20">20</option>
+				<option value="50">50</option>
+				<option value="100">100</option>
+			</select>
+			resultados por página
+		</form>
+	</div>
+	<div class="col-md-6">
+		<div class="pull-right">
+			<button class="btn btn-default btn-sm disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+			<button class="btn btn-default btn-sm active">1</button>
+			<button class="btn btn-default btn-sm">2</button>
+			<button class="btn btn-default btn-sm">3</button>
+			<button class="btn btn-default btn-sm">4</button>
+			<button class="btn btn-default btn-sm">Próxima <i class="fa fa-angle-right"></i></button>
+		</div>
+	</div>
+</div>

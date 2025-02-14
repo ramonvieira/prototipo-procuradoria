@@ -1,0 +1,340 @@
+<div class="modal-dialog modal-xxl modal-auto-height">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">{{tipo}} {{status ? '(' + (status | lowercase) + ')' : ''}}</h3>
+			<small>{{profiss}}</small>
+		</div>
+		<div class="modal-body">
+			
+			<div class="row">
+				<div class="col-md-12">
+					<div class="pull-right">
+						<form class="form-inline">
+							<div class="btn-group" ng-if="tipoPend == 'PENDENTERECEBIMENTO'">
+								<button type="button" class="btn btn-default btn-sm" title="Recebe as intimações dos itens selecionados">Confirmar recebimento</button>
+							</div>
+							<div class="btn-group" ng-if="tipoPend == 'SEMRESPONSAVEL'">
+								<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Mais">
+									Atribuir para <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu dropdown-menu-right">
+									<li ng-repeat="procurador in contribuintes | limitTo: 15"><a href="#">{{procurador.nome}}</a></li>
+								</ul>
+							</div>
+							<div class="input-group">
+								<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+									<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+									<ul class="dropdown-menu dropdown-menu-right dropdown-pesquisas-avancada">
+										<li class="dropdown-header">
+											<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">×</span></button>
+											<h1>Pesquisa avançada</h1>
+										</li>
+										<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+										<li>
+											<a href="" data-value="col1Filter">
+												<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true" class="select2-offscreen" tabindex="-1">
+													<option value="1">Exequente</option>
+													<option value="2">Executado</option>
+													<option value="3">Número do processo</option>
+												</select>
+											</a>
+										</li>
+										<li class="dropdown-header">Utilizando como critério</li>
+										<li>
+											<a href="">
+												<div class="radio-inline">
+													<div class="bth-radio">
+														<input id="rdAlguns" type="radio" value="1" ng-model="tipoPesquisa" class=" " name="5">
+														<label for="rdAlguns">
+															Alguns dos termos digitados
+														</label>
+													</div>
+												</div>
+												<div class="radio-inline">
+													<div class="bth-radio">
+														<input id="rdTodos" type="radio" value="2" ng-model="tipoPesquisa" class=" " name="6">
+														<label for="rdTodos">
+															Todos os termos digitados
+														</label>
+													</div>
+												</div>
+												<div class="radio-inline">
+													<div class="bth-radio">
+														<input id="rdNenhum" type="radio" value="2" ng-model="tipoPesquisa" class=" " name="7">
+														<label for="rdTodos">
+															Nenhum dos termos digitados
+														</label>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li role="separator" class="divider"></li>
+										<li class="dropdown-header">
+											<h1>Outras opções</h1>
+										</li>
+										<li class="dropdown-header">
+											<div class="row bottom">
+												<div class="col-md-6">
+													Comarca
+												</div>
+												<div class="col-md-6">
+													Vara
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="row bottom">
+												<div class="col-md-6">
+													<select bf-select2="{}" ng-model="comarca">
+														<option value="0">Comarca 1</option>
+														<option value="1">Comarca 2</option>
+														<option value="2">Comarca 3</option>
+														<option value="3">Comarca 4</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<select bf-select2="{}" ng-model="vara">
+														<option value="0">Vara 1</option>
+														<option value="1">Vara 2</option>
+														<option value="2">Vara 3</option>
+														<option value="3">Vara 4</option>
+													</select>
+												</div>
+											</div>
+										</li>
+										<li class="dropdown-header">
+											<div class="row bottom">
+												<div class="col-md-6">
+													Área
+												</div>
+												<div class="col-md-6">
+													Assunto
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="row bottom">
+												<div class="col-md-6">
+													<select bf-select2="{}" ng-model="area">
+														<option value="0">Área 1</option>
+														<option value="1">Área 2</option>
+														<option value="2">Área 3</option>
+														<option value="3">Área 4</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<select bf-select2="{}" ng-model="assunto">
+														<option value="0">Assunto 1</option>
+														<option value="1">Assunto 2</option>
+														<option value="2">Assunto 3</option>
+														<option value="3">Assunto 4</option>
+													</select>
+												</div>
+											</div>
+										</li>
+										<li class="dropdown-footer pull-right">
+											<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="row">
+				<div class="col-md-12">
+					<ul class="filtrar-por" ng-model="filtrarPor" ng-init="filtrarPor = ''">
+						<li class="{{filtrarPor == 'Opção 1' ? 'active' : ''}}">
+							<div class="btn-group" ng-init="filtrarAssinPor = ''">
+								<a href="" class="dropdown-toggle" data-toggle="dropdown">
+									Comarca {{filtrarAssinPor == '' ? '' : !filtrarAssinPor ? '(Não assinada)' : (Assinada)}} <span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="">
+											<select bf-select2="{}" class="form-control" ng-model="nomeModel">
+												<option value="1">Opção 1</option>
+												<option value="2">Opção 2</option>
+											</select>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="{{filtrarPor == 'Opção 1' ? 'active' : ''}}">
+							<div class="btn-group" ng-init="filtrarAssinPor = ''">
+								<a href="" class="dropdown-toggle" data-toggle="dropdown">
+									Prazo para download {{filtrarAssinPor == '' ? '' : !filtrarAssinPor ? '(Não assinada)' : (Assinada)}} <span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="">
+											<div class="bth-radio bth-radio-primary">
+												<input id="radio1" type="radio" name="bthRadio" value="1" ng-model="modelRadio">
+												<label for="radio1">Hoje</label>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<div class="bth-radio bth-radio-primary">
+												<input id="radio2" type="radio" name="bthRadio" value="2" ng-model="modelRadio">
+												<label for="radio2">Em 1 dia</label>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<div class="bth-radio bth-radio-primary">
+												<input id="radio3" type="radio" name="bthRadio" value="3" ng-model="modelRadio">
+												<label for="radio3">Em 2 dias</label>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<div class="bth-radio bth-radio-primary">
+												<input id="radio4" type="radio" name="bthRadio" value="3" ng-model="modelRadio">
+												<label for="radio4">Em 1 semana</label>
+											</div>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<!- <li class="{{filtrarPor == 'Opção 2' ? 'active' : ''}}"><a href="" ng-click="filtrarPor = 'Opção 2'">Opção 2</a></li>
+						<li class="{{filtrarPor == 'Opção 3' ? 'active' : ''}}"><a href="" ng-click="filtrarPor = 'Opção 3'">Opção 3</a></li> ->
+					</ul>
+				</div>
+			</div> -->
+			<div class="row">
+				<div class="col-md-12">
+					<span>
+						<span class="badge pull-left" style="margin-top: 2px;">
+							0 registro(s) selecionado(s)
+						</span>
+						&nbsp;
+						<small>
+							<a href=""> Selecionar todos os outros 42 resultados</a>
+						</small>
+					</span>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-unstriped table-unfixed">
+						<thead>
+							<tr>
+								<th class="col-fit">
+									<div class="bth-checkbox">
+										<input id="checkAll" type="checkbox" ng-model="checkAll">
+										<label for="checkAll">&nbsp;</label>
+									</div>
+								</th>
+								<th>
+									<a href="">
+										Processo
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th>
+									<a href="">
+										Exequente
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th>
+									<a href="">
+										Executado
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th>
+									<a href="">
+										Comarca/Vara
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th>
+									<a href="">
+										Área/Assunto
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th ng-if="tipoPend == 'SEMRESPONSAVEL'" class="col-20"><span>Responsável</span></th>
+								<th width="30" ng-if="tipoPend == 'PENDENTERECEBIMENTO'"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="documento in [{},{},{},{},{},{},{},{},{},{},{}]">
+								<td>
+									<div class="bth-checkbox">
+										<input id="cb{{$index}}" type="checkbox" ng-model="cb$index">
+										<label for="cb{{$index}}">&nbsp;</label>
+									</div>
+								</td>
+								<td>
+									<select bf-select2="{}" class="form-control" ng-model="nomeModel" ng-if="tipoPend == 'SEMPROCESSO'">
+										<option value="1">Opção 1</option>
+										<option value="2">Opção 2</option>
+									</select>
+									<div class="cell-wrapper" ng-if="tipoPend != 'SEMPROCESSO'">
+										<a href="/#/cadastros/execucao-fiscal-ficha" target="_blank" ng-if="tipoPend != 'SEMPROCESSO'" title="Abre o processo em uma nova aba">233453563466734562542</a>
+									</div>
+								</td>
+								<td>
+									<div class="cell-wrapper">
+										<span>Nome do Exequente</span>
+										<br>
+										<span class="info">(000.000.000-00)</span>
+									</div>
+								</td>
+								<td>
+									<div class="cell-wrapper">
+										<span>Nome do executado</span>
+										<br>
+										<span class="info">(000.000.000-00)</span>
+									</div>
+								</td>
+								<td>
+									<div class="cell-wrapper">
+										Comarca de Criciúma
+										<br>
+										<span class="info">Vara de Execução Fiscal de Criciúma</span>
+									</div>
+								</td>
+								<td>
+									Área<br>
+									<span class="info">Descrição do assunto</span>
+								</td>
+								<td ng-if="tipoPend == 'SEMRESPONSAVEL'" class="has-edit">
+									<select bf-select2="{}" class="form-control" ng-model="nomeModel">
+										<option value="$index" ng-repeat="procurador in contribuintes | limitTo: 15">{{procurador.nome}}</option>
+									</select>
+								</td>
+								<td ng-if="tipoPend == 'PENDENTERECEBIMENTO'" class="text-center">
+									<div class="btn-group">
+										<button type="button" class="btn btn-link btn-xs" title="Recebe a intimação"><i class="fa fa-fw fa-download"></i></button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal" ng-if="tipoPend == 'PENDENTERECEBIMENTO'">Receber</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal" ng-if="tipoPend == 'PENDENTERECEBIMENTO'">Fechar</button>
+			<button type="button" class="btn btn-primary" data-dismiss="modal" ng-if="tipoPend != 'PENDENTERECEBIMENTO'">Salvar</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal" ng-if="tipoPend != 'PENDENTERECEBIMENTO'">Cancelar</button>
+		</div>
+	</div>
+</div>

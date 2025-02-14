@@ -1,0 +1,69 @@
+<div class="col-md-12" flow-init flow-file-added="fileAdded($file, $event, $flow)" flow-files-added="filesChanged($files, $event, $flow )">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <button class="btn btn-success btn-add btn-sm" data-ng-disabled="isEdition()" flow-btn>Anexo</button>
+            </div>
+        </div>
+    </div>
+    <button id="remove-all" data-ng-show="false" data-ng-click="removeAll($flow)"></button>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bth-upload" data-ng-if="!isConsulta()">
+                <div class="bth-upload-list uploadArea" flow-drop flow-drag-enter="class='alert-success'" flow-drag-leave="class=''" ng-class="class">
+                    <div class="bth-upload-list-center" data-ng-if="!$flow.files.length && !fileList.length">
+                        <div>
+                            <h4 class="text-center">Ainda não há anexos por aqui</h4>
+                            <h5 class="text-center">Arraste e solte os anexos do seu dispositivo aqui ou clique em "+ Anexo"</h5>
+                        </div>
+                    </div>
+                    <ul>
+                        <li ng-repeat="file in $flow.files track by $index" flow-transfers>
+                            <span class="bth-upload-icon text-{{getTipoArquivo(file.name).color}}"><i class="{{getTipoArquivo(file.name).class}}"></i></span>
+                            <small title="{{file.name}}">{{file.name}}</small>
+                            <small>Tamanho ({{file.size / 1024 | number :0}} k)</small>
+                            <small data-ng-if="false">Carregando
+                                <strong>{{100}}%</strong>
+                            </small>
+                            <small data-ng-if="true">
+                                <strong>Concluído</strong>
+                            </small>
+                            <div class="progress bth-upload-progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{100}}" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                </div>
+                            </div>
+                            <div class="bth-upload-button-bar">
+                                <a ng-if="comentario && !file.comentario && !file.descricao" href="" title="Adicionar comentário" data-ng-click="addComment($index, $flow.files)"><i class="fa fa-comment-o"></i></a>
+                                <a ng-if="comentario && (file.comentario || file.descricao)" href="" title="Editar comentário" ng-click="addComment($index, $flow.files)"><i class="fa fa-commenting-o"></i></a>
+                                <a href="" title="Remover anexo" data-ng-click="remover($index, $flow.files, true)"><i class="fa fa-trash-o"></i></a>
+                            </div>
+                        </li>
+                        <li ng-repeat="file in fileList track by $index" data-bf-undo-group data-bf-loading="file.excluindo">
+                            <span class="bth-upload-icon text-{{getTipoArquivo(file.nomeArquivo).color}}" ><i class="{{getTipoArquivo(file.nomeArquivo).class}}"></i></span>
+                            <small title="{{file.nomeArquivo}}">{{file.nomeArquivo}}</small>
+                            <small>Tamanho ({{file.tamanhoArquivo | number :0}} k)</small>
+                            <small>Extensão: {{file.tipoArquivo | lowercase}} </small>
+                            <div class="bth-upload-button-bar">
+                                <i ng-if="file.criadoPor && file.dataCriacao" class="fa fa-user" title="{{file.criadoPor}} em {{file.dataCriacao | bfMaskDate}}"></i>
+                                <a ng-if="comentario && !file.comentario && !file.descricao" href="" title="Adicionar comentário" data-ng-click="addComment($index, fileList)"><i class="fa fa-comment-o"></i></a>
+                                <a ng-if="comentario && (file.comentario || file.descricao)" href="" title="Editar comentário" ng-click="addComment($index, fileList)"><i class="fa fa-commenting-o"></i></a>
+                                <a href="" title="Fazer download do anexo" data-ng-click="downloadFile(file)"><i class="fa fa-download"></i></a>
+                                <a data-ng-if="false" href="" title="Visualizar anexo"><i class="fa fa-eye"></i></a>
+                                <a data-ng-if="!isEdition()" href="" title="Remover anexo" data-ng-click="remover($index, fileList)"><i class="fa fa-trash-o"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bth-upload" data-ng-if="isConsulta()">
+                <div class="bth-upload-list uploadArea">
+                    <div class="bth-upload-list-center" data-ng-if="!$flow.files.length">
+                        <div>
+                            <h4 class="text-center">Ainda não há anexos por aqui</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

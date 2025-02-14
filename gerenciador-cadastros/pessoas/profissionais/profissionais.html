@@ -1,0 +1,223 @@
+<div class="row">
+	<div class="col-md-3">
+		<div class="btn-group">
+			<button type="button" class="btn btn-success btn-sm btn-add" ng-click="adicionar({})" title="Adiciona um novo Procurador/Assessor">Procurador/Assessor</button>
+		</div>
+	</div>
+	<div class="col-md-9">
+		<div class="pull-right">
+			<form class="form-inline">
+				<div class="btn-group">
+					<button id="dropdownExportar" type="button" class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" title="Fazer download">
+						<i class="fa fa-fw fa-download"></i>
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li class="dropdown-header">Formato do arquivo
+						</li>
+						<li>
+							<a href="">PDF</a>
+						</li>
+						<li>
+							<a href="">CSV</a>
+						</li>
+						<li>
+							<a href="">Excel</a>
+						</li>
+					</ul>
+				</div>
+				<div class="input-group">
+					<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+		
+					<!-- Pesquisa avançada -->
+		
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" title="Pesquisar">
+							<i class="fa fa-search"></i>
+						</button>
+						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+							title="Pesquisa avançada">
+							<i class="fa fa-filter"></i>
+							<span class="caret"></span>
+						</button>
+		
+						<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
+							<li class="dropdown-header">
+								<button type="button" class="close" data-dismiss="dropdown" title="Fechar">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h1>Pesquisa avançada</h1>
+							</li>
+							<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+							<li>
+								<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true">
+									<option value="1">Nome</option>
+									<option value="4">CPF/CNPJ</option>
+								</select>
+							</li>
+							<li class="dropdown-header">Utilizando como critério</li>
+							<li>
+								<div class="bth-radio bth-radio-inline">
+									<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+									<label for="rdAlguns">Alguns dos termos digitados</label>
+								</div>
+								<div class="bth-radio bth-radio-inline">
+									<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+									<label for="rdTodos">Todos os termos digitados</label>
+								</div>
+								<div class="bth-radio bth-radio-inline">
+									<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+									<label for="rdNenhum">Nenhum dos termos digitados</label>
+								</div>
+							</li>
+							<li role="separator" class="divider"></li>
+							<li class="dropdown-header">
+								<h1>Outras opções</h1>
+							</li>
+							<li class="dropdown-header">
+								<div class="row bottom">
+									<div class="col-md-6">
+										Situação
+									</div>
+									<div class="col-md-6">
+										Função
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="row bottom">
+									<div class="col-md-6">
+										<select bf-select2="{}" ng-model="situacao" multiple>
+											<option value="1">Ativo</option>
+											<option value="2">Desativado</option>
+										</select>
+									</div>
+									<div class="col-md-6">
+										<select bf-select2="{}" ng-model="funcao" multiple>
+											<option value="1">Administrador</option>
+											<option value="2">Procurador</option>
+											<option value="3">Assessor</option>
+										</select>
+									</div>
+								</div>
+							</li>
+							<li class="dropdown-footer pull-right">
+								<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+							</li>                                    
+						</ul>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-unstriped table-unfixed">
+			<thead>
+				<tr>
+					<th class="col-fit"></th>
+					<th><span>Procurador</span></th>
+					<th width="130"></th>
+					<th class="text-center" width="100"><span>Execuções</span></th>
+					<th class="text-center" width="100"><span>Contencioso</span></th>
+					<th class="text-center" width="70"><span><abbr title="Administrativo">Adm.</abbr></span></th>
+					<th class="text-center" width="90"><span>Protestos</span></th>
+					<th class="text-center" width="40"><span></span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-class="{'opened' : groupProc}" ng-repeat-start="procurador in procuradores">
+					<td class="col-fit col-arrow" ng-click="groupProc = !groupProc">
+						<div class="btn btn-link btn-sm">
+							<i class="material-icons">keyboard_arrow_down</i>
+						</div>
+					</td>
+					<td>
+						<div class="cell-wrapper">
+							<div class="img-wrapper">
+								<a href="" data-bf-popover="'common/popover-info-procurador.html'" class="popover-active" data-placement="right" bf-popover-size="med-popover"><img alt="" ng-src="{{procurador.procurador.img}}"></a>
+							</div>
+						</div>
+						<div class="cell-wrapper">
+							<a href="" ng-click="adicionar({procurador:procurador})">{{procurador.procurador.nome}}</a>
+							<br>
+							<small class="text-muted" ng-init="gruposDoProfissionall = gruposDoProfissional(procurador.id)"><i class="fa fa-fw fa-users" ng-if="gruposDoProfissionall.length > 0"></i> <span ng-repeat="grupo in gruposDoProfissionall">{{grupo.descricao}}{{$index + 1 < gruposDoProfissionall.length ? ', ' : ''}}</span></small>
+						</div>
+					</td>
+					<td>
+						<span class="label show" ng-class="procurador.funcao == 'Administrador' ? 'label-primary' : procurador.funcao == 'Procurador' ? 'label-info' : 'label-default'">{{procurador.funcao}}</span>
+						<span class="info" ng-show="procurador.funcao == 'Procurador'"><i class="fa fa-fw fa-drivers-license-o"></i> OAB: 132445</span>
+					</td>
+					<td class="text-center"><span ng-if="atrib">---</span><a href="" ng-if="!atrib" ng-click="atribuicoesProfiss({tipo: 'Execuções', profiss: procurador.procurador.nome})">{{procurador.exec}}</a></td>
+					<td class="text-center"><span ng-if="atrib">---</span><a href="" ng-if="!atrib" ng-click="atribuicoesProfiss({tipo: 'Contencioso', profiss: procurador.procurador.nome})">{{procurador.cont}}</a></td>
+					<td class="text-center"><span ng-if="atrib">---</span><a href="" ng-if="!atrib" ng-click="atribuicoesProfiss({tipo: 'Administrativo', profiss: procurador.procurador.nome})">{{procurador.adm}}</a></td>
+					<td class="text-center"><span ng-if="atrib">---</span><a href="" ng-if="!atrib" ng-click="atribuicoesProfiss({tipo: 'Protestos', profiss: procurador.procurador.nome})">{{procurador.prot}}</a></td>
+					<td class="text-center">
+						<div class="btn-group dropdown">
+							<button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown" title="Outras opções">
+								<i class="fa fa-fw fa-ellipsis-v"></i>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li>
+									<a href="" ng-click="adicionar({procurador:procurador})"><i class="fa fa-fw fa-pencil"></i> Editar</a>
+									<a href="" ng-click="excluir({})"><i class="fa fa-fw fa-trash"></i> Excluir</a>
+								</li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+				<tr class="indentation" ng-repeat-end>
+					<td colspan="8" ng-class="{'collapsed' : !groupProc}">
+						<div uib-collapse="!groupProc" class="collapse" style="height: 0px;" aria-expanded="false" aria-hidden="true">
+							<h5 class="text-center" ng-if="atrib">Assim que possuir, as atribuições relacionadas ao profissional serão exibidas aqui</h5>
+							<table class="table table-unstriped table-unfixed table-hover" ng-if="!atrib">
+								<tbody ng-repeat="p in pessoas">
+									<tr>
+										<td class="text-center" rowspan="{{p.atribuicoes.length}}"><strong>{{p.tipo}}</strong></td>
+										<td class="text-right">{{p.atribuicoes[0].status}}</td>
+										<td class="text-center" width="100"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Execuções', profiss: procurador.procurador.nome})">{{p.atribuicoes[0].qtdExec}}</a></td>
+										<td class="text-center" width="100"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Contencioso', profiss: procurador.procurador.nome})">{{p.atribuicoes[0].qtdCont}}</a></td>
+										<td class="text-center" width="70"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Administrativo', profiss: procurador.procurador.nome})">{{p.atribuicoes[0].qtdAdm}}</a></td>
+										<td class="text-center" width="90"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Protesto', profiss: procurador.procurador.nome})">{{p.atribuicoes[0].qtdProt}}</a></td>
+										<td class="text-center" width="40"></td>
+									</tr>
+									<tr ng-repeat="dev in p.atribuicoes" ng-if="$index > 0">
+										<td class="text-right">{{dev.status}}</td>
+										<td class="text-center" width="100"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Execuções', profiss: procurador.procurador.nome})">{{dev.qtdExec}}</a></td>
+										<td class="text-center" width="100"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Contencioso', profiss: procurador.procurador.nome})">{{dev.qtdCont}}</a></td>
+										<td class="text-center" width="70"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Administrativo', profiss: procurador.procurador.nome})">{{dev.qtdAdm}}</a></td>
+										<td class="text-center" width="89"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Protesto', profiss: procurador.procurador.nome})">{{dev.qtdProt}}</a></td>
+										<td class="text-center"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3"></td>
+					<td class="text-center"><strong>606</strong></td>
+					<td class="text-center"><strong>606</strong></td>
+					<td class="text-center"><strong>909</strong></td>
+					<td class="text-center"><strong>909</strong></td>
+					<td class="text-center"></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+
+<div class="opcoes-tela">
+	<div class="row bottom">
+		<div class="col-md-12">
+			<div class="bth-switch">
+				<input id="atrib" type="checkbox" ng-model="atrib">
+				<label for="atrib">Sem atribuicoes</label>
+			</div>
+		</div>
+	</div>
+</div>

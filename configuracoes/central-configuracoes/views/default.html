@@ -1,0 +1,136 @@
+<div ng-controller="app.ViewsCtrl as vm">
+    <h1 class="titulo-configuracoes">Livro</h1>
+    <div class="row">
+        <div class="col-md-{{formatoLivro != 1 ? '6' : '4'}}">
+            <label for="">Formato</label>
+            <select bf-select2="{}" ng-model="formatoLivro">
+                <option value="1">Por ano</option>
+                <option value="2">Global</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="">Nº do livro</label>
+            <span class="ui-spinner input-group">
+                <input id="spinner" class="form-control ui-spinner-input" type="text" name="value" autocomplete="off" role="spinbutton">
+                <a class="ui-spinner-button ui-spinner-up" tabindex="-1">
+                    <span class="icon-sort-up"></span>
+                </a>
+                <a class="ui-spinner-button ui-spinner-down" tabindex="-1">
+                    <span class="icon-sort-down"></span>
+                </a>
+            </span>
+        </div>
+        <div class="col-md-2" ng-if="formatoLivro == 1">
+            <label for="">Ano</label>
+            <span class="ui-spinner input-group">
+                <input id="spinner" class="form-control ui-spinner-input" type="text" name="value" autocomplete="off" role="spinbutton">
+                <a class="ui-spinner-button ui-spinner-up" tabindex="-1">
+                    <span class="icon-sort-up"></span>
+                </a>
+                <a class="ui-spinner-button ui-spinner-down" tabindex="-1">
+                    <span class="icon-sort-down"></span>
+                </a>
+            </span>
+        </div>
+        <div class="col-md-2">
+            <label for="">Nº de folhas</label>
+            <span class="ui-spinner input-group">
+                <input id="spinner" class="form-control ui-spinner-input" type="text" name="value" autocomplete="off" role="spinbutton">
+                <a class="ui-spinner-button ui-spinner-up" tabindex="-1">
+                    <span class="icon-sort-up"></span>
+                </a>
+                <a class="ui-spinner-button ui-spinner-down" tabindex="-1">
+                    <span class="icon-sort-down"></span>
+                </a>
+            </span>
+        </div>
+        <div class="col-md-2">
+            <label for="">Nº de posições <i class="fa fa-question-circle" bf-tooltip="Número de posições por folha"></i></label>
+            <span class="ui-spinner input-group">
+                <input id="spinner" class="form-control ui-spinner-input" type="text" name="value" autocomplete="off" role="spinbutton">
+                <a class="ui-spinner-button ui-spinner-up" tabindex="-1">
+                    <span class="icon-sort-up"></span>
+                </a>
+                <a class="ui-spinner-button ui-spinner-down" tabindex="-1">
+                    <span class="icon-sort-down"></span>
+                </a>
+            </span>
+        </div>
+    </div>
+    <h1 class="titulo-configuracoes">Inscrição</h1>
+    <div class="row">
+        <div class="col-md-8">
+            <label for="">Formato</label>
+            <select bf-select2="{}" ng-model="formatoInscricao">
+                <option value="1">Por ano</option>
+                <option value="2">Por livro</option>
+                <option value="3">Global</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="">Nº da inscrição</label>
+            <span class="ui-spinner input-group">
+                <input id="spinner" class="form-control ui-spinner-input" type="text" name="value" autocomplete="off" role="spinbutton">
+                <a class="ui-spinner-button ui-spinner-up" tabindex="-1">
+                    <span class="icon-sort-up"></span>
+                </a>
+                <a class="ui-spinner-button ui-spinner-down" tabindex="-1">
+                    <span class="icon-sort-down"></span>
+                </a>
+            </span>
+        </div>
+        <div class="col-md-2">
+            <label for="">Ano</label>
+            <span class="ui-spinner input-group">
+                <input id="spinner" class="form-control ui-spinner-input" type="text" name="value" autocomplete="off" role="spinbutton">
+                <a class="ui-spinner-button ui-spinner-up" tabindex="-1">
+                    <span class="icon-sort-up"></span>
+                </a>
+                <a class="ui-spinner-button ui-spinner-down" tabindex="-1">
+                    <span class="icon-sort-down"></span>
+                </a>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <label for="">Motivo</label>
+            <select bf-select2="{}" ng-model="formatoInscricao">
+                <option value="1">Por ano</option>
+                <option value="2">Por livro</option>
+                <option value="3">Global</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="">Nº de processos</label>
+            <span class="ui-spinner input-group">
+                <input id="spinner" class="form-control ui-spinner-input" type="text" name="value" autocomplete="off" role="spinbutton">
+                <a class="ui-spinner-button ui-spinner-up" tabindex="-1">
+                    <span class="icon-sort-up"></span>
+                </a>
+                <a class="ui-spinner-button ui-spinner-down" tabindex="-1">
+                    <span class="icon-sort-down"></span>
+                </a>
+            </span>
+        </div>
+        <div class="col-md-2">
+            <label for="">Nº de incidências</label>
+            <span class="ui-spinner input-group">
+                <input id="spinner" class="form-control ui-spinner-input" type="text" name="value" autocomplete="off" role="spinbutton">
+                <a class="ui-spinner-button ui-spinner-up" tabindex="-1">
+                    <span class="icon-sort-up"></span>
+                </a>
+                <a class="ui-spinner-button ui-spinner-down" tabindex="-1">
+                    <span class="icon-sort-down"></span>
+                </a>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <button class="btn btn-primary" ng-click="salvarConfiguracao();">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>

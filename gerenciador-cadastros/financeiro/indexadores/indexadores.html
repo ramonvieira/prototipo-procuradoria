@@ -1,0 +1,202 @@
+<div class="row">
+	<div class="col-md-3">
+		<div class="btn-group">
+			<button type="button" class="btn btn-success btn-sm btn-add" ng-click="adicionar({})" title="Adiciona um novo indexador">Indexador</button>
+		</div>
+	</div>
+	<div class="col-md-9">
+		<div class="pull-right">
+			<form class="form-inline">
+				<div class="btn-group">
+
+					<div class="btn-group">
+						<button id="dropdownColunas" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Definir colunas a exibir">
+							<i class="fa fa-columns"></i>
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownColunas">
+							<li class="dropdown-header">Colunas a exibir</li>
+							<li>
+								<div class="ui-list-checkbox-container">
+									<div class="bth-checkbox">
+										<input id="colNome" type="checkbox" ng-model="colNomeIsVisible" class="ng-pristine ng-untouched ng-valid">
+										<label for="colNome">Identificador</label>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="ui-list-checkbox-container">
+									<div class="bth-checkbox">
+										<input id="colCpf" type="checkbox" ng-model="colCpfIsVisible" class="ng-pristine ng-untouched ng-valid">
+										<label for="colCpf">Descrição</label>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="ui-list-checkbox-container">
+									<div class="bth-checkbox">
+										<input id="colEndereco" type="checkbox" ng-model="colEnderecoIsVisible" class="ng-pristine ng-untouched ng-valid">
+										<label for="colEndereco">Data da cotação</label>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="ui-list-checkbox-container">
+									<div class="bth-checkbox">
+										<input id="colEndereco2" type="checkbox" ng-model="colEndereco2IsVisible" class="ng-pristine ng-untouched ng-valid">
+										<label for="colEndereco2">Sigla</label>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="ui-list-checkbox-container">
+									<div class="bth-checkbox">
+										<input id="colEndereco23" type="checkbox" ng-model="colEndereco2IsVisible" class="ng-pristine ng-untouched ng-valid">
+										<label for="colEndereco23">Valor</label>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="btn-group">
+						<button id="dropdownAltura" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Definir altura das linhas">
+							<i class="fa fa-reorder"></i>
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownAltura">
+							<li class="dropdown-header">Altura das linhas</li>
+							<li><a href="" ng-click="setLineHeight('1')" class="btn-check active" ng-class="{'active' : lineHeight == 1}">Padrão</a></li>
+							<li><a href="" ng-click="setLineHeight('2')" class="btn-check" ng-class="{'active' : lineHeight == 2}">Condensada</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<button type="button" class="btn btn-default btn-sm" title="Atualizar">
+					<i class="fa fa-refresh"></i>
+				</button>
+
+				<!-- Pesquisa inline -->
+				<div class="input-group">
+					<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+
+					<!-- Pesquisa avançada -->
+
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+
+						<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
+							<li class="dropdown-header">
+								<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+								<h1>Pesquisa avançada</h1>
+							</li>
+							<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+							<li>
+								<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true">
+									<option value="1">Indentificador</option>
+									<option value="2">Descrição</option>
+									<option value="3">Data da cotação</option>
+									<option value="4">Sigla</option>
+									<option value="5">Valor</option>
+								</select>
+							</li>
+							<li class="dropdown-header">Utilizando como critério</li>
+							<li>
+								<div class="bth-radio bth-radio-inline">
+									<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+									<label for="rdAlguns">Alguns dos termos digitados</label>
+								</div>
+								<div class="bth-radio bth-radio-inline">
+									<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+									<label for="rdTodos">Todos os termos digitados</label>
+								</div>
+								<div class="bth-radio bth-radio-inline">
+									<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+									<label for="rdNenhum">Nenhum dos termos digitados</label>
+								</div>
+							</li>
+							<li class="divider"></li>
+							<li class="dropdown-header">
+								<h1>Outras opções</h1>
+							</li>
+
+							<li class="dropdown-header">
+								<div class="row bottom">
+									<div class="col-md-4">
+										Data da cotação
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="row">
+									<div class="col-md-4">
+										<div class="input-group">
+											<input class="form-control" type="text" bf-date ng-model="de">
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="dropdown-header">
+								<div class="row bottom">
+									<div class="col-md-12">
+										Tipo(s)
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="row">
+									<div class="col-md-12">
+										<select bf-select2="{}" ng-model="tipo" multiple class="form-control">
+											<option value="1">Item 1</option>
+											<option value="2">Item 2</option>
+											<option value="3">Item 3</option>
+										</select>
+									</div>
+								</div>
+							</li>
+
+							<li class="dropdown-footer pull-right">
+								<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-unstriped table-hover table-unbordered table-unfixed">
+			<thead>
+				<tr>
+					<th width="140"><a href="">Sigla <i class="icon-sort pull-right"></i></a></th>
+					<th><a href="">Descrição <i class="icon-sort pull-right"></i></a></th>
+					<th width="140"><a href="">Data da cotação <i class="icon-sort pull-right"></i></a></th>
+					<th width="166"><a href="">Valor <i class="icon-sort pull-right"></i></a></th>
+					<th width="60"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="indexador in indexadores track by $index" ng-init="last = getLastMov(indexador.movimentacoes)">
+					<td>{{indexador.sigla}}</td>
+					<td>{{indexador.descricao}}</td>
+					<td>{{last.data | arrecDate}}</td>
+					<td class="text-right">{{last.valor | number:'9'}}</td>
+					<td class="text-center">
+						<a href="" title="Editar" ng-click="adicionar(indexador)">
+							<i class="fa fa-fw fa-pencil"></i>
+						</a>
+						<a href="" title="Excluir" ng-click="excluir(indexador)">
+							<i class="fa fa-fw fa-trash-o"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<arrec-pagination></arrec-pagination>

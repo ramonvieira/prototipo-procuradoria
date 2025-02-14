@@ -1,0 +1,614 @@
+<div ng-controller="ExecucaoFiscalCtrl" ng-init="vm.fixed = false">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="bth-card" style="min-height: calc(100vh - 155px)">
+				<div class="bth-card__body bth-card__body--filter">
+					<!-- Resultado dos filtros -->
+					<div class="bth-filter bth-filter--result">
+						<div class="bth-filter__backdrop ng-hide">
+							<div class="row">
+								<div class="col-md-6 col-md-offset-3" ng-init="showAlert = true">
+									<div class="alert alert-info alert-icon" ng-show="showAlert">
+										Foram adicionados novos critérios à pesquisa. <a href="" class="alert-link" ng-click="showAlert = !showAlert">Atualizar os resultados</a>.
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-2">
+								<div class="btn-group">
+									<button type="button" class="btn btn-success btn-sm btn-add" data-ng-click="openExecucao()" title="Adiciona um nova execução fiscal">Execução fiscal</button>
+								</div>
+							</div>
+							<div class="col-md-10 text-right">
+								<form class="form-inline">	
+									<div class="btn-group">
+										<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Mais">
+											Mais <span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li class="dropdown-header">Mais opções</li>
+											<li>
+												<a href="" data-ng-click="openEmitirPeticaoIntermediariaLote()">Emitir petição intermediária</a>
+											</li>
+											<li>
+												<a href="" data-ng-click="enviarTribunalLote();">Enviar ao tribunal</a>
+											</li>
+										</ul>
+									</div>
+									<div class="btn-group" ng-controller="IntegracoesCtrl">
+										<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Integrações">
+											<i class="fa fa-plug" ng-class="enviosPendente.length || enviosErro.length || enviosErroIntegra.length > 0 ? 'tx__orange' : ''"></i> <span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li class="dropdown-header">Envio ao tribunal</li>
+											<li>
+												<a href="" ng-click="envioTrib({tipoPend:'PENDENTE'})"><span class="badge" ng-class="enviosPendente.length > 0 ? 'badge-warning' : 'badge-default'">{{enviosPendente.length}}</span> Pendente de envio</a>
+											</li>
+											<li>
+												<a href="" ng-click="envioTrib({tipoPend:'ERRO'})"><span class="badge" ng-class="enviosErro.length > 0 ? 'badge-warning' : 'badge-default'">{{enviosErro.length}}</span> Com erro</a>
+											</li>
+											<li>
+												<a href="" ng-click="envioTrib({tipoPend:'ERROINTEGRA'})"><span class="badge" ng-class="enviosErro.length > 0 ? 'badge-warning' : 'badge-default'">{{enviosErroIntegra.length}}</span> Com erro na integração</a>
+											</li>
+
+											<li class="dropdown-header">Recebimento do tribunal</li>
+											<li>
+												<a href="" ng-click="recebimentoTrib({tipoPend:'PENDENTERECEBIMENTO'})"><span class="badge">0</span> Pendente de recebimento</a>
+											</li>
+											<li>
+												<a href="" ng-click="recebimentoTrib({tipoPend:'SEMRESPONSAVEL'})"><span class="badge">0</span> Sem responsável</a>
+											</li>
+											<li>
+												<a href="" ng-click="recebimentoTrib({tipoPend:'SEMPROCESSO'})"><span class="badge"></span> Sem processo relacionado</a>
+											</li>
+
+											<li class="dropdown-header">Recebimento do diário oficial</li>
+											<li>
+												<a href="" ng-click="recebimentoTrib({tipoPend:'PENDENTERECEBIMENTO'})"><span class="badge badge-warning">4</span> Pendente de recebimento</a>
+											</li>
+											<li>
+												<a href="" ng-click="recebimentoTrib({tipoPend:'SEMRESPONSAVEL'})"><span class="badge">0</span> Sem responsável</a>
+											</li>
+											<li>
+												<a href="" ng-click="recebimentoTrib({tipoPend:'SEMPROCESSO'})"><span class="badge">0</span> Sem processo relacionado</a>
+											</li>
+											<li class="dropdown-header">Opções disponíveis</li>
+											<li>
+												<a href="" ng-click="">Histórico</a>
+											</li>
+										</ul>
+									</div>
+									<!-- <div class="btn-group">
+										<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Mais">
+											<i class="fa fa-users"></i> Todos <span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li>
+												<a href="">Nome completo do procurador</a>
+											</li>
+											<li>
+												<a href="">Nome completo do procurador</a>
+											</li>
+										</ul>
+									</div> -->
+									<!-- Pesquisa -->
+									<div class="input-group search" ng-init="vm.refine = false" ng-class="vm.refine ? 'refine-active': ''" ng-if="!vm.fixed">
+										<input id="searchInput" type="text" placeholder="Digite o que está buscando e tecle ENTER" class="form-control input-sm search-field">
+										<div class="input-group-btn">
+											<button type="button" class="btn btn-default btn-sm refine" title="{{vm.refine ? 'Refinamento ativo na pesquisa' : 'Possibilita refinar a pesquisa'}}" uib-popover-template="'cadastros/contribuintes/pessoa-juridica/popover-deletar.html'" popover-class="big-popover popover-refine-filter" popover-append-to-body="true" popover-is-open="showRefineFilterPopover" popover-placement="bottom-right" popover-trigger="'outsideClick'">
+												<i class="fa fa-sliders"></i>
+											</button>
+											<button type="button" class="btn btn-default btn-sm" title="Pesquisar (ENTER)">
+												<i class="fa fa-search"></i>
+											</button>
+										</div>
+										<button type="button" class="btn btn-default btn-sm" title="Filtros" ng-click="vm.floating = true; vm.fixed = false"><i class="fa fa-fw fa-filter"></i> Filtro</button>
+									</div>
+								</form>
+							</div>
+						</div>
+						<ul role="tablist" class="nav nav-tabs nav-atend" ng-init="filtrarPor = 'Em tramitação'">
+							<!-- Todas -->
+							<li role="presentation" ng-class="{'active': filtrarPor == 'Todas'}" ng-click="filtrarPor = 'Todas'" ng-show="navTab == 3 || navTab == 4">
+								<a data-toggle="tab" role="tab" href="#Aba4" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x tx__blue--d10"></i>
+												<i class="fa fa-files-o fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom top">Todas</h5>
+											<h6 class="bottom top tx__blue--d10" title="Total em execuções fiscais em aberto">R$ 2.705.350,00</h6>
+										</li>
+									</ul> 
+								</a>
+							</li>
+							<!-- Todas em aberto -->
+							<li role="presentation" ng-class="{'active': filtrarPor == 'Todas em aberto'}" ng-click="filtrarPor = 'Todas em aberto'" ng-show="navTab == 2">
+								<a data-toggle="tab" role="tab" href="#Aba4" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x tx__blue--d10"></i>
+												<i class="fa fa-files-o fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom top">Todas em aberto</h5>
+											<h6 class="bottom top tx__blue--d10" title="Total em execuções fiscais em aberto">R$ 2.705.350,00</h6>
+										</li>
+									</ul> 
+								</a>
+							</li>
+							<!-- Em tramitação -->
+							<li role="presentation" ng-class="{'active': filtrarPor == 'Em tramitação'}" ng-click="filtrarPor = 'Em tramitação'" ng-show="navTab == 2 || navTab == 3 || navTab == 4">
+								<a data-toggle="tab" role="tab" href="#Aba0" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x tx__aqua--d10"></i>
+												<i class="fa fa-balance-scale fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom top">Em tramitação</h5>
+											<h6 class="bottom top tx__aqua--d10" title="Total em execuções fiscais em tramitação">{{sumExecucoesTotal('Em tramitação')| currency}}</h6>
+										</li>
+									</ul> 
+								</a>
+							</li>
+							<!-- A ajuizar -->
+							<li role="presentation" ng-class="{'active': filtrarPor == 'A ajuizar'}" ng-click="filtrarPor = 'A ajuizar'" ng-hide="navTab == 5">
+								<a data-toggle="tab" role="tab" href="#Aba1" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x .tx__gray--d20"></i>
+												<i class="fa fa-gavel fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom top">A ajuizar</h5>
+											<h6 class="bottom top tx__gray--d20" title="Total em execuções fiscais a ajuizar">{{sumExecucoesTotal('A ajuizar')| currency}}</h6>
+										</li>
+									</ul> 
+								</a>
+							</li>
+							<!-- Suspensas -->
+							<li role="presentation" ng-class="{'active': filtrarPor == 'Suspensa'}" ng-click="filtrarPor = 'Suspensa'" ng-hide="navTab == 4 || navTab == 5">
+								<a data-toggle="tab" role="tab" href="#Aba2" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x tx__yellow"></i>
+												<i class="fa fa-pause fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom top">Suspensas</h5>
+											<h6 class="bottom top tx__yellow--d10" title="Total em execuções fiscais suspensas">{{sumExecucoesTotal('Suspensa')| currency}}</h6>
+										</li>
+									</ul> 
+								</a>
+							</li>
+							<!-- Canceladas -->
+							<li role="presentation" ng-class="{'active': filtrarPor == 'Cancelada'}" ng-click="filtrarPor = 'Cancelada'" ng-show="navTab == 2">
+								<a data-toggle="tab" role="tab" href="#Aba3" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x tx__red"></i>
+												<i class="fa fa-ban fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom mTop10">Canceladas</h5>
+										</li>
+									</ul> 
+								</a>
+							</li>
+							<!-- Encerradas -->
+							<li role="presentation" ng-class="{'active': filtrarPor == 'Encerrada'}" ng-click="filtrarPor = 'Encerrada'" ng-show="navTab == 2">
+								<a data-toggle="tab" role="tab" href="#Aba3" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x tx__green--d10"></i>
+												<i class="fa fa-check fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom mTop10">Encerradas</h5>
+										</li>
+									</ul> 
+								</a>
+							</li>
+						</ul>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="bth-checkbox bth-checkbox-inline" style="margin-left: 15px">
+									<input type="checkbox" ng-click="checkAll();">
+									<label for=""></label>
+								</div>
+								<div style="display: inline-block">
+									<span class="badge pull-left">
+										0 execução(ões) fiscal(is) selecionada(s)
+									</span>
+									&nbsp;
+									<small>
+										<a href="">Selecionar todos os outros 126 resultados</a>
+									</small>
+								</div>
+							</div>
+						</div>
+						<div class="row">	
+							<div class="col-md-12">
+								<table class="table table-unfixed table-hover table-unbordered table-unstriped">
+									<thead>
+										<tr>
+											<th class="col-fit"></th>
+											<th width="165"><span>Número do processo</span></th>
+											<th width="230"><span>Local de tramitação</span></th>
+											<th width="150"><span>Área e assunto</span></th>
+											<th><span>Exequente</span></th>
+											<th><span>Executado</span></th>
+											<th><span>Procurador</span></th>
+											<th width="150"><span>Valor da causa(R$)</span></th>
+											<th width="100" ng-show="filtrarPor == 'Todas em aberto'"><span>Situação</span></th>
+											<th width="60"></th>
+										</tr>
+									</thead>
+									<tbody >
+									<!-- <tr ng-repeat="efl in execucoesFiscais" ng-show="filtrarPor == 'Todas em aberto' ? efl.situacao != 'Encerrada' && efl.situacao != 'Cancelada' : filtrarPor == efl.situacao"> -->
+									<tr ng-repeat="efl in execucoesFiscais">
+									<!-- <tr ng-repeat="efl in execucoesFiscais | filter: {situacao: filtrarPor}"> -->
+										<td>
+											<div class="bth-checkbox">
+												<input id="chbox" type="checkbox">
+												<label for="chbox">
+												</label>
+											</div>
+										</td>
+										<td><a href="">{{efl.numProcesso}}</a></td>
+										<td>
+											<div class="cell-wrapper">
+												<span>{{efl.tribunal}}</span>
+												<br>
+												<span class="info">{{efl.comarca}}</span>
+												<br>
+												<span class="info">{{efl.vara}}</span>
+											</div>
+										</td>
+										<td>
+											<div class="cell-wrapper">
+												<span>{{efl.area}}</span>
+												<br>
+												<span class="info">{{efl.assunto}}</span>
+											</div>
+										</td>
+										<td>
+											<div class="cell-wrapper">
+												<span>{{efl.exequente}}</span>
+												<br>
+												<span class="info">(000.000.000-00)</span>
+											</div>
+										</td>
+										<td>
+											<div class="cell-wrapper">
+												<span>{{efl.executado}}</span>
+												<br>
+												<span class="info">(000.000.000-00)</span>
+											</div>
+										</td>
+										<td>
+											<div class="cell-wrapper">
+												<span>{{efl.procurador}}</span>
+												<br>
+												<span class="info">(000.000.000-00)</span>
+											</div>
+										</td>
+										<td>{{efl.valorCausa | currency}}</td>
+										<td ng-show="filtrarPor == 'Todas em aberto'">
+											<label class="label center-block" title="Situação" ng-class="{'label-success': efl.situacao == 'Encerrada', 
+																			'label-default': efl.situacao == 'A ajuizar', 
+																			'label-warning': efl.situacao == 'Suspensa',
+																			'label-danger': efl.situacao == 'Cancelada',
+																			'label-info': efl.situacao == 'Em tramitação'}">
+												{{efl.situacao}}
+											</label>
+										</td>
+										<td class="text-right">
+											<div class="btn-group">
+												<a href="" class="dropdown-toggle" data-toggle="dropdown">
+													<i class="fa fa-fw fa-ellipsis-v"></i>
+												</a>
+												<ul class="dropdown-menu dropdown-menu-right">
+													<li class="dropdown-header">Opções disponíveis</li>
+													<li ng-click="execucoesFiscais.splice($index, 1)"><a href="">Excluir</a></li>
+													<li ng-click="openMovimentacao();"><a href="">Movimentação</a></li>
+													<li ng-click="openMovimentacao();"><a href="">Agendar</a></li>
+													<li ng-click="openEmitirPeticaoIntermediaria();"><a href="" ng-class="{'link-disabled': efl.situacao != 'Em tramitação' && efl.situacao != 'Suspensa'}">Emitir petição intermediária</a></li>
+													<li ng-click="enviarTribunal();"><a href="" ng-class="{'link-disabled': efl.situacao == 'Cancelada' || efl.situacao == 'Suspensa'  || efl.situacao == 'Encerrada'}">Enviar para o tribunal</a></li>
+												</ul>
+											</div>
+											<a href="" title="Abre as informações da execução" ng-click="openUrlEdit()">
+												<i class="fa fa-fw fa-arrow-right text-muted"></i>
+											</a>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>	
+						</div>	
+						<div class="row">
+							<div class="col-md-6">
+								<form class="form-inline">
+									1-20 de 126
+									<select class="form-control input-sm" ng-model="numberOfResults">
+										<option value="20">20</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+									</select>
+									resultados por página
+								</form>
+							</div>
+							<div class="col-md-6">
+								<div class="pull-right">
+									<button class="btn btn-default btn-sm disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+									<button class="btn btn-default btn-sm active">1</button>
+									<button class="btn btn-default btn-sm">2</button>
+									<button class="btn btn-default btn-sm">3</button>
+									<button class="btn btn-default btn-sm">4</button>
+									<button class="btn btn-default btn-sm">Próxima <i class="fa fa-angle-right"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Filtros -->
+					<div class="bth-filter bth-filter--sidebar" ng-class="{'bth-filter--floating': vm.floating};" ng-if="(vm.fixed && !vm.floating) || (!vm.fixed && vm.floating)">
+						<div class="bth-filter__header">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="row">
+										<div class="col-md-4 col-sm-4 col-xs-9">
+											<label for="">PESQUISAR<span class="text-muted">(P)</span></label>
+										</div>
+										<div class="col-md-8 col-sm-8 col-xs-3 text-right">
+											<!-- <button class="btn btn-xs btn-link" ng-click="!vm.fixed ? vm.floating = false : vm.floating = !vm.floating"> -->
+											<button class="btn btn-xs btn-link" ng-click="vm.fixed = true; vm.floating = false" ng-show="vm.floating">
+												<i class="fa fa-thumb-tack"></i>
+												Fixar
+											</button>		
+											<button class="btn btn-xs btn-link" ng-click="vm.fixed = false; vm.floating = true" ng-hide="vm.floating">
+												<i class="fa fa-thumb-tack"></i>
+												Desafixar
+											</button>		
+											<button class="btn btn-xs btn-link" ng-click="vm.floating = !vm.floating" ng-show="vm.floating">
+												<i class="fa fa-close"></i>
+											</button>
+										</div>
+									</div>
+									<!-- Pesquisa -->
+									<div class="row">
+										<div class="col-md-12">
+											<div class="input-group input-group-sm search" ng-init="vm.refine = false" ng-class="vm.refine ? 'refine-active': ''">
+												<input id="searchInput" type="text" placeholder="Digite o que está buscando e tecle ENTER" class="form-control input-sm search-field">
+												<div class="input-group-btn">
+													<button type="button" class="btn btn-default btn-sm refine" title="{{vm.refine ? 'Refinamento ativo na pesquisa' : 'Possibilita refinar a pesquisa'}}" uib-popover-template="'cadastros/contribuintes/pessoa-juridica/popover-deletar.html'" popover-class="big-popover popover-refine-filter" popover-append-to-body="true" popover-is-open="showRefineFilterPopover" popover-placement="bottom-right" popover-trigger="'outsideClick'">
+														<i class="fa fa-sliders"></i>
+													</button>
+													<button type="button" class="btn btn-default btn-sm" title="Pesquisar (ENTER)">
+														<i class="fa fa-search"></i>
+													</button>
+												</div>
+												<button type="button" class="btn btn-default btn-sm" title="Filtros" ng-click="vm.floating = !vm.floating" ng-hide="vm.fixed || vm.floating"><i class="fa fa-fw fa-filter"></i> Filtro</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="bth-filter__body">
+							<div class="bth-card bth-card--collapse">
+								<div class="bth-card__header" ng-class="{'bth-card__header--opened': !filterPagto}" data-ng-click="filterPagto = !filterPagto">
+									<label for="">PAGAMENTO</label>
+								</div>
+								<div class="bth-card__body" uib-collapse="filterPagto">
+									<ul class="bth-filter__list bth-filter__list--checkbox">
+										<li>
+											<div class="bth-checkbox">
+												<input type="checkbox" name="pagto" id="pagto01">
+												<label for="pagto01">Quitadas/Canceladas</label>
+											</div>
+										</li>
+										<li>
+											<div class="bth-checkbox">
+												<input type="checkbox" name="pagto" id="pagto02">
+												<label for="pagto02">Parceladas/Suspensas</label>
+											</div>
+											<span class="badge badge-default">R$ 209.743,32</span>
+										</li>
+										<li>
+											<div class="bth-checkbox">
+												<input type="checkbox" name="pagto" id="pagto02">
+												<label for="pagto02">Suspensas com dívidas</label>
+											</div>
+											<span class="badge badge-default">R$ 209.743,32</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="bth-card bth-card--collapse">
+								<div class="bth-card__header" ng-class="{'bth-card__header--opened': !filterPendencias03}" data-ng-click="filterPendencias03 = !filterPendencias03">
+									<label for="">PRAZOS A VENCER</label>
+								</div>
+								<div class="bth-card__body" uib-collapse="filterPendencias03">
+									<ul class="bth-filter__list bth-filter__list--radio">
+										<li>
+											<div class="bth-radio">
+												<input type="radio" name="f03" id="f0301">
+												<label for="f0301">Próximos 10 dias</label>
+											</div>
+											<span class="badge badge-default">7</span>
+										</li>
+										<li>
+											<div class="bth-radio">
+												<input type="radio" name="f03" id="f0302">
+												<label for="f0302">Próximos 20 dias</label>
+											</div>
+											<span class="badge badge-default">65</span>
+										</li>
+										<li>
+											<div class="bth-radio">
+												<input type="radio" name="f03" id="f0303">
+												<label for="f0303">Próximos 30 dias</label>
+											</div>
+											<span class="badge badge-default">32</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="bth-card bth-card--collapse">
+								<div class="bth-card__header" ng-class="{'bth-card__header--opened': !filterMovim}" data-ng-click="filterMovim = !filterMovim">
+									<label for="">SEM MOVIMENTAÇÃO</label>
+								</div>
+								<div class="bth-card__body" uib-collapse="filterMovim">
+									<ul class="bth-filter__list bth-filter__list--radio">
+										<li>
+											<div class="bth-radio">
+												<input type="radio" name="movimentacao" id="movimentacao01">
+												<label for="movimentacao01">À 6 meses</label>
+											</div>
+										</li>
+										<li>
+											<div class="bth-radio">
+												<input type="radio" name="movimentacao" id="movimentacao02">
+												<label for="movimentacao02">À 1 ano</label>
+											</div>
+										</li>
+										<li>
+											<div class="bth-radio">
+												<input type="radio" name="movimentacao" id="movimentacao03">
+												<label for="movimentacao03">À 3 anos</label>
+											</div>
+										</li>
+										<li>
+											<div class="bth-radio">
+												<input type="radio" name="movimentacao" id="movimentacao04">
+												<label for="movimentacao04">À 5 anos ou mais</label>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="bth-card bth-card--collapse" ng-init="filterAno = true">
+								<div class="bth-card__header" ng-class="{'bth-card__header--opened': !filterAno}" data-ng-click="filterAno = !filterAno">
+									<label for="">ANO</label>
+								</div>
+								<div class="bth-card__body" uib-collapse="filterAno">
+									<ul class="bth-filter__list bth-filter__list--radio">
+										<li>
+											<div class="bth-checkbox">
+												<input type="checkbox" name="f03" id="f0301">
+												<label for="f0301">2018</label>
+											</div>
+											<span class="badge badge-default">R$ 45.743,32</span>
+										</li>
+										<li>
+											<div class="bth-checkbox">
+												<input type="checkbox" name="f03" id="f0302">
+												<label for="f0302">2017</label>
+											</div>
+											<span class="badge badge-default">R$ 45.743,32</span>
+										</li>
+										<li>
+											<div class="bth-checkbox">
+												<input type="checkbox" name="f03" id="f0303">
+												<label for="f0303">2016</label>
+											</div>
+											<span class="badge badge-default">R$ 45.743,32</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="bth-card bth-card--collapse" ng-init="filterValAcao = true">
+								<div class="bth-card__header" ng-class="{'bth-card__header--opened': !filterValAcao}" data-ng-click="filterValAcao = !filterValAcao">
+									<label for="">VALOR DA AÇÃO</label>
+								</div>
+								<div class="bth-card__body" uib-collapse="filterValAcao">
+									<div class="input-group">
+										<div class="input-group">
+											<input class="form-control" type="text" bf-number ng-model="de">
+										</div>
+										<span class="input-group-addon">até</span>
+										<div class="input-group">
+											<input class="form-control" type="text" bf-number ng-model="ate">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="bth-card bth-card--collapse" ng-init="filterIntegra = true">
+								<div class="bth-card__header" ng-class="{'bth-card__header--opened': !filterIntegra}" data-ng-click="filterIntegra = !filterIntegra">
+									<label for="">INTEGRAÇÕES</label>
+								</div>
+								<div class="bth-card__body" uib-collapse="filterIntegra">
+									<!-- <div class="input-group date-range">
+										<div class="input-group">
+											<input class="form-control" type="text" bf-date ng-model="de">
+										</div>
+										<span class="input-group-addon">até</span>
+										<div class="input-group">
+											<input class="form-control" type="text" bf-date ng-model="ate">
+										</div>
+									</div> -->
+								</div>
+							</div>
+							<div class="bth-card bth-card--collapse" ng-init="filterProfissional = true">
+								<div class="bth-card__header" ng-class="{'bth-card__header--opened': !filterProfissional}" data-ng-click="filterProfissional = !filterProfissional">
+									<label for="">RESPONSÁVEL</label>
+								</div>
+								<div class="bth-card__body" uib-collapse="filterProfissional">
+									<ul class="bth-filter__list bth-filter__list--radio bth-filter__list--checkbox" ng-class="{'bth-filter__list--radio' : filter.type=='radio', 'bth-filter__list--checkbox' : filter.type=='checkbox'}">
+										<li class="ui-list-container-checkbox">
+											<div class="bth-checkbox">
+												<input type="checkbox" name="options" id="checkbox23" ng-model="option.checked" class="ng-pristine ng-untouched ng-valid">
+												<label for="checkbox23" class="ng-binding">Aline Vargas</label>
+											</div>
+										</li>
+									</ul>
+									<div class="btn-group" data-placement="bottom-right">
+										<a href="" class="bth-filter__more dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<small class="ng-binding">+ 2 opções disponíveis</small>
+										</a>
+										<ul class="dropdown-menu">
+											<li class="has-content">
+												<div class="input-group input-group-search input-group-sm">
+													<input type="text" aria-kbdshortcuts="p" placeholder="O que você está buscando?" class="form-control">
+												</div>
+											</li>
+											<li><a href="">Ramon Vieira Viquetti</a></li>		
+											<li><a href="">Ramon Vieira Viquetti</a></li>		
+										</ul>
+									</div>
+
+								</div>
+								
+							</div>
+						</div>
+						<div class="bth-filter__footer">
+							<button class="btn btn-block btn-primary" ng-click="vm.floating = !vm.floating">
+								Pesquisar (F2)
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bth-filter__backdrop bth-filter__backdrop--inverse" ng-if="vm.floating" ng-click="vm.floating = false"></div>
+</div>

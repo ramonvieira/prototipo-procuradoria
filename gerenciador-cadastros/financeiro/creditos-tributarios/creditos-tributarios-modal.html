@@ -1,0 +1,55 @@
+<form name="form">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3 class="modal-title">{{registro.id ? 'Editando' : 'Adicionando'}} crédito tributário <span class="badge" bf-tooltip="Crédito tributário">{{registro.id}}</span></h3>
+	</div>
+	<div class="modal-body">
+		<!-- Permissões por crédito ativada -->
+		<div ng-if="permissoesCredito && !registro.id">
+			<ol class="bth-wizard" ng-model="step.current" ng-init="step.current = 1">
+				<li class="bth-wizard__item" ng-class="{'bth-wizard__item--active': step.current == 1, 'bth-wizard__item--visited': step.current > 1}" ng-click="step.current = 1">
+					<button class="bth-wizard__title bth-wizard__title--action">
+						Informações do crédito
+					</button>
+				</li>
+				<li class="bth-wizard__item" ng-class="{'bth-wizard__item--active': step.current == 2, 'bth-wizard__item--visited': step.current > 2}" ng-click="step.current = 2">
+					<button class="bth-wizard__title bth-wizard__title--action">
+						Permissões do crédito
+					</button>
+				</li>
+			</ol>
+			
+			<div ng-switch="step.current">
+				<!-- Informações do crédito -->
+				<div ng-switch-when="1">
+					<div ng-include="'cadastros/financeiro/creditos-tributarios/creditos-tributarios-cadastro.html'"></div>
+				</div>
+				<!-- Permissões do crédito -->
+				<div ng-switch-when="2">
+					<div ng-include="'configuracoes/acessos/credito-content.html'"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Permissões por crédito desativada -->
+		<div ng-if="!permissoesCredito || registro.id">
+			<div ng-include="'cadastros/financeiro/creditos-tributarios/creditos-tributarios-cadastro.html'"></div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<div class="bth-checkbox bth-checkbox-danger pull-left" style="margin-left: 6px; margin-top: 6px" ng-if="isEditing">
+			<input id="checkboxS1" type="checkbox" ng-model="registro.desativado">
+			<label for="checkboxS1">Registro desativado</label>
+		</div>
+		<button type="button" class="btn btn-default pull-left" ng-click="step.current = step.current - 1" ng-show="permissoesCredito && step.current == 2 && !registro.id">
+			<i class="fa fa-fw fa-arrow-left"></i> Voltar
+		</button>
+		<button type="button" class="btn btn-default pull-left" ng-click="step.current = step.current + 1" ng-show="permissoesCredito && step.current == 1 && !registro.id">
+			Avançar <i class="fa fa-fw fa-arrow-right"></i>
+		</button>
+		<button class="btn btn-primary" ng-disabled="isReceitasInvalid || form.$invalid" data-dismiss="modal" ng-click="salvar(registro)">Salvar</button>
+		<button class="btn btn-default" ng-disabled="isReceitasInvalid || form.$invalid">Salvar e adicionar novo</button>
+		<button class="btn btn-default btn-delete">Excluir</button>
+		<button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	</div>
+</form>

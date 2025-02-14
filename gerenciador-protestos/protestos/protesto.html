@@ -1,0 +1,527 @@
+<div class="bth-card">
+	<div class="bth-card__body">
+		<div class="row">
+			<div class="col-md-2">
+				<!-- <div class="btn-group">
+					<button type="button" class="btn btn-success btn-sm btn-add" data-ng-click="openExecucao()" title="Adiciona um novo protesto">Protesto</button>
+				</div> -->
+			</div>
+			<div class="col-md-10">
+				<div class="pull-right">
+					<form class="form-inline">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Mais">
+								Mais <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li class="dropdown-header">Mais opções</li>
+								<li>
+									<a href="" ng-controller="AgendaCtrl" ng-click="adicionar({tipo:'COMPROMISSO'})">Agendar compromisso</a>
+								</li>
+								<li>
+									<a href="" ng-controller="AgendaCtrl" ng-click="adicionar({tipo:'TAREFA'})">Adicionar a tarefa</a>
+								</li>
+							</ul>
+						</div>
+						<div class="btn-group" ng-show="filtrarPor == 'Concluída'">
+							<button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Cancelar <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="#">Emitir carta</a></li>
+								<li><a href="#">Solicitar</a></li>
+								<li><a href="#">Autorizar</a></li>
+							</ul>
+						</div>
+						<div class="btn-group" ng-show="filtrarPor == 'Distribuição'">
+							<button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Desistir <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="#">Emitir carta</a></li>
+								<li><a href="#">Solicitar</a></li>
+							</ul>
+						</div>
+						<button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Assinar
+						</button>
+						<div class="btn-group" ng-show="filtrarPor == 'Inconsistente'">
+							<button type="button" class="btn btn-primary dropdown-toggle btn-sm">
+								<i class="fa fa-fw fa-paper-plane"></i> Reenviar
+							</button>
+						</div>
+						<div class="btn-group" ng-show="filtrarPor == 'Concluída'">
+							<button type="button" class="btn btn-primary dropdown-toggle btn-sm">
+								<i class="fa fa-fw fa-money"></i> Baixa
+							</button>
+						</div>
+						<div class="btn-group">
+							<button id="dropdownAgrupamento" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Definir agrupamento das informações">
+								<i class="fa fa-object-group"></i>
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" ng-init="agruparDiv = 'nenhum'">
+								<li class="dropdown-header">Opções de agrupamento</li>
+								<li><a href="#" class="btn-check" ng-class="{'active': agruparDiv == 'nenhum'}" ng-click="agruparDiv = 'nenhum'">Nenhum</a></li>
+								<li><a href="#" class="btn-check" ng-class="{'active': agruparDiv == 'ano'}" ng-click="agruparDiv = 'ano'">Ano</a></li>
+								<li><a href="#" class="btn-check" ng-class="{'active': agruparDiv == 'valor'}" ng-click="agruparDiv = 'valor'">Valor</a></li>
+							</ul>
+						</div>	
+		
+						<div class="input-group">
+							<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+		
+							<!-- Pesquisa avançada -->
+		
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+								<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+		
+								<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right" keep-open>
+									<li class="dropdown-header">
+										<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+										<h1>Pesquisa avançada</h1>
+									</li>
+									<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+									<li>
+										<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true" ng-init="colunasSelect = [1,2]">
+											<option value="1">Nº do processo</option>
+											<option value="2">Contribuinte</option>
+										</select>
+									</li>
+									<li class="dropdown-header">Utilizando como critério</li>
+									<li>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdAlguns">Alguns dos termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdTodos">Todos os termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdNenhum">Nenhum dos termos digitados</label>
+										</div>
+									</li>
+									<li role="separator" class="divider"></li>
+									<li class="dropdown-header">
+										<h1>Outras opções</h1>
+									</li>
+									<li class="dropdown-header">Contribuinte(s)</li>
+									<li>
+										<contribuintes-select ng-model="vm.contribuintes" multiple="true"/>
+									</li>
+									<!-- Intervalo de documentos -->
+									<li class="dropdown-header">
+										<div class="row bottom">
+											<div class="col-md-6"><span>Número(s) da CDA</span></div>
+											<div class="col-md-6"><span>Ano(s) da CDA</span></div>
+										</div>
+									</li>
+									<li>
+										<div class="row bottom">
+											<div class="col-md-6">
+												<intervalo-select ng-model="nCDA"/>
+											</div>
+											<div class="col-md-6">
+												<intervalo-select ng-model="anoCDA" exemplo-intervalo="{{exemploIntervaloAno}}" />
+											</div>
+										</div>
+									</li>
+		
+									<!-- Intervalo de datas -->
+									<li class="dropdown-header">
+										<div class="row bottom">
+											<div class="col-md-4">Intervalo de data</div>
+											<div class="col-md-8" ng-if="vm.intervalos == 1">Ano</div>
+											<div class="col-md-8" ng-if="vm.intervalos == 2">Data de protesto</div>
+											<div class="col-md-8" ng-if="vm.intervalos == 3">Data de vencimento</div>
+											<div class="col-md-8" ng-if="vm.intervalos == 4">Data de emissão</div>
+											<div class="col-md-8" ng-if="vm.intervalos == 5">Data de envio</div>
+										</div>
+									</li>
+									<li>
+										<div class="row bottom">
+											<div class="col-md-4">
+												<select bf-select2="{}" ng-model="vm.intervalos">
+													<option value=""></option>
+													<option value="1">Por ano</option>
+													<option value="2">Por data de protesto</option>
+													<option value="3">Por data de vencimento</option>
+													<option value="4">Por data de emissão</option>
+													<option value="5">Por data de envio</option>
+												</select>
+											</div>
+											<div class="col-md-8" ng-if="vm.intervalos == 1">
+												<div class="input-group">
+													<input class="form-control" type="text" ng-model="de">
+													<span class="input-group-addon">até</span>
+													<input class="form-control" type="text" ng-model="ate">
+												</div>
+											</div>
+											<div class="col-md-8" ng-if="vm.intervalos && vm.intervalos != 1">
+												<div class="input-group date-range">
+													<div class="input-group">
+														<input class="form-control" type="text" bf-date="" ng-model="de">
+													</div>
+													<span class="input-group-addon">até</span>
+													<div class="input-group">
+														<input class="form-control" type="text" bf-date="" ng-model="ate">
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+									
+									<!-- Assinatura -->
+									<li class="dropdown-header">
+										Assinado?
+									</li>
+									<li>
+										<div class="row bottom">
+											<div class="col-md-4">
+												<select bf-select2="{}" ng-model="vm.assinado">
+													<option value=""></option>
+													<option value="1">Sim</option>
+													<option value="2">Não</option>
+												</select>
+											</div>
+										</div>
+									</li>
+									<li class="dropdown-footer pull-right">
+										<button class="btn btn-primary" data-dismiss="dropdown"><i class="fa fa-search"></i> Pesquisar</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		
+		<ul role="tablist" class="nav nav-tabs nav-atend" ng-init="filtrarPor = 'Distribuição'">
+			<li role="presentation" ng-class="{'active': filtrarPor == 'Distribuição'}" ng-click="filtrarPor = 'Distribuição'">
+				<a data-toggle="tab" role="tab" href="#Aba1" target="_self">
+					<ul class="list-tabs-value">
+						<li>
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x tx__gray--d20"></i>
+								<i class="fa fa-hourglass-half fa-stack-1x fa-inverse"></i>
+							</span>
+						</li>
+						<li>
+							<h5 class="bottom top">Distribuição</h5>
+							<h6 class="bottom top tx__gray--d20" title="Total em execuções fiscais a ajuizar">R$ 25.493,62</h6>
+						</li>
+					</ul> 
+				</a>
+			</li>
+			<li role="presentation" ng-class="{'active': filtrarPor == 'Inconsistente'}" ng-click="filtrarPor = 'Inconsistente'">
+				<a data-toggle="tab" role="tab" href="#Aba2" target="_self">
+					<ul class="list-tabs-value">
+						<li>
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x tx__yellow"></i>
+								<i class="fa fa-pause fa-stack-1x fa-inverse"></i>
+							</span>
+						</li>
+						<li>
+							<h5 class="bottom top">Inconsistente</h5>
+							<h6 class="bottom top tx__yellow--d10" title="Total no grupo inconsistente">R$ 25.493,62</h6>
+						</li>
+					</ul> 
+				</a>
+			</li>
+			<li role="presentation" ng-class="{'active': filtrarPor == 'Em protesto'}" ng-click="filtrarPor = 'Em protesto'">
+				<a data-toggle="tab" role="tab" href="#Aba2" target="_self">
+					<ul class="list-tabs-value">
+						<li>
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x tx__green"></i>
+								<i class="fa fa-gavel fa-stack-1x fa-inverse"></i>
+							</span>
+						</li>
+						<li>
+							<h5 class="bottom top">Em protesto</h5>
+							<h6 class="bottom top tx__green--d10" title="Total no grupo em protesto">R$ 25.493,62</h6>
+						</li>
+					</ul> 
+				</a>
+			</li>
+			<li role="presentation" ng-class="{'active': filtrarPor == 'Concluída'}" ng-click="filtrarPor = 'Concluída'" ng-if="tabProtActive == '/protestos'">
+				<a data-toggle="tab" role="tab" href="#Aba3" target="_self">
+					<ul class="list-tabs-value">
+						<li>
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x tx__blue--d10"></i>
+								<i class="fa fa-files-o fa-stack-1x fa-inverse"></i>
+							</span>
+						</li>
+						<li>
+							<h5 class="bottom top">Concluído</h5>
+							<h6 class="bottom top tx__blue--d10" title="Total no grupo concluído">R$ 2.705.350,00</h6>
+						</li>
+					</ul> 
+				</a>
+			</li>
+			
+			<li role="presentation" ng-class="{'active': filtrarPor == 'Retirada'}" ng-click="filtrarPor = 'Retirada'" ng-if="tabProtActive == '/protestos'">
+				<a data-toggle="tab" role="tab" href="#Aba4" target="_self">
+					<ul class="list-tabs-value">
+						<li>
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x tx__red"></i>
+								<i class="fa fa-ban fa-stack-1x fa-inverse"></i>
+							</span>
+						</li>
+						<li>
+							<h5 class="bottom top">Retirado</h5>
+							<h6 class="bottom top tx__red--d10" title="Total no grupo retirado">R$ 2.705.350,00</h6>
+						</li>
+					</ul> 
+				</a>
+			</li>
+			<!-- <li role="presentation" ng-class="{'active': filtrarPor == 'Negociação'}" ng-click="filtrarPor = 'Negociação'">
+				<a data-toggle="tab" role="tab" href="#Aba5" target="_self">
+					<ul class="list-tabs-value">
+						<li>
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x tx__green--d10"></i>
+								<i class="fa fa-check fa-stack-1x fa-inverse"></i>
+							</span>
+						</li>
+						<li>
+							<h5 class="bottom mTop10">Negociação</h5>
+						</li>
+					</ul> 
+				</a>
+			</li> -->
+		</ul>
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="Aba1">
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="filtrar-por" ng-init="filtrarPorDistribuicao = 'Aberta'">
+							<li ng-class="filtrarPorDistribuicao == 'Aguardando' ? 'active' : ''"><a href="" ng-click="filtrarPorDistribuicao = 'Aguardando'">Aguardando</a></li>
+							<li ng-class="filtrarPorDistribuicao == 'Distribuída' ? 'active' : ''"><a href="" ng-click="filtrarPorDistribuicao = 'Distribuída'">Distribuída</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="Aba2">
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="filtrar-por" ng-init="filtrarPorInconsistente = 'Aberta'">
+							<li ng-class="filtrarPorInconsistente == 'Protesto' ? 'active' : ''"><a href="" ng-click="filtrarPorInconsistente = 'Protesto'">Protesto</a></li>
+							<li ng-class="filtrarPorInconsistente == 'Movimentação' ? 'active' : ''"><a href="" ng-click="filtrarPorInconsistente = 'Movimentação'">Movimentação</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="bth-banner bth-banner-warning">
+							<div class="bth-banner-head">
+								Uma ou mais dívidas de alguns protestos foram pagas. Os protestos com essa situação estão destacados com o ícone <i class="material-icons tx__yellow">warning</i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="Aba3">
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="filtrar-por" ng-init="filtrarPorConcluida = 'Aberta'">
+							<li ng-class="filtrarPorConcluida == '' ? 'active' : ''"><a href="" ng-click="filtrarPorConcluida = ''">Protestada</a></li>
+							<li ng-class="filtrarPorConcluida == 'Paga' ? 'active' : ''"><a href="" ng-click="filtrarPorConcluida = 'Paga'">Paga</a></li>
+							<li ng-class="filtrarPorConcluida == 'Pagamento pendente' ? 'active' : ''"><a href="" ng-click="filtrarPorConcluida = 'Pagamento pendente'">Pagamento pendente</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="Aba4"></div>
+			<div role="tabpanel" class="tab-pane" id="Aba5"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="bth-checkbox bth-checkbox-inline" style="margin-left: 15px">
+					<input type="checkbox" ng-click="checkAll();">
+					<label for=""></label>
+				</div>
+				<div style="display: inline-block">
+					<span class="badge pull-left">
+						0 protesto(s) selecionado(s)
+					</span>
+					&nbsp;
+					<small>
+						<a href="">Selecionar todos os outros 126 resultados</a>
+					</small>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<!-- <div class="list-item-flex" ng-repeat="p in protestos">
+					<div class="item-content-flex">
+						<div class="row">
+							<div class="col-md-2">							
+								<div class="list-item-title">
+									<div class="bth-checkbox">
+										<input data-ng-model="check11" type="checkbox">
+										<label>&nbsp;</label>
+									</div>
+									<div class="ellipsis" title="Número da CDA">
+										<strong>{{pcertidao.numero}}</strong>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<span  title="Contribuinte">{{p.contribuinte}} </span>
+								<small title="CPF do contribuinte">({{p.cpfContribuinte}})</small>
+							</div>
+							<div class="col-md-4 text-center" title="Total protestado">
+								<a href=""><span>{{p.totalProtestado}}</span></a>
+							</div>
+							<div class="col-md-2 text-right">
+								<label class="label" title="Situação" 
+									ng-class="{'label-success': p.situacao == 'Concluído', 
+													'bg__purple--d10': p.situacao == 'Distribuído', 
+													'label-warning': p.situacao == 'Enviado com irregularidade',
+													'label-danger': p.situacao == 'Cancelada',
+													'label-primary': p.situacao == 'Enviado sem irregularidade'}">
+									{{p.situacao}}
+								</label>
+							</div>
+							<div class="col-md-1 text-right">
+								<a href="" title="Editar" ng-click="openUrlEdit();">
+									<i class="fa fa-pencil fa-fw"></i>
+								</a>
+								<a href="" title="Excluir">
+									<i class="fa fa-trash-o fa-fw"></i>
+								</a>
+								<div class="btn-group">
+									<a href="" class="dropdown-toggle" data-toggle="dropdown">
+										<i class="fa fa-fw fa-ellipsis-v"></i>
+									</a>
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li class="dropdown-header">Opções disponíveis</li>
+										<li ng-click="openMovimentacao();"><a href="">Movimentação</a></li>
+										<li ng-click="openEmitirPeticaoIntermediaria();"><a href="" ng-class="{'link-disabled': efl.situacao != 'Em tramitação' && efl.situacao != 'Suspensa'}">Emitir petição intermediária</a></li>
+										<li ng-click="enviarTribunal();"><a href="" ng-class="{'link-disabled': efl.situacao == 'Cancelada' || efl.situacao == 'Suspensa'  || efl.situacao == 'Encerrada'}">Enviar para o tribunal</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> -->
+				<table class="table table-unstriped table-hover table-unbordered table-unfixed" ng-if="agruparDiv == 'nenhum'">
+					<thead>
+						<tr>
+							<th width="35px"></th>
+							<th width="165px"><span>Nº protesto</span></th>
+							<th width="165px"><span>Data do protesto</span></th>
+							<th width="145px"><span>Nº certidão</span></th>
+							<th width="145px"><span>Nº guia</span></th>
+							<th><span>Contribuinte</span></th>
+							<th><span>Cartório</span></th>
+							<th width="150px" class="text-right"><span>Valor protestado</span></th>
+							<!-- <th width="150px"><span>Status</span></th> -->
+							<th width="70"></th>
+						</tr>
+					</thead>
+					<tbody >
+						<tr ng-repeat="protesto in protestos">
+							<td>
+								<div class="bth-checkbox">
+									<input id="chbox" type="checkbox">
+										<label for="chbox">
+									</label>
+								</div>
+							</td>
+							<td>
+								<span class="badge">{{protesto.numProt}}</span>
+								<i class="fa fa-fw fa-check-circle-o text-greenA7" bf-tooltip="Assinado digitalmente" ng-show="$index == 6 || $index == 7"></i>
+								<i class="material-icons tx__yellow" title="Uma ou mais dívidas desse protesto foram pagas" ng-show="$index == 1 || $index == 3">warning</i>
+							</td>
+							<td>{{protesto.data | arrecDate}}</td>
+							<td>
+								<cda divida="protesto" />
+							</td>
+							<td>
+								{{protesto.numGuia}}</span>
+							</td>
+							<td>
+								<span>{{protesto.contribuinte | contribuintes}}</span>
+							</td>
+							<td>
+								<span>{{protesto.cartorio}}</span>
+							</td>
+							<td class="text-right">
+								<span>{{protesto.totalProtestado | currency}}</span>
+							</td>
+							<!-- <td>
+								<label class="label center-block" title="Situação" ng-class="{
+																								'label-success':	p.situacao == 'Aguardando distribuição',
+																								'label-default':	p.situacao == 'Distribuída',
+																								'label-warning':	p.situacao == 'Protesto',
+																								'label-danger':		p.situacao == 'Movimentação',
+																								'label-info':		p.situacao == 'Protestada',
+																								'label-info':		p.situacao == 'Paga',
+																								'label-info':		p.situacao == 'Pagamento pendente',
+																								'label-info':		p.situacao == 'Retirada',
+																								'label-info':		p.situacao == 'Negociação'
+																							}">
+									{{p.situacao}}
+								</label>
+							</td> -->
+							<td class="text-right">
+								<div class="btn-group btn-group-xs">
+									<a href="" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+										<i class="fa fa-fw fa-ellipsis-v"></i>
+									</a>
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li><a href="" target="_blank" ng-click="openProtesto();" title="Abre o protesto em uma nova aba"><i class="fa fa-fw fa-pencil"></i> Editar em nova aba</a></li>
+										<li><a href="" ng-click="cancelaProtesto({})"><i class="fa fa-fw fa-ban"></i> Cancelar protesto</a></li>
+										<li><a href="" ng-click="assinar({})"><i class="fa fa-fw fa-check-circle-o"></i> Assinar digitalmente</a></li>
+									</ul>
+									<a href="" class="btn btn-link" title="Abre as informações do protesto" ng-click="openProtesto()">
+										<i class="fa fa-fw fa-arrow-right text-muted"></i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>	
+		</div>
+		<div class="row list-footer">
+			<div class="col-md-12 text-right">
+				Total das causas: <strong>21.645,04</strong>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<form class="form-inline">
+					1-20 de 126
+					<select class="form-control input-sm" ng-model="numberOfResults">
+						<option value="20">20</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+					</select>
+					resultados por página
+				</form>
+			</div>
+			<div class="col-md-6">
+				<div class="pull-right">
+					<button class="btn btn-default btn-sm disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+					<button class="btn btn-default btn-sm active">1</button>
+					<button class="btn btn-default btn-sm">2</button>
+					<button class="btn btn-default btn-sm">3</button>
+					<button class="btn btn-default btn-sm">4</button>
+					<button class="btn btn-default btn-sm">Próxima <i class="fa fa-angle-right"></i></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

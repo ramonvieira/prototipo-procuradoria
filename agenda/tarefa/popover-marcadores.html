@@ -1,0 +1,33 @@
+<!-- <button type="button" class="btn btn-link btn-xs pull-right" onclick="popover('destroy')"><i class="fa fa-fw fa-close"></i></button> -->
+<div uib-collapse="editandoEtiqueta">
+	<button type="button" id="close" class="close" data-dismiss="popover">&times;</button>
+	<div ng-include="'agenda/tarefa/marcadores.html'"></div>
+	<button type="button" class="btn btn-default btn-sm btn-block" title="Title" ng-click="editandoEtiqueta = true">Editar etiqueta</button>
+</div>
+<div uib-collapse="!editandoEtiqueta">
+	<div class="row" ng-repeat="marcador in marcadores">
+		<div class="col-md-3">
+			<ui-color-selector hide-label="true" model="marc.cor" data-placement="left" class="dropdown-menu-right" input-class="input-sm"></ui-color-selector>
+		</div>
+		<div class="col-md-6">
+			<input type="text" class="form-control input-sm" id="id" ng-model="marcador.descricao">
+		</div>
+		<div class="col-md-3">
+			<button type="button" class="btn btn-default btn-sm" title="Exclui o marcador" ng-click="marcadores.splice($index, 1)" ng-if="marcadores.length > 1"><i class="fa fa-fw fa-trash"></i></button>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<button type="button" class="btn btn-success btn-xs btn-add pull-right" ng-click="marcadores.push({ id: marcadres.length + 1, descricao: 'Novo marcador', color: marcador.color })" title="Adiciona novo marcador">Adicionar</button>
+		</div>
+	</div>
+	<div class="row bottom">
+		<div class="col-md-6">
+			<button type="button" class="btn btn-primary btn-block btn-sm" ng-click="editandoEtiqueta = false" title="Adiciona novo marcador">Salvar</button>
+		</div>
+		<div class="col-md-6">
+			<button type="button" class="btn btn-default btn-block btn-sm" ng-click="editandoEtiqueta = false" title="Adiciona novo marcador">Cancelar</button>
+		</div>
+	</div>
+</div>

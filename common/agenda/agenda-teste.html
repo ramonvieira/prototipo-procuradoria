@@ -1,0 +1,460 @@
+<div class="row row-flex bottom"  style="min-height: calc(100vh - 300px)">
+	<div class="bth-container-card fixed-width" style="width: 295px;">
+		<div class="bth-card__body">
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" class="btn btn-success btn-block" title="Criar novo agendamento" ng-click="adicionar({})">
+						<i class="fa fa-search fa-fw"></i> Agendar
+					</button>
+				</div>
+			</div>
+			<h4>
+				Filtros
+				<buttom class="btn btn-link btn-xs pull-right" ng-click="maisFiltros = !maisFiltros">Mais filtros</buttom>
+			</h4>
+			<div uib-collapse="!maisFiltros">
+				<div class="row mBottom5">
+					<div class="col-md-12">
+						<label for="numProcess">Número do processo</label>
+						<input type="text" class="form-control input-sm" id="numProcess" bf-cpf="" ng-model="numProcess">
+					</div>
+				</div>
+				<div class="row mBottom5">
+					<div class="col-md-12">
+						<label for="numProtest">Número do protesto</label>
+						<input type="text" class="form-control input-sm" id="numProtest" bf-cpf="" ng-model="numProtest">
+					</div>
+				</div>
+			</div>
+			<div class="row mBottom5">
+				<div class="col-md-12">
+					<label for="descricao">Descrição</label>
+					<input type="text" class="form-control input-sm" id="descricao" placeholder="Pesquisar na descrição" ng-model="descricao">
+				</div>
+			</div>
+			<div class="row mBottom5">
+				<div class="col-md-12">
+					<label for="">Contribuinte</label>
+					<select bf-select2="{allowClear: true}" id="" class="form-control input-sm" ng-model="contribuinte">
+						<option value="{{$index}}" ng-repeat="contribuinte in contribuintes">{{contribuinte.nome}}</option>
+					</select>
+				</div>
+			</div>
+			
+			<!-- Relacionamento -->
+			<div class="bth-card bth-card--collapse bth-card--noPadding">
+				<div class="bth-card__header" ng-class="{'bth-card__header--opened' : !relacionamentoCollapse}" ng-click="relacionamentoCollapse = !relacionamentoCollapse">
+					<h4>Relacionamento</h4>
+				</div>
+				<div class="bth-card__body collapse" uib-collapse="relacionamentoCollapse" aria-expanded="false" aria-hidden="true" style="height: 0px;">
+					<div class="row" ng-repeat="relacionado in [{relacao:'Dívidas'},{relacao:'Processos'},{relacao:'Protestos'}]">
+						<div class="col-md-12 ellipsis">
+							<div class="bth-checkbox">
+								<input id="relac{{$index}}" type="checkbox" ng-model="relac$index">
+								<label for="relac{{$index}}">{{relacionado.relacao}}</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Procurador/Assessor -->
+			<div class="bth-card bth-card--collapse bth-card--noPadding" ng-click="procuradorCollapse = !procuradorCollapse">
+				<div class="bth-card__header" ng-class="{'bth-card__header--opened' : !procuradorCollapse}" style="">
+					<h4>Procurador/Assessor</h4>
+				</div>
+				<div class="bth-card__body collapse" uib-collapse="procuradorCollapse" aria-expanded="false" aria-hidden="true" style="height: 0px;">
+					<div class="row" ng-repeat="contribuinte in contribuintes | limitTo: 5">
+						<div class="col-md-12 ellipsis">
+							<div class="bth-checkbox">
+								<input id="procAss{{$index}}" type="checkbox" ng-model="procAss$index">
+								<label for="procAss{{$index}}">{{contribuinte.nome}}</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bth-container-card fixed-width col-divider-left" style="width: 1px;">
+	</div>
+	<div class="bth-container-card fixed-width" style="width: 280px;">
+		<div class="bth-card__body">
+			<div class="bth-calendar" ng-class="{'bth-calendar--month' : vm.mode=='month', 'bth-calendar--year' : vm.mode=='year'}" style="width: 250px;">
+				<div class="bth-calendar__header">
+					<button class="btn btn-sm btn-link">
+						<i class="fa fa-fw fa-angle-left"></i>
+					</button>
+					<span class="bth-calendar__title">
+						<div class="btn-group">
+							<buttom class="btn btn-sm btn-link" ng-click="vm.mode='month'" ng-if="vm.mode!='month' && vm.mode!='year'">Setembro</buttom>
+							<buttom class="btn btn-sm btn-link" ng-click="vm.mode='year'" ng-if="vm.mode!='year'">2019</buttom>
+						</div>
+						<span ng-if="vm.mode=='year'"><buttom class="btn btn-sm btn-link" ng-click="vm.mode='year'">2016</buttom> - <buttom class="btn btn-sm btn-link" ng-click="vm.mode='year'">2027</buttom></span>
+					</span>
+					<button class="btn btn-sm btn-link">
+						<i class="fa fa-fw fa-angle-right"></i>
+					</button>
+				</div>
+				<table class="bth-calendar__table">
+					<thead>
+						<tr>
+							<th>D
+							</th>
+							<th>S
+							</th>
+							<th>T
+							</th>
+							<th>Q
+							</th>
+							<th>Q
+							</th>
+							<th>S
+							</th>
+							<th>S
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<button class="btn btn-xs btn-link disabled">26</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link disabled">27</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link disabled">28</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link disabled">29</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link disabled">30</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link disabled">31</button>
+							</td>
+							<td class="weekend">
+								<button class="btn btn-xs btn-link">1</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="weekend">
+								<button class="btn btn-xs btn-link">2</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link" ng-class="{'bg__green--l40' : !vm.empty}">3</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link" ng-class="{'bg__green--l40' : !vm.empty}">4</button>
+							</td>
+							<td class="today">
+								<button class="btn btn-xs btn-link">5</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link" ng-class="{'bg__green--l40' : !vm.empty}">6</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link" ng-class="{'bg__green--l40' : !vm.empty}">7</button>
+							</td>
+							<td class="weekend">
+								<button class="btn btn-xs btn-link">8</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="weekend">
+								<button class="btn btn-xs btn-link">9</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link">10</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link">11</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link">12</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link">13</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link">14</button>
+							</td>
+							<td class="weekend">
+								<button class="btn btn-xs btn-link">15</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="weekend">
+								<button class="btn btn-xs btn-link">16</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link">17</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link" ng-class="{'bg__purple--l30' : !vm.empty}">18</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link">19</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link" ng-class="{'bg__red--l30' : !vm.empty}">20</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link" ng-class="{'bg__yellow--l30' : !vm.empty}">21</button>
+							</td>
+							<td class="weekend">
+								<button class="btn btn-xs btn-link">22</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="weekend">
+								<button class="btn btn-xs btn-link">23</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link">24</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link">25</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-primary">26</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link">27</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link">28</button>
+							</td>
+							<td class="weekend">
+								<button class="btn btn-xs btn-link">29</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="weekend">
+								<button class="btn btn-xs btn-link">30</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link disabled" ng-class="{'bg__green--l40' : !vm.empty}">1</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link disabled" ng-class="{'bg__green--l40' : !vm.empty}">2</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link disabled">3</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link disabled" ng-class="{'bg__green--l40' : !vm.empty}">4</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link disabled" ng-class="{'bg__green--l40' : !vm.empty}">5</button>
+							</td>
+							<td>
+								<button class="btn btn-xs btn-link disabled">6</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<table class="bth-calendar__table" ng-if="vm.mode=='month'">
+					<tbody>
+						<tr>
+							<td>
+								<button class="btn btn-sm btn-link">JAN</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-link">FEV</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-link">MAR</button>
+							</td>
+							<td class="today">
+								<button class="btn btn-sm btn-link">ABR</button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<button class="btn btn-sm btn-link">MAI</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-link">JUN</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-link">JUL</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-link">AGO</button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<button class="btn btn-sm btn-link" ng-class="{'bg__green--l40' : !vm.empty}" ng-click="vm.mode='day'">SET</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-link">OUT</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-primary">NOV</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-link">DEZ</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<table class="bth-calendar__table" ng-if="vm.mode=='year'">
+					<tbody>
+						<tr>
+							<td>
+								<button class="btn btn-sm btn-link">2016</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-link">2017</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-link">2018</button>
+							</td>
+							<td class="today">
+								<button class="btn btn-sm btn-link" ng-class="{'bg__green--l40' : !vm.empty}" ng-click="vm.mode='month'">2019</button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<button class="btn btn-sm btn-link">2020</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-link">2021</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-link">2022</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-link">2023</button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<button class="btn btn-sm btn-link">2024</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-link">2025</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-primary">2026</button>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-link" disabled>2027</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<ul class="bth-calendar__status">
+					<li>
+						<i class="fa fa-fw fa-circle tx__green--l40">
+						</i>
+						Vagas disponíveis
+					</li>
+					<li>
+						<i class="fa fa-fw fa-circle tx__purple--l30">
+						</i>
+						Apenas urgências
+					</li>
+					<li>
+						<i class="fa fa-fw fa-circle tx__red--l30">
+						</i>
+						Agenda lotada
+					</li>
+					<li>
+						<i class="fa fa-fw fa-circle tx__yellow--l20">
+						</i>
+						Feriado
+					</li>
+				</ul>
+			</div>			
+		</div>
+	</div>
+	<div class="bth-container-card fixed-width col-divider-left" style="width: 1px;">
+	</div>
+	<div class="bth-container-card" style="min-width: 620px">
+		<div class="bth-card__body">
+			<div class="row row-flex">
+				<div class="col">
+					<h1 class="top">
+						<b>26</b>
+					</h1>
+				</div>
+				<div class="col">
+					SETEMBRO
+					<div class="text-muted">
+						<small>2019</small>
+					</div>
+				</div>
+				<div class="col" style="margin-left: auto">
+					<button class="btn btn-link btn-sm dropdown-toggle" ng-disabled="!vm.horarioCheck" title="Transferir selecionados" ng-click="openModal('common/agendamentos/agendamento/agendamento-transfere.html', 'app.AgendamentoTransfereCtrl as vm')">
+						<i class="fa fa-sign-out fa-fw"></i> Transferir
+					</button>
+					<button class="btn btn-link btn-sm dropdown-toggle" ng-disabled="!vm.horarioCheck" title="Cancelar selecionados" ng-click="openModal('common/agendamentos/agendamento/agendamento-cancela-consultas.html', 'app.AgendamentoCancelaConsultaCtrl as vm')">
+						<i class="fa fa-times-circle fa-fw"></i> Cancelar
+					</button>
+				</div>
+			</div>
+			<div class="bth-empty bth-empty--filter">
+				<h4>Utilize os filtros para exibir os horários disponíveis</h4>
+			</div>
+			<div class="row bottom">
+				<div class="col-md-12">
+					<div ng-repeat="agenda in agendas">
+						<div class="row">
+							<div class="col-md-12">
+								Período da manhã
+								<div class="text-muted">
+									<small>
+										Descrição
+									</small>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<table class="table table-unbordered table-unstriped table-hover table-unfixed">
+									<tbody>
+										<tr ng-repeat="horario in agenda.horarios">
+											<td class="col-fit">
+												<div class="saude-color-bar" color="{{agenda.cor}}"></div>
+											</td>
+											<td width="90px" ng-class="{'tx__gray' : horario.ausente}">
+												<div class="bth-checkbox">
+													<input id="checkHorario{{$index}}" type="checkbox" ng-model="horario.check" ng-click="vm.horarioCheck = !vm.horarioCheck" ng-disabled="!horario.cliente">
+													<label for="checkHorario{{$index}}">{{horario.horario}}</label>
+												</div>
+											</td>
+											<td>
+												<button type="button" class="btn btn-default btn-xs" title="Agendar um cliente" ng-if="!horario.cliente" ng-disabled="horario.ausente" ng-click="openModal('common/agendamentos/agendamento/agendamento-cliente.html', 'app.AgendamentoClienteCtrl as vm', 'origem', {id: vm.especialidade.id, solicitacao: vm.especialidade});" >
+													Agendar
+												</button>
+												<span class="text-muted pull-right" ng-if="horario.ausente || $index == 5">
+													{{horario.ausente ? 'Profissional ausente' : 'Horário de urgência'}}
+												</span>
+												<div style="text-transform: capitalize;" ng-if="horario.cliente" title="{{ horario.ausente ? 'Esse agendamento deve ser transferido' : '' }}">
+													<!-- <a href="" bf-popover-size="med-popover" bf-popover="'directives/saude-profile/saude-profile-popover.html'">{{horario.cliente.nome}}</a> <i class="far fa-exclamation-triangle fa-fw tx__red" ng-if="horario.ausente"></i> -->
+												</div>
+												<div class="info" ng-if="horario.cliente">{{horario.descricao}}</div>
+											</td>
+											<td class="col-fit">
+												<button type="button" class="btn btn-link btn-xs" title="Imprimir" ng-disabled="horario.ausente && !horario.cliente">
+													<i class="fa fa-print fa-fw"></i>
+												</button>
+												<button type="button" class="btn btn-link btn-xs" title="Mais opções" context-menu="vm.itemOptions" context-menu-on="click" ng-disabled="horario.ausente && !horario.cliente">
+													<i class="fa fa-ellipsis-v fa-fw"></i>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

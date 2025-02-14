@@ -1,0 +1,80 @@
+<div class="modal-dialog">
+	<div class="modal-content">
+		<form name="form">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 class="modal-title">Adicionando agência bancária</h3>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<label class="required" for="banco">Banco</label>
+						<select name="" id="" bf-select2="{}"  ng-model="select2">
+							<option value=""></option>
+							<option value="1"></option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-7">
+						<label class="required" for="nomeAgencia">Nome</label>
+						<input type="text" id="nomeAgencia" ng-model="nomeAgencia" class="form-control" maxlength="50" data-bf-required="true">
+					</div>
+					<div class="col-md-3">
+						<label class="required" for="numAgencia">Número</label>
+						<input type="text" id="numAgencia" ng-model="numAgencia" class="form-control" maxlength="10" data-bf-required="true" data-bf-restrict-number>
+						<span class="u-character-countdown pull-right">10 caracteres</span>
+					</div>
+					<div class="col-md-2">
+						<label for="digito">Dígito</label>
+						<input type="text" id="digito" ng-model="digito" class="form-control" maxlength="2" data-bf-restrict-number>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label for="cepAgencia"><abbr title="Código de Endereçamento Postal">CEP</abbr></label>
+						<input type="text" id="cepAgencia" ng-model="cepAgencia" class="form-control" data-bf-required="true" data-bf-restrict-number>
+					</div>
+					<div class="col-md-9">
+						<label for="municipioAgencia">Município</label>
+						<select name="" id="" bf-select2="{}"  ng-model="select2">
+							<option value=""></option>
+							<option value="1"></option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-10">
+						<label for="logradouroAgencia">Logradouro</label>
+						<select name="" id="" bf-select2="{}"  ng-model="select2">
+							<option value=""></option>
+							<option value="1"></option>
+						</select>
+					</div>
+					<div class="col-md-2">
+						<label for="logradouroAgencia">Nº</label>
+						<input type="text" id="logradouroAgencia" ng-model="logradouroAgencia" class="form-control" data-bf-required="true" data-bf-restrict-number>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label for="bairroAgencia">Bairro</label>
+						<select name="" id="" bf-select2="{}"  ng-model="select2">
+							<option value=""></option>
+							<option value="1"></option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary">
+					Salvar
+				</button>
+
+				<button class="btn btn-default">Salvar e adicionar novo</button>
+				<button class="btn btn-default btn-delete">Excluir</button>
+				<button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			</div>
+		</form>
+	</div>
+</div>

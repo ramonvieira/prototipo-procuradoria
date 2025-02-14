@@ -1,0 +1,173 @@
+<div class="row">
+	<div class="col-md-2">
+		<div class="btn-group">
+			<button type="button" class="btn btn-success btn-sm btn-add" ng-click="adicionarCredito({})" title="Adiciona um novo crédito tributário">Crédito</button>
+		</div>
+	</div>
+	<div class="col-md-10">
+		<div class="pull-right">
+			<form class="form-inline">
+				<button class="btn btn-sm btn-default" ng-click="gerenciandoLeisAtos()">
+					Gerenciar leis/atos
+				</button>
+
+				<div class="btn-group">
+
+					<!-- Colunas a exibir -->
+
+					<div class="btn-group">
+						<button id="dropdownColunas" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Definir colunas a exibir">
+							<i class="fa fa-columns"></i> 
+							<span class="caret"></span>
+						</button>
+					</div>
+
+					<!-- Altura das linhas -->
+
+					<div class="btn-group">
+						<button id="dropdownAltura" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Definir altura das linhas">
+							<i class="fa fa-reorder"></i> 
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownAltura">
+							<li class="dropdown-header">Altura das linhas</li>
+							<li><a href="" ng-click="setLineHeight('1')" class="btn-check" ng-class="{'active' : lineHeight == 1}">Padrão</a></li>
+							<li><a href="" ng-click="setLineHeight('2')" class="btn-check" ng-class="{'active' : lineHeight == 2}">Condensada</a></li>
+						</ul>
+					</div>
+				</div>
+				<button type="button" class="btn btn-default btn-sm" title="Atualizar">
+					<i class="fa fa-refresh"></i>
+				</button>
+
+				<!-- Pesquisa inline -->
+				<div class="input-group">
+					<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+
+					<!-- Pesquisa avançada -->
+
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+
+						<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
+							<li class="dropdown-header">
+								<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+								<h1>Pesquisa avançada</h1>
+							</li>
+							<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+							<li>
+								<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true">
+									<option value="1">Identificador</option>
+									<option value="2">Descriç]ão</option>
+									<option value="3">Indexador</option>
+									<option value="4">Receita</option>
+								</select>
+							</li>
+							<li class="dropdown-header">Utilizando como critério</li>
+							<li>
+								<div class="bth-radio bth-radio-inline">
+									<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+									<label for="rdAlguns">Alguns dos termos digitados</label>
+								</div>
+								<div class="bth-radio bth-radio-inline">
+									<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+									<label for="rdTodos">Todos os termos digitados</label>
+								</div>
+								<div class="bth-radio bth-radio-inline">
+									<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+									<label for="rdNenhum">Nenhum dos termos digitados</label>
+								</div>
+							</li>
+							<li role="separator" class="divider"></li>
+							<li class="dropdown-header"> 
+								<h1>Outras opções</h1>
+							<li>
+							
+							<li>
+								<div class="row bottom dropdown-header">
+									<div class="col-md-12">Tipo(s) de cadastro</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<select bf-select2="{}" ng-model="stipos" multiple="multiple">
+											<option value="1">Option 1</option>
+											<option value="2">Option 2</option>
+										</select>
+									</div>
+								</div>
+							</li>
+							
+							<li class="dropdown-footer pull-right">
+								<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Utilizar quando não houverem registros cadastrados ainda -->
+
+<div class="row" ng-if="!creditos.length">
+	<div class="col-md-12">
+		<div class="col-md-12 text-center">
+			<h4>Ainda não há créditos por aqui</h4>
+		</div>
+	</div>
+</div>
+
+<!-- Utilizar quando a busca não retornar resultados -->
+
+<!-- <div class="row">
+	<div class="col-md-12 text-center">
+		<h4>Nenhum resultado encontrado para o(s) filtro(s) utilizado(s)</h4>
+	</div>
+</div> -->
+
+<div class="row" ng-if="creditos.length">
+	<div class="col-md-12">
+		<table class="table table-unstriped table-hover table-unbordered table-unfixed">
+			<thead>
+				<tr>
+					<th width="110"><span>Abreviatura</span></th>
+					<th><span>Descrição</span></th>
+					<th width="185"><span>Vínculo</span></th>
+					<th width="90"><span>Indexador</span></th>
+					<th width="85"><span>Receita(s)</span></th>
+					<th width="100"><span>Situação</span></th>
+					<th width="80"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="credito in creditos track by $index">
+					<td>{{credito.desc}}</td>
+					<td>{{credito.descricao}} <span class="badge badge-info" ng-if="credito.refProtocolo" bf-tooltip="Referenciado com Fly Protocolo">Fly Protocolo</span></td>
+					<td>{{credito.vinculo | vinculosCreditosTributarios}}</td>
+					<td>{{credito.indexador | indexadores}}</td>
+					<td><a href="" data-bf-popover="'cadastros/financeiro/creditos-tributarios/popover-receitas.html'" class="popover-active" data-placement="left" bf-popover-size="big-popover"> {{credito.receitas.length}}</a></td>
+					<td><span class="badge show" ng-class="!credito.desativado ? 'badge-success' : 'badge-danger'">{{!credito.desativado ? 'Ativo' : 'Desativado'}}</span></td>
+					<td class="text-center">
+						<a href="" title="Permissões" ng-click="editarPermissoesCredito(credito)" ng-if="permissoesCredito"><i class="fa fa-fw fa-key"></i></a>
+						<a href="" title="Editar" ng-click="editarCredito(credito)"><i class="fa fa-fw fa-pencil"></i></a>
+						<a href="" title="Excluir" ng-click="excluir(credito)"><i class="fa fa-fw fa-trash-o"></i></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<arrec-pagination></arrec-pagination>
+
+<div class="opcoes-tela">
+	<div class="row bottom">
+		<div class="col-md-12">
+			<div class="bth-switch">
+				<input id="permissoesCredito" type="checkbox" ng-model="permissoesCredito">
+				<label for="permissoesCredito">Permissões por crédito</label>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,276 @@
+<div class="bth-card">
+	<div class="bth-card__body">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="pull-right">
+					<form class="form-inline">
+						<botao-executar label="Peticionar" class="btn btn-primary btn-sm" options="{enviarTribunal:false}" />
+						<botao-protestar class="btn btn-primary btn-sm" />
+						<botao-assinar class="btn btn-primary btn-sm" />
+						<div class="btn-group">
+	
+							<!-- Colunas a exibir -->
+		
+							<div class="btn-group">
+								<button id="dropdownColunas" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Definir colunas a exibir">
+									<i class="fa fa-columns"></i> 
+									<span class="caret"></span>
+								</button>
+							</div>
+		
+							<!-- Altura das linhas -->
+		
+							<div class="btn-group">
+								<button id="dropdownAltura" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Definir altura das linhas">
+									<i class="fa fa-reorder"></i> 
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownAltura">
+									<li class="dropdown-header">Altura das linhas</li>
+									<li><a href="" ng-click="setLineHeight('1')" class="btn-check" ng-class="{'active' : lineHeight == 1}">Padrão</a></li>
+									<li><a href="" ng-click="setLineHeight('2')" class="btn-check" ng-class="{'active' : lineHeight == 2}">Condensada</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="btn-group">
+							<button id="dropdownExportar" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Fazer download">
+								<i class="fa fa-fw fa-download"></i>
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li class="dropdown-header">Formato do arquivo
+								</li>
+								<li>
+									<a href="">PDF</a>
+								</li>
+								<li>
+									<a href="">CSV</a>
+								</li>
+								<li>
+									<a href="">Excel</a>
+								</li>
+							</ul>
+						</div>
+						<button type="button" class="btn btn-default btn-sm" title="Atualizar">
+							<i class="fa fa-refresh"></i>
+						</button>
+						<div class="input-group">
+							<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+		
+							<!-- Pesquisa avançada -->
+		
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+								<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+		
+								<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right" keep-open>
+									<li class="dropdown-header">
+										<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+										<h1>Pesquisa avançada</h1>
+									</li>
+									<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+									<li>
+										<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true" ng-init="colunasSelect = [1,2]">
+											<option value="1">Contribuinte</option>
+											<option value="2">CPF/CNPJ</option>
+										</select>
+									</li>
+									<li class="dropdown-header">Utilizando como critério</li>
+									<li>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdAlguns">Alguns dos termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdTodos">Todos os termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdNenhum">Nenhum dos termos digitados</label>
+										</div>
+									</li>
+									<li role="separator" class="divider"></li>
+									<li class="dropdown-header">
+										<h1>Outras opções</h1>
+									</li>
+									<li>
+										<div class="row bottom">
+											<div class="col-md-8">
+												<label>Data da emissão</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-8">
+												<div class="input-group date-range">
+													<div class="input-group">
+														<input class="form-control" type="text" bf-date="" ng-model="filtro.emissaoDe">
+													</div>
+													<span class="input-group-addon">até</span>
+													<div class="input-group">
+														<input class="form-control" type="text" bf-date="" ng-model="filtro.emissaoAte">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row bottom">
+											<div class="col-md-6">
+												<label>Intervalo por número do documento <i class="fa fa-fw fa-info-circle"></i></label>
+											</div>
+											<div class="col-md-6">
+												<label>Intervalo por ano do documento <i class="fa fa-fw fa-info-circle"></i></label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<input type="text" class="form-control" id="numDocumento" ng-model="registro.numDocumento">
+											</div>
+											<div class="col-md-6">
+												<input type="text" class="form-control" id="anoDocumento" ng-model="registro.anoDocumento">
+											</div>
+										</div>
+										<div class="row bottom">
+											<div class="col-md-6">
+												<label>Intervalo por anos das dívidas <i class="fa fa-fw fa-info-circle"></i></label>
+											</div>
+											<div class="col-md-6">
+												<label>Situação(ções) do pagamento da(s) dívida(s)</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<input type="text" class="form-control" id="anoDivida" ng-model="registro.anoDivida">
+											</div>
+											<div class="col-md-6">
+												<situacao-pagamento-dividas-certidao-select ng-model="filtro.situacaoPagamentoCertidao" multiple="true" />
+											</div>
+										</div>
+										<div class="row bottom">
+											<div class="col-md-12">
+												<label>Situação(ções) da(s) dívida(s) da CDA</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<situacao-dividas-certidao-select ng-model="filtro.situacaoCertidao" multiple="true" filter="situacoesDividasCertidao" />
+											</div>
+										</div>
+										<div class="row bottom">
+											<div class="col-md-4">
+												<label>Possui CPF/CNPJ?</label>
+											</div>
+											<div class="col-md-4">
+												<label>Documento assinado?</label>
+											</div>
+											<div class="col-md-4">
+												<label>Possui endereço cadastrado?</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-4">
+												<select bf-select2="{}" id="cpfcnpj" class="form-control" ng-model="filtro.cpfcnpj">
+													<option value="SIM">Sim</option>
+													<option value="NAO">Não</option>
+												</select>
+											</div>
+											<div class="col-md-4">
+												<select bf-select2="{}" id="docAssinado" class="form-control" ng-model="filtro.docAssinado">
+													<option value="SIM">Sim</option>
+													<option value="NAO">Não</option>
+												</select>
+											</div>
+											<div class="col-md-4">
+												<select bf-select2="{}" id="enderecoCadastrado" class="form-control" ng-model="filtro.enderecoCadastrado">
+													<option value="SIM">Sim</option>
+													<option value="NAO">Não</option>
+												</select>
+											</div>
+										</div>
+									</li>
+									<li class="dropdown-footer pull-right">
+										<button class="btn btn-primary" data-dismiss="dropdown"><i class="fa fa-search"></i> Pesquisar</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="bth-checkbox bth-checkbox-inline">
+					<input type="checkbox" ng-click="checkAll();">
+					<label for=""></label>
+				</div>
+				<div style="display: inline-block">
+					<span class="badge pull-left">
+						0 documento(s) selecionado(s)
+					</span>
+					&nbsp;
+					<small>
+						<a href="">Selecionar todos os outros 126 resultados</a>
+					</small>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th width="30"></th>
+							<th width="145"><a href="">Código <i class="icon-sort pull-right"></i></a></th>
+							<th><a href="">Contribuinte <i class="icon-sort pull-right"></i></a></th>
+							<th width="145"><a href="">Data da emissão <i class="icon-sort pull-right"></i></a></th>
+							<th width="180" class="text-center"><span>Situação<br>das dívidas da CDA</span></th>
+							<th width="160" class="text-center"><a href="">Pagamento<br>das dívidas da CDA <i class="icon-sort pull-right"></i></a></th>
+							<th width="38"></th>
+						</tr>
+					</thead>
+					<tbody >
+						<tr ng-repeat="certidao in certidoes">
+							<td>
+								<div class="bth-checkbox">
+									<input id="chbox{{$index}}" type="checkbox" ng-model="certidao.checked" ng-disabled="certidao.inconsistente">
+										<label for="chbox{{$index}}">
+									</label>
+								</div>
+							</td>
+							<td>
+								<button class="btn btn-default btn-xs ng-binding" title="Visualizar petição">
+									<i class="fa fa-download"></i> {{certidao.certidao.numero}} / {{certidao.certidao.data | arrecAno}}
+								</button>
+								<i class="fa fa-fw fa-check-circle-o text-greenA7" bf-tooltip="Assinado digitalmente" ng-if="certidao.assinado && !certidao.hashAssinaturaP7s"></i>
+								<i class="fa fa-check-circle fa-fw text-greenA7" bf-tooltip="Assinado digitalmente P7s" ng-if="certidao.hashAssinaturaP7s"></i>
+								<!-- <i class="fa fa-fw fa-warning tx__yellow--d10" bf-tooltip="A CDA  da petição não está assinada" ng-if="!certidao.assinado && !hashAssinaturaP7s"></i> -->
+							</td>
+							<td>
+								<a href="" ng-click="verContribuinte({})">{{certidao.contrib.nome}}</a> <span class="text-muted">{{certidao.contrib.cpfcnpj}}</span>
+							</td>
+							<td>{{certidao.certidao.data | arrecDate}}</td>
+							<td class="text-center"><situacao-dividas-certidao-tags certidao="certidao" class="show" /></td>
+							<td class="text-center"><situacao-parcelas-dividas-cda situacao="certidao.divida.situacao" ng-if="!certidao.inconsistente" /></td>
+							<td class="text-center">
+								<div class="btn-group btn-group-xs">
+									<a href="" class="btn btn-link dropdown-toggle" ng-class="{'link-disabled': certidao.inconsistente}" data-toggle="dropdown">
+										<i class="fa fa-fw fa-ellipsis-v"></i>
+									</a>
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li class="dropdown-header">Ações disponíveis</li>
+										<li><a href="" ng-click="">Baixar documento</a></li>
+										<li><botao-executar label="Peticionar" options="{enviarTribunal:false}" /></li>
+										<li><botao-protestar /></li>
+										<li><botao-assinar /></li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>	
+		</div>
+		<arrec-pagination show-total="false" show-paginas="false" />
+	</div>
+</div>

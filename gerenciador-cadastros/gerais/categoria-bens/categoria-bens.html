@@ -1,0 +1,117 @@
+<div ng-controller="CategoriaBensCtrl">
+	<div class="row">
+		<div class="col-md-2">
+			<div class="btn-group">
+				<button type="button" class="btn btn-success btn-sm btn-add" ng-click="adicionar({})" title="Adiciona uma nova receita">Categoria</button>
+			</div>
+		</div>
+		<div class="col-md-10">
+			<div class="pull-right">
+				<form class="form-inline">
+					<div class="btn-group">
+	
+						<!-- Colunas a exibir -->
+	
+						<div class="btn-group">
+							<button id="dropdownColunas" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Definir colunas a exibir">
+								<i class="fa fa-columns"></i> 
+								<span class="caret"></span>
+							</button>
+						</div>
+	
+						<!-- Altura das linhas -->
+	
+						<div class="btn-group">
+							<button id="dropdownAltura" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Definir altura das linhas">
+								<i class="fa fa-reorder"></i> 
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownAltura">
+								<li class="dropdown-header">Altura das linhas</li>
+								<li><a href="" ng-click="setLineHeight('1')" class="btn-check" ng-class="{'active' : lineHeight == 1}">Padrão</a></li>
+								<li><a href="" ng-click="setLineHeight('2')" class="btn-check" ng-class="{'active' : lineHeight == 2}">Condensada</a></li>
+							</ul>
+						</div>
+					</div>
+					<button type="button" class="btn btn-default btn-sm" title="Atualizar">
+						<i class="fa fa-refresh"></i>
+					</button>
+	
+					<!-- Pesquisa inline -->
+					<div class="input-group">
+						<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+	
+						<!-- Pesquisa avançada -->
+	
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+							<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+	
+							<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
+								<li class="dropdown-header">
+									<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+									<h1>Pesquisa avançada</h1>
+								</li>
+								<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+								<li>
+									<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" ng-init="colunasSelect = [1,2]" multiple="true">
+										<option value="1">Código</option>
+										<option value="2">Descrição</option>
+									</select>
+								</li>
+								<li class="dropdown-header">Utilizando como critério</li>
+								<li>
+									<div class="bth-radio bth-radio-inline">
+										<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+										<label for="rdAlguns">Alguns dos termos digitados</label>
+									</div>
+									<div class="bth-radio bth-radio-inline">
+										<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+										<label for="rdTodos">Todos os termos digitados</label>
+									</div>
+									<div class="bth-radio bth-radio-inline">
+										<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+										<label for="rdNenhum">Nenhum dos termos digitados</label>
+									</div>
+								</li>
+								<li role="separator" class="divider"></li>
+								
+								<li class="dropdown-footer pull-right">
+									<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div class="bth-img-illustration semregistros" ng-if="!categorias.length">
+		<div class="illustration-title">Nenhuma categoria por aqui</div>
+	</div>
+	<div class="row" ng-if="categorias.length">
+		<div class="col-md-12">
+			<table class="table table-unstriped table-hover table-unbordered table-unfixed">
+				<thead>
+					<tr>
+						<th width="80"><span>Código</span></th>
+						<th><span>Descrição</span></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="categoria in categorias track by $index">
+						<td><span class="badge show">{{categoria.id}}</span></td>
+						<td>{{categoria.descricao}}</td>
+						<td class="text-right">
+							<a href="" title="Editar" ng-click="adicionar(categoria)"><i class="fa fa-fw fa-pencil"></i></a>
+							<a href="" title="Excluir" ng-click="excluir(categoria)"><i class="fa fa-fw fa-trash-o"></i></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<arrec-pagination />
+</div>

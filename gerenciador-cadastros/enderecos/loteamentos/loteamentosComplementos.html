@@ -1,0 +1,62 @@
+<div class="container container-page" data-ng-controller="LoteamentosComplementosCtrl as LoteamentosComplementosCtrl">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-9">
+                <h3 class="page-title">Cadastro de Loteamentos Complementos</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success" ng-click="LoteamentosComplementosCtrl.adicionar()"><i class="icon-plus"></i> Cadastro de Loteamentos Complementos</button>
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+
+                    <ul ng-include src="'cadastros/add.html'" class="dropdown-menu dropdown-success"></ul>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group input-search input-search-disabled">
+                    <input class="form-control" type="text" placeholder="Pesquisar">
+                    <i class="icon-remove" title="Limpa a pesquisa"></i>
+                    <button disabled="disabled" class="btn btn-link"><i class="icon-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-content">
+        <div class="row">
+            <div class="col-md-12">
+                <div data-bf-loading="LoteamentosComplementosCtrl.tracker.carregandoLoteamentosComplementoss">
+                <div class="panel-group list-group" data-ng-repeat="loteamentosComplementos in LoteamentosComplementosCtrl.loteamentosComplementoss | orderBy:'id' | filter:LoteamentosComplementosCtrl.pesquisa">
+                    <div class="panel panel-default haha">
+                        <div class="panel-collapse accordion-hidden">
+                            <div class="accordion-inner ng-animate-if">
+                                <div class="list-item">
+                                    <div class="row" data-ng-if="!loteamentosComplementos.removal">
+                                        <div class="col-md-3">
+                                            <span data-bf-tooltip="Código">{{loteamentosComplementos.id}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="list-actions clearfix">
+                                        <div class="btn-group pull-right">
+                                            <button class="btn btn-default btn-xs" title="Edita os dados do registro selecionado" ng-click="LoteamentosComplementosCtrl.editar(loteamentosComplementos)"><i class="fa fa-fw fa-pencil"></i> Editar</button>
+                                            <button class="btn btn-xs btn-danger" title="Exclui os dados do registro selecionado" ng-click="LoteamentosComplementosCtrl.remover(loteamentosComplementos)"><i class="fa fa-fw fa-trash"></i> Excluir</button>
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-warning list-item-warning" data-ng-if="loteamentosComplementos.removal">
+                                        <strong>Registro excluído com sucesso!</strong>
+                                        <button class="btn btn-default btn-xs pull-right" ng-click="LoteamentosComplementosCtrl.cancelRemover(loteamentosComplementos)"><i class="icon-undo"></i> Desfazer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

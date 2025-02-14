@@ -1,0 +1,21 @@
+<label ng-show="!hideLabel">{{vm.label}}</label>
+<div class="ui-color-selector form-control {{inputClass}}" style="width: 100%; text-align:center; cursor: pointer">
+	<div class="dropdown dropdown-colorselector">
+		<a data-toggle="dropdown" class="dropdown-toggle">
+			<span ng-class="square? 'btn-colorselector-square': 'btn-colorselector'"
+				ng-style="{'background-color': vm.colorSelected}">
+			</span>
+		</a>
+		<ul class="dropdown-menu dropdown-caret">
+			<li ng-repeat="color in vm.listColors">
+				<a ng-class="{'selected': vm.colorSelected === color.hex, 'color-btn-square': square, 'color-btn': !square}"
+				data-color="{{color.hex}}"
+				data-value="{{color.rgb}}"
+				title="{{color.name}}"
+				ng-style="{'background-color': color.hex}"
+				ng-click="vm.changeColor(color.hex)">
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>

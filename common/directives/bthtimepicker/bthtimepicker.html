@@ -1,0 +1,77 @@
+<ul class="dropdown-menu dropdown-menu-left" ng-style="{display: (isOpen && 'block') || 'none', top: position.top+'px', left: position.left+'px'}" style="left:inherit" ng-keydown="keydown($event)">
+	<li style="padding:0 5px 5px 5px" class="datetime-picker">
+		<div>
+			<table>
+				<tbody>
+					<tr class="text-center">
+						<td ng-show="showHours">
+							<a ng-click="incrementHours()" class="btn btn-link">
+								<span><i class="icon-chevron-up"> </i></span>
+							</a>
+						</td>
+						<td ng-show="showHours">&nbsp;</td>
+						<td>
+							<a ng-click="incrementMinutes()" class="btn btn-link">
+								<span><i class="icon-chevron-up"> </i></span>
+							</a>
+						</td>
+						<td ng-show="showSeconds">&nbsp;</td>
+						<td ng-show="showSeconds">
+							<a ng-click="incrementSeconds()" class="btn btn-link">
+								<span><i class="icon-chevron-up"> </i></span>
+							</a>
+						</td>
+						<td ng-show="showMeridian"></td>
+					</tr>
+					<tr>
+						<td class="form-group" ng-class="{'has-error' : invalidHours}">
+							<input style="width:50px;" type="text" ng-model="hours" ng-change="updateHours()" class="form-control text-center" ng-readonly="readonlyInput" maxlength="2">
+						</td>
+						<td ng-show="showHours">:</td>
+						<td class="form-group" ng-class="{'has-error' : invalidMinutes}">
+							<input style="width:50px;" type="text" ng-model="minutes" ng-change="updateMinutes()" class="form-control text-center" ng-readonly="readonlyInput" maxlength="2">
+						</td>
+						<td ng-show="showSeconds">:</td>
+						<td class="form-group" ng-class="{'has-error' : invalidSeconds}" ng-show="showSeconds">
+							<input style="width:50px;" type="text" ng-model="seconds" ng-change="updateSeconds()" class="form-control text-center" ng-readonly="readonlyInput" maxlength="2">
+						</td>
+						<td ng-show="showMeridian">
+							<button type="button" class="btn btn-default text-center" ng-click="toggleMeridian()">{{meridian}}</button>
+						</td>
+					</tr>
+					<tr class="text-center">
+						<td ng-show="showHours">
+							<a ng-click="decrementHours()" class="btn btn-link"><span><i class="icon-chevron-down"></i></span></a>
+						</td>
+						<td ng-show="showHours">&nbsp;</td>
+						<td>
+							<a ng-click="decrementMinutes()" class="btn btn-link">
+								<span><i class="icon-chevron-down"></i></span></a>
+						</td>
+						<td>&nbsp;</td>
+						<td ng-show="showSeconds">
+							<a ng-click="decrementSeconds()" class="btn btn-link">
+							<span><i class="icon-chevron-down"></i></span></a>
+						</td>
+						<td ng-show="showMeridian"></td>
+					</tr>
+				</tbody>
+			</table>	
+		</div>
+	</li>
+	<li ng-if="showButtonBar" style="padding:5px">
+		<span class="btn-group pull-left" style="margin-right:10px">
+			<button type=button class="btn btn-sm btn-info" ng-click="select('now')">
+				{{ getText('now') }}
+			</button> 
+			<button type=button class="btn btn-sm btn-danger" ng-click="select(null)">
+				{{ getText('clear') }}
+			</button>
+		</span> 
+		<span class="btn-group pull-right">
+			<button type="button" class="btn btn-sm btn-success" ng-click="close()">
+				{{ getText('close') }}
+			</button>
+		</span>
+	</li>
+</ul>

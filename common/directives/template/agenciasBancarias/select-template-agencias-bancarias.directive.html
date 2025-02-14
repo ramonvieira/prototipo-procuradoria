@@ -1,0 +1,16 @@
+<trib-select-template
+        ng-model="ngModel"
+        ng-required="ngRequired"
+        search="vm.AgenciasBancariasService.listTemplate"
+        input-field="nroAgencia"
+        input-maxlength="10"
+        on-select="vm.onSelect(item)">
+
+    <item-template ng-non-bindable>
+        {{item.bancos.descricao}}
+        <br>
+        <small>
+            Número: {{item.nroAgencia}} <br> Dígito: {{item.digAgencia}}
+        </small>
+    </item-template>
+</trib-select-template>

@@ -1,0 +1,367 @@
+<div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h3 class="modal-title">Assinando documentos digitais</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="bth-passoapasso" ng-init="step = 1">
+                      <ol>
+                        <li 
+                          ng-class="{
+                            'active': step == 1,
+                            'completed': step == 2
+                            }">
+                          <a href="" ng-click="step = 1">
+                            Definir filtros
+                          </a>
+                        </li>
+                        <li 
+                          ng-class="{
+                            'active': step == 2
+                            }">
+                          <a href="" ng-click="step = 2">
+                            Assinar
+                          </a>
+                        </li>
+                      </ol>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="step == 1">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="required">Modelo</label>
+                        <select name="" id="" bf-select2="{}"  ng-model="modelo">
+                            <option value=""></option>
+                            <option value="1">Modelo 1</option>
+                            <option value="2">Modelo 2</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="">Contribuinte(s)</label>
+                        <select name="" id="" bf-select2="{}"  ng-model="contribuintes" multiple="true" >
+                            <option value="1">Contribuinte 1</option>
+                            <option value="2">Contribuinte 2</option>
+                            <option value="3">Contribuinte 3</option>
+                            <option value="4">Contribuinte 4</option>
+                            <option value="5">Contribuinte 5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label class="">Período de emissão</label>
+                        <div class="input-group date-range">
+                            <div class="input-group">
+                                <input class="form-control" type="text" bf-date ng-model="de">
+                            </div>
+                            <span class="input-group-addon">até</span>
+                            <div class="input-group">
+                                <input class="form-control" type="text" bf-date ng-model="ate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <label class="">Documento(s)</label>
+                        <select name="" id="" bf-select2="{}"  ng-model="documento" multiple="true">
+                            <option value="1">Documento 1</option>
+                            <option value="2">Documento 2</option>
+                            <option value="3">Documento 3</option>
+                            <option value="4">Documento 4</option>
+                            <option value="5">Documento 5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="">Intervalo do(s) número(s) de documento(s)</label>
+                        <select bf-select2="{}" ng-init="vm.intervaloDocumentos = 2" ng-model="vm.intervaloDocumentos">
+                            <option value="1">Sim</option>
+                            <option value="2">Não</option>
+                        </select>
+                    </div>
+                    <div class="col-md-8">
+                        <label for="" ng-show="vm.intervaloDocumentos == 1">Intervalo de número(s) do(s) documento(s)</label>
+                        <label for="" ng-show="vm.intervaloDocumentos == 2">Número(s) do(s) documento(s)</label>
+                        <select name="" id="" bf-select2="{}"  ng-model="nDocumento" multiple="true" ng-show="vm.intervaloDocumentos == 2">
+                            <option value="1">Numero 1</option>
+                            <option value="2">Numero 2</option>
+                            <option value="3">Numero 3</option>
+                            <option value="4">Numero 4</option>
+                            <option value="5">Numero 5</option>
+                        </select>
+                        <div class="input-group" ng-show="vm.intervaloDocumentos == 1">
+                            <input type="text" ng-model="anoDeDocumentos" class="form-control">
+                            <span class="input-group-addon">até</span>
+                            <input type="text" ng-model="anoAteDocumentos" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="step == 2 || tipo == 0">
+                <div class="row bottom">
+                    <div class="col-md-12">
+                        <h4>Documentos</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="31">
+                                        <div class="bth-checkbox bth-checkbox-inline">
+                                            <input id="cAll" type="checkbox">
+                                            <label for="cAll">&nbsp;</label>
+                                        </div>
+                                    </th>
+                                    <th width="70">
+                                        Número
+                                    </th>
+                                    <th width="120">
+                                        Data da emissão
+                                    </th>
+                                    <th>
+                                        Modelo
+                                    </th>
+                                    <th>
+                                        Contribuinte
+                                    </th>
+                                    <th width="120">
+                                        Situação
+                                    </th>
+                                    <th width="61">
+                                        <!-- Ações -->
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="bth-checkbox bth-checkbox-inline">
+                                            <input id="c1" type="checkbox">
+                                            <label for="c1">&nbsp;</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        10
+                                    </td>
+                                    <td>
+                                        01/09/2016
+                                    </td>
+                                    <td>
+                                        CDA
+                                    </td>
+                                    <td>
+                                        Gabriel Valandro
+                                    </td>
+                                    <td>
+                                        Assinado
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="" title="Visualizar">
+                                            <i class="fa fa-fw fa-eye"></i>
+                                        </a>
+                                        <a href="" ng-click="openAnexo({})" title="Anexos">
+                                            <i class="fa fa-fw fa-paperclip"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bth-upload" ng-show="tipo == 0">
+                    <!-- 
+                    Visão quando o usuário estiver anexando arquivos
+                    Após selecionar um documento este deve ser apresendo com o respectivo ícone do seu formato e sua respectiva cor.
+
+                                PDF:       fa fa-file-pdf-o ;  red9;
+                                DOC,DOCX:  fa fa-file-word-o;  blueC8;
+                                TXT:       fa fa-file-text-o;  gray10;
+                                HTML:      fa fa-file-code-o;  orange7;
+                                XLS,XLSX:  fa fa-file-excel-o; greenA10;
+                                JPG,PNG:   fa fa-file-image-o; purpleA8;
+                                Inválido:  fa-file-o;          gray5;
+
+                    Deve apresentar o tamanho do arquivo e a porcentagem de carregamento do mesmo, seguida de um progress bar. 
+                    Enquanto o arquivo estiver sendo carregado deve ser apresentado o ícone fa fa-trash-o para que o usuário possa cancelar o upload do arquivo. 
+                    Existem três tipos de progress que serão utilizados:
+
+                            Progress-bar: é apresentado em conjunto com o percentual de carregamento quando um arquivo estiver sendo carregado.
+                            Progress-bar-success: é apresentado quando um arquivo é anexado com sucesso.
+                            Progress-bar-danger: é apresentado quando o arquivo selecionado for de um formato inválido ou se o tamanho do arquivo for maior que o suportado.
+
+                    No processo de carregamento de um arquivo existem 3 possibilidades:
+
+                    a) Download de arquivo realizado com sucesso: ao concluir o donwload do arquivo é apresentado como "Concluído" e são apresentadas mais opções além da opção de "Excluir anexo."(fa fa-trash-o).São apresentadas também as opções: "Fazer download do anexo"(fa fa-download) e "Visualizar anexo"(fa fa-eye).
+
+                    b) Formato de arquivo inválido: essa situação acontece quando o usuário tenta anexar um arquivo com formato diferente dos formatos permitidos. É apresentado o progress-bar-danger e é informado que o arquivo é inválido. O arquivo é apresentado até o cadastro ser salvo, ao editar o cadastro o arquivo não será mais apresentado.
+
+                    c) Tamanho de arquivo maior que o suportado: essa situação acontece quando o usuário tenta anexar um arquivo maior do que  10MB.É apresentado o progress-bar-danger e é informado que o tamanho do arquivo é maior que o permitido. ("Tamanho excedido"). 
+
+                    Sempre deve ser possível que o usuário arraste arquivos para a área de upload e/ou selecione através do botão de "+" 
+                    -->
+
+                    <div class="row bottom">
+                        <div class="col-md-6">
+                            <label>
+                                <h4>
+                                    Anexos <i class="tip fa fa-question-circle" data-toggle="tooltip" title="Extensões permitidas: PDF, DOC, DOCX, TXT, HTML, XLS, XLSX, JPG, PNG. Tamanho máximo permitido: 10 MB."></i>
+                                </h4>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="btn btn-add btn-sm btn-success btn-file pull-right">
+                                <span>Anexo</span>
+                                <input type="file" class="upload" ng-model="anexo" id="uploadBtn">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bth-upload-list">
+                        <!-- 
+                        <div class="bth-upload-list-center">
+                            <div>
+                                <h4 class="text-center">Ainda não há anexos por aqui</h4>
+                                <h5 class="text-center">Arraste e solte os anexos do seu dispositivo aqui ou clique em "+ Anexo"</h5>
+                            </div>
+                        </div> 
+                        -->
+                        <ul>
+                            <li>
+                                <span class="bth-upload-icon text-greenA10"><i class="fa fa-file-excel-o"></i></span>
+                                <small title="multadonarodovia.xlsx">multadonarodovia.xlsx</small>
+                                <small>Tamanho(7k)</small>
+                                <small>Carregando
+                                    <strong>75%</strong>
+                                </small>
+                                <div class="progress bth-upload-progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
+                                    </div>
+                                </div>
+                                <div class="bth-upload-button-bar">
+                                    <a href="" title="Remover anexo"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="bth-upload-icon text-red9"><i class="fa fa-file-pdf-o"></i></span>
+                                <small title="multadonarodovia.pdf">multadonarodovia.pdf</small>
+                                <small>Tamanho(7k)</small>
+                                <small>Carregando
+                                    <strong>30%</strong>
+                                </small>
+                                <div class="progress bth-upload-progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+                                    </div>
+                                </div>
+                                <div class="bth-upload-button-bar">
+                                    <a href="" title="Remover anexo"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="bth-upload-icon text-blueC8"><i class="fa fa-file-word-o"></i></span>
+                                <small title="multadonarodovia.docx">multadonarodovia.docx</small>
+                                <small>Tamanho(7k)</small>
+                                <small>
+                                    <strong>Concluído</strong>
+                                </small>
+                                <div class="progress bth-upload-progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                    </div>
+                                </div>
+                                <div class="bth-upload-button-bar">
+                                    <a href="" title="Fazer download do anexo"><i class="fa fa-download"></i></a>
+                                    <a href="" title="Visualizar anexo"><i class="fa fa-eye"></i></a>
+                                    <a href="" title="Remover anexo"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="bth-upload-icon text-gray5"><i class="fa fa-file-o"></i></span>
+                                <small title="multadonarodovia.php">multadonarodovia.php</small>
+                                <small>
+                                    <strong class="text-crimson8"> Erro</strong>
+                                </small>
+                                <small>Formato inválido.</small>
+                                <div class="progress bth-upload-progress">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                    </div>
+                                </div>
+                                <div class="bth-upload-button-bar">
+                                    <a href="" title="Remover anexo"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            </li>
+                            
+                            <!-- 
+                            Visão quando o download estiver concluído 
+                            Deve ser apresentado o nome do arquivo e seu tamanho, além das opções de fazer download, visualizar e excluir anexo.
+                            Deve continuar sendo possível arrastar arquivos para a área de upload e/ou selecionar arquivos através do botão de "+". 
+                            -->
+                        
+                            <li>
+                                <span class="bth-upload-icon text-gray10"><i class="fa fa-file-text-o"></i></span>
+                                <small title="multadonarodovia.txt">multadonarodovia.txt</small>
+                                <small>Tamanho(7k)</small>
+                                <small>Extensão: txt </small>
+                                <div class="bth-upload-button-bar">
+                                    <a href="" title="Fazer download do anexo"><i class="fa fa-download"></i></a>
+                                    <a href="" title="Visualizar anexo"><i class="fa fa-eye"></i></a>
+                                    <a href="" title="Remover anexo"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            </li>
+                            <li> 
+                                <span class="bth-upload-icon text-orange7"><i class="fa fa-file-code-o"></i></span>
+                                <small title="multadonarodovia.html">multadonarodovia.html</small>
+                                <small>Tamanho(7k)</small>
+                                <small>Extensão: html </small>
+                                <div class="bth-upload-button-bar">
+                                    <a href="" title="Fazer download do anexo"><i class="fa fa-download"></i></a>
+                                    <a href="" title="Visualizar anexo"><i class="fa fa-eye"></i></a>
+                                    <a href="" title="Remover anexo"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="bth-upload-icon text-purpleA8"><i class="fa fa-file-image-o"></i></span>
+                                <small title="multadonarodovia.jpeg">multadonarodovia.jpeg</small>
+                                <small>Tamanho(7k)</small>
+                                <small>Extensão: jpg </small>
+                                <div class="bth-upload-button-bar">
+                                    <a href="" title="Fazer download do anexo"><i class="fa fa-download"></i></a>
+                                    <a href="" title="Visualizar anexo"><i class="fa fa-eye"></i></a>
+                                    <a href="" title="Remover anexo"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="bth-upload-icon text-purpleA8"><i class="fa fa-file-image-o"></i></span>
+                                <small title="multadonarodovia.jpg">multadonarodovia.jpg</small>
+                                <small>Tamanho(7k)</small>
+                                <small>Extensão: jpg </small>
+                                <div class="bth-upload-button-bar">
+                                    <a href="" title="Fazer download do anexo"><i class="fa fa-download"></i></a>
+                                    <a href="" title="Visualizar anexo"><i class="fa fa-eye"></i></a>
+                                    <a href="" title="Remover anexo"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" ng-show="step == 1">Avançar <i class="fa fa-fw fa-arrow-right"></i></button>
+            <button type="button" class="btn btn-default pull-left" ng-show="step == 2"><i class="fa fa-fw fa-arrow-left"></i> Voltar</button>
+
+            <button type="button" class="btn btn-primary" ng-show="(step == 2 && tipo != undefined) || tipo == 0">Assinar <span>selecionado(s)</span></button>
+
+            <button type="button" class="btn btn-default">Cancelar</button>
+        </div>
+    </div>
+</div>

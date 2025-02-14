@@ -1,0 +1,35 @@
+<div class="bth-card__header">
+	<div class="row">
+		<div class="col-md-8">
+			<h4>
+				<i class="fa fa-users fa-fw"></i>
+				Sócios
+			</h4>
+		</div>
+		<div class="col-md-4">
+			<button class="btn btn-xs btn-add btn-success pull-right" title="Adiciona um novo sócio" ng-click="adicionarSocio()">
+				Sócio
+			</button>
+		</div>
+	</div>                        
+</div>
+<div class="bth-card__body">
+	<div ng-show="empty">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<i class="fa fa-users fa-5x tx__gray--l10"></i>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<strong class="text-muted">Nenhum sócio informado</strong>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<p class="text-muted">Permite relacionar pessoas como sócios da pessoa jurídica</p>
+			</div>
+		</div>
+	</div>
+	<div ng-include="'gerenciador-cadastros/pessoas/contribuintes/pessoa-juridica/socio/socio-lista.html'" ng-hide="empty"></div>
+</div>

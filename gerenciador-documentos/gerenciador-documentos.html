@@ -1,0 +1,26 @@
+<div class="container container-fluid" >
+	<div class="row mTop10">
+		<div class="col-md-12">
+			<div class="bth-card">
+				<div class="bth-card__header">
+					<h4 class="bth-card__title">Gerenciador de documentos</h4>
+				</div>
+				<ul role="tablist" class="nav nav-tabs bottom">
+					<li data-ui-sref="main.gerenciadorDocumentos.cda" data-ui-sref-active="active">
+						<a href=""><i class="fa fa-fw fa-file-text-o"></i> Certidão de dívida ativa</a>
+					</li>
+					<li data-ui-sref="main.gerenciadorDocumentos.peticao-inicial" data-ui-sref-active="active">
+						<a href=""><i class="fa fa-fw fa-balance-scale"></i> Petição inicial</a>
+					</li>
+					<li data-ui-sref="main.gerenciadorDocumentos.peticao-intermediaria" data-ui-sref-active="active">
+						<a href=""><i class="fa fa-fw fa-check"></i> Petição intermediária</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="section-content">
+		<div ui-view="child"></div>
+	</div>
+</div>

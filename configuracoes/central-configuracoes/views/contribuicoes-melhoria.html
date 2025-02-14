@@ -1,0 +1,38 @@
+<div class="alert alert-small alert-warning" ng-show="formaGerarCalculo == 2">
+    <i class="fa fa-fw fa-exclamation-triangle text-yellow5"></i> Ainda não há fórmula criada para o ano atual
+</div>
+<h1 class="titulo-configuracoes">Parâmetros do cálculo</h1>
+<div class="row">
+    <div class="col-md-3">
+        <label for="">Forma de geração</label>
+        <select bf-select2="{}" ng-model="formaGerarCalculo">
+            <option value="1">Por valorização</option>
+            <option value="2">Por fórmula</option>
+        </select>
+    </div>
+</div>
+<h1 class="titulo-configuracoes">Parâmetros do lançamento</h1>
+<div class="row">
+    <div class="col-md-6">
+        <label for="">Crédito tributário</label>
+        <select bf-select2="{}" ng-model="credito">
+            <option value="1">Melhoria 1</option>
+            <option value="2">Melhoria 2</option>
+        </select>
+    </div>
+     <div class="col-md-6">
+        <label for="">Receita</label>
+        <select bf-select2="{}" ng-model="receita" ng-disabled="credito == null">
+            <option value="1">Receita 1</option>
+            <option value="2">Receita 2</option>
+        </select>
+    </div>
+</div>
+<div class="row">
+<div class="col-md-12">
+    <div class="pull-right">
+        <button class="btn btn-primary" ng-click="salvarConfiguracao();">Salvar</button>
+        <button class="btn btn-default" title="Restaura a configuração para a última versão salva">Restaurar</button>
+    </div>
+</div>
+</div>

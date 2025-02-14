@@ -1,0 +1,92 @@
+<div data-ng-controller="EstadosCtrl as vm">
+    <div class="row">
+        <div class="col-md-3">
+            <div ng-include src="'gerenciador-cadastros/enderecos/add.html'"></div>
+        </div>
+        <div class="col-md-9">
+            <div class="pull-right">
+                <form action="" class="form-inline">
+                    <finder total-registros="true" grid-config="gridConfig" filter-by="descricao, abreviatura" filter-cond="like" finder-value="textobusca" is-carregando="false" fields="columns"></finder>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Definidos pelo usuário</h4>
+            <table id="estadosTable" class="table table-unfixed table-unstriped">
+                <thead>
+                    <tr>
+                        <th>
+                            <a href="">Descrição</a>
+                        </th>
+                        <th width="5%">
+                            <a href="">Sigla</a>
+                        </th>
+                        <th width="25%">
+                            <a href="">País</a>
+                        </th>
+                        <th width="6%">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Flórida</td>
+                        <td>FL</td>
+                        <td>Estados Unidos da América (USA)</td>
+                        <td class="text-center">
+                            <a href="" title="Editar">
+                                <i class="fa fa-fw fa-pencil" title="Editar"></i>
+                            </a>
+                            <a href="" title="Excluir">
+                                <i class="fa fa-fw fa-trash-o"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <navigator grid-config="gridConfig" loading-tracker="tracker.carregandoRegistros" total-registros="totalRegistros"></navigator>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Padrões</h4>
+            <table id="estadosPadraoTable" class="table table-unfixed table-unstriped">
+                <thead>
+                    <tr>
+                        <th>
+                            <a href="">Descrição</a>
+                        </th>
+                        <th width="5%">
+                            <a href="">Sigla</a>
+                        </th>
+                        <th width="15%">
+                            Código do <abbr title="Instituto Brasileiro de Geografia e Estatística">IBGE</abbr>
+                        </th>
+                        <th width="27%">
+                            <a href="">País</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Acre</td>
+                        <td>AC</td>
+                        <td>12</td>
+                        <td>Brasil (BRA)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <navigator grid-config="gridConfig" loading-tracker="tracker.carregandoRegistros" total-registros="totalRegistros"></navigator>
+        </div>
+    </div>
+</div>

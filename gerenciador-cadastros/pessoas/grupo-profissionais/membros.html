@@ -1,0 +1,53 @@
+<table class="table table-unfixed table-unstriped table-hover">
+	<thead>
+		<tr ng-if="registro.automatico">
+			<th></th>
+			<th></th>
+			<th></th>
+			<th colspan="2" class="text-center"><span>Parcicipa da distribuição de</span></th>
+		</tr>
+		<tr>
+			<th class="col-fit">
+				<div class="bth-checkbox">
+					<input id="checkModeloAll" type="checkbox">
+					<label for="checkModeloAll">&nbsp;</label>
+				</div>
+			</th>
+			<th><span>Profissional</span></th>
+			<th width="120"><span>Tipo</span></th>
+			<th width="120" class="text-center" ng-if="registro.automatico"><span>Processos</span></th>
+			<th width="120" class="text-center" ng-if="registro.automatico"><span>Tarefas</span></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="procurador in procuradoresAll">
+			<td>
+				<div class="bth-checkbox">
+					<input id="proc{{$index}}" name="checkModelo" type="checkbox" ng-model="procurador.selected" ng-checked="procurador.selected" ng-change="setProc(procurador.id, procurador.selected)">
+					<label for="proc{{$index}}">&nbsp;</label>
+				</div>
+			</td>
+			<td>
+				<div class="cell-wrapper">
+					<img ng-src="{{procurador.procurador.img}}" class="img-circle" width="30" style="margin: 0 auto">
+				</div>
+				<div class="cell-wrapper">
+					<small class="ellipsis text-muted">{{procurador.procurador.nome}}</small>
+				</div>
+			</td>
+			<td><span class="label show" ng-class="procurador.funcao == 'Administrador' ? 'label-primary' : procurador.funcao == 'Procurador' ? 'label-info' : 'label-default'">{{procurador.funcao}}</span></td>
+			<td class="text-center" ng-if="registro.automatico">
+				<div class="bth-switch" ng-if="procurador.selected">
+					<input id="distribProcessos{{$index}}" type="checkbox" ng-model="registro.procuradores[$index].distribProcessos">
+					<label for="distribProcessos{{$index}}">&nbsp;</label>
+				</div>
+			</td>
+			<td class="text-center" ng-if="registro.automatico">
+				<div class="bth-switch" ng-if="procurador.selected">
+					<input id="distribTarefas{{$index}}" type="checkbox" ng-model="registro.procuradores[$index].distribTarefas">
+					<label for="distribTarefas{{$index}}">&nbsp;</label>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,95 @@
+
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h3 class="modal-title">{{isEditing ? 'Editando' : 'Adicionando'}} indexador</h3>
+</div>
+<div class="modal-body">
+	<encerramento-mensal-alerta ng-if="mesEncerrado" mensagem="O indexador não pode ter a data informada" />
+	<form name="form">
+		<div class="row">
+			<div class="col-md-6">
+				<label for="" class="required">Descrição</label>
+				<input type="text" class="form-control" ng-model="registro.descricao">
+			</div>
+			<div class="col-md-2">
+				<label for="" class="required">Sigla</label>
+				<input type="text" class="form-control" ng-model="registro.sigla">
+			</div>
+	
+			<div class="col-md-4">
+				<label for="" class="required">Tipo</label>
+				<select bf-select2="{}" ng-model="registro.tipo" class="form-control">
+					<option value="INDEXADOR">Indexador</option>
+					<option value="MOEDA_PAIS">Moeda do país</option>
+				</select>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="text-center" ng-if="!registro.movimentacoes.length">
+					<br>
+						<p>Ainda não há movimentações por aqui</p>
+					<br>
+				</h4>
+			
+				<div ng-if="registro.movimentacoes.length">
+					<div class="row bottom">
+						<div class="col-md-12">
+							<h4>Movimentações</h4>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div scroll max-height="425" id="listMovimentacoes">
+								<table class="table bottom">
+									<thead>
+									<tr>
+										<th width="175"><span class="required">Data</span></th>
+										<th><span class="required">Valor <span ng-if="registro.sigla">({{registro.sigla}})</span></span></th>
+										<th width="50"></th>
+									</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="movimentacao in registro.movimentacoes | orderBy:'-id'" id="linha{{movimentacao.id}}" ng-class="{'danger': movimentacao.erroEncerramento}">
+											<td class="has-edit">
+												<div class="input-group">
+													<input type="text" id="data{{movimentacao.id}}" class="form-control" ng-model="movimentacao.data" bf-date=""  ng-change="checkEncerramentoMensal(movimentacao)" ng-disabled="movimentacao.encerrado || movimentacao.disabled" ng-required="true">
+												</div>
+											</td>
+											<td class="has-edit">
+												<ui-number ng-model="movimentacao.valor" id="valor{{movimentacao.id}}" ng-required="true" integer="6" fraction="9" append="after" ng-disabled="movimentacao.encerrado || movimentacao.disabled"></ui-number>
+											</td>
+											<td class="text-center">
+												<a href="" ng-click="excluirMovimentacao(movimentacao)" ng-if="!movimentacao.encerrado && !movimentacao.disabled">
+													<i class="fa fa-trash-o" title="Excluir"></i>
+												</a>
+												<i class="fa fa-info-circle text-muted" bf-tooltip="Indexador não pode ser modificado pois já ocorreu o encerramento mensal" ng-if="movimentacao.encerrado"></i>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row bottom">
+			<div class="col-md-12 text-right">
+				<button class="btn btn-success btn-sm btn-add" title="Adiciona uma nova movimentação" ng-click="adicionarMovimentacao()">
+					Movimentação
+				</button>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<!-- Mostrar esta mensagem na toast caso gere essa inconsistencia 'O ano do primeiro vencimento não pode ser menor do que o ano da competência' -->
+	<button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="mesEncerrado || form.$invalid" ng-click="salvar()">Salvar</button>
+	<button type="button" class="btn btn-default" ng-disabled="mesEncerrado" ng-click="salvar()" ng-if="!isEditing">Salvar e adicionar novo</button>
+	<button type="button" class="btn btn-default" ng-disabled="mesEncerrado" data-dismiss="modal" ng-click="excluir(registro)" ng-if="isEditing"><i class="fa fa-fw fa-trash-o"></i> Excluir</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+</div>

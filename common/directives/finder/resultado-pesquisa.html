@@ -1,0 +1,9 @@
+<div data-ng-if="exibir && !isCarregando">
+	<p data-ng-if="textobusca === ''" class="lead text-center ng-scope">
+		Ainda não há {{cadastro}} por aqui
+	</p>
+	<p data-ng-if="textobusca && textobusca !== ''" class="lead text-center ng-scope">
+		Nenhum resultado encontrado para
+		<span class="text-danger ng-binding">{{textobusca}}</span>
+	</p>
+</div>

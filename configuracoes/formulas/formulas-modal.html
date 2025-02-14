@@ -1,0 +1,284 @@
+<div class="modal-dialog modal-sm">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title" style="display: inline-block">{{isEditing? 'Editando' : 'Adicionando'}}
+				fórmula
+
+			</h3>
+		</div>
+		<div class="modal-body">
+			<form action="">
+				<div class="row">
+					<div class="col-md-{{
+							tipoFormulaCalculo == 1 || 
+							tipoFormulaCalculo == 2 || 
+							tipoFormulaCalculo == 4 || 
+							tipoFormulaCalculo == 5 || 
+							tipoFormulaCalculo == 6 || 
+							tipoFormulaCalculo == 7 || 
+							tipoFormulaCalculo == 8 ||
+							tipoFormulaCalculo == 9 ? '6' : '12'}}">
+						<label for="" class="required">Tipo</label>
+						<select bf-select2="{}" ng-model="tipoFormulaCalculo">
+							<option value="2">Acréscimos</option>
+							<option value="3">Cálculo imobiliário</option>
+							<option value="6">Contribuição de melhoria</option>
+							<option value="8">Desconto para parcelamento</option>
+							<option value="5">ITBI (Imposto sobre a Transmissão de Bens Imóveis)</option>
+							<option value="1">Requerimento da manutenção de cálculo</option>
+							<option value="7">Baixa de arquivo</option>
+							<option value="4">Validação cadastral</option>
+							<option value="9">Manutenção de dívida ativa</option>
+						</select>
+					</div>
+					<div class="col-md-3" ng-show="tipoFormulaCalculo == 9">
+						<label for="" class="required">Lei/Ato</label>
+						<select bf-select2="{}" ng-model="beneficioFiscal">
+							<option value="1">123456</option>
+							<option value="2">123456</option>
+							<option value="3">123456</option>
+						</select>
+					</div>
+					<div class="col-md-3" ng-show="tipoFormulaCalculo == 9">
+						<label for="" class="">Tipo de movimentação</label>
+						<select bf-select2="{}" ng-model="tipoMovimentacao">
+							<option value="1">Anistia</option>
+							<option value="2">Prescrição</option>
+							<option value="3">Remissão</option>
+							<option value="4">Cancelamento</option>
+							<option value="5">Suspensão</option>
+						</select>
+					</div>
+					<div class="col-md-6" ng-show="tipoFormulaCalculo == 1">
+						<label for="" class="required">Benefício fiscal</label>
+						<select bf-select2="{}" ng-model="beneficioFiscal">
+							<option value="1">Benefício 1</option>
+							<option value="2">Benefício 2</option>
+							<option value="3">Benefício 3</option>
+						</select>
+					</div>
+					<div class="col-md-6" ng-show="tipoFormulaCalculo == 4">
+						<label for="" class="required">Cadastro</label>
+						<select bf-select2="{}" ng-model="cadastros">
+							<option value="1">Econômicos</option>
+							<option value="2">Transferência de imóveis</option>
+						</select>
+					</div>
+					<div class="col-md-6" ng-show="tipoFormulaCalculo == 5">
+						<label for="" class="required">Tipo de fórmula do <abbr title="Imposto Sobre a Transmissão de Bens Imóveis">ITBI</abbr></label>
+						<select bf-select2="{}" ng-model="tipoFormulaItbi">
+							<option value="1">Transferência de lançamentos do imóvel</option>
+							<option value="2">Valores</option>
+						</select>
+					</div>
+					<div class="col-md-6" ng-show="tipoFormulaCalculo == 6">
+						<label for="" class="required">Tipo de fórmula da contribuição de melhoria</label>
+						<select bf-select2="{}" ng-model="tipoFormulaContribuicao">
+							<option value="1">Contribuição de melhoria</option>
+							<option value="2">Prévia do valor da contribuição por imóvel</option>
+						</select>
+					</div>
+					<div class="col-md-2" ng-show="tipoFormulaCalculo == 2">
+						<label for="">Utilizar <abbr title="Sistema Especial de Liquidação e de Custódia">SELIC</abbr>?</label>
+						<select bf-select2="{}" ng-model="selic">
+							<option value="1">Sim</option>
+							<option value="2">Não</option>
+						</select>
+					</div>
+					<div class="col-md-6" ng-show="tipoFormulaCalculo == 7">
+						<label for="" class="required">Tipo de validação</label>
+						<select bf-select2="{}" ng-model="tipoValidacao">
+							<option value="1">Validação do arquivo</option>
+							<option value="2">Tratamento do registro do arquivo</option>
+						</select>
+					</div>
+					<div class="col-md-6" ng-show="tipoFormulaCalculo == 8">
+						<label for="" class="required">Descrição</label>
+						<input type="text" class="form-control">
+					</div>
+					<div class="col-md-4" ng-show="tipoFormulaCalculo == 2">
+						<label for="" class="required">Saldos a restituir?</label>
+						<select bf-select2="{}" ng-model="saldoRestituir">
+							<option value="1">Sim</option>
+							<option value="2">Não</option>
+						</select>
+					</div>
+				</div>
+				<div class="row" ng-show="tipoFormulaCalculo == 2">
+					<div class="col-md-4" ng-show="tipoFormulaCalculo == 2">
+						<label for="" class="required">Tipo de acréscimo</label>
+						<select bf-select2="{}" ng-model="tipoAcrescimo">
+							<option value="1">Correção</option>
+							<option value="2">Juros</option>
+							<!-- Se 'Saldos a restituir?' for igual a 'Sim' a opção 'Multa' não aparece -->
+							<option value="3" ng-show="saldoRestituir != 1">Multa</option>
+						</select>
+					</div>
+					<div class="col-md-3" ng-show="tipoAcrescimo == 1 && saldoRestituir != 1 ">
+						<label for="" class="required">Tipo de correção</label>
+						<!-- Caso 'Saldos a restituir' seja igual a 'Sim' está opção é fixa conforme requisito. Sendo assim o campo fica desabilitado -->
+						<select bf-select2="{}" ng-model="tipoCorrecao" ng-disabled="">
+							<option value="1">Pós-fixada</option>
+							<option value="2">Pré-fixada</option>
+						</select>
+					</div>
+					<div class="col-md-3" ng-show="tipoAcrescimo == 2 && saldoRestituir != 1">
+						<label for="" class="required">Tipo de juros</label>
+						<!-- Caso 'Saldos a restituir' seja igual a 'Sim' está opção é fixa conforme requisito. Sendo assim o campo fica desabilitado -->
+						<select bf-select2="{}" ng-model="tipoJuros" ng-disabled="">
+							<option value="1">Parcelamento</option>
+							<option value="2">Moratório</option>
+						</select>
+					</div>
+					<div class="col-md-2" ng-show="(tipoAcrescimo == 1) || (tipoAcrescimo == 2 && selic == 1) ">
+						<label for="" class="required">Indexador</label>
+						<select bf-select2="{}" ng-model="indexador">
+							<option value="1">R$</option>
+							<option value="2">£</option>
+							<option value="3">$</option>
+						</select>
+					</div>
+					<div class="col-md-2" ng-show="tipoAcrescimo == 2 && selic != 1">
+						<label for="" class="required">Taxa de juros</label>
+						<div class="input-group">
+							<input type="text" class="form-control" ng-model="taxaJuros">
+							<span class="input-group-addon">%</span>
+						</div>
+					</div>
+					<div class="col-md-2" ng-show="tipoAcrescimo == 3">
+						<label for="" class="required">Taxa aplicada</label>
+						<div class="input-group">
+							<input type="text" class="form-control" ng-model="taxaJuros">
+							<span class="input-group-addon">%</span>
+						</div>
+					</div>
+					<div class="col-md-{{tipoAcrescimo == 2 && saldoRestituir != 1 || tipoAcrescimo == 1 && saldoRestituir != 1 ? '3' : tipoAcrescimo == 2 && saldoRestituir == 1 || tipoAcrescimo == 1 && saldoRestituir == 1 ? '6' : tipoAcrescimo == 3 ? '6' : '8'}}">
+						<label for="" ng-class="tipoJuros == 1 ? 'required' : ''">Ato</label>
+						<select bf-select2="{}" ng-model="atos">
+							<option value="1">Ato 1</option>
+							<option value="2">Ato 2</option>
+							<option value="3">Ato 3</option>
+						</select>
+					</div>
+				</div>
+				<div class="row" ng-show="tipoFormulaCalculo == 2 && tipoAcrescimo != null">
+					<div class="col-md-12">
+						<label for="" class="required">Tipo(s) de lançamento</label>
+						<select bf-select2="{}" ng-model="tipoLancamento" multiple="multiple">
+							<option value="1">Lançamentos de créditos no exercício</option>
+							<option value="2">Divida ativa</option>
+							<option value="3">Parcelamento</option>
+						</select>
+					</div>
+				</div>
+				<div class="row bottom" ng-show="tipoFormulaCalculo == 2 && tipoAcrescimo != null">
+					<div class="col-md-12">
+						<label for="" class="required">Crédito(s) tributário(s)</label>
+						<select bf-select2="{}" ng-model="creditosTributarios" multiple="multiple">
+							<option value="1">Crédito 1</option>
+							<option value="2">Crédito 2</option>
+							<option value="3">Crédito 3</option>
+						</select>
+					</div>
+				</div>
+				<div class="row bottom" ng-show="tipoFormulaCalculo == 3">
+					<div class="col-md-2">
+						<label for="" class="required">Ano</label>
+						<span class="ui-spinner input-group">
+							<input id="spinner" class="form-control ui-spinner-input" type="text" name="value" autocomplete="off" role="spinbutton" ng-model="numDetalhes" ng-change="geraDetalhe(numDetalhes)">
+							<a class="ui-spinner-button ui-spinner-up" ng-click="soma(numDetalhes)" tabindex="-1">
+								<span class="icon-sort-up"></span>
+							</a>
+							<a class="ui-spinner-button ui-spinner-down" ng-click="sub(numDetalhes)" tabindex="-1">
+								<span class="icon-sort-down"></span>
+							</a>
+						</span>
+					</div>
+					<div class="col-md-{{creditoTributario == 3 ? '7' : '10'}}">
+						<label for="" class="required">Crédito tributário</label>
+						<select bf-select2="{}" ng-model="creditoTributario">
+							<option value="1">Crédito 1</option>
+							<option value="2">Crédito 2</option>
+							<option value="3">Crédito 3 (Exemplo parcelamento)</option>
+						</select>
+					</div>
+					<div class="col-md-3" ng-show="creditoTributario == 3">
+						<label for="" class="required">Cobrança de taxas</label>
+						<select bf-select2="{}" ng-model="formaCobranca">
+							<option value="1">Por parcela</option>
+							<option value="2">Por lançamento</option>
+						</select>
+					</div>
+				</div>
+				<div class="row bottom" ng-show="tipoFormulaCalculo == 7 || tipoFormulaCalculo == 9">
+					<div class="col-md-12">
+						<label for="" class="required">Descrição</label>
+						<input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="row bottom" ng-show="tipoFormulaCalculo == 8">
+					<div class="col-md-12">
+						<div class="col-md-4">
+							<label for="" class="required">Tipos de lançamento</label>
+							
+							<select bf-select2="{}" ng-model="tipoLancamento" class="form-control">
+								<option value="1">Dividas</option>
+								<option value="2">Lançamentos do exercício</option>
+								<option value="3">Parcelamentos anteriores</option>
+								<option value="4">Todos</option>
+							</select>
+						</div>
+
+						<div class="col-md-4">
+							<label for="" class="required">Tipos de desconto</label>
+							
+							<select bf-select2="{}" ng-model="tipoDesconto" class="form-control">
+								<option value="1">Desconto no tributo</option>
+								<option value="2">Desconto no juros</option>
+								<option value="3">Desconto na multa</option>
+								<option value="4">Desconto na correção</option>
+							</select>
+						</div>
+
+						<div class="col-md-4">
+							<label for="">Lei/Ato</label>
+							
+							<div class="input-group">
+								<select bf-select2="{}" ng-model="tipoLeiAto" class="form-control">
+									<option value="1">Item 1</option>
+									<option value="2">Item 2</option>
+									<option value="3">Item 3</option>
+								</select>
+
+								<div class="input-group-btn">
+									<button class="btn btn-default" data-bf-popover="'configuracoes/formulas/lei-atos-historico-popover.html'" data-bf-popover-size="bth-historico-popover-left-scroll">
+										<i class="fa fa-clock-o"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</form>
+        </div>
+        <div class="modal-footer">
+        	<div class="bth-checkbox bth-checkbox-danger pull-left" ng-if="isEditing" style="margin-left: 6px; margin-top: 6px">
+				<input id="checkboxS1" type="checkbox">
+				<label for="checkboxS1">Registro desativado</label>
+			</div>
+
+			<button class="btn btn-primary" ng-show="tipoFormulaCalculo == 2 && tipoAcrescimo == 1 && tipoCorrecao == 2 || tipoFormulaCalculo == 2 && tipoAcrescimo == 2 && tipoJuros == 1">Salvar</button>
+
+           	<button class="btn btn-{{tipoFormulaCalculo == 2 && tipoAcrescimo == 1 && tipoCorrecao == 2 || tipoFormulaCalculo == 2 && tipoAcrescimo == 2 && tipoJuros == 1 ? 'default' : 'primary' }}">Salvar e criar script</button>
+			
+			<!-- Este só irá habilitar quando o script estiver criado -->
+           	<button class="btn btn-default disabled" ng-show="tipoFormulaCalculo == 2 && tipoAcrescimo == 1 && tipoCorrecao == 2 || tipoFormulaCalculo == 2 && tipoAcrescimo == 2 && tipoJuros == 1">Salvar e criar script antecipado</button>
+
+           	<button class="btn btn-default" ng-hide="tipoFormulaCalculo == 2 && tipoAcrescimo == 1 && tipoCorrecao == 2 || tipoFormulaCalculo == 2 && tipoAcrescimo == 2 && tipoJuros == 1">Salvar</button>
+           	<button class="btn btn-default" data-ng-click="save()" ng-if="isEditing">Editar fórmula</button>
+            <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+	</div>
+</div>

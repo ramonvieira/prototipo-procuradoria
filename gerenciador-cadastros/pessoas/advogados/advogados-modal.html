@@ -1,0 +1,93 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	<h3 class="modal-title">{{isEditing ? 'Editando' : 'Adicionando'}} advogado/procurador/Servidor</h3>
+</div>
+<div class="modal-body">
+	<div>
+		<div class="row">
+			<div class="col-md-2">
+				<label class="required">Tipo</label>
+				<select bf-select2="{}" ng-model="registro.funcao" ng-required="true">
+					<option value=""></option>
+					<option value="Advogado">Advogado</option>
+					<option value="Escritório">Escritório</option>
+					<option value="Procurador">Procurador</option>
+					<option value="Servidor">Servidor</option>
+				</select>
+			</div>
+			<div class="col-md-10">
+				<contribuintes-select ng-model="registro.profissional" label="Profissional" ng-required="true" />
+			</div>
+		</div>
+		<div>
+			<div class="row">
+				<div class="col-md-2">
+					<label class="required">
+						Registro na <abbr title="Ordem dos Advogados do Brasil">OAB</abbr>
+					</label>
+					<input type="text" class="form-control" ng-model="registro.oab" ng-required="true" />
+				</div>
+				<div class="col-md-2">
+					<estados-select label="Seccional OAB" ng-model="registro.sec" ng-required="true" descricao="false" />
+				</div>
+				<div class="col-md-8">
+					<label class="required">Complemento</label>
+					<select bf-select2="{}" ng-model="registro.complemento" ng-required="true">
+						<option value=""></option>
+						<option value="1">A - Primeira inscrição</option>
+						<option value="2">B - Segunda inscrição</option>
+						<option value="3">N - Terceira inscrição ou superior</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<usuarios-sistema-select label="Usuário" ng-model="registro.usuario" ng-required="true" />
+				</div>
+			</div>
+		</div>
+		<div ng-if="registro.funcao == 'Escritório'">
+			<div class="row bottom">
+				<div class="col-md-12">
+					<h4>Responsável(eis)</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-sortable">
+						<thead>
+							<tr>
+								<th>Responsável</th>
+								<th width="30"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="adv in registro.advogadosResponsaveis track by $index">
+								<td>
+									<contribuintes-select ng-model="adv.responsavel" />
+								</td>
+								<td>
+									<a href="" ng-click="" title="Excluir" ng-click="registro.advogadosResponsaveis.splice($index, 1)">
+										<i class="fa fa-fw fa-trash"></i>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button class="btn btn-success btn-add pull-right" ng-click="adicionarResponsavel()">
+						Adicionar responsável
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="salvar(registro)" ng-disabled="form.$invalid">Salvar</button>
+	<button type="button" class="btn btn-default" ng-disabled="form.$invalid" ng-if="!isEditing">Salvar e adicionar novo</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+</div>

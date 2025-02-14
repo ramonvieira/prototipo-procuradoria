@@ -1,0 +1,60 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <form name="form" novalidate>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">Editando campos adicionais</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="required">Ano base</label>
+                        <span class="ui-spinner input-group">
+                            <input id="spinner" class="form-control ui-spinner-input" type="text" name="value" autocomplete="off" role="spinbutton" ng-model="numeroLotes">
+                            <a class="ui-spinner-button ui-spinner-up" ng-click="soma(numeroLotes)" tabindex="-1">
+                                <span class="icon-sort-up"></span>
+                            </a>
+                            <a class="ui-spinner-button ui-spinner-down" ng-click="sub(numeroLotes)" tabindex="-1">
+                                <span class="icon-sort-down"></span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Campo adicional 01</label>
+                        <input class="form-control" type="text" ng-model="campoAdicional1">
+                    </div>
+                    <div class="col-md-4">
+                        <label>Campo adicional 02</label>
+                        <input class="form-control" type="text" ng-model="campoAdicional2">
+                    </div>
+                    <div class="col-md-4">
+                        <label>Campo adicional 03</label>
+                        <input class="form-control" type="text" ng-model="campoAdicional3">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Campo adicional 04</label>
+                        <input class="form-control" type="text" ng-model="campoAdicional4">
+                    </div>
+                    <div class="col-md-4">
+                        <label>Campo adicional 05</label>
+                        <input class="form-control" type="text" ng-model="campoAdicional5">
+                    </div>
+                    <div class="col-md-4">
+                        <label>Campo adicional 06</label>
+                        <input class="form-control" type="text" ng-model="campoAdicional6">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="salvar(registro)">
+                    Salvar
+                </button>
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

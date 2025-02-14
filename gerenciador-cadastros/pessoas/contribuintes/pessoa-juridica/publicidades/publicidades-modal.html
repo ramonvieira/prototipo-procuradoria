@@ -1,0 +1,398 @@
+<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>            
+            <div class="modal-header__actions">
+                <span class="label label-success">Ativa</span>
+            </div>
+            <h3 class="modal-title">Adicionando publicidade <span class="badge" title="Código"> 001</span></h3>          
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-1 text-center">
+                    <i class="fa fa-info-circle fa-2x text-muted mTop10"></i>
+                </div>
+                <div class="col-md-11">
+                    <h4>Informações gerais</h4>      
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-1">
+                    <label class="required">Data</label>
+                    <div class="input-group">
+                        <input class="form-control" data-bf-date ng-model="dataRegistro">
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <label>Econômico</label>
+                    <input type="hidden" bf-select2="userOptions"  ng-model="economico" ng-change="changeResponsavel(economico)"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-md-offset-1">
+                    <label class="required">Tipo</label>
+                    <select data-bf-select2="{}" ng-model="tipo">
+                        <option value="1"> Tipo de publicidade 01</option>
+                        <option value="2"> Tipo de publicidade 02</option>
+                        <option value="3"> Tipo de publicidade 03</option>
+                        <option value="4"> Tipo de publicidade 04</option>
+                        <option value="5"> Tipo de publicidade 05</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Imóvel</label>
+                    <select data-bf-select2="{}" ng-model="imovel">
+                        <option value="1">001.002.0003.0004</option>
+                        <option value="2">123.412.3122.4500</option>
+                        <option value="3">005.006.0007.0008</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-11 col-md-offset-1">
+                    <label>Endereço</label>
+                    <input class="form-control" ng-model="endereco" id="endereco" ng-click="addEndereco()" ng-init="{{imovel ? endereco = 'Rua Antônio Nart, 240 - Alto Rio Maina, Siderópolis - SC, 88860-000' : endereco = ''}}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1 text-center">
+                    <i class="fa fa-users fa-2x text-muted mTop10"></i>
+                </div>
+                <div class="col-md-11">
+                    <h4>Responsabilidade</h4>      
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-11 col-md-offset-1">
+                    <label class="required">Responsável</label>
+                    <input type="hidden" bf-select2="userResponsavelOptions" ng-model="responsavel"/>
+                </div>
+            </div>
+            <div class="row" ng-if="responsavel.nome != economico.nome">
+                <div class="col-md-offset-1" ng-class="responsavelSolidario == 10 ? 'col-md-4': 'col-md-11'">
+                    <label>Tipo de responsável</label>
+                    <select data-bf-select2="{}" ng-model="responsavelSolidario">
+                        <option value="1">proprietário de banca de jornal e revista ou o titular da licença para sua instalação, em relação ao engenho de publicidade nela instalado</option>
+                        <option value="2">pessoa física ou jurídica titular do estabelecimento onde se encontra instalado o engenho de publicidade e qualquer pessoa que nele figure como anunciante</option>
+                        <option value="3">proprietário do imóvel, edificado ou não, onde se encontra instalado o engenho e o anunciante no momento da diligência fiscal</option>
+                        <option value="4">condomínio e a empresa administradora do condomínio, em caso de engenho instalado em edifício condominial;</option>
+                        <option value="5">titular da permissão para exploração do serviço de transporte público individual de passageiros, em se tratando de engenho de publicidade instalado em veículo</option>
+                        <option value="6">subconcessionário e a empresa concessionária do Sistema de Transporte Público do Município, em se tratando de engenho de publicidade instalado em veículo de transporte público coletivo de passageiros</option>
+                        <option value="7">anunciante, em se tratando de engenho de publicidade instalado no mobiliário urbano, no momento da diligência fiscal</option>
+                        <option value="8">promotor do evento e o proprietário do imóvel, em se tratando de engenho de publicidade instalado em feira, exposição, festival, congresso e similares</option>
+                        <option value="9">promotor do evento realizado em logradouro público, em se tratando de engenho de publicidade instalado no local</option>
+                        <option value="10">Outros</option>
+                    </select>
+                </div>
+                <div class="col-md-7" ng-if="responsavelSolidario == 10">
+                    <label>Outro</label>
+                    <input class="form-control" ng-model="outro" maxlength="60">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul role="tablist" class="nav nav-tabs" ng-init="tabDocumentos = 'Anexos'">
+                        <!-- <li role="presentation" ng-class="{'active': tabDocumentos == 'Movimentações'}">
+                            <a href="" data-toggle="tab" target="_self" ng-click="tabDocumentos = 'Movimentações'">Movimentações</a>
+                        </li>
+                        <li role="presentation" ng-class="{'active': tabDocumentos == 'Averbações'}">
+                            <a href="" data-toggle="tab" target="_self" ng-click="tabDocumentos = 'Averbações'"> Averbações</a>
+                        </li>   -->
+                        <li role="presentation" ng-class="{'active': tabDocumentos == 'Anexos'}">
+                            <a href="" data-toggle="tab" target="_self" ng-click="tabDocumentos = 'Anexos'">Anexos</a>
+                        </li>     
+                        <li role="presentation" ng-class="{'active': tabDocumentos == 'infoAdicionais'}">
+                            <a href="" data-toggle="tab" target="_self" ng-click="tabDocumentos = 'infoAdicionais'" ng-class="{'link-disabled': !tipo}">Campos adicionais</a>
+                        </li>                            
+                    </ul>
+                    <div class="tab-content">
+                        <!-- <div ng-show="tabDocumentos == 'Movimentações'">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <button class="btn btn-add btn-success btn-sm" title="Adiciona uma nova movimentação" ng-click="openMovimentacao();">Movimentação</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="pull-right">
+                                        <form class="form-inline"> 
+                                            <div class="input-group">
+                                                <input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+                                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+                    
+                                                    <ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
+                                                        <li class="dropdown-header">
+                                                            <button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+                                                            <h1>Pesquisa avançada</h1>
+                                                        </li>
+                                                        <li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+                                                        <li>
+                                                            <select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true">
+                                                                <option value="1">Descrição</option>
+                                                            </select>
+                                                        </li>
+                                                        <li class="dropdown-header">Utilizando como critério</li>
+                                                        <li>
+                                                            <div class="bth-radio bth-radio-inline">
+                                                                <input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+                                                                <label for="rdAlguns">Alguns dos termos digitados</label>
+                                                            </div>
+                                                            <div class="bth-radio bth-radio-inline">
+                                                                <input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+                                                                <label for="rdTodos">Todos os termos digitados</label>
+                                                            </div>
+                                                            <div class="bth-radio bth-radio-inline">
+                                                                <input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+                                                                <label for="rdNenhum">Nenhum dos termos digitados</label>
+                                                            </div>
+                                                        </li>
+                                                        <li class="dropdown-footer pull-right">
+                                                            <button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="bth-historico" >                              
+                                        <div class="row bth-historico-item">
+                                            <div class="col-md-2 bth-historico-data">
+                                                Hoje
+                                                <small class="text-muted">16:57:37 - 2017</small>
+                                            </div>
+                                    
+                                            <div class="col-md-10 bth-historico-icon">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <strong class="text-muted" title="Data inicial - Data final">01/02/2017 - 01/02/2018</strong><br>
+                                                        <small>Processo: </small> <span title="Processo">0123456</span>
+                                                    </div>
+                                                    <div class="col-md-7" title="Observações">
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.      
+                                                    </div>
+                                                    <div class="col-md-2 bth-historico-acoes">                                                        
+                                                        <a href="" ng-click="open()" title="Editar"><i class="fa fa-pencil fa-fw"></i></a>
+                                                        <a href="" title="Excluir"><i class="fa fa-trash-o fa-fw"></i></a>  
+                                                        <a href=""  title="@ramon.viquetti"><i class="fa fa-fw fa-user"></i></a>                                           
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row bth-historico-item">
+                                            <div class="col-md-2 bth-historico-data">
+                                                09/01
+                                                <small class="text-muted">16:57:37 - 2016</small>
+                                            </div>
+                                    
+                                            <div class="col-md-10 bth-historico-icon">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <strong class="text-muted" title="Data inicial - Data final">01/02/2016 - 01/02/2017</strong><br>
+                                                        <small>Processo: </small><span title="Processo">0123456</span>
+                                                    </div>
+                                                    <div class="col-md-7" title="Observações">
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.                                                 
+                                                    </div>
+                                                    <div class="col-md-2 bth-historico-acoes">                                                        
+                                                        <a href="" ng-click="open()" title="Editar"><i class="fa fa-pencil fa-fw"></i></a>
+                                                        <a href="" title="Excluir"><i class="fa fa-trash-o fa-fw"></i></a>  
+                                                        <a href=""  title="@ramon.viquetti"><i class="fa fa-fw fa-user"></i></a>                                           
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>        
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="tabDocumentos == 'Averbações'">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="comment-container scrollBar" style="max-height: 345px; overflow-y: auto">
+                                        <div class="comment-box" ng-repeat="c in comments">
+                                            <div class="comment-heading">
+                                                
+                                                <div class="comment-heading-content">
+                                                    <div class="row bottom">
+                                                        <div class="col-md-1">
+                                                            <div id="thumb-{{$index}}" class="round-thumb">
+                                                                <img ng-src="{{c.photo}}">
+                                                            </div>
+                                                        </div>
+                            
+                                                        <div class="col-md-10" >
+                                                            <strong>{{c.nome}} <small>{{c.user}}</small></strong>
+                                                            <div class="comment-description">
+                                                                <span ng-if="!isOpen">{{c.comment | limitTo: 226}} {{c.comment.length > 226 ? '...' : ''}}</span>
+                                                                <span ng-if="isOpen">{{c.comment}}</span>
+                                                                <a href="" class="pull-right" ng-show="c.comment.length > 226" ng-click="isOpen = !isOpen">{{isOpen ? 'Mostrar menos' : 'Mostrar mais'}}</a>                          
+                                                            </div>
+                                                        </div>
+                            
+                                                        <div class="col-md-1 text-right">
+                                                            <span><a href="" class="text-muted" title="Editar" ng-click="editAverbacao(c.comment); comments.splice($index,1)"><i class="fa fa-fw fa-pencil"></i></a>
+                                                                <a href="" class="text-muted" title="Excluir" ng-click="comments.splice($index,1)"><i class="fa fa-fw fa-trash-o"></i></a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row bottom">
+                                <div class="col-md-12">
+                                    <div class="comentario">
+                                        <div class="comentario-content">
+                                            <textarea rows="3" ng-model="averbacao" placeholder="Adicionar averbação" maxlength="4000">{{averbacao}}</textarea>                    
+                                            <div class="button-bar">
+                                                <a href="" title="Adicionar averbação" ng-class="!averbacao ?'link-disabled':''" ng-click="comments.push({nome: 'Usuário Logado', user: '@usuario.logado', comment: averbacao, photo:'images/avatar.png'}); averbacao = ''">
+                                                    <i class="fa fa-fw fa-send-o text-muted"></i>
+                                                </a>
+                                                <a href="" title="Cancelar" ng-class="!averbacao ?'link-disabled':''" ng-click="averbacao = ''">
+                                                    <i class="fa fa-fw fa-times text-muted"></i>
+                                                </a>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div ng-show="tabDocumentos == 'Anexos'">
+                            <div class="row" flow-init ng-controller="AnexoCtrl as vm">
+                                <div class="col-md-12">
+                                    <div class="bth-attach">
+                                        <div class="row">
+                                            <div class="col-md-9 col-xs-8">
+                                                <button flow-btn class="btn btn-sm btn-add btn-success bth-attach-add" title="Adiciona um novo anexo">Anexo</button>
+                                                <div class="bth-attach-description">
+                                                    <span class="bth-attach-description__info">Extensões permitidas: PDF, DOC, DOCX, TXT, HTML, XLS, XLSX, JPG, PNG.</span>
+                                                    <span class="bth-attach-description__info">Tamanho máximo: 10 MB.</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4 text-right" ng-show="$flow.files.length">
+                                                <span class="bth-attach-description">
+                                                    {{$flow.files.length}} arquivo(s) anexado(s)
+                                                </span>
+                                                <div class="btn-group">
+                                                    <button id="dropdownAltura" type="button" class="btn btn-default btn-sm dropdown-toggle" ng-disabled="!$flow.files.length" data-toggle="dropdown" title="Definir tipo de visualização">
+                                                        <i class="fa fa-fw" ng-class="{'fa-th-large': view == 1, 'fa-reorder': view == 2}"></i>  
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownAltura">
+                                                        <li class="dropdown-header" ng-init="view = 1">Tipo de visualização</li>
+                                                        <li><a href="" ng-click="view = 1" class="btn-check" ng-class="{'active': view == 1}">Grade</a></li>
+                                                        <li><a href="" ng-click="view = 2" class="btn-check" ng-class="{'active': view == 2}">Lista</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bth-attach__body" ng-class="{'bth-attach__body--drag-enter': vm.isDragEnter()}" flow-drop flow-drag-enter="vm.setDragEnter()" flow-drag-leave="vm.setDragLeave()">
+                                            <div class="bth-attach-empty" ng-if="!$flow.files.length">
+                                                <p class="bth-attach-empty__description">
+                                                    Arraste e solte arquivos aqui para anexar ou <a href="" flow-btn>selecione arquivos</a>
+                                                </p>
+                                            </div>
+                                            <ul class="bth-attach-items" ng-if="$flow.files.length" ng-class="{'bth-attach-items--grid': view == 1, 'bth-attach-items--list': view == 2}">
+                                                <li ng-repeat="file in $flow.files track by $index" flow-file-added="vm.getImageURL($file)" class="bth-attach-item" ng-class="{'bth-attach-item--error': !vm.isAllowed(file)}">
+                                                    <div class="bth-attach-item__view" ng-click="vm.openImage(file.uri)" ng-if="vm.isImage(file)">
+                                                        <a href="" title="Visualizar" class="bth-attach-item__view-trigger">Visualizar</a>
+                                                    </div>
+                                                    <div class="bth-attach-item__thumb">
+                                                        <span class="bth-attach-item__thumb-icon" ng-hide="vm.isImage(file)" ng-class="vm.getClass(file)" data-message-error="{{vm.getErrorMessage(file)}}">
+                                                            <i class="fa fa-fw" ng-class="vm.getIcon(file)"></i>
+                                                        </span>
+                                                        <span class="bth-attach-item__thumb-image" ng-if="vm.isImage(file)" ng-init="vm.getImageURL(file)" style="background-image: url({{file.uri}})">
+                                                            <i class="fa fa-fw fa-image"></i>
+                                                        </span>
+                                                        <span class="bth-attach-thumb-overlay" ng-if="vm.isImage(file)">
+                                                            <a href="" 
+                                                                class="bth-attach-thumb-overlay__action" 
+                                                                ng-focus="vm.showOverlay($event)"
+                                                                ng-blur="vm.hideOverlay($event)"
+                                                                ng-click="vm.openImage(file.uri)"
+                                                                title="Visualizar">
+                                                                <i class="fa fa-fw fa-eye"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <div class="bth-attach-item__footer">
+                                                        <div class="bth-attach-item__name">
+                                                            <span class="bth-attach-item__description">{{vm.getFileName(file)}}</span>
+                                                            <span class="bth-attach-item__extension">{{vm.getFileExtension(file)}}</span>
+                                                        </div>
+                                                        <span class="bth-attach-item__actions">
+                                                            <a href="" class="bth-attach-item__actions-item" title="Baixar" ng-show="vm.isAllowed(file)">
+                                                                <i class="fa fa-fw fa-download"></i>
+                                                            </a>
+                                                            <a href="" class="bth-attach-item__actions-item" title="Excluir" ng-click="vm.removeFile($flow, $index)">
+                                                                <i class="fa fa-fw fa-trash-o"></i>
+                                                            </a>
+                                                            <a href="" class="bth-attach-item__actions-item" title="Outras opções" ng-show="vm.isAllowed(file)" bf-popover="'gerenciador-cadastros/pessoas/contribuintes/pessoa-juridica/publicidades/anexo/popover-anexo.html'" bf-popover-size="bth-attach-popover bth-attach-popover--right">
+                                                                <i class="fa fa-fw fa-cogs"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="bth-attach-item bth-attach-item--loading ng-hide">
+                                                    <div class="bth-attach-item__thumb">
+                                                        <span class="bth-attach-item__thumb-image" style="background-image: url(file.uri)">
+                                                            <i class="fa fa-fw fa-image"></i>
+                                                        </span>
+                                                        <span class="bth-attach-thumb-overlay">
+                                                            <a href="" class="bth-attach-thumb-overlay__action" title="Visualizar">
+                                                                <i class="fa fa-fw fa-eye"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <div class="bth-attach-item__footer">
+                                                        <div class="bth-attach-item__name">
+                                                            <span class="bth-attach-item__description">{{$first ? 'Nome do arquivo Nome do arquivo Nome do arquivo Nome do arquivo' : 'Nome'}}</span>
+                                                            <span class="bth-attach-item__extension">jpg</span>
+                                                        </div>
+                                                    </div>
+                                                    <span class="bth-attach-item__spinner" title="Carregando...">
+                                                        <span data-container="body" class="bth-attach-item__spinner-icon text-center list-loading">
+                                                            <i class="icon-spinner icon-small icon-spin"></i>
+                                                        </span>
+                                                    </span>
+                                                </li>
+                                    
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                        <div ng-show="tabDocumentos == 'infoAdicionais'">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="required">Ano base</label>
+                                    <span class="ui-spinner input-group">
+                                        <input id="spinner" class="form-control ui-spinner-input" type="text" name="value" autocomplete="off" role="spinbutton" ng-model="anoBase">
+                                        <a class="ui-spinner-button ui-spinner-up" tabindex="-1">
+                                            <span class="icon-sort-up"></span>
+                                        </a>
+                                        <a class="ui-spinner-button ui-spinner-down"tabindex="-1">
+                                            <span class="icon-sort-down"></span>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="save()">Salvar</button>
+            <button class="btn btn-default">Salvar e adicionar novo</button>
+            <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>

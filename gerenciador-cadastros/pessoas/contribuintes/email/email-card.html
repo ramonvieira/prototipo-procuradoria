@@ -1,0 +1,39 @@
+<div class="bth-card__header">
+    <div class="row">
+        <div class="col-md-8">
+            <h4 class="bth-card__title">
+                <i class="fa fa-envelope fa-fw"></i>
+                E-mail(s)
+            </h4> 
+        </div>
+        <div class="col-md-4 text-right">
+            <button class="btn btn-xs btn-success btn-add" title="Adiciona um novo e-mail" ng-click="adicionarEmail()">
+                E-mail
+            </button>
+        </div>
+    </div>
+</div>
+<div class="bth-card__body">
+    <div ng-show="empty">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <i class="fa fa-envelope fa-5x tx__gray--l10"></i>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <strong class="text-muted">Nenhum dado informado</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p>
+                    <span class="text-muted">
+                        Permite informar os e-mails da pessoa
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div ng-include="'gerenciador-cadastros/pessoas/contribuintes/email/email-lista.html'" ng-hide="empty"></div>
+</div>

@@ -1,0 +1,91 @@
+<div class="row">
+	<div class="col-md-6">
+		<contribuintes-select label="Exequente" ng-model="registro.exequente" label="Profissional" ng-required="true" />
+	</div>
+	<div class="col-md-6">
+		<contribuintes-select label="Procurador" ng-model="registro.procurador" ng-required="true" />
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-6">
+		<label for="area" class="required">Área</label>
+		<select bf-select2="{}" id="area" class="form-control" ng-model="registro.area" ng-required="true">
+			<option value="1">Área 1</option>
+			<option value="2">Área 2</option>
+		</select>
+	</div>
+	<div class="col-md-6">
+		<label for="assunto" class="required">Assunto</label>
+		<select bf-select2="{}" id="assunto" class="form-control" ng-model="registro.assunto" ng-required="true">
+			<option value="1">Assunto 1</option>
+			<option value="2">Assunto 2</option>
+		</select>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<label for="tribunal" class="required">Tribunal</label>
+		<select bf-select2="{}" id="tribunal" class="form-control" ng-model="registro.tribunal" ng-required="true">
+			<option value="1">Tribunal 1</option>
+			<option value="2">Tribunal 2</option>
+		</select>
+	</div>
+	<div class="col-md-4">
+		<label class="required">Comarca</label>
+		<select bf-select2="{}" id="comarca" class="form-control" ng-model="registro.customFilterComarcas" ng-required="true">
+			<option value="1">Comarca 1</option>
+			<option value="2">Comarca 2</option>
+		</select>
+	</div>
+	<div class="col-md-4">
+		<label class="required">Vara</label>
+		<select bf-select2="{}" id="vara" class="form-control" ng-model="registro.vara" ng-required="true">
+			<option value="1">Vara 1</option>
+			<option value="2">Vara 2</option>
+		</select>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<label class="required">Procedimento</label>
+		<select bf-select2="{}" id="procedimento" class="form-control" ng-model="registro.procedimento" ng-required="true">
+			<option value="1">Procedimento 1</option>
+			<option value="2">Procedimento 2</option>
+		</select>
+	</div>
+	<div class="col-md-4">
+		<label class="required">Classe</label>
+		<select bf-select2="{}" id="classe" class="form-control" ng-model="registro.classe" ng-required="true">
+			<option value="1">Classe 1</option>
+			<option value="2">Classe 2</option>
+		</select>
+	</div>
+	<div class="col-md-4">
+		<label>Utilizar fórmula de honorário</label>
+		<select bf-select2="{}" id="utilizaFormula" class="form-control" ng-model="registro.utilizaFormula" ng-required="true">
+			<option value="SIM">Sim</option>
+			<option value="NAO">Não</option>
+		</select>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		<label>Incluir partes complementares</label>
+		<select bf-select2="{}" id="geraPartes" class="form-control" ng-model="registro.geraPartes" ng-required="true">
+			<option value="SIM">Sim</option>
+			<option value="NAO">Não</option>
+		</select>
+	</div>
+	<div class="col-md-6">
+		<label>Emitir documentos para contribuintes sem CPF/CNPJ</label>
+		<select bf-select2="{}" id="contribuintesCpfCnpj" class="form-control" ng-model="registro.contribuintesCpfCnpj" ng-required="true">
+			<option value="SIM">Sim</option>
+			<option value="NAO">Não</option>
+		</select>
+	</div>
+</div>

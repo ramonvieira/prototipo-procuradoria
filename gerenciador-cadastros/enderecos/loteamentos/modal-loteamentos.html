@@ -1,0 +1,124 @@
+<div class="modal-dialog modal-sm">
+    <div class="modal-content" data-bf-loading="vm.tracker.carregandoRegistro">
+        <form name="form">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">{{vm.getEditando() ? 'Editando': 'Adicionando'}} loteamento</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="required">Município</label>
+                        <select name="" id="" bf-select2="{allowClear: true}"  ng-model="item">
+                            <option value=""></option>
+                            <option value="1">Item 1</option>
+                            <option value="2">Item 2</option>
+                            <option value="3">Item 3</option>
+                            <option value="4">Item 4</option>
+                            <option value="5">Item 5</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="required" for="loteamentoBairro">Bairro</label>
+                        <select name="" id="" bf-select2="{allowClear: true}"  ng-model="item">
+                            <option value=""></option>
+                            <option value="1">Item 1</option>
+                            <option value="2">Item 2</option>
+                            <option value="3">Item 3</option>
+                            <option value="4">Item 4</option>
+                            <option value="5">Item 5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Distrito</label>
+                        <select name="" id="" bf-select2="{allowClear: true}"  ng-model="item">
+                            <option value=""></option>
+                            <option value="1">Item 1</option>
+                            <option value="2">Item 2</option>
+                            <option value="3">Item 3</option>
+                            <option value="4">Item 4</option>
+                            <option value="5">Item 5</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 ">
+                        <label class="required" for="loteamentoNome">Nome</label>
+                        <textarea rows="1" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="loteamentoAreaComum">Área comum</label>
+                        <div class="input-group">
+                            <input type="text" id="loteamentoAreaComum" class="form-control" data-ng-model="areaComum" data-bf-number="'10,4'" />
+                            <span class="input-group-addon">m²</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="loteamentoAreaTotal">Área total dos lotes</label>
+                        <div class="input-group">
+                            <input type="text" id="loteamentoAreaTotal" class="form-control" data-ng-model="areaTotal" data-bf-number="'10,4'" />
+                            <span class="input-group-addon">m²</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="loteamentosAreaRemanescente">Área remanescente</label>
+                        <div class="input-group">
+                            <input type="text" id="loteamentosAreaRemanescente" class="form-control" data-ng-model="areaRemanescente" data-bf-number="'10,4'" />
+                            <span class="input-group-addon">m²</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="loteamentoNLotes">Nº de lotes</label>
+                        <spinner id="loteamentoNLotes" max="9999" spin="1" ng-model="nroLotes" data-bf-required="false"></spinner>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="loteamentoNQuadras">Nº de quadras</label>
+                        <spinner id="loteamentoNQuadras" max="9999" spin="1" ng-model="nroQuadras" data-bf-required="false" > </spinner>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="loreamentoNCaucionados">Nº caucionados</label>
+                        <spinner id="loreamentoNCaucionados" max="9999" spin="1" ng-model="nroCaucionados" data-bf-required="false" data-ng-disabled="nroLotes == undefined || nroLotes == 0" ></spinner>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="loteamentoAprovacao">Data de aprovação</label>
+                        <div class="input-group">
+                            <input type="text" id="loteamentoAprovacao" class="form-control" data-ng-model="dtAprovacao" data-bf-date />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="loteamentoCriacao">Data de criação</label>
+                        <div class="input-group">
+                            <input type="text" id="loteamentoCriacao" class="form-control" data-ng-model="dtCriacao" data-bf-date data-ng-disabled = "dtAprovacao == null" minDate = "dtAprovacao" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="loteamentoLiberacao">Data de liberação</label>
+                        <div class="input-group">
+                            <input type="text" id="loteamentoLiberacao" class="form-control" data-ng-model="dtLiberacao" data-bf-date data-ng-disabled = "dtCriacao == null" minDate = "dtCriacao"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row bottom">
+                    <div class="col-md-12">
+                        <label for="loteamentoObservacao">Observações</label>
+                        <textarea id="loteamentoObservacao" class="form-control" rows="3" data-ng-model="observacao" cols="200" maxlength="500"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="vm.salvar(false)" data-ng-disabled="form.$invalid" data-bf-loading="vm.tracker.salvando">
+                    Salvar
+                </button>
+                <button class="btn btn-default" data-ng-if="!vm.getEditando()" ng-click="vm.salvar(true)" data-ng-disabled="form.$invalid" data-bf-loading="vm.tracker.salvarAdicionarRegistro">Salvar e adicionar novo</button>
+                <button class="btn btn-default btn-delete" data-ng-if="vm.getEditando()" ng-click="vm.excluir()" data-bf-permissions operation="excluir">Excluir</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

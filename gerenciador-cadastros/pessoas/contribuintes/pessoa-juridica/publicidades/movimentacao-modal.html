@@ -1,0 +1,40 @@
+<div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <form>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">Adicionando movimentação</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="required">Data inicial</label>
+                        <div class="input-group">
+                            <input class="form-control" data-bf-date ng-model="dataInicial">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="required">Data final</label>
+                        <div class="input-group">
+                            <input class="form-control"data-bf-date ng-model="dataFinal">
+                        </div>
+                    </div>                    
+                    <div class="col-md-6">
+                        <label>Processo</label>
+                        <input class="form-control" maxlength="24" ng-model="processo">
+                    </div>
+                </div>                 
+                <div class="row">                    
+                    <div class="col-md-12">
+                        <label> Observações</label>
+                        <textarea class="form-control" maxlength="300" ng-model="observacoes"></textarea>
+                    </div>
+                </div> 
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal">Continuar</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

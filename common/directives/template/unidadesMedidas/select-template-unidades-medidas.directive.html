@@ -1,0 +1,17 @@
+<trib-select-template
+        ng-model="ngModel"
+        ng-required="ngRequired"
+        search="vm.UnidadesMedidasService.listTemplate"
+        input-field="simbolo"
+        input-maxlength="10"
+        on-select="vm.onSelect(item)"
+        enum="enum">
+
+    <item-template ng-non-bindable>
+        {{item.nome}}
+        <br>
+        <small>
+            Grandeza: {{vm.getDescricaoEnum(item.grandeza)}}
+        </small>
+    </item-template>
+</trib-select-template>

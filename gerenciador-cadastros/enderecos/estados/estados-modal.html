@@ -1,0 +1,41 @@
+<div class="modal-dialog">
+    <div class="modal-content" data-bf-loading="vm.tracker.carregandoRegistro">
+        <form name="form">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">{{vm.getEditando() ? 'Editando': 'Adicionando'}} estado</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-10">
+                        <label class="required" for="nome">Descrição</label>
+                        <input type="text" id="nomeBairro" class="form-control" data-ng-model="registro.nome" maxlength="50" data-bf-required="true">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="required" for="uf">Sigla</label>
+                        <input type="text" id="uf" ng-model="vm.registro.uf" class="form-control" maxlength="2" data-bf-required="true" data-ng-disabled="vm.registro.pais.id==28">
+                    </div>
+                </div>
+                <div class="row bottom">
+                    <div class="col-md-12">
+                        <label class="required" for="pais">País</label>
+                        <select name="" id="" bf-select2="{}"  ng-model="mun">
+                            <option value=""></option>
+                            <option value="1">Brasil 1</option>
+                            <option value="2">Brasil 2</option>
+                            <option value="3">Brasil 3</option>
+                            <option value="4">Brasil 4</option>
+                            <option value="5">Brasil 5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="vm.salvar(vm.registro, false)" data-ng-disabled="form.$invalid || vm.registro.pais.id==28 || vm.hasTrackerActive()" data-bf-loading="vm.tracker.salvandoRegistro">Salvar</button>
+                <button class="btn btn-default" data-ng-if="!vm.getEditando()" ng-click="vm.salvar(vm.registro, true)" data-ng-disabled="form.$invalid||vm.registro.pais.id==28 || vm.hasTrackerActive()" data-bf-loading="vm.tracker.salvarAdicionarRegistro">Salvar e adicionar novo</button>
+                <button class="btn btn-default" data-ng-if="vm.getEditando()"  ng-click="vm.excluir(vm.registro)" data-bf-permissions operation="excluir"><i class="fa fa-fw fa-trash"></i> Excluir</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content" data-bf-loading="vm.tracker.carregandoRegistro">
+        <form name="form">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">{{vm.registro.id ? 'Editando': 'Adicionando'}} município</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row bottom">
+                    <div class="col-md-6">
+                        <label class="required" for="nome">Descrição</label>
+                        <input type="text" name="" id="" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="required" for="estado">Estado</label>
+                        <select name="" id="" bf-select2="{}"  ng-model="estado">
+                            <option value=""></option>
+                            <option value="1">Estado 1</option>
+                            <option value="2">Estado 2</option>
+                            <option value="3">Estado 3</option>
+                            <option value="4">Estado 4</option>
+                            <option value="5">Estado 5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="vm.salvar(vm.registro)" data-ng-disabled="form.$invalid || vm.isNacional" data-bf-loading="vm.tracker.salvandoRegistro">Salvar</button>
+                <button class="btn btn-default" data-ng-if="!vm.registro.id" ng-click="vm.salvar(vm.registro, true)" data-ng-disabled="form.$invalid || vm.isNacional" data-bf-loading="vm.tracker.salvarAdicionarRegistro">Salvar e adicionar novo</button>
+                <button class="btn btn-default" data-ng-if="vm.registro.id"  ng-click="vm.excluir(vm.registro)" data-bf-permissions operation="excluir" data-ng-disabled="vm.isNacional"><i class="fa fa-fw fa-trash"></i> Excluir</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="bth-timeline bth-timeline--vertical bth-timeline--has-icon bth-timeline--sticky scrollBar" style="max-height: 300px">
+	<ul class="bth-timeline__list">
+		<li class="bth-timeline__month">
+			<span class="badge badge-default">Fevereiro/2021</span>
+		</li>
+		<li class="bth-timeline__date" ng-repeat-start="item in historico">
+			<div class="capitalize">{{item.data | date:'EEE, dd/MM'}}</div>
+		</li>
+		<li class="bth-timeline__item" ng-class="item.color" ng-repeat-end>
+			<span class="bth-timeline__time">
+				10:03:15
+			</span>
+			<span class="bth-timeline__icon">
+				<i class="fa fa-fw" ng-class="item.icon"></i>
+			</span>
+			<span class="bth-timeline__title">
+				<i class="fa fa-user fa-fw text-muted" title="Editado por ramon.viquetti" ng-if="!item.alteracoes.length"></i> {{item.tipo}}
+				<a href="" ng-show="item.alteracoes.length" ng-click="abrirHistoricoCertidaoDetalhes({alteracoes:item.alteracoes, cda:cda})">
+					<i class="fa fa-user fa-fw text-muted" title="Editado por ramon.viquetti"></i> {{item.tipo}} <small>({{item.alteracoes.length}} campos)</small>
+				</a>
+			</span>
+
+			<div class="bth-timeline__desc" ng-if="item.tipo != 'Assinado digitalmente'">
+				<a href="" class="btn btn-default btn-xs" title="Faz o download da certidão">1234/2021 <i class="fa fa-fw fa-download"></i></a>
+			</div>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,28 @@
+<div class="container container-fluid">
+	<div class="row mTop10">
+		<div class="col-md-12">
+			<div class="bth-card">
+				<div class="bth-card__header">
+					<h4 class="bth-card__title">Gerenciamento de cadastros</h4>
+				</div>
+				<ul role="tablist" class="nav nav-tabs bottom">
+					<li data-ui-sref="main.gerenciadorCadastros.gerais.areasAssuntos" data-ui-sref-active="active">
+						<a href=""><i class="fa fa-fw fa-random"></i> Gerais</a>
+					</li>
+					<li data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes" data-ui-sref-active="active">
+						<a href=""><i class="fa fa-fw fa-user"></i> Pessoas</a>
+					</li>
+					<li data-ui-sref="main.gerenciadorCadastros.financeiro" data-ui-sref-active="active">
+						<a href=""><i class="fa fa-fw fa-usd"></i> Financeiro</a>
+					</li>
+					<li data-ui-sref="main.gerenciadorCadastros.enderecos" data-ui-sref-active="active">
+						<a href=""><i class="fa fa-fw fa-map-marker"></i> Endereços</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div ui-view="child"></div>
+	</div>
+</div>

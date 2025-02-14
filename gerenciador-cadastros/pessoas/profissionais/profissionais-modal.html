@@ -1,0 +1,129 @@
+<div class="modal-dialog modal-lg modal-auto-height">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">{{registro.id != null ? 'Editando' : 'Adicionando'}} procurador/assessor</h3>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-2">
+					<label class="required">Tipo</label>
+					<select bf-select2="{}" ng-model="registro.funcao">
+						<option value=""></option>
+						<option value="Procurador">Procurador</option>
+						<option value="Assessor">Assessor</option>
+					</select>
+				</div>
+				<div class="col-md-10">
+					<label class="required" for="procurador">Nome</label>
+					<select bf-select2="{}" ng-model="registro.procurador" id="procurador">
+						<option value="{{procurador.id}}" ng-repeat="procurador in contribuintes">{{procurador.nome}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row" ng-show="registro.funcao == 'Procurador'">
+				<div class="col-md-2">
+					<label class="required">
+						<abbr title="Ordem dos Advogados do Brasil">OAB</abbr>
+					</label>
+					<input type="text" class="form-control" ng-model="registro.oab"/>
+				</div>
+				<div class="col-md-2">
+					<label class="required">Seccional</label>
+					<select bf-select2="{}" ng-model="registro.seccional">
+						<option value="{{estado.descricao}}" ng-repeat="estado in estados">{{estado.descricao}}</option>
+					</select>
+				</div>
+				<div class="col-md-8">
+					<label class="required">Complemento</label>
+					<select bf-select2="{}" ng-model="registro.complemento">
+						<option value=""></option>
+						<option value="1">A - Primeira inscrição</option>
+						<option value="2">B - Segunda inscrição</option>
+						<option value="3">N - Terceira inscrição ou superior</option>
+					</select>
+				</div>
+			</div>
+			<!-- <div class="row" ng-show="registro.funcao != null">
+				<div class="col-md-12">
+					<label for="grupo">Grupo(s) de trabalho</label>
+					<select bf-select2="{}" ng-model="registro.gruposAss" id="grupo" multiple>
+						<option value="{{grupo.id}}" ng-repeat="grupo in grupos">{{grupo.descricao}}</option>
+					</select>
+				</div>
+			</div> -->
+			<div class="row" ng-if="registro.id != null">
+				<div class="col-md-12">
+					<h4>Ausências</h4>
+					<h4 class="text-center" ng-if="registro.ausencias.length < 1 || registro.ausencias == undefined">Ainda não há ausências por aqui</h4>
+					<div ng-class="{'scrollBar' : registro.ausencias.length > 5}" style="max-height: 280px">
+						<table class="table table-unfixed table-unstriped table-hover" ng-if="registro.ausencias.length > 0">
+							<thead>
+								<tr>
+									<th width="185"><span>Tipo/Período</span></th>
+									<th><span>Motivo</span></th>
+									<th width="500"><span>Distribuição dos processos/tarefas</span></th>
+									<th width="65"><span></span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="ausencia in registro.ausencias | orderBy: '-id'">
+									<td>
+										{{tiposAusencia[ausencia.tipoAusencia]}}<br>
+										<div ng-if="ausencia.tipoAusencia == 0"><small><i class="fa fa-fw fa-calendar"></i> {{ausencia.dataInicial | date: 'dd/MM/yyyy'}} <span class="text-muted">até</span> {{ausencia.dataInicial | date: 'dd/MM/yyyy'}}</small></div>
+										<div ng-if="ausencia.tipoAusencia == 1"><small><i class="fa fa-fw fa-calendar"></i> {{ausencia.dataAfastamento | date: 'dd/MM/yyyy'}}</small></div>
+									</td>
+									<td class="ellipsis" title="{{ausencia.motivo}}">
+										Motivo {{ausencia.motivo}}
+									</td>
+									<td>
+										<!-- {{gruposDoProfissional(registro.id)}} -->
+										<small><strong>Processos: </strong>
+											{{
+												ausencia.distribuicaoProcessos == 0 ? 'Mantido' :
+												ausencia.distribuicaoProcessos == 2 ? 'Transferido para ' + procuradores[ausencia.profResponsavelProcessos].procurador.nome : null
+											}}
+											<span ng-if="ausencia.distribuicaoProcessos == 1">
+												Distribuído para: <span ng-repeat="grupo in gruposDoProfissional(registro.id)">{{grupo.descricao}}{{$index+1 < gruposDoProfissional(registro.id).length ? ', ' : ''}}</span>
+											</span>
+										</small><br>
+										<small><strong>Tarefas: </strong>
+											{{
+												ausencia.distribuicaoTarefas == 0 ? 'Mantido' :
+												ausencia.distribuicaoTarefas == 2 ? 'Transferido para ' + procuradores[ausencia.profResponsavelTarefas].procurador.nome : null
+											}}
+
+											<span ng-if="ausencia.distribuicaoTarefas == 1">
+												Distribuído para: <span ng-repeat="grupo in gruposDoProfissional(registro.id)">{{grupo.descricao}}{{$index+1 < gruposDoProfissional(registro.id).length ? ', ' : ''}}</span>
+											</span>
+										</small>
+									</td>
+									<td class="text-right">
+										<div class="btn-group btn-group-xs">
+											<a href="" class="btn btn-link" ng-class="{'link-disabled' : ausencia.vencida}" title="Edita a ausência" ng-click="adicionarAusencia({ausencia:ausencia,profissional:registro.procurador.id})">
+												<i class="fa fa-fw fa-pencil"></i>
+											</a>
+											<a href="" class="btn btn-link" ng-class="{'link-disabled' : ausencia.vencida}" title="Exclui a ausência" ng-click="registro.ausencias.splice($index, 1)">
+												<i class="fa fa-fw fa-trash"></i>
+											</a>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row" ng-if="registro.id != null">
+				<div class="col-md-12 text-right">
+					<button type="button" class="btn btn-success btn-sm btn-add" title="Adicionar uma ausênxia para o profissional" ng-click="adicionarAusencia({profissional:registro.id})">Ausência</button>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal">Salvar</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Salvar e adicionar novo</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,70 @@
+<button type="button" class="btn btn-default btn-sm refine" title="{{refine ? 'Refinamento ativo na pesquisa' : 'Possibilita refinar a pesquisa'}}"  uib-dropdown-toggle>
+	<i class="fa fa-sliders"></i>
+</button>
+<ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu uib-dropdown-right keep-open>
+	<li class="dropdown-header">Refinar a busca<br>
+		<small>
+			Considerando apenas registros que
+		</small>
+	</li>
+	<li>
+		<div class="ui-list-checkbox-container">
+			<div class="bth-radio">
+				<input type="radio" name="radioRefinar" id="r1"
+					ng-model="radioRefinar">
+				<label for="r1">
+					<span class="bth-tag bth-tag--fixed-width">Ab</span>
+					Contenham o termo digitado
+				</label>
+			</div>
+		</div>
+	</li>
+	<li>
+		<div class="ui-list-checkbox-container">
+			<div class="bth-radio">
+				<input type="radio" name="radioRefinar" id="r2"
+					ng-model="radioRefinar">
+				<label for="r2">
+					<span class="bth-tag bth-tag--fixed-width bth-tag--strike">Ab</span>
+					Não contenham o termo digitado
+				</label>
+			</div>
+		</div>
+	</li>
+	<li>
+		<div class="ui-list-checkbox-container">
+			<div class="bth-radio">
+				<input type="radio" name="radioRefinar" id="r3"
+					ng-model="radioRefinar">
+				<label for="r3">
+					<span class="bth-tag bth-tag--fixed-width bth-tag--start">Ab</span>
+					Iniciem com o termo digitado
+				</label>
+			</div>
+		</div>
+	</li>
+	<li>
+		<div class="ui-list-checkbox-container">
+			<div class="bth-radio">
+				<input type="radio" name="radioRefinar" id="r4"
+					ng-model="radioRefinar">
+				<label for="r4">
+					<span class="bth-tag bth-tag--fixed-width bth-tag--end">Ab</span>
+					Terminem com o termo digitado
+				</label>
+			</div>
+		</div>
+	</li>
+	<li>
+		<div class="ui-list-checkbox-container">
+			<div class="bth-radio">
+				<input type="radio" name="radioRefinar" id="r5"
+					ng-model="radioRefinar">
+				<label for="r5">
+					<span class="bth-tag bth-tag--fixed-width bth-tag--exact">Ab</span>
+					Sejam exatamente o termo digitado
+				</label>
+			</div>
+		</div>
+	</li>
+</ul>

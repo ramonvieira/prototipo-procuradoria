@@ -1,0 +1,22 @@
+<div class="container container-fluid">
+	<div class="row mTop10">
+		<div class="col-md-12">
+			<div class="bth-card">
+				<div class="bth-card__header">
+					<h4 class="bth-card__title">Agenda</h4>
+				</div>
+				<ul role="tablist" class="nav nav-tabs bottom">
+					<li data-ui-sref="main.agenda.compromissos" data-ui-sref-active="active">
+						<a href=""><i class="fa fa-fw fa-calendar"></i> Compromissos</a>
+					</li>
+					<li data-ui-sref="main.agenda.tarefa" data-ui-sref-active="active">
+						<a href=""><i class="fa fa-fw fa-tasks"></i> Tarefas</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div ui-view="child"></div>
+	</div>
+</div>

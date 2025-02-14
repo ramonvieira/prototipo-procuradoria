@@ -1,0 +1,96 @@
+<div class="modal-dialog modal-sm">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">Adicionando averbações</h3>
+			<small> 10/01/2017 | Tipo de publicidade 01</small>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-8">
+					<button class="btn btn-add btn-success btn-sm" title="Adiciona uma nova averbação" ng-click="addAverbacao()">Averbação</button>
+				</div>
+				<div class="col-md-4">
+					<div class="pull-right">
+						<form class="form-inline"> 
+							<div class="input-group">
+								<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+									<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+	
+									<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
+										<li class="dropdown-header">
+											<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+											<h1>Pesquisa avançada</h1>
+										</li>
+										<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+										<li>
+											<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true">
+												<option value="1">Descrição</option>
+											</select>
+										</li>
+										<li class="dropdown-header">Utilizando como critério</li>
+										<li>
+											<div class="bth-radio bth-radio-inline">
+												<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+												<label for="rdAlguns">Alguns dos termos digitados</label>
+											</div>
+											<div class="bth-radio bth-radio-inline">
+												<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+												<label for="rdTodos">Todos os termos digitados</label>
+											</div>
+											<div class="bth-radio bth-radio-inline">
+												<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+												<label for="rdNenhum">Nenhum dos termos digitados</label>
+											</div>
+										</li>
+										<li class="dropdown-footer pull-right">
+											<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="row" ng-repeat="comment in comments | limitTo: 2">
+				<div class="col-md-12">
+					<div class="bth-card bth-card--bordered">
+						<div class="bth-card__body">
+							<div class="bth-comment">
+								<div class="bth-comment__main">
+									<div class="bth-comment__thumb">
+										<img src="https://placeimg.com/640/640/people" alt="">
+									</div>
+									<div class="bth-comment__container">
+										<div class="bth-comment__user">
+											<strong>{{comment.nome}}</strong> -
+											<small class="text-muted">há 5 minutos</small>
+										</div>
+										<div class="bth-comment__content">
+											<div><label>Processo </label>&nbsp;<span class="label label-info"> 0123456789</span></div>
+											<div>
+												{{comment.comment}}
+											</div>
+										</div>
+										<div class="bth-comment__actions">
+											<button class="btn btn-sm btn-link" ng-click="toggleEdit(c)"><i class="fa fa-fw fa-pencil"></i> EDITAR</button>
+											<button class="btn btn-sm btn-link" ng-click="removeComment(comments, $index)"><i class="fa fa-fw fa-trash-o"></i> EXCLUIR</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+				<button class="btn btn-primary" ng-click="save()">Salvar</button>
+			<button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		</div>
+	</div>
+</div>

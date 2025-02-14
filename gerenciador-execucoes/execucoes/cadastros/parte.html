@@ -1,0 +1,87 @@
+<div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h3 class="modal-title">Editando partes do processo</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="required">Executado</label>
+                    <input type="hidden" bf-select2="userOptions"  ng-model="executado" ng-init="executado = 1"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="required">Exequente</label>
+                    <input type="hidden" bf-select2="userOptions"  ng-model="exequente" ng-init="exequente = 2"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">                                            
+                    <label class="required">Grupo de trabalho</label>
+                    <select data-bf-select2="{}" ng-model="grupoTrabalho" ng-init="grupoTrabalho = 0">
+                        <option value="0">Grupo de trabalho 01</option>
+                        <option value="1">Grupo de trabalho 02</option>
+                        <option value="2">Grupo de trabalho 03</option>
+                        <option value="3">Grupo de trabalho 04</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row bottom">
+                <div class="col-md-10 linha-vertical col-md-offset-1">
+                    <label class="required">Procurador</label>
+                </div>
+            </div>
+            <div class="row linha-vertical-list">
+                <div class="col-md-11 col-md-offset-1">
+                    <input type="hidden" bf-select2="userOptions"  ng-model="procurador"  ng-init="procurador = 3"/>                                                
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Mais partes do processo</h4>
+                </div>
+            </div>
+            <div class="row bottom"
+                ng-init="participantes = [{parte:5, participacao:3},
+                {parte:6, participacao:3},{parte:7, participacao:3},
+                {parte:8, participacao:3},{parte:9, participacao:3}]">
+                <div class="col-md-8">
+                    <label>Parte</label>
+                </div>
+                <div class="col-md-3">
+                    <label>Participação</label>
+                </div>
+            </div>
+            <div class="row" ng-repeat=" p in participantes" >
+                <div class="col-md-8">
+                    <input type="hidden" bf-select2="userOptions"  ng-model="p.parte"/>
+                </div>
+                <div class="col-md-3">
+                    <select data-bf-select2="{}" ng-model="p.participacao">
+                        <option value="0">Exequente</option>
+                        <option value="1">Executado</option>
+                        <option value="2">Procurador</option>
+                        <option value="3">Advogado</option>
+                        <option value="4">Autor</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-default" title="Excluir" ng-click="participantes.splice($index, 1)"><i class="fa fa-trash-o"></i></button>
+                </div>
+            </div>
+            <div class="row bottom">
+                <div class="col-md-11 col-md-offset-1 text-right">
+                    <button class=" btn btn-add btn-sm btn-success" title="Adiciona uma nova parte ao processo" ng-click="participantes.push({})">Parte</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>

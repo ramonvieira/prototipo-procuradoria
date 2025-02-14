@@ -1,0 +1,27 @@
+{
+  "name": "ui-commons",
+  "version": "0.1.4",
+  "description": "",
+  "main": [
+    "dist/ui-commons.js"
+  ],
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "http://gitlab.dev.bethacloud.com.br/ui-components/ui-commons",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "*",
+    "jquery": "*",
+    "ui-components": "http://gitlab.dev.bethacloud.com.br/ui-components/ui-components.git"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4.8"
+  }
+}

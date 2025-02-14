@@ -1,0 +1,307 @@
+
+<div class="row">
+	<div class="col-md-12">
+		<uib-tabset>
+			<uib-tab class="pointer" heading="Parâmetros">
+				<!-- <h1 class="titulo-configuracoes">Parâmetros dos documentos</h1> -->
+				<div class="row">
+					<div class="col-md-2">
+						<label for="">Ano</label>
+						<span class="ui-spinner input-group">
+							<input id="spinner" class="form-control ui-spinner-input" value="2016" type="text" name="value" autocomplete="off" role="spinbutton">
+							<a class="ui-spinner-button ui-spinner-up" tabindex="-1">
+								<span class="icon-sort-up"></span>
+							</a>
+							<a class="ui-spinner-button ui-spinner-down" tabindex="-1">
+								<span class="icon-sort-down"></span>
+							</a>
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 col-md-offset-6">
+						<!-- Pesquisa inline -->
+						<div class="input-group">
+							<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+
+							<!-- Pesquisa avançada -->
+
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+								<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+
+								<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
+									<li class="dropdown-header">
+										<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+										<h1>Pesquisa avançada</h1>
+									</li>
+									<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+									<li>
+										<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true" ng-init="colunasSelect = [1]">
+											<option value="1">Natureza</option>
+										</select>
+									</li>
+									<li class="dropdown-header">Utilizando como critério</li>
+									<li>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdAlguns">Alguns dos termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdTodos">Todos os termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdNenhum">Nenhum dos termos digitados</label>
+										</div>
+									</li>
+									<li class="dropdown-footer pull-right">
+										<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-show="arquivo != null && !sequencial">
+					<div class="col-md-12 text-center">
+						<h4>Ainda não há tipos de documentos por aqui</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>
+										<label>Natureza </label> <i class="icon-sort pull-right"></i>
+									</th>
+									<th width="130">
+										<label>Número inicial</label> <i class="icon-sort pull-right"></i>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="natureza in naturezas">
+									<td>{{natureza.descricao}}</td>
+									<td class="has-edit list-alert-group" style="position: relative">
+										<input type="text" ng-model="natureza.numInicial" class="form-control">
+										<span ng-show="!$first" style="position: absolute; top: 0; right: 0;" class="label label-warning list-alert" title="O valor informado não pode ser menor que o atual">!</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<arrec-pagination />
+				<div class="row">
+					<div class="col-md-12">
+						<div class="pull-right">
+							<button class="btn btn-primary" ng-click="salvarConfiguracao();">Salvar</button>
+							<button class="btn btn-default" title="Restaura a configuração para a última versão salva">Restaurar</button>
+						</div>
+					</div>
+				</div>
+
+			</uib-tab>
+			<uib-tab class="pointer" heading="Quebras">
+				<div class="row">
+					<div class="col-md-4">
+						<label for="" class="required">
+							Natureza
+						</label>
+						<select bf-select2="{}" ng-model="natureza" class="form-control">
+							<option value="1">Natureza 1</option>
+							<option value="2">Natureza 2</option>
+							<option value="3">Natureza 3</option>
+						</select>
+					</div>
+					<div class="col-md-4" ng-show="natureza != nul">
+						<label for="" class="required">
+							Vincular quebra por
+						</label>
+						<select bf-select2="{}" ng-model="vincularPor" class="form-control">
+							<option value="1">Natureza</option>
+							<option value="2">Modelo</option>
+						</select>
+					</div>
+					<div class="col-md-4" ng-show="vincularPor == 1">
+						<label for="" class="required">
+							Fonte de dados
+						</label>
+						<select bf-select2="{}" ng-model="fonteDados" class="form-control">
+							<option value="1">fonte de dados</option>
+							<option value="2">fonte de dados</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row" ng-show="vincularPor == 2">
+					<div class="col-md-12">
+						<h4>
+							Vínculos
+						</h4>
+						<button class="btn btn-sm btn-success btn-add" title="Adiciona um novo vínculo" ng-click="vincularModelo()">
+							Vínculo
+						</button>
+					</div>
+				</div>
+
+				<div class="row" ng-show="vincularPor == 2">
+					<div class="col-md-12">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Modelo</th>
+									<th>Quebra</th>
+									<th width="65px"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Modelo 01</td>
+									<td>Quebra 01</td>
+									<td class="text-center">
+										<a href="" title="Editar">
+											<i class="fa fa-fw fa-pencil"></i>
+										</a>
+										<a href="" title="Desvincular">
+											<i class="fa fa-fw fa-chain-broken"></i>
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Modelo 01</td>
+									<td>Quebra 01</td>
+									<td class="text-center">
+										<a href="" title="Editar">
+											<i class="fa fa-fw fa-pencil"></i>
+										</a>
+										<a href="" title="Desvincular">
+											<i class="fa fa-fw fa-chain-broken"></i>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				 <!-- 
+				<div class="row" ng-show="vincularPor == 2">
+					<div class="col-md-12 text-center">
+						<h4>Ainda não há modelos por aqui</h4>
+					</div>
+				</div>
+				 -->
+
+				<div class="row" ng-show="vincularPor == 1 && fonteDados != null">
+					<div class="col-md-12">
+						<h4>
+							Quebras
+						</h4>
+						<button ng-click="addQuebra()" class="btn btn-sm btn-add btn-success" title="Adiciona uma nova quebra">Quebra</button>
+					</div>
+				</div>
+
+				<div class="row" ng-show="vincularPor == 1 && fonteDados != null">
+					<div class="col-md-12">
+						<table class="table">
+							<thead>
+								<tr>
+									<th width="30px"></th>
+									<th width="200px">
+										Descrição
+									</th>
+									<th>
+										Itens
+									</th>
+									<th width="60px"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<div class="bth-radio">
+											<input id="radio" type="radio" ng-model="radio" name="bthRadioOptions" value="1">
+											<label for="radio"></label>
+										</div>
+									</td>
+									<td class="ellipsis">
+										Nome da quebra 1
+									</td>
+									<td class="ellipsis">
+										Nome, CPF, Endereço
+									</td>
+									<td class="text-center">
+										<a title="Editar" href=""><i class="fa fa-fw fa-pencil"></i></a>
+										<a title="Excluir" href=""><i class="fa fa-fw fa-trash-o"></i></a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="bth-radio">
+											<input id="radioDois" type="radio" ng-model="radio" name="bthRadioOptions" value="1">
+											<label for="radioDois"></label>
+										</div>
+									</td>
+									<td class="ellipsis">
+										Nome da quebra 2
+									</td>
+									<td class="ellipsis">
+										Nome, CPF, Endereço
+									</td>
+									<td class="text-center">
+										<a title="Editar" href=""><i class="fa fa-fw fa-pencil"></i></a>
+										<a title="Excluir" href=""><i class="fa fa-fw fa-trash-o"></i></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- 
+				<div class="row" ng-show="vincularPor == 1">
+					<div class="col-md-12 text-center">
+						<h4>Ainda não há quebras por aqui</h4>
+					</div>
+				</div>
+				 -->
+
+				<div class="row">
+					<div class="col-md-12 text-right">
+						<button class="btn btn-sm btn-primary">
+							Salvar
+						</button>
+					</div>
+				</div>
+			</uib-tab>
+			<uib-tab class="pointer" heading="Emissão">
+				<h1 class="titulo-configuracoes">Certidões</h1>
+				<div class="row">
+					<div class="col-md-4">
+						<label for="varlorMinimoCDA">Valor mínimo para emissão das certidões</label>
+						<div class="input-group">
+							<span class="input-group-addon">R$</span>
+							<input type="text" class="form-control" id="varlorMinimoCDA" bf-number="" ng-model="varlorMinimoCDA" placeholder="0,00">
+						</div>
+					</div>
+				</div>
+
+				<h1 class="titulo-configuracoes">Petição inicial</h1>
+				<div class="row">
+					<div class="col-md-4">
+						<label for="varlorMinimoPeticao">Valor mínimo para emissão da petição inicial</label>
+						<div class="input-group">
+							<span class="input-group-addon">R$</span>
+							<input type="text" class="form-control" id="varlorMinimoPeticao" bf-number="" ng-model="varlorMinimoPeticao" placeholder="0,00">
+						</div>
+					</div>
+				</div>
+			</uib-tab>
+		</uib-tabset>
+	</div>
+</div>
+

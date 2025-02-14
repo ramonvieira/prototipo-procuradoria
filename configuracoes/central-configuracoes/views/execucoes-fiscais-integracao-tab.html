@@ -1,0 +1,52 @@
+<div class="row">
+	<div class="col-md-12">
+		<label for="url" class="required"><abbr title="Uniform Resource Locator">URL</abbr></label>
+		<input type="text" id="url" ng-model="vm.registro.url" placeholder="http://" class="form-control ng-pristine ng-untouched ng-valid">
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<label for="">Usuário</label>
+		<input type="text" class="form-control">
+	</div>
+	<div class="col-md-4">
+		<label for="">Senha</label>
+		<input type="password" class="form-control">
+	</div>
+	<div class="col-md-4">
+		<label for="formatoAssinatura" class="required">Formato de assinatura</label>
+		<select bf-select2="{}" id="formatoAssinatura" class="form-control" ng-model="registro.formatoAssinatura" ng-required="true">
+			<option value="PDF">PDF</option>
+			<option value="P7S">P7S</option>
+		</select>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-8">
+		<label for="">URL Adicional</label>
+		<input type="text" ng-model="vm.registro.urlAdicional" placeholder="http://" class="form-control ng-pristine ng-untouched ng-valid">
+	</div>
+	<div class="col-md-4">
+		<label for="">Formato de assinatura adicional</label>
+		<select bf-select2="{}" id="formatoAssinaturaAdicional" class="form-control" ng-model="registro.formatoAssinaturaAdicional" ng-required="true">
+			<option value="PDF">PDF</option>
+			<option value="P7S">P7S</option>
+		</select>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<label for="idScriptRetornoMovimentacoesExecucaoFiscal">Script para retorno das movimentações da execução fiscal</label>
+		<select bf-select2="{}" id="vm.registro.idScriptRetornoMovimentacoesExecucaoFiscal" class="form-control" ng-model="registro.vm.registro.idScriptRetornoMovimentacoesExecucaoFiscal" ng-required="true">
+			<option value="PDF">PDF</option>
+			<option value="P7S">P7S</option>
+		</select>
+	</div>
+	<div class="col-md-6">
+		<label for="idScriptCadastroAutomatico">Script para cadastro automático de processos</label>
+		<select bf-select2="{}" id="idScriptCadastroAutomatico" class="form-control" ng-model="registro.idScriptCadastroAutomatico" ng-required="true">
+			<option value="PDF">PDF</option>
+			<option value="P7S">P7S</option>
+		</select>
+	</div>
+</div>

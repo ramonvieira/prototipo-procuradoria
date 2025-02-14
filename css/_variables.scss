@@ -1,0 +1,261 @@
+@import './functions';
+@import './mixins';
+
+// Variáveis
+
+// As variáveis devem seguir o seguinte padrão `$componente-estado-propriedade-tamanho`.
+// Ex.: $nav-link-disabled-color and $modal-content-box-shadow-xs.
+
+$base-font: 'Open Sans', 'Arial', sans-serif;
+$base-icon: 'Material Icons', 'Arial', sans-serif;
+
+$icon: (
+  'primary':(
+    'name': 'Material Icons'
+  ),
+  'secondary':(
+    'name': 'FontAwesome'
+  )
+);
+
+$font: (
+  'primary': (
+    'name': 'Open Sans',
+    'weight': (
+      'light': 300,
+      'regular': 400,
+      'semi-bold': 600,
+      'bold': 700,
+      'extra-bold': 800
+    )
+  )
+);
+ 
+// Colors
+$white: #FFF;
+$black: #000;
+
+//  Cores institucionais
+$main-brand-color: #0761FF;
+ 
+//  Cores verticais
+ $brand-colors: (
+   'brown'    : #9A8B7D, // Gestão municipal
+   'lilac'    : #A6B8FF, // Planejamento e Contabilidade
+   'lime'     : #00BB77, // Arrecadação e Fiscalização
+   'gray'     : #959798, // Atendimento
+   'red'      : #FF7A75, // Gestão de Compras e Contratos
+   'cian'     : #009ADC, // Pessoal e Recursos Humanos
+   'blue'     : #263E81, // NoPaper
+   'green'    : #A7C27E, // Saúde e Assistência Social
+   'yellow'   : #F3B02E, // Educação e Gestão Escolar
+   'orange'   : #F4812E,
+   'blueLight': #3761F9, // Studio
+ );
+
+ $brand-colors-gradient: linear-gradient(to right, map-get($brand-colors, 'brown'), map-get($brand-colors, 'brown') 11.11%, map-get($brand-colors, 'lilac') 11.11%, map-get($brand-colors, 'lilac') 22.22%, map-get($brand-colors, 'lime') 22.22%, map-get($brand-colors, 'lime') 33.33%, map-get($brand-colors, 'gray') 33.33%, map-get($brand-colors, 'gray') 44.44%, map-get($brand-colors, 'red') 44.44%, map-get($brand-colors, 'red') 55.55%, map-get($brand-colors, 'cian') 55.55%, map-get($brand-colors, 'cian') 66.66%, map-get($brand-colors, 'green') 66.66%, map-get($brand-colors, 'green') 77.77%, map-get($brand-colors, 'yellow') 77.77%, map-get($brand-colors, 'yellow') 88.88%, map-get($brand-colors, 'orange') 88.88%, map-get($brand-colors, 'orange') 100%);
+ 
+// Cores adicionais utilizadas no sistema   
+ $additional-colors: (
+   'blue'   : #009ADC,
+   'petrol' : #1C1A23,
+   'gold'   : #AD8B43
+ );
+
+// Cores do sistema
+$red    : hsl(2, 70%, 55%);
+$pink   : hsl(330, 54%, 56%);
+$blue   : hsl(217, 70%, 53%);
+$aqua   : hsl(195, 61%, 55%);
+$green  : hsl(157, 51%, 50%);
+$yellow : hsl(44, 80%, 55%);
+$orange : hsl(25, 80%, 55%);
+$purple : hsl(286, 34%, 54%);
+
+// Colors >> Gray
+$gray          : #bfbfc0;
+$gray-dark-40  : $black;
+$gray-dark-30  : dark($gray, 61%);
+$gray-dark-20  : dark($gray, 40%);
+$gray-dark-10  : dark($gray, 29%);
+$gray-dark-5   : dark($gray, 15%);
+$gray-light-5  : lighten($gray, 9%);
+$gray-light-10 : lighten($gray, 14%);
+$gray-light-20 : lighten($gray, 18%);
+$gray-light-30 : lighten($gray, 21%);
+$gray-light-40 : $white;
+ 
+$colors-gray: (
+  'dark-40' : $gray-dark-40,
+  'dark-30' : $gray-dark-30,
+  'dark-20' : $gray-dark-20,
+  'dark-10' : $gray-dark-10,
+  'base'    : $gray,
+  'light-10': $gray-light-10,
+  'light-20': $gray-light-20,
+  'light-30': $gray-light-30,
+  'light-40': $gray-light-40
+);
+ 
+// Colors >> Red
+$colors-red: (
+  'dark-40' : dark($red, 35%),
+  'dark-30' : dark($red, 28%),
+  'dark-20' : dark($red, 20%),
+  'dark-10' : dark($red, 10%),
+  'base'    : $red,
+  'light-10': light($red, 10%),
+  'light-20': light($red, 20%),
+  'light-30': light($red, 30%),
+  'light-40': light($red, 40%)
+);
+ 
+// Colors >> Pink 
+$colors-pink: (
+  'dark-40' : dark($pink, 35%),
+  'dark-30' : dark($pink, 28%),
+  'dark-20' : dark($pink, 20%),
+  'dark-10' : dark($pink, 10%),
+  'base'    : $pink,
+  'light-10': light($pink, 10%),
+  'light-20': light($pink, 20%),
+  'light-30': light($pink, 30%),
+  'light-40': light($pink, 40%)
+);
+ 
+// Colors >> Blue 
+$colors-blue: (
+  'dark-40' : dark($blue, 35%),
+  'dark-30' : dark($blue, 28%),
+  'dark-20' : dark($blue, 20%),
+  'dark-10' : dark($blue, 10%),
+  'base'    : $blue,
+  'light-10': light($blue, 10%),
+  'light-20': light($blue, 20%),
+  'light-30': light($blue, 30%),
+  'light-40': light($blue, 40%)
+);
+ 
+// Colors >> Aqua 
+$colors-aqua: (
+  'dark-40' : dark($aqua, 35%),
+  'dark-30' : dark($aqua, 28%),
+  'dark-20' : dark($aqua, 20%),
+  'dark-10' : dark($aqua, 10%),
+  'base'    : $aqua,
+  'light-10': light($aqua, 10%),
+  'light-20': light($aqua, 20%),
+  'light-30': light($aqua, 30%),
+  'light-40': light($aqua, 40%)
+);
+ 
+// Colors >> Green 
+$colors-green: (
+  'dark-40' : dark($green, 35%),
+  'dark-30' : dark($green, 28%),
+  'dark-20' : dark($green, 20%),
+  'dark-10' : dark($green, 10%),
+  'base'    : $green,
+  'light-10': light($green, 10%),
+  'light-20': light($green, 20%),
+  'light-30': light($green, 30%),
+  'light-40': light($green, 40%)
+);
+ 
+// Colors >> Yellow 
+$colors-yellow: (
+  'dark-40' : dark($yellow, 35%),
+  'dark-30' : dark($yellow, 28%),
+  'dark-20' : dark($yellow, 20%),
+  'dark-10' : dark($yellow, 10%),
+  'base'    : $yellow,
+  'light-10': light($yellow, 10%),
+  'light-20': light($yellow, 20%),
+  'light-30': light($yellow, 30%),
+  'light-40': light($yellow, 40%)
+);
+ 
+// Colors >> Orange 
+$colors-orange: (
+  'dark-40' : dark($orange, 35%),
+  'dark-30' : dark($orange, 28%),
+  'dark-20' : dark($orange, 20%),
+  'dark-10' : dark($orange, 10%),
+  'base'    : $orange,
+  'light-10': light($orange, 10%),
+  'light-20': light($orange, 20%),
+  'light-30': light($orange, 30%),
+  'light-40': light($orange, 40%)
+);
+ 
+// Colors >> Purple
+$colors-purple: (
+  'dark-40' : dark($purple, 35%),
+  'dark-30' : dark($purple, 28%),
+  'dark-20' : dark($purple, 20%),
+  'dark-10' : dark($purple, 10%),
+  'base'    : $purple,
+  'light-10': light($purple, 10%),
+  'light-20': light($purple, 20%),
+  'light-30': light($purple, 30%),
+  'light-40': light($purple, 40%)
+);
+
+// Colors >> Bluish gray
+$colors-blGray: (
+  'dark-40' : dark(desaturate($blue, 60%), 35%),
+  'dark-30' : dark(desaturate($blue, 60%), 28%),
+  'dark-20' : dark(desaturate($blue, 60%), 20%),
+  'dark-10' : dark(desaturate($blue, 60%), 10%),
+  'base'    : desaturate($blue, 60%),
+  'light-10': light(desaturate($blue, 60%), 10%),
+  'light-20': light(desaturate($blue, 60%), 20%),
+  'light-30': light(desaturate($blue, 60%), 30%),
+  'light-40': light(desaturate($blue, 60%), 40%)
+);
+ 
+// Colors >> Todas
+$colors: (
+  'gray'    : $colors-gray,
+  'red'     : $colors-red,
+  'pink'    : $colors-pink,
+  'blue'    : $colors-blue,
+  'aqua'    : $colors-aqua,
+  'green'   : $colors-green,
+  'yellow'  : $colors-yellow,
+  'orange'  : $colors-orange,
+  'purple'  : $colors-purple,
+  'blGray'  : $colors-blGray,
+  'white': ( 
+    'base'  : $white
+  ),
+  'black': ( 
+    'base'  : $black
+  )
+);
+
+$breadcrumb-text: $gray-dark-10;
+
+// Links
+$link-color       : $blue;
+$a-link           : palette('blue', 'dark-10');
+$link             : $link-color;
+
+// Header
+$header-color: map-get($additional-colors, 'petrol');
+
+//Espaçamentos padrão
+$xSmall: 2px;
+$small: 4px;
+$base: 6px;
+$large: 8px;
+$xLarge: 10px;
+$xxLarge: 14px;
+
+// Arredondamentos
+$border-radius-xSmall : $xSmall;
+$border-radius-small : $small;
+$border-radius-base : $base;
+$border-radius-large : $large;
+$border-radius-xLarge : $xLarge;
+$border-radius-xxLarge : $xxLarge;

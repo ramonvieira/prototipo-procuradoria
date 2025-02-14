@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-md-12">
+        <uib-tabset>
+            <uib-tab class="pointer" heading="Dados">
+                <div ng-include="'configuracoes/central-configuracoes/views/execucoes-fiscais-dados-gerais-tab.html'"></div>
+            </uib-tab>
+            <uib-tab class="pointer" heading="Integração">
+                <div ng-include="'configuracoes/central-configuracoes/views/execucoes-fiscais-integracao-tab.html'"></div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-right">
+            <button class="btn btn-primary" ng-click="salvarConfiguracao();">Salvar</button>
+        </div>
+    </div>
+</div>

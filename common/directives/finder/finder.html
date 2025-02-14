@@ -1,0 +1,260 @@
+<div class="btn-group hidden-print" data-ng-hide="hideProperties.sideButtons">
+	<!-- <div class="btn-group">
+		<button id="dropdownAgrupamento" data-ng-disabled="!totalRegistros" data-ng-show="hideProperties.groupBy" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Definir agrupamento das informações">
+			<i class="fa fa-object-group"></i>
+			<span class="caret"></span>
+		</button>
+		<ul data-ng-hide="!totalRegistros" class="dropdown-menu" aria-labelledby="dropdownAgrupamento" keep-open>
+			<li class="dropdown-header">Opções de agrupamento</li>
+			<li><a href="" ng-click="setAgrupamento('1')" class="btn-check" ng-class="{'active' : agrupamento == 1}">Nenhum</a></li>
+			<li><a href="" ng-click="setAgrupamento('2')" class="btn-check" ng-class="{'active' : agrupamento == 2}">Por proprietário (Exemplo protótipo)</a></li>
+			<li><a href="" ng-click="setAgrupamento('3')" class="btn-check" ng-class="{'active' : agrupamento == 3}">Por situação</a></li>
+			<li><a href="" ng-click="setAgrupamento('4')" class="btn-check" ng-class="{'active' : agrupamento == 4}">Por distrito</a></li>
+			<li><a href="" ng-click="setAgrupamento('5')" class="btn-check" ng-class="{'active' : agrupamento == 5}">Por bairro</a></li>
+			<li><a href="" ng-click="setAgrupamento('6')" class="btn-check" ng-class="{'active' : agrupamento == 6}">Por logradouro</a></li>
+		</ul>
+	</div> -->
+	<div class="btn-group">
+		<button id="dropdownColunas" data-ng-disabled="!totalRegistros" data-ng-hide="hideProperties.showColumns" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Definir colunas a exibir">
+			<i class="fa fa-columns"></i>
+			<span class="caret"></span>
+		</button>
+		<ul data-ng-hide="!totalRegistros" class="dropdown-menu" aria-labelledby="dropdownColunas" keep-open>
+			<li class="dropdown-header">Colunas a exibir</li>
+			<li data-ng-repeat="column in columns | filter: {showColumn: true} track by $index">
+				<div class="dropdown-menu-checkbox">
+					<div class="bth-checkbox">
+						<input id="visible-{{$index}}" type="checkbox" data-ng-model="columnsIsVisible[$index]" data-ng-click="showColumns()"  data-ng-disabled="isDisabled(columnsIsVisible[$index])">
+						<label for="visible-{{$index}}">{{column.descricao}}</label>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="btn-group">
+		<button id="dropdownAltura" data-ng-disabled="!totalRegistros" data-ng-hide="hideProperties.lineHeight" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Definir altura das linhas">
+			<i class="fa fa-reorder"></i>
+			<span class="caret"></span>
+		</button>
+		<ul data-ng-hide="!totalRegistros" class="dropdown-menu" aria-labelledby="dropdownAltura" keep-open>
+			<li class="dropdown-header">Altura das linhas</li>
+			<li><a href="" ng-click="setLineHeight('1')" class="btn-check active" ng-class="{'active' : lineHeight == 1}">Padrão</a></li>
+			<li><a href="" ng-click="setLineHeight('2')" class="btn-check" ng-class="{'active' : lineHeight == 2}">Condensada</a></li>
+		</ul>
+	</div>
+</div>
+<div class="btn-group hidden-print" data-ng-hide="hideProperties.sideButtons">
+	<div class="btn-group">
+		<button id="dropdownExportar" data-ng-disabled="!totalRegistros" data-ng-hide="hideProperties.export" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Fazer download">
+			<i class="fa fa-download"></i>
+			<span class="caret"></span>
+		</button>
+		<ul data-ng-hide="!totalRegistros" class="dropdown-menu" keep-open>
+			<li class="dropdown-header">Formato do arquivo</li>
+			<li><a href="" data-ng-click="exportTable('pdf')">PDF</a></li>
+			<li><a href="" data-ng-click="exportTable('csv')">CSV</a></li>
+			<li><a href="" data-ng-click="exportTable('xls')">Excel</a></li>
+		</ul>
+	</div>
+	<div class="btn-group" data-ng-if="hideProperties.print">
+		<button id="dropdownImprimir" data-ng-disabled="!totalRegistros" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Opções de impressão">
+			<i class="fa fa-print"></i>
+			<span class="caret"></span>
+		</button>
+		<ul data-ng-hide="!totalRegistros" class="dropdown-menu" keep-open>
+			<li class="dropdown-header">Opções de impressão</li>
+			<li><a href="">Imprimir página atual</a></li>
+			<li><a href="">Gerar relatório</a></li>
+		</ul>
+	</div>
+</div>
+<button type="button" data-ng-disabled="!totalRegistros" data-ng-hide="hideProperties.refresh || hideProperties.sideButtons" class="btn btn-default btn-sm" title="Atualizar" ng-click="refresh()" data-ng-if="somentePesquisa == false">
+	<i class="fa fa-refresh"></i>
+</button>
+<!-- Pesquisa inline -->
+<div class="input-group" data-ng-hide="hideProperties.search">
+	<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown" data-ng-model="filter.keyword" bf-focus-on="searchInput">
+	<ul class="dropdown-menu dropdown-pesquisas-rapidas" aria-labelledby="dropdownPesquisasSalvas" data-ng-show="hasFilters()" data-bf-loading="loadingTracker">
+		<li class="dropdown-header">Filtros salvos</li>
+		<li data-ng-repeat="item in filters track by item.id" keep-open>
+			<a href="" class="btn-check" data-ng-class="{active: item.id == filter.id}">
+				<p style="padding:0px; margin:0px;" data-ng-click="setFilter(item)"> {{item.descricao}} </p>
+				<i class="fa fa-trash-o pull-right btn-excluir" title="Excluir pesquisa rápida" data-ng-click="remove(item)"></i>
+			</a>
+		</li>
+		<li role="separator" class="divider" ng-if="hasNext"></li>
+		<li><a href="" data-ng-click="abrirPopup(id)" class="text-center" ng-if="hasNext">Ver todos</a></li>
+	</ul>
+	<div id="filter-group" class="input-group-btn">
+		<button type="button" class="btn btn-primary btn-default btn-sm" title="Pesquisar" ng-click="addKeyword(filter.keyword)" style="color: #333 !important; background-color: #fff !important; border-color: #ccc !important;"><i class="fa fa-search"></i></button>
+		<button id="filters-button" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada" bf-focus-on="focoFiltrar"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+		<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right" keep-open>
+			<li class="dropdown-header">
+				<button type="button" class="close" data-dismiss="dropdown" title="Fechar">&times;</button>
+				<h1>Pesquisa avançada</h1>
+			</li>
+			<li class="dropdown-header" data-ng-hide="hideProperties.searchInColumns">Pesquisar na(s) coluna(s)</li>
+			<li data-ng-hide="hideProperties.searchInColumns">
+				<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true">
+					<option data-ng-repeat="column in columns | filter:{ filterable: true}" value="{{column.id}}">{{column.descricao}}</option>
+				</select>
+			</li>
+			<li class="dropdown-header">Utilizando como critério</li>
+			<li>
+				<div class="bth-radio bth-radio-inline">
+					<input id="{{id ? 'searchColumnsCriterionSome-' + id : 'searchColumnsCriterionSome' }}" ng-model="tipoPesquisa" value="some" type="radio">
+					<label for="{{id ? 'searchColumnsCriterionSome-' + id : 'searchColumnsCriterionSome' }}">Alguns dos termos digitados</label>
+				</div>
+				<div class="bth-radio bth-radio-inline">
+					<input id="{{id ? 'searchColumnsCriterionAll-' + id : 'searchColumnsCriterionAll' }}" ng-model="tipoPesquisa" value="all" type="radio">
+					<label for="{{id ? 'searchColumnsCriterionAll-' + id : 'searchColumnsCriterionAll' }}">Todos os termos digitados</label>
+				</div>
+				<div class="bth-radio bth-radio-inline">
+					<input id="{{id ? 'searchColumnsCriterionNone-' + id : 'searchColumnsCriterionNone' }}" ng-model="tipoPesquisa" value="none" type="radio">
+					<label for="{{id ? 'searchColumnsCriterionNone-' + id : 'searchColumnsCriterionNone' }}">Nenhum dos termos digitados</label>
+				</div>
+			</li>
+			<li role="separator" class="divider" ng-show="others.length"></li>
+			<li role="others" ng-show="others.length">
+				<div class="row">
+					<div class="col-md-12">
+						<h1>Outras opções</h1>
+					</div>
+				</div>
+				<div class="row" data-ng-if="(others | filter:{ type: 'date'} : true).length">
+					<div class="col-md-4" data-ng-repeat="column in others | filter:{ type: 'date'}: true">
+						<div class="row dropdown-header">
+							<div class="col-md-12">{{column.descricao}}</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="input-group">
+									<input type="text" class="form-control" id="data-{{$index}}" data-ng-model="column.values" data-ng-change="setOthers(column.values, column)" data-bf-date/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" data-ng-if="(others | filter:{ type: 'intervalDecimal'} : true).length" data-ng-repeat="column in others | filter:{ type: 'intervalDecimal'} : true">
+					<div class="row dropdown-header">
+						<div class="col-md-12">{{column.descricao}}</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="input-group">
+								<ui-number data-ng-model="column.values.vlInicial" integer="15" fraction="2" append="after" data-ng-change="setOthers(column.values, column)"></ui-number>
+					            <span class="input-group-addon">até</span>
+								<ui-number data-ng-model="column.values.vlFinal" integer="15" fraction="2" append="after" data-ng-change="setOthers(column.values, column)"></ui-number>
+					        </div>
+					    </div>
+					</div>
+				</div>
+				<div class="row" data-ng-if="(others | filter:{ type: 'intervalYear'} : true).length" data-ng-repeat="column in others | filter:{ type: 'intervalYear'} : true">
+					<div class="row dropdown-header">
+						<div class="col-md-12">{{column.descricao}}</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="input-group">
+					            <input class="form-control" type="text" data-ng-model="column.values.anoInicial" data-ng-change="setOthers(column.values, column)" data-bf-restrict-number>
+					            <span class="input-group-addon">até</span>
+					            <input class="form-control" type="text" data-ng-model="column.values.anoFinal" data-ng-change="setOthers(column.values, column)" data-bf-restrict-number>
+					        </div>
+					     </div>
+					</div>
+				</div>
+				<div class="row" data-ng-if="(others | filter:{ type: 'spinner'} : true).length" data-ng-repeat="column in others | filter:{ type: 'spinner'} : true">
+					<div class="row dropdown-header">
+						<div class="col-md-12">{{column.descricao}}</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<ui-spinner data-ng-model="column.values" ui-min="0" ui-max="column.maxInput" step="1" data-ng-change="setOthers(column.values, column)"></ui-spinner>
+						</div>
+					</div>
+				</div>
+				<div class="row" data-ng-if="(others | filter:{ type: 'enum'} : true).length" data-ng-repeat="column in others | filter:{ type: 'enum'}">
+					<div class="col-md-12">
+						<div class="row bottom dropdown-header">
+							<div class="col-md-12">{{column.descricao}}</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<select bf-select2="{}" data-ng-model="column.values" multiple="true" data-ng-change="setOthers(column.values, column)">
+									<option data-ng-repeat="enum in column.enum" value="{{enum.id || enum.key}}">{{enum.descricao || enum.description}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" data-ng-if="(others | filter:{ type: 'select'} : true).length" data-ng-repeat="column in others | filter:{ type: 'select'}">
+					<div class="col-md-12">
+						<div class="row dropdown-header">
+							<div class="col-md-12">{{column.descricao}}</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<select name="" id="" bf-select2="{}"  ng-model="select2" multiple>
+									<option value="1">Item 1</option>
+									<option value="2">Item 2</option>
+									<option value="3">Item 3</option>
+									<option value="4">Item 4</option>
+									<option value="5">Item 5</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row bottom" data-ng-if="(others | filter:{ type: 'intervalDate'} : true).length" data-ng-repeat="column in others | filter:{ type: 'intervalDate'} : true">
+					<div class="row dropdown-header">
+						<div class="col-md-12">{{column.descricao}}</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="input-group">
+								<div class="input-group">
+					                <input class="form-control" type="text" bf-date data-ng-model="column.values.dataInicial" data-ng-change="setOthers(column.values, column)">
+					            </div>
+					            <span class="input-group-addon" data-ng-if="!column.limitInterval">até</span>
+					            <div class="input-group" data-ng-if="!column.limitInterval">
+					                <input class="form-control" type="text" bf-date data-ng-model="column.values.dataFinal" data-ng-change="setOthers(column.values, column)">
+					            </div>
+					        </div>
+					    </div>
+					</div>
+				</div>				
+				<div class="row bottom" data-ng-if="(others | filter:{ type: 'intervalDateTime'} : true).length" data-ng-repeat="column in others | filter:{ type: 'intervalDateTime'} : true">
+					<div class="row dropdown-header">
+						<div class="col-md-12">{{column.descricao}}</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="input-group">
+								<div class="input-group">
+					                <input class="form-control" type="text" bf-date="{showDate: true, showTime:true}" data-ng-model="column.values.dataInicial" data-ng-change="setOthers(column.values, column)">
+					            </div>
+					            <span class="input-group-addon" data-ng-if="!column.limitInterval">até</span>
+					            <div class="input-group" data-ng-if="!column.limitInterval">
+					                <input class="form-control" type="text" bf-date="{showDate: true, showTime:true}" data-ng-model="column.values.dataFinal" data-ng-change="setOthers(column.values, column)">
+					            </div>
+					        </div>
+					    </div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="dropdown-footer pull-left clearfix" ng-show="moreFilters">
+					<button class="btn btn-link pull-left" ng-click="showMoreFilters()">Mais filtros</button>
+				</div>
+				<div class="dropdown-footer pull-right clearfix">
+					<button ng-show="vm.hasAdvancedOptions" class="btn btn-primary"
+							data-ng-click="vm.openAdvancedOptions()"><i class="fa fa-gear"></i> Avançado
+					</button>
+					<button class="btn btn-primary" data-dismiss="dropdown" data-ng-click="search()"><i
+							class="fa fa-search"></i> Pesquisar
+					</button>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,54 @@
+<div data-ng-controller="TributosCoreLocalidadesCtrl as vm">
+    <div class="row">
+        <div class="col-md-6">
+            <div ng-include src="'gerenciador-cadastros/enderecos/add.html'"></div>
+        </div>
+        <div class="col-md-6">
+            <div class="pull-right">
+                <form action="" class="form-inline">
+                    <finder total-registros="true" grid-config="gridConfig" filter-by="descricao, abreviatura" filter-cond="like" finder-value="textobusca" is-carregando="false" fields="columns"></finder>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="localidadesTable" class="table table-unfixed table-unstriped">
+                <thead>
+                    <tr>
+                        <th>
+                            <a href="">Descrição</a>
+                        </th>
+                        <th width="20%">
+                            <a href="">Município</a>
+                        </th>
+                        <th width="20%">
+                            <a href="">Distrito</a>
+                        </th>
+                        <th width="6%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Linha Batista</td>
+                        <td>Criciúma (SC)</td>
+                        <td>Rio Maina</td>
+                        <td class="text-center">
+                            <a href="" title="Editar">
+                                <i class="fa fa-fw fa-pencil" title="Editar"></i>
+                            </a>
+                            <a href="" title="Excluir">
+                                <i class="fa fa-fw fa-trash-o"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row bottom">
+        <div class="col-md-12">
+            <navigator grid-config="gridConfig" loading-tracker="tracker.carregandoRegistros" total-registros="totalRegistros"></navigator>
+        </div>
+    </div>
+</div>

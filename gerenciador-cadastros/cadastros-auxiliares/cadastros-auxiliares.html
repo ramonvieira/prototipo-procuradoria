@@ -1,0 +1,24 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h3 class="modal-title">Gerenciando cadastros auxiliares</h3>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<div class="col-sm-4 col-md-3">
+			<div class="list-group bottom">
+				<li class="header list-group-item">
+					<input type="text" ng-model="search" placeholder="Pesquisar" ng-model="search">
+				</li>
+				<li class="list-group-item" ng-repeat="cadastro in cadastros | orderBy:'descricao' | filter: search" ng-click="setPath(cadastro)" ng-class="{'active': path == cadastro.src}">
+					<a href="">{{cadastro.descricao}}</a>
+				</li>
+			</div>
+		</div>
+		<div class="col-sm-8 col-md-9">
+			<div ng-include="path"></div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+</div>

@@ -1,0 +1,127 @@
+<style type="text/css">
+.popover.big-popover {
+    width: 550px;
+}
+</style>
+<div class="modal-dialog modal-sm">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">Definindo parâmetros de cálculo <small class="text-muted">(Livre - DACN)</small></h3>
+		</div>
+        <div class="modal-body">
+            <div class="cards">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="">Módulo</label>
+                        <select bf-select2="{}" ng-model="modulo">
+                            <option value="1">Módulo 10</option>
+                            <option value="2">Módulo 11</option>
+                        </select>
+                    </div>
+                    <div class="col-md-9">
+                        <label for="">Campo(s) para cálculo</label>
+                        <select bf-select2="{}" ng-model="camposCalculo" multiple>
+                            <option value="1">Campo 1</option>
+                            <option value="2">Campo 2</option>
+                            <option value="2">Campo 3</option>
+                            <option value="2">Campo 4</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Condição</label>
+                    <div contenteditable="true" class="form-control scrollBar contenteditable" style="height: 100px">
+                        <span ng-repeat="valor in valores">{{ valor.valorFuncao }}</span>
+                    </div>
+                </div>
+            </div>
+            <form action="" class="form-horizontal">
+                 <!-- Operadores -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Operadores</label><br>
+                        
+                        <div  ng-repeat="operador in operadores" class="btn-group">
+                            <button href ng-model="operador" ng-click="addValorFormulaOperador(operador)" class="btn btn-sm btn-default" >
+                                {{operador.nome}}
+                            </button>
+                            &nbsp;      
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row bottom">
+                    <!-- Fonte de dados -->
+                    <div class="col-md-6">
+                        <label>Fonte de dados</label>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="text" placeholder="Pesquisar" class="form-control input-sm">
+                            </div>
+                        </div>
+                        
+                        <div class="scrollBar" style="height: 188px;">
+                            <div class="row" ng-repeat="coluna in colunas">
+                                <div class="col-md-12">
+                                    <a href="" class="text-gray10" ng-model="coluna" ng-click="addValorFormulaColuna(coluna)">
+                                        <i class="fa fa-fw text-gray7 fa-{{coluna.tipo == 'texto' ? 'font' : coluna.tipo == 'data' ? 'calendar' : coluna.tipo == 'formula' ? 'superscript' : coluna.tipo == 'valor' ? 'hashtag' : ''}}"></i>
+
+                                        {{coluna.nome}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Funções -->
+                    <div class="col-md-6">
+                        <label>Controle de fluxo</label>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="text" placeholder="Pesquisar" class="form-control input-sm">
+                            </div>
+                        </div>
+
+                        <div class="scrollBar" style="height: 188px; ">
+                            <div class="row" ng-repeat="funcao in funcoes">
+                                <div class="col-md-12">
+                                    <a href="" class="text-gray10" ng-click="addValorFormulaFuncao(funcao)">
+                                        {{funcao.nome}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Fórmula</label>
+
+                            <div contenteditable="true" class="form-control scrollBar contenteditable" style="height: 293px;" >
+                                <span ng-repeat="valor in valores">{{ valor.valorFuncao }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row bottom">
+                        <div class="col-md-12">
+                            <button class="btn btn-default btn-sm pull-right">Verificar sintaxe</button>
+                        </div>
+                    </div>
+                </div> -->
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal">Continuar</button>
+            <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+	</div>
+</div>

@@ -1,0 +1,162 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	<h3 class="modal-title">{{isEditing ? 'Editando' : 'Adicionando'}} ausência
+</div>
+<div class="modal-body">
+	<form name="form">
+		<div class="row">
+			<div class="col-md-4">
+				<label for="tipoAusencia" class="required">Tipo</label>
+				<select bf-select2="{}" id="tipoAusencia" class="form-control" ng-model="ausencia.tipoAusencia" ng-required="true">
+					<option value="{{$index}}" ng-repeat="tipo in tiposAusencia">{{tipo}}</option>
+				</select>
+			</div>
+			<div class="col-md-4" ng-if="ausencia.tipoAusencia == 1">
+				<label for="dataAfastamento" class="required">Data do afastamento</label>
+				<div class="input-group">
+					<input type="text" id="dataAfastamento" class="form-control" ng-model="ausencia.dataAfastamento" bf-date="" ng-required="true">
+				</div>
+			</div>
+			<div class="col-md-8" ng-if="ausencia.tipoAusencia == 0">
+				<label for="dataInicial" class="required">Período</label>
+				<div class="input-group date-range">
+					<div class="input-group">
+						<input class="form-control" type="text" id="dataInicial" bf-date ng-model="ausencia.dataInicial" ng-required="ausencia.tipoAusencia == 0">
+					</div>
+					<span class="input-group-addon">até</span>
+					<div class="input-group">
+						<input class="form-control" type="text" id="dataTermino" bf-date ng-model="ausencia.dataTermino" ng-required="ausencia.tipoAusencia == 0">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<label for="motivo" class="required">Motivo</label>
+				<select bf-select2="{}" id="motivo" class="form-control" ng-model="ausencia.motivo" ng-required="true">
+					<option value="{{$index}}" ng-repeat="motivo in [].constructor(5) track by $index">Motivo {{$index}}</option>
+				</select>
+			</div>
+		</div>
+		<div uib-collapse="ausencia.tipoAusencia == null" ng-controller="ProfissionaisCtrl">
+			<!-- Distribuição de novos processos -->
+			<div uib-collapse="ausencia.tipoAusencia == 1">
+				<div class="bth-card bth-card--filled mBottom10">
+					<div class="bth-card__body bottom">
+						<div class="row">
+							<div class="col-md-6">
+								<label for="distribuicaoProcessos" class="required">Distribuição de novos processos</label>
+								<select bf-select2="{}" class="form-control" id="distribuicaoProcessos" ng-model="ausencia.distribuicaoProcessos" ng-required="ausencia.tipoAusencia == 0" ng-change="ausencia.distribuicaoProcessos == 1 ? verificaGrupos() : null">
+									<option value="0" ng-if="ausencia.tipoAusencia != 1">Manter</option>
+									<option value="1">Distribuir para equipe(s)</option>
+									<option value="2">Transferir para:</option>
+								</select>
+							</div>
+							<div class="col-md-6" ng-if="ausencia.distribuicaoProcessos == 2">
+								<label for="profResponsavelProcessos" class="required">Novo profissional responsável</label>
+								<select bf-select2="{}" class="form-control" id="profResponsavelProcessos" ng-model="ausencia.profResponsavelProcessos" ng-required="ausencia.tipoAusencia == 0">
+									<option value="{{$index}}" ng-repeat="procurador in procuradores">{{procurador.procurador.nome}}</option>
+								</select>
+								<div class="alert alert-warning mTop10 bottom" uib-collapse="grupos[ausencia.grupoResponsavelProcessos].descricao != 'Grupo não apto a receber tarefas'">Nenhum profissional está apto a assumir os processos nessa equipe!</div>
+							</div>
+						</div>
+						<div uib-collapse="ausencia.distribuicaoProcessos != 1">
+							<div class="bth-card bth-card--bordered">
+								<div class="bth-card__body bottom">
+									<div ng-if="gruposDoProfissional(profissional.id).length < 1">
+										<div class="row">
+											<div class="col-md-12">
+												O profissional não pertence a nenhum grupo de trabalho!<br>
+												<small>Será necessário atribuí-lo em algum <a href="" class="alert-link" ng-click="grupoDeTrabalho({})">grupo</a> e <a href="" class="alert-link">verificar novamente</a></small>
+											</div>
+										</div>
+									</div>
+									<div class="row" ng-repeat="grupo in gruposDoProfissional(profissional.id)" ng-if="gruposDoProfissional(profissional.id).length > 0">
+										<div class="col-md-4 ellipsis" title="{{grupo.descricao}}">
+											<i class="fa fa-fw fa-exclamation-triangle tx__red--d10" ng-if="$index == 1"></i>
+											<span ng-class="{'tx__red' : $index == 1}">{{grupo.descricao}}</span>
+										</div>
+										<div class="col-md-8">
+											<span ng-if="$index != 1">
+												<span ng-if="$index+1 < gruposDoProfissional(profissional.id).length" class="tx__green">
+													<i class="fa fa-fw fa-check-circle tx__green"></i>
+													Grupo apto a receber os processos
+												</span>
+												<span ng-if="$index+1 == gruposDoProfissional(profissional.id).length">
+													<i class="fa fa-fw fa-spin fa-spinner"></i>
+													Verificando processos
+												</span>
+											</span>
+											<div class="alert alert-danger bottom" ng-if="$index == 1">
+												Nenhum profissional está apto a assumir as pendênias nessa equipe!<br>
+												<small>Será necessário atriuir um responsável apto ao <a href="" class="alert-link" ng-click="openGrupo({registro:grupo})">grupo</a> e <a href="" class="alert-link">verificar novamente</a></small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Distribuição de novas tarefas -->
+			<div class="bth-card bth-card--filled">
+				<div class="bth-card__body bottom">
+					<div class="row">
+						<div class="col-md-6">
+							<label for="distribuicaoTarefas" class="required">Distribuição de novas tarefas</label>
+							<select bf-select2="{}" class="form-control" id="distribuicaoTarefas" ng-model="ausencia.distribuicaoTarefas" ng-required="true">
+								<option value="0" ng-if="ausencia.tipoAusencia != 1">Manter</option>
+								<option value="1">Distribuir para equipe(s)</option>
+								<option value="2">Transferir para:</option>
+							</select>
+						</div>
+						<div class="col-md-6" ng-if="ausencia.distribuicaoTarefas == 2">
+							<label for="profResponsavelTarefas" class="required">Novo profissional responsável</label>
+							<select bf-select2="{}" class="form-control" id="profResponsavelTarefas" ng-model="ausencia.profResponsavelTarefas" ng-required="true">
+								<option value="{{$index}}" ng-repeat="procurador in procuradores">{{procurador.procurador.nome}}</option>
+							</select>
+							
+							<div class="alert alert-warning mTop10 bottom" uib-collapse="grupos[ausencia.grupoResponsavelTarefas].descricao != 'Grupo não apto a receber tarefas'">Nenhum profissional está apto a assumir as pendênias nessa equipe!</div>
+						</div>
+					</div>
+					<div uib-collapse="ausencia.distribuicaoTarefas != 1">
+						<div class="bth-card bth-card--bordered">
+							<div class="bth-card__body bottom">
+								<div class="row" ng-repeat="grupo in gruposDoProfissional(profissional.id)">
+									<div class="col-md-4 ellipsis" title="{{grupo.descricao}}">
+										<i class="fa fa-fw fa-exclamation-triangle tx__red--d10" ng-if="$index == 1"></i>
+										<span ng-class="{'tx__red' : $index == 1}">{{grupo.descricao}}</span>
+									</div>
+									<div class="col-md-8">
+										<span ng-if="$index != 1">
+											<span ng-if="$index+1 < gruposDoProfissional(profissional.id).length" class="tx__green">
+												<i class="fa fa-fw fa-check-circle tx__green"></i>
+												Grupo apto a receber as tarefas
+											</span>
+											<span ng-if="$index+1 == gruposDoProfissional(profissional.id).length">
+												<i class="fa fa-fw fa-spin fa-spinner"></i>
+												Verificando tarefas
+											</span>
+										</span>
+										<div class="alert alert-danger bottom" ng-if="$index == 1">
+											Nenhum profissional está apto a assumir as pendênias nessa equipe!<br>
+											<small>Será necessário atriuir um responsável apto ao <a href="" class="alert-link" ng-click="openGrupo({registro:grupo})">grupo</a> e <a href="" class="alert-link">verificar novamente</a></small>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="salvar(ausencia)" ng-disabled="form.$invalid">Salvar</button>
+	<button type="button" class="btn btn-default" ng-click="salvar(ausencia)">Salvar e adicionar novo</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+</div>
+

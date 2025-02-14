@@ -1,0 +1,60 @@
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">Visualizando telefones</h3>
+		</div>
+    	<div class="modal-body">
+            <div ui-sortable ng-model="telefones">
+                <div class="row-draggable" ng-repeat="telefone in telefones">
+                    <div class="row bottom">
+                        <div class="col-md-11">
+                             <span>
+                                <span data-ng-if="$index == 0" class="label label-info">PRINCIPAL <i class="fa fa-arrow-right"></i></span>&nbsp;
+                                <small>{{telefone.descricao}}</small>
+                                -
+                                <small>{{telefone.numero}}</small>
+                            </span>
+                        </div>
+                        <div class="col-md-1">
+                            <a href class="pull-right permissions-disabled" title="Excluir"><i class="fa fa-trash-o text-muted"></i></a>
+                            <a href class="pull-right" ng-click="editTelefone(telefone)" title="Editar"><i class="fa fa-pencil text-muted" style="margin-right: 6px"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <hr ng-if="telefones.length > 0">
+            <form role="form">
+                <div class="row">
+                    <div class="col-md-8">	
+                        <label>Descrição</label>
+                        <input type="text" id="descricao" class="form-control" data-ng-model="telefone.descricao" maxlength="20" ng-disabled="true">
+                    </div>
+                    <div class="col-md-4">
+                        <label>Tipo</label>
+                        <select data-bf-select2="{}" data-ng-model="telefone.tipo" ng-disabled="true">
+                        	<option></option>
+                        	<option value="0">Fixo</option>
+                        	<option value="1">Celular</option>
+                        	<option value="2">Fax</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row bottom">
+                    <div class="col-md-4">	
+                        <label>Número</label>
+                        <input type="text" class="form-control" data-ng-model="telefone.numero" data-bf-mask="getMascaraTelefone()" ng-disabled="true">
+                    </div>
+                    <div class="col-md-8">
+                        <label>Observações</label>
+                        <textarea class="form-control" rows="1" data-ng-model="telefone.observacoes" maxlength="60" ng-disabled="true"></textarea>
+                    </div>
+                </div>
+            </form>
+    	</div>
+	    <div class="modal-footer">
+        	<button class="btn btn-primary" disabled>Adicionar</button>
+            <button class="btn btn-default" data-dismiss="modal" tabindex="-1">Continuar</button>
+        </div>
+	</div>
+</div>

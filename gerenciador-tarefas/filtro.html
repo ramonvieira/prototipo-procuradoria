@@ -1,0 +1,125 @@
+<div class="bth-card bth-card--collapse" ng-init="filterDivida = true">
+	<div class="bth-card__header" ng-class="{'bth-card__header--opened': !filterDivida}" data-ng-click="filterDivida = !filterDivida">
+		<label for="">PROCESSO</label>
+	</div>
+	<div class="bth-card__body" uib-collapse="filterDivida">
+		<input type="hidden" bf-select2="cadProcessOptions" ng-model="proc" title="Pesquise pelo Nº do processo, nome ou CPF/CNPJ do executado">
+	</div>
+</div>
+<div class="bth-card bth-card--collapse" ng-init="filterProfiss = true">
+	<div class="bth-card__header" ng-class="{'bth-card__header--opened': !filterProfiss}" data-ng-click="filterProfiss = !filterProfiss">
+		<label for="">RESPONSÁVEL</label>
+	</div>
+	<div class="bth-card__body" uib-collapse="filterProfiss">
+		<ul class="bth-filter__list bth-filter__list--checkbox scrollBar" style="max-height: 150px">
+			<li>
+				<div class="bth-checkbox">
+					<input type="checkbox" name="profiss" id="semResp">
+					<label for="semResp">Sem responsável</label>
+				</div>
+			</li>
+			<li ng-repeat="procurador in procuradores">
+				<div class="bth-checkbox">
+					<input type="checkbox" name="profiss" id="profiss{{$index}}">
+					<label for="profiss{{$index}}"><img alt="" ng-src="{{procurador.procurador.img}}" class="img-circle" width="25px" title="{{procurador.procurador.nome}}"> {{procurador.procurador.nome}}</label>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="bth-card bth-card--collapse" ng-init="filterPrazo = true" ng-show="nav != 'Calendário'">
+	<div class="bth-card__header" ng-class="{'bth-card__header--opened': !filterPrazo}" data-ng-click="filterPrazo = !filterPrazo">
+		<label for="">PRAZO</label>
+	</div>
+	<div class="bth-card__body" uib-collapse="filterPrazo">
+		<ul class="bth-filter__list bth-filter__list--radio">
+			<li>
+				<div class="bth-radio">
+					<input id="prazo1" type="radio" name="prazo" ng-model="modelPrazo" value="1">
+					<label for="prazo1">Sem prazo</label>
+				</div>
+			</li>
+			<li>
+				<div class="bth-radio">
+					<input id="prazo2" type="radio" name="prazo" ng-model="modelPrazo" value="2">
+					<label for="prazo2">Para esta semana</label>
+				</div>
+			</li>
+			<li>
+				<div class="bth-radio">
+					<input id="prazo3" type="radio" name="prazo" ng-model="modelPrazo" value="3">
+					<label for="prazo3">Para a próxima semana</label>
+				</div>
+			</li>
+			<li>
+				<div class="bth-radio">
+					<input id="prazo4" type="radio" name="prazo" ng-model="modelPrazo" value="4">
+					<label for="prazo4">Personalizar</label>
+				</div>
+			</li>
+			<li ng-show="modelPrazo == 4">
+				<div class="row bottom">
+					<div class="col-md-6">
+						<label for="prazoDe">De</label>
+						<div class="input-group input-group-sm">
+							<input type="text" id="prazoDe" class="form-control" ng-model="prazoDe" bf-date="">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="prazoAte">Até</label>
+						<div class="input-group input-group-sm">
+							<input type="text" id="prazoAte" class="form-control" ng-model="prazoAte" bf-date="">
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="bth-card bth-card--collapse" ng-init="filterTipo = true">
+	<div class="bth-card__header" ng-class="{'bth-card__header--opened': !filterTipo}" data-ng-click="filterTipo = !filterTipo">
+		<label for="">TIPO</label>
+		<span class="badge badge-default">1</span>
+		<a href="" ng-click=""><small>Limpar</small></a>
+	</div>
+	<div class="bth-card__body" uib-collapse="filterTipo">
+		<ul class="bth-filter__list bth-filter__list--checkbox">
+			<li ng-repeat="tipo in tipos">
+				<div class="bth-checkbox">
+					<input type="checkbox" name="tipo" id="tipo{{$index}}">
+					<label for="tipo{{$index}}">{{tipo.desc}}</label>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="bth-card bth-card--collapse" ng-init="filterAreas = true">
+	<div class="bth-card__header" ng-class="{'bth-card__header--opened': !filterAreas}" data-ng-click="filterAreas = !filterAreas">
+		<label for="">ÁREA</label>
+	</div>
+	<div class="bth-card__body" uib-collapse="filterAreas">
+		<ul class="bth-filter__list bth-filter__list--checkbox">
+			<li ng-repeat="area in areas">
+				<div class="bth-checkbox">
+					<input type="checkbox" name="area" id="area{{$index}}">
+					<label for="area{{$index}}" title="{{area.descricao}}">{{area.descricao}}</label>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="bth-card bth-card--collapse" ng-init="filterEtiquetas = true">
+	<div class="bth-card__header" ng-class="{'bth-card__header--opened': !filterEtiquetas}" data-ng-click="filterEtiquetas = !filterEtiquetas">
+		<label for="">ETIQUETA</label>
+	</div>
+	<div class="bth-card__body" uib-collapse="filterEtiquetas">
+		<ul class="bth-filter__list bth-filter__list--checkbox" ui-sortable="{axis:'y'}">
+			<li ng-repeat="etiqueta in etiquetas">
+				<div class="bth-checkbox">
+					<input type="checkbox" name="etiqueta" id="etiqueta{{$index}}">
+					<label for="etiqueta{{$index}}"><i class="fa fa-fw fa-tag" ng-class="'tx__' + etiqueta.bColor"></i> {{etiqueta.descricao}}</label>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

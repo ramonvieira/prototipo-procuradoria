@@ -1,0 +1,52 @@
+<div class="bth-img-illustration semregistros" ng-hide="(tarefas | filter: {pendente: tabPendente}).length > 0">
+	<div class="illustration-title">Nenhuma tarefa {{tabPendente ? 'pendente' : 'finalizada'}} por aqui</div>
+</div>
+<table class="table table-unfixed table-unstriped table-hover table-unbordered" ng-show="(tarefas | filter: {pendente: tabPendente}).length > 0">
+	<tbody>
+		<tr ng-repeat="tarefa in tarefas | filter: {descricao:descricao,pendente:tabPendente} track by $index" ng-show="filtraMarcador(tarefa.marcadores)" ng-dblclick="adicionar({isEditing:true,item:$index})">
+			<td class="handle" width="30">
+				<span class="dots-drag" title="Clique, segure e arraste para reordenar">
+					<i class="fa fa-fw text-muted"></i>
+				</span>
+			</td>
+			<td>
+				{{tarefa.descricao}}
+			</td>
+			<td class="col-30">
+				<div class="cell-wrapper">
+					<span class="info">
+						<ul class="list-inline mBottom5 mTop5">
+							<li ng-repeat="procurador in tarefa.vinculos[0].procuradores track by $index">
+								<img alt="" ng-src="{{procuradores[procurador].procurador.img}}" class="img-circle" width="25px" bf-tooltip="{{procuradores[procurador].procurador.nome}}">
+							</li>
+						</ul>
+						<span ng-if="tarefa.vinculos[2].dividas.length > 0"> Dívida: <span ng-repeat="divida in tarefa.vinculos[2].dividas"><a href="" bf-tooltip="Contribuinte: Nome da Pessoa">{{divida}}</a><span ng-if="($index+1) < tarefa.vinculos[2].dividas.length">,</span> </span><br></span>
+						<span ng-if="tarefa.vinculos[3].processos.length > 0"> Processo: <span ng-repeat="processo in tarefa.vinculos[3].processos"><a href="" bf-tooltip="Exequente: Nome da Pessoa. Executado: Nome da pessoa">{{processo}}</a><span ng-if="($index+1) < tarefa.vinculos[3].processos.length">,</span> </span><br></span>
+						<span ng-if="tarefa.vinculos[4].protestos.length > 0"> Protesto: <span ng-repeat="protesto in tarefa.vinculos[4].protestos"><a href="" bf-tooltip="Contribuinte: Nome da Pessoa">{{protesto}}</a><span ng-if="($index+1) < tarefa.vinculos[4].protestos.length">,</span> </span><br></span>
+					</span>
+				</div>
+			</td>
+			<td class="col-15 text-right">
+				<!-- <span class="badge badge--inline badge--right" ng-class="marcadores[marcador].destaq ? 'bg__aqua--l30' : 'badge-default'" ng-repeat="marcador in tarefa.marcadores" ng-mouseover="mouseOver(marcador)" ng-mouseout="mouseOut(marcador)"><i class="fa fa-fw fa-tag" ng-class="marcadores[marcador].bColor"></i>{{marcadores[marcador].descricao}}</button> -->
+				<i class="fa fa-fw fa-tag" ng-class="marcadores[marcador].destaq ? 'tx__' + marcadores[marcador].bColor + '--d20': 'tx__' + marcadores[marcador].bColor"  ng-repeat="marcador in tarefa.marcadores" ng-mouseover="mouseOver(marcador)" ng-mouseout="mouseOut(marcador)" bf-tooltip="{{marcadores[marcador].descricao}}"></i>
+			</td>
+			<td class="text-right" width="120">
+				<div class="btn-group btn-group-xs">
+					<a href="" class="btn btn-link" title="Marcar como finalizado" ng-click="updateTarefas({idx:tarefa.id,pendente: false})" ng-show="tabPendente"><i class="fa fa-fw fa-check tx__green"></i></a>
+					<a href="" class="btn btn-link" title="Marcar como pendente" ng-click="updateTarefas({idx:tarefa.id,pendente: true})" ng-hide="tabPendente"><i class="fa fa-fw fa-undo"></i></a>
+					<a href="" class="btn btn-link" title="Exclui a tarefa" ng-click="excluiTarefas({idx:tarefa.id})" ng-hide="tabPendente"><i class="fa fa-fw fa-trash"></i></a>
+					<a href="" class="btn btn-link dropdown-toggle" title="Abre a lista de ações disponíveis" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-show="tabPendente">
+						<i class="fa fa-fw fa-ellipsis-v"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+						<li class="dropdown-header">Ações disponíveis</li>
+						<li><a href="" ng-click="adicionar({tipo:'COMPROMISSO',item:$index})"><i class="fa fa-fw fa-calendar"></i> Agendar como compromisso</a></li>
+						<li class="divider"></li>
+						<li><a href="" ng-click="adicionar({isEditing:true,item:$index})"><i class="fa fa-fw fa-pencil"></i> Editar</a></li>
+						<li><a href="" ng-click="excluiTarefas({idx:tarefa.id})"><i class="fa fa-fw fa-trash-o"></i> Excluir</a></li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>

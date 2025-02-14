@@ -1,0 +1,138 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">Listando movimentações</h3>
+			<small> 10/01/2017 | Tipo de publicidade 01</small>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-8">
+					<button class="btn btn-add btn-success btn-sm" title="Adiciona uma nova movimentação" ng-click="openMovimentacaoCad();">Movimentação</button>
+				</div>
+				<div class="col-md-4">
+					<div class="pull-right">
+						<form class="form-inline"> 
+							<div class="input-group">
+								<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+									<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+	
+									<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
+										<li class="dropdown-header">
+											<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+											<h1>Pesquisa avançada</h1>
+										</li>
+										<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+										<li>
+											<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true">
+												<option value="1">Descrição</option>
+											</select>
+										</li>
+										<li class="dropdown-header">Utilizando como critério</li>
+										<li>
+											<div class="bth-radio bth-radio-inline">
+												<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+												<label for="rdAlguns">Alguns dos termos digitados</label>
+											</div>
+											<div class="bth-radio bth-radio-inline">
+												<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+												<label for="rdTodos">Todos os termos digitados</label>
+											</div>
+											<div class="bth-radio bth-radio-inline">
+												<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+												<label for="rdNenhum">Nenhum dos termos digitados</label>
+											</div>
+										</li>
+										<li class="dropdown-footer pull-right">
+											<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="bth-historico" >                              
+						<div class="row bth-historico-item">
+							<div class="col-md-2 bth-historico-data">
+								Hoje
+								<small class="text-muted">16:57:37 - 2017</small>
+							</div>
+					
+							<div class="col-md-10 bth-historico-icon">
+								<div class="row">
+									<div class="col-md-3">
+										<strong class="text-muted" title="Data inicial - Data final">01/02/2017 - 01/02/2018</strong><br>
+										<small>Processo: </small> <span title="Processo">0123456</span>
+									</div>
+									<div class="col-md-7" title="Observações">
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.      
+									</div>
+									<div class="col-md-2 bth-historico-acoes">                                                        
+										<a href="" ng-click="open()" title="Editar"><i class="fa fa-pencil fa-fw"></i></a>
+										<a href="" title="Excluir"><i class="fa fa-trash-o fa-fw"></i></a>  
+										<a href=""  title="@ramon.viquetti"><i class="fa fa-fw fa-user"></i></a>                                           
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row bth-historico-item">
+							<div class="col-md-2 bth-historico-data">
+								09/01
+								<small class="text-muted">16:57:37 - 2016</small>
+							</div>
+					
+							<div class="col-md-10 bth-historico-icon">
+								<div class="row">
+									<div class="col-md-3">
+										<strong class="text-muted" title="Data inicial - Data final">01/02/2016 - 01/02/2017</strong><br>
+										<small>Processo: </small><span title="Processo">0123456</span>
+									</div>
+									<div class="col-md-7" title="Observações">
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.                                                 
+									</div>
+									<div class="col-md-2 bth-historico-acoes">                                                        
+										<a href="" ng-click="open()" title="Editar"><i class="fa fa-pencil fa-fw"></i></a>
+										<a href="" title="Excluir"><i class="fa fa-trash-o fa-fw"></i></a>  
+										<a href=""  title="@ramon.viquetti"><i class="fa fa-fw fa-user"></i></a>                                           
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>        
+				</div>
+			</div>
+			<div class="row bottom">
+				<div class="col-md-6">
+					<form class="form-inline">
+						1-20 de 126
+						<select class="form-control input-sm" ng-model="numberOfResults">
+							<option value="20">20</option>
+							<option value="50">50</option>
+							<option value="100">100</option>
+						</select>
+						resultados por página
+					</form>
+				</div>
+				<div class="col-md-6">
+					<div class="pull-right">
+						<button class="btn btn-default btn-sm disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+						<button class="btn btn-default btn-sm active">1</button>
+						<button class="btn btn-default btn-sm">2</button>
+						<button class="btn btn-default btn-sm">3</button>
+						<button class="btn btn-default btn-sm">4</button>
+						<button class="btn btn-default btn-sm">Próxima <i class="fa fa-angle-right"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-default" data-dismiss="modal">Fechar</button>
+		</div>
+	</div>
+</div>

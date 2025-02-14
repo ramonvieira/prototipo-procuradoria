@@ -1,0 +1,17 @@
+<div class="row" ng-show="etiquetas.length > 0">
+	<div class="col-md-12">
+		<ul class="nav nav-pills nav-stacked nav-marks" ui-sortable="{axis:'y'}">
+			<li role="presentation" ng-repeat="etiqueta in etiquetas" ng-class="{'active' : marc$index}" ng-init="marc$index = false"  ng-click="marc$index = !marc$index;setEtiquetas({marc:$index,val:marc$index})">
+				<a href=""><i class="fa fa-fw fa-tag" ng-class="'tx__' + etiqueta.bColor"></i> {{etiqueta.descricao}}</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div class="row" ng-show="etiquetas.length < 1">
+	<div class="col-md-12">
+		<div class="btn-group">
+			<button type="button" class="btn btn-success btn-xs btn-add" ng-click="editarEtiquetas({});etiquetas.push({ id: marcadres.length + 1, descricao: 'Nova etiqueta', color: etiqueta.color })" title="Cria uma etiqueta">Criar etiqueta</button>
+		</div>
+	</div>
+</div>

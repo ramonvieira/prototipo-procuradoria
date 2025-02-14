@@ -1,0 +1,101 @@
+<!-- Emitidas/Canceladas -->
+<table class="table">
+	<thead>
+		<tr>
+			<th width="30" ng-if="!consult"></th>
+			<th ng-if="!consult" ng-hide="agruparDiv == 'contribuinte'"><span>Contribuinte</span></th>
+			<th ng-show="agruparDiv == 'contribuinte'"><span>Ano</span></th>
+			<th ng-show="agruparDiv == 'contribuinte'"><span>Crédito</span></th>
+			<th width="100"><span>Referente</span></th>
+			<th width="80"><span>Inscrição</span></th>
+			<th ng-if="filtraDivida != 'Sem certidão'" width="105"><span>Certidão</span></th>
+			<th width="100" ng-if="filtrarPor == 'Com notificação'"><span>Notificação</span></th>
+			<th ng-if="filtraDivida == 'Cancelada'" width="100"><span>Status</span></th>
+			<!-- <th ng-if="filtraDivida != 'Sem certidão'" width="90"><span>Dívidas</span></th> -->
+			<!-- <th ng-if="filtraDivida == 'Emitida'" width="130">Protesto</th>
+			<th ng-if="filtraDivida == 'Emitida'" width="130">Execução</th> -->
+			<th width="100"><span>Vencimento</span></th>
+			<th class="nowrap" width="40"><i class="fa fa-fw fa-info-circle tx__gray--d10" bf-tooltip="Informações adicionais"></i></th>
+			<th class="text-right" width="100"><span>Total</span></th>
+			<th width="30" ng-if="!consult"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="divida in certidoes | limitTo: 6">
+			<td ng-if="!consult">
+				<div class="bth-checkbox">
+					<input id="checkbox" type="checkbox">
+					<label for="checkbox">&nbsp;</label>
+				</div>
+			</td>
+			<td ng-if="!consult" ng-hide="agruparDiv == 'contribuinte'" bf-ellipsis><a href="" ng-click="verContribuinte({})">{{divida.contrib.nome}}</a> <span class="text-muted">{{divida.contrib.cpfcnpj}}</span></td>
+			<td ng-show="agruparDiv == 'contribuinte'">{{divida.ano}}</td>
+			<td ng-show="agruparDiv == 'contribuinte'">{{creditos[0].descricao}}</td>
+			<td><a href="">{{divida.referente}}</a></td>
+			<td><span class="badge badge-default show"><a href="" bf-popover="'gerenciador-dividas/dividas-ativas/dividas/popover-detalhes-inscicao.html'" class="popover-active" data-placement="bottom" bf-popover-size="med-popover">1234</a></span></td>
+			<td><cda divida="divida"></cda></td>
+			<td ng-if="filtrarPor == 'Com notificação'"><span class="badge badge-default show"><a href="" bf-popover="'gerenciador-dividas/dividas-ativas/dividas/popover-detalhes-notificacao.html'" class="popover-active" data-placement="bottom" bf-popover-size="med-popover">1234 / 2020</a></span></td>
+			<td ng-if="filtraDivida == 'Cancelada'">
+				<a href=""  data-bf-popover="'gerenciador-dividas/dividas-ativas/certidoes/popover-detalhes-cancelamento.html'" class="popover-active" data-placement="left" bf-popover-size="med-popover">
+					<span class="label label-danger show"><i class="fa fa-fw fa-info-circle text-gray1"></i> Cancelada</span>
+				</a>
+			</td>
+			<!-- <td><a href="" ng-click="consultaDividas({filtraDivida:'Sem certidão', consult: true,certidao:divida.certidao.numero,consult:true})">5 dívidas</a></td> -->
+			<!-- <td ng-if="filtraDivida == 'Emitida'">
+				<span class="label label-info show" ng-show="!divida.erroProt">Protestando</span>
+				<a href=""  data-bf-popover="'gerenciador-protestos/protestos/popover-detalhes-erro.html'" class="popover-active" data-placement="left" bf-popover-size="med-popover" ng-show="divida.erroProt">
+					<span class="label label-danger show"><i class="fa fa-fw fa-info-circle text-gray1"></i> Erro ao protestar</span>
+				</a>
+			</td>
+			<td ng-if="filtraDivida == 'Emitida'">
+				<span class="label label-info show" ng-show="!divida.erroExec">Executando</span>
+				<a href=""  data-bf-popover="'gerenciador-execucoes/execucoes/popover-detalhes-erro.html'" class="popover-active" data-placement="left" bf-popover-size="med-popover" ng-show="divida.erroExec">
+					<span class="label label-danger show"><i class="fa fa-fw fa-info-circle text-gray1"></i> Erro ao executar</span>
+				</a>
+			</td> -->
+			<td>16/12/2020</td>
+			<td>
+				<span class="badge badge-alt badge-alt-o badge-info ng-scope ng-isolate-scope" bf-tooltip="Notificado" ng-if="divida.notific">
+					<i class="fa fa-fw fa-file"></i>
+				</span>
+			</td>
+			<td class="text-right"><a href="" bf-popover="'gerenciador-dividas/dividas-ativas/dividas/popover-detalhes-valor.html'" class="popover-active" data-placement="left" bf-popover-size="popover-xs">{{divida.valor | currency}}</a></td>
+			<td class="text-right" ng-if="!consult">
+				<div class="btn-group dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" title="Outras opções" href>
+						<i class="fa fa-fw fa-ellipsis-v"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right">
+						<!-- Dívidas -->
+						<li ng-if="filtraDivida == 'Sem certidão'">
+							<a href="" ng-click="emitirCertidao({})">Emitir certidão</a>
+						</li>
+						<!-- Dívidas com certidão emitida -->
+						<li ng-if="filtraDivida == 'Emitida'">
+							<a href="">Visualizar certidão</a>
+						</li>
+						<li ng-if="filtraDivida == 'Emitida'">
+							<a href="" ng-click="cancelarCertidao({})">Cancelar certidão</a>
+						</li>
+						<li ng-if="filtraDivida == 'Emitida'">
+							<a href="" ng-click="protestar({})">Protestar</a>
+						</li>
+						<li ng-if="filtraDivida == 'Emitida'">
+							<a href="" ng-click="executar({})">Executar</a>
+						</li>
+						<li ng-if="filtraDivida == 'Emitida' && !divida.assinatura">
+							<a href="" ng-click="assinar({})">Assinar digitalmente</a>
+						</li>
+						<!-- Dívidas com certidão cancelada -->
+						<li ng-if="filtraDivida == 'Cancelada'">
+							<a href="" ng-click="cancelarCertidao({})">Visualizar cancelamento</a>
+						</li>
+						<li ng-if="filtraDivida == 'Cancelada'">
+							<a href="">Reativar certidão</a>
+						</li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>

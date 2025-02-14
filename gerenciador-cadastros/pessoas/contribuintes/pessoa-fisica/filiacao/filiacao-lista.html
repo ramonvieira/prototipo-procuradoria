@@ -1,0 +1,23 @@
+<table class="table table-unfixed table-hover table-unstriped table-unbordered">
+    <thead>
+        <tr>
+            <th><span>Nome</span></th>
+            <th><span>Parentesco</span></th>
+            <th width="60"><span></span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="f in filiacao">
+            <td>{{f.nome}}</td>
+            <td><span class="label label-default center-block">{{f.parentesco}}</span></td>
+            <td class="text-center">
+                <a href="" title="Editar" ng-click="adicionarFiliacao()">
+                    <i class="fa fa-pencil fa-fw"></i>
+                </a>
+                <a href="" title="Excluir">
+                    <i class="fa fa-trash-o fa-fw"></i>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>

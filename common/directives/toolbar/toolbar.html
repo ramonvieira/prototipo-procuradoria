@@ -1,0 +1,55 @@
+<div class="btn-group">
+	<div class="btn-group">
+		<button id="dropdownAgrupamento" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Definir agrupamento das informações">
+			<i class="fa fa-object-group"></i>
+			 <span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" aria-labelledby="dropdownAgrupamento">
+			<li class="dropdown-header">Opções de agrupamento</li>
+				<li><a href="" ng-click="setAgrupamento('1')" class="btn-check" ng-class="{'active' : agrupamento == 1}">Nenhum</a></li>
+				<li><a href="" ng-click="setAgrupamento('2')" class="btn-check" ng-class="{'active' : agrupamento == 2}">Por proprietário (Exemplo protótipo)</a></li>
+				<li><a href="" ng-click="setAgrupamento('3')" class="btn-check" ng-class="{'active' : agrupamento == 3}">Por situação</a></li>
+				<li><a href="" ng-click="setAgrupamento('4')" class="btn-check" ng-class="{'active' : agrupamento == 4}">Por distrito</a></li>
+				<li><a href="" ng-click="setAgrupamento('5')" class="btn-check" ng-class="{'active' : agrupamento == 5}">Por bairro</a></li>
+				<li><a href="" ng-click="setAgrupamento('6')" class="btn-check" ng-class="{'active' : agrupamento == 6}">Por logradouro</a></li>
+		</ul>
+	</div>
+	<div class="btn-group">
+		<button id="dropdownColunas" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Definir colunas a exibir">
+			<i class="fa fa-columns"></i> 
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" aria-labelledby="dropdownColunas">
+			<li class="dropdown-header">Colunas a exibir</li>
+			<li data-ng-repeat="columns in columnsDescription track by $index" >
+				<a href="" data-value="col{{$index}}">
+					<div class="checkbox bth-checkbox">
+						<input id="colIdentificador{{$index}}" type="checkbox" ng-model="columnsIsVisible[$index]" ng-click="showColumns()">
+						<label for="colIdentificador{{$index}}">{{columns.descricao}}</label>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="btn-group">
+		<button id="dropdownAltura" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Definir altura das linhas">
+			<i class="fa fa-reorder"></i> 
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" aria-labelledby="dropdownAltura">
+			<li class="dropdown-header">Altura das linhas</li>
+				<li><a href="" ng-click="setLineHeight('1')" class="btn-check active" ng-class="{'active' : lineHeight == 1}">Padrão</a></li>
+				<li><a href="" ng-click="setLineHeight('2')" class="btn-check" ng-class="{'active' : lineHeight == 2}">Condensada</a></li>
+		</ul>
+	</div>
+</div>
+<button type="button" class="btn btn-default btn-sm" title="Atualizar" ng-click="refresh()">
+	<i class="fa fa-refresh"></i>
+</button>
+<div class="input-group">
+<div class="input-group">
+	<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-ng-model="finderValue" ng-change="finderChanged()">
+	<div class="input-group-btn">
+		<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+	</div>
+</div>

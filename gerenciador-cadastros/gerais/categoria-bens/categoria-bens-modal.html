@@ -1,0 +1,28 @@
+<form name="form" novalidate>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3 class="modal-title">
+			{{isEditing ? 'Editando' : 'Adicionando'}} categoria de bens penhoráveis
+			<span ng-if="isEditing" class="badge">{{registro.id}}</span>
+		</h3>
+	</div>
+	<div class="modal-body">
+		<form name="form">
+			<div class="alert alert-warning alert-icon" ng-show="descricaoExistente">
+				A descrição já está sendo utilizada em outra categoria
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="required" for="descricao">Descrição</label>
+					<input type="text" class="form-control" id="descricao" ng-model="registro.descricao" ng-required="true" maxlength="100">
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="salvar(registro)" ng-disabled="form.$invalid || descricaoExistente" data-dismiss="modal">Salvar</button>
+		<button class="btn btn-default" ng-disabled="form.$invalid || descricaoExistente" ng-hide="isEditing" ng-click="salvar(registro)">Salvar e adicionar novo</button>
+		<button class="btn btn-default btn-delete" ng-if="isEditing">Excluir</button>
+		<button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	</div>
+</form>

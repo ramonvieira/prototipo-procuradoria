@@ -1,0 +1,16 @@
+<label ng-show="!hideLabel">{{vm.label}}</label>
+<div class="ui-icon-selector form-control" style="width: 100%; text-align:center; cursor: pointer">
+	<div class="dropdown dropdown-picker">
+		<a data-toggle="dropdown" class="dropdown-toggle">
+			<i class="fa fa-fw"
+			ng-class="vm.iconSelected"></i>
+		</a>
+		<ul class="dropdown-menu dropdown-caret">
+			<li ng-repeat="icon in vm.listIcons">
+				<i class="fa fa-fw tx__gray--d10"
+				ng-click="vm.changeIcon(icon.ico)"
+				ng-class="icon.ico"></i>
+			</li>
+		</ul>
+	</div>
+</div>

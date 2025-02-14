@@ -1,0 +1,24 @@
+<div class="row hidden-print">
+  <div class="col-md-6">
+    <div class="form-inline" data-ng-show="!isInterna">
+      {{totalRegistros == 0 ? 0 : gridConfig.offset + 1}}-{{lastReg}} de {{totalRegistros}}
+      &nbsp;
+      <select data-ng-model="gridConfig.limit"
+              data-ng-options="item for item in optionsItemsPerPage"
+              data-ng-change="numberOfResults()"
+              class="form-control input-sm" data-ng-show="!isInterna && !hideResultSelection">
+      </select>
+      &nbsp;
+      <span data-ng-show="!isInterna && !hideResultSelection">resultados por página</span>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="pull-right">
+      <button data-ng-disabled="isFirstPage || isLoading" class="btn btn-default btn-{{isInterna ? 'xs' : 'sm'}}" ng-click="previous()"><i class="fa fa-angle-left"></i> Anterior</button>
+      <span data-ng-repeat="page in [1,2,3,4] track by $index">
+         <button class="btn btn-default btn-{{isInterna ? 'xs' : 'sm'}}" data-ng-class="{'active': page == currentPage}" data-ng-click="setPage(page)">{{page}}</button>
+      </span>
+      <button data-ng-disabled="isLastPage || isLoading" class="btn btn-default btn-{{isInterna ? 'xs' : 'sm'}}" ng-click="next()">Próxima <i class="fa fa-angle-right"></i></button>
+    </div>
+  </div>
+</div>

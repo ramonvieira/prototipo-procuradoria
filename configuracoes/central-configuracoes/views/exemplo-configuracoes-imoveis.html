@@ -1,0 +1,135 @@
+<h1 class="titulo-configuracoes">Cadastro de imóveis</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="bth-switch">
+            <input id="switch1" type="checkbox">
+            <label for="switch1">
+                Permitir cadastrar diferentes imóveis com a mesma inscrição imobiliária
+            </label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="bth-switch">
+            <input id="switch2" type="checkbox">
+            <label for="switch2">
+                Permitir cadastrar diferentes imóveis rurais com a mesma inscrição <abbr title="Instituto Nacional de Colonização e Reforma Agrária">INCRA</abbr>
+            </label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="bth-switch">
+            <input id="switch3" type="checkbox" ng-model="unidade">
+            <label for="switch3">
+                Considerar o campo unidade parte da inscrição imobiliária
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-show="unidade">
+    <div class="col-md-3">
+        <label for="">
+            <span class="required">Alterar descrição de "Unidade"</span>
+            <i class="fa fa-fw fa-question-circle" title="Permite alterar a descrição do campo Unidade"></i>
+        </label>
+        <select bf-select2="{allowClear:true}" ng-model="alterarDescricaoUnidade">
+            <option value=""></option>
+            <option value="1">Sim</option>
+            <option value="2">Não</option>
+        </select>
+    </div>
+    <div class="col-md-3" ng-show="alterarDescricaoUnidade == 1">
+        <label>Descrição</label>
+        <input type="text" class="form-control" ng-model="descricaoUnidade">
+    </div>
+</div>
+<h1 class="titulo-configuracoes">Controle dos imóveis</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="bth-switch">
+            <input id="switch4" type="checkbox">
+            <label for="switch4">
+                Fazer o controle por seção
+            </label>
+        </div>
+    </div>
+</div>
+<h1 class="titulo-configuracoes">Campos da inscrição imobiliária</h1>
+<div class="row">
+    <div class="col-md-12">
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="2.5%">#</th>
+                    <th width="8%">Situação</th>
+                    <th>Descrição</th>
+                    <th width="15%">Tipo</th>
+                    <th width="12%">Quantidade <i class="fa fa-question-circle" bf-tooltip="Número limite de caracteres"></i> </th>
+                    <th width="18%">Preencher <i class="fa fa-question-circle ng-isolate-scope" bf-tooltip="Caso o valor informado pelo usuário estiver incompleto"></i></th>
+                    <th width="10%">Caracter <i class="fa fa-question-circle ng-isolate-scope" bf-tooltip="Caracter que será preenchido"></i></th>
+                    <th width="11%">Remover <i class="fa fa-question-circle ng-isolate-scope" bf-tooltip="Caso a quantidade de caracteres seja reduzida, informar de que lado serão retirados"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in itens">
+                    <td class="text-center">
+                        {{$index}}
+                    </td>
+                    <td class="text-center">
+                         <div class="bth-switch">
+                            <input id="switch-{{$index}}" type="checkbox" ng-model="item.situacao">
+                            <label for="switch-{{$index}}"></label>
+                        </div>
+                    </td>
+                    <td class="has-edit">
+                        <div ng-class="{'input-group' : !unidade}">
+                            <input type="text" class="form-control" ng-model="descricao">
+                            <div class="input-group-addon" ng-show="!unidade">
+                                <a href="" title="{{(item.star)?'Unidade':'Definir como unidade'}}" ng-class="{active:item.star}" class="item-principal" ng-click="setStar(item)"></a>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="has-edit">
+                        <select bf-select2="{}" ng-model="item.tipo">
+                            <option value="1">Números</option>
+                            <option value="2">Letras</option>
+                            <option value="3">Alfanumérico</option>
+                        </select>
+                    </td>
+                    <td class="has-edit">
+                        <input type="text" class="form-control" ng-model="item.quantidade">
+                    </td>
+                    <td class="has-edit">
+                        <select bf-select2="{}" ng-model="item.prencher">
+                            <option value="1">À esquerda</option>
+                            <option value="2">À direita</option>
+                            <option value="3">Não preencher</option>
+                        </select>
+                    </td>
+                    <td class="has-edit">
+                        <input type="text" class="form-control" ng-model="item.caracter">
+                    </td>
+                    <td class="has-edit">
+                        <select bf-select2="{}" ng-model="item.remover">
+                            <option value="1">À esquerda</option>
+                            <option value="2">À direita</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+<div class="col-md-12">
+    <div class="pull-right">
+        <button class="btn btn-primary" ng-click="salvarConfiguracao();">Salvar</button>
+        <button class="btn btn-default" title="Restaura a configuração para a última versão salva">Restaurar</button>
+    </div>
+</div>
+</div>

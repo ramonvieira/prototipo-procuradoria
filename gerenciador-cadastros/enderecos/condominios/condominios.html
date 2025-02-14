@@ -1,0 +1,82 @@
+<div data-ng-controller="TributosCoreCondominiosCtrl as vm">
+    <div class="row">
+        <div class="col-md-3">
+            <div ng-include src="'gerenciador-cadastros/enderecos/add.html'"></div>
+        </div>
+        <div class="col-md-9">
+            <div class="pull-right">
+                <form action="" class="form-inline">
+                    <finder total-registros="true" grid-config="gridConfig" filter-by="descricao, abreviatura" filter-cond="like" finder-value="textobusca" is-carregando="false" fields="columns"></finder>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-unfixed table-unstriped" id="condominiosTable">
+                <thead>
+                    <tr>
+                        <th>
+                            <a href="">Descrição</a>
+                        </th>
+                        <th>
+                            <a href="">Logradouro</a>
+                        </th>
+                        <th width="10%">
+                            <a href="">Número</a>
+                        </th>
+                        <th>
+                            <a href="">Bairro</a>
+                        </th>
+                        <th width="10%">
+                            <a href="">Tipo</a>
+                        </th>
+                        <th width="61"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Descrição</td>
+                        <td>Logradouro</td>
+                        <td>Número</td>
+                        <td>Bairro</td>
+                        <td>Vertical</td>
+                        <td class="text-center">
+                            <a href="" title="Editar">
+                                <i class="fa fa-fw fa-pencil" title="Editar"></i>
+                            </a>
+                            <a href="" title="Excluir">
+                                <i class="fa fa-fw fa-trash-o" title="Excluir"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-inline">
+                1-20 de 126 
+                <select name="" id="" class="form-control" ng-model="pages">
+                    <option value=""></option>
+                    <option value="1">20</option>
+                    <option value="2">40</option>
+                    <option value="3">50</option>
+                    <option value="4">100</option>
+                </select>
+                resultados por página
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="pull-right">
+                <button class="btn btn-default btn-sm disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+                <button class="btn btn-default btn-sm active">1</button>
+                <button class="btn btn-default btn-sm">2</button>
+                <button class="btn btn-default btn-sm">3</button>
+                <button class="btn btn-default btn-sm">4</button>
+                <button class="btn btn-default btn-sm">Próxima <i class="fa fa-angle-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

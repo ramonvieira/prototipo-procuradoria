@@ -1,0 +1,10 @@
+<tr ng-show="exibir && !isCarregando && (textobusca === '' || textobusca == null)">
+    <td colspan="7">
+        <h4 class="text-center">Ainda não há  {{cadastro}} por aqui. <a href ng-click="adicionar();">Que tal adicionar um agora?</a></h4>
+    </td>
+</tr>
+<tr ng-show="exibir && textobusca && textobusca !== ''">
+    <td colspan="7">
+        <h4 class="text-center">Nenhum resultado encontrado para o(s) filtro(s) utilizado(s)</h4>
+    </td>
+</tr>

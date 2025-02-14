@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt"class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Procuradoria</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://cdn.test.betha.cloud/base/g4/design/master/bth-design.css" />
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body class="arr">
+  <!--[if lt IE 9]>
+		<p class="alert-danger well">
+			Você está usando um navegador <strong>desatualizado</strong>. Por favor <a href="http://browsehappy.com/">atualize seu navegador</a> para melhorar sua experiência.
+		</p>
+		<![endif]-->
+  <header id="header">
+    <div class="header-wrapper">
+      <div class="product-brand">
+        <div class="bth-logo">
+          <div class="bth-logo__image"></div>
+        </div>
+        <span class="product-name"> Procuradoria</span>
+      </div>
+      <a href="" class="btn btn-primary">Acessar</a>
+    </div>
+  </header>
+  <div class="photo-wrapper">
+    <form class="access-form">
+      <div class="product-description">
+          Facilidade na recuperação da dívida ativa <br> e no gerenciamento dos processos judiciais 
+      </div>
+      <a href="" class="btn btn-default btn-lg">Acessar o Procuradoria</a>
+    </form>
+  </div>
+  <div class="services-wrapper">
+    <ul class="services-list">
+      <li>
+          <div class="service-icon">
+            <i class="fa fa-info-circle"></i>
+          </div>
+          <div class="service-content">
+            <h2>Saiba mais</h2>
+            <p>
+                O sistema contempla o gerenciamento dos processos judiciais contenciosos e fornece ferramentas de cobrança judicial e extrajudicial da dívida ativa municipal através da execução fiscal e do protesto de títulos, possibilitando automatizar a rotina de cobrança de dívida ativa,  melhorando a recuperação de créditos inscritos em dívida ativa e diminuindo a inadimplência
+            </p>
+          </div>
+          <a target="_blank" href="http://www.betha.com.br/produto/arrecadacao-e-fiscalizacao/procuradoria" target="_blank" class="btn btn-default btn-sm">Acessar
+            o site</a>
+        </li> 
+    </ul>
+  </div>
+<footer>
+
+  <!-- Substituir a tag abaixo pelo script do Site Blindado -->
+  <div class="security-logo"></div>
+  <!-- Substituir a tag acima pelo script do Site Blindado -->
+  
+</footer>
+  <script>
+    // Exibe uma sombra no cabeçalho quando a rolagem é utilizada
+    const header = document.getElementById("header");
+    window.onscroll = function (event) {
+      let list = header.classList;
+      if (window.scrollY == 0) {
+        header.classList.remove("header-shadow");
+      } else {
+        if(!list.contains('header-shadow')) {
+          header.classList.add("header-shadow");
+        }
+      }
+    };
+  </script>
+</body>
+
+</html>

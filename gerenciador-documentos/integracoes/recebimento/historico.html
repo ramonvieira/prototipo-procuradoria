@@ -1,0 +1,92 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="bth-timeline bth-timeline--vertical">
+			<ul class="bth-timeline__list">
+				<li class="bth-timeline__month">
+					<span class="badge badge-default">Janeiro/2019</span>
+				</li>
+				<li class="bth-timeline__date">
+					<div>Sáb, 02/05</div>
+				</li>
+				<!-- Sincronizado -->
+
+				<li class="bth-timeline__item">
+					<span class="bth-timeline">
+					</span>
+					<span class="bth-timeline__time">
+						16:57:07
+					</span>
+					<div class="bth-card bth-card--collapse bth-card--bordered" ng-click="groupHist01 = !groupHist01">
+						<div class="bth-card__header" ng-class="groupHist01 ? 'bth-card__header--opened' : 'bth-card--collapse'">
+							<h5>
+								Sincronização automática
+							</h5>
+						</div>
+						<div class="bth-card__body" uib-collapse="!groupHist01">
+							<table class="table table-unfixed table-hover table-unstriped table-unbordered bottom">
+								<tbody>
+									<tr>
+										<td><a href="" ng-click="recebimentoTrib({tipoPend: 'RECEBIDO', hist: true, modo: 'AUTO'})" keep-open>Recebido</a></td>
+										<td class="text-right"><span class="badge">896</span></td>
+									</tr>
+									<tr>
+										<td><a href="" ng-click="recebimentoTrib({tipoPend: 'PENDENTERECEBIMENTO', hist: true, modo: 'AUTO'})" keep-open>Pendente de recebimento</a></td>
+										<td class="text-right"><span class="badge">4</span></td>
+									</tr>
+									<tr>
+										<td><a href="" ng-click="recebimentoTrib({tipoPend: 'SEMRESPONSAVEL', hist: true, modo: 'AUTO'})" keep-open>Sem responsável</a></td>
+										<td class="text-right"><span class="badge">4</span></td>
+									</tr>
+									<tr>
+										<td><a href="" ng-click="recebimentoTrib({tipoPend: 'SEMPROCESSO', hist: true, modo: 'AUTO'})" keep-open>Sem processo relacionado</a></td>
+										<td class="text-right"><span class="badge">4</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					
+				</li>
+				<!-- Upload -->
+				<li class="bth-timeline__item" ng-repeat="item in [{},{},{},{},{},{},{}]">
+					<span class="bth-timeline">
+					</span>
+					<span class="bth-timeline__time">
+						16:57:07
+					</span>
+					<div class="bth-card bth-card--collapse bth-card--bordered" ng-click="groupHist$index = !groupHist$index">
+						<div class="bth-card__header" ng-class="groupHist$index ? 'bth-card__header--opened' : 'bth-card--collapse'">
+							<h5>
+								<i class="fa fa-user fa-fw text-muted" title="Por ramon.viquetti"></i> Upload de arquivo
+							</h5>
+							<small class="text-muted">nome-do-arquivo-completo.txt</small>
+						</div>
+						<div class="bth-card__body" uib-collapse="!groupHist$index">
+							<table class="table table-unfixed table-hover table-unstriped table-unbordered bottom">
+								<tbody>
+									<tr>
+										<td><a href="" ng-click="recebimentoTrib({tipoPend: 'RECEBIDO', hist: true, modo: 'FILE'})" keep-open>Recebido</a></td>
+										<td class="text-right"><span class="badge">1365</span></td>
+									</tr>
+									<tr>
+										<td><a href="" ng-click="recebimentoTrib({tipoPend: 'PENDENTERECEBIMENTO', hist: true, modo: 'FILE'})" keep-open>Pendente de recebimento</a></td>
+										<td class="text-right"><span class="badge">4</span></td>
+									</tr>
+									<tr>
+										<td><a href="" ng-click="recebimentoTrib({tipoPend: 'SEMRESPONSAVEL', hist: true, modo: 'FILE'})" keep-open>Sem responsável</a></td>
+										<td class="text-right"><span class="badge">4</span></td>
+									</tr>
+									<tr>
+										<td><a href="" ng-click="recebimentoTrib({tipoPend: 'SEMPROCESSO', hist: true, modo: 'FILE'})" keep-open>Sem processo relacionado</a></td>
+										<td class="text-right"><span class="badge">4</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

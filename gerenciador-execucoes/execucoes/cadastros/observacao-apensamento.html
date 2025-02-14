@@ -1,0 +1,23 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <form name="form">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">Adicionado observação</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row bottom">
+                    <div class="col-md-12">
+                        <label for="">Comentário</label>
+                        <textarea rows="2" class="form-control" ng-model="comentario" ng-init="isEditing ? comentario = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.' : comentario = ''" ng-focus="mostraCampo = true" ng-blur="mostraCampo = false"></textarea>
+                        <span class="u-character-countdown" ng-show="mostraCampo">{{4000 - comentario.length}} caracteres</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Salvar</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

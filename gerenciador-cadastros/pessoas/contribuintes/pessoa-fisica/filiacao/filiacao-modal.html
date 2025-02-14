@@ -1,0 +1,43 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 class="modal-title">Adicionando filiação</h3>
+        </div>
+        <div class="modal-body">
+            <form role="form">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="required">Nome</label>
+                        <input type="text" class="form-control" maxlength="155" data-ng-model="parente.nome" placeholder="Encontre pessoas pelos documentos: CPF, RG, PIS, CNH, etc., ou ainda pelo nome." />
+                    </div>
+                </div>
+                <div class="row bottom">
+                    <div class="col-md-6">
+                        <label class="required">Parentesco</label>
+                        <select data-bf-select2="{}" data-ng-model="parente.grau">
+                            <option></option>
+                            <option value="0">Mãe</option>
+                            <option value="1">Pai</option>
+                            <option value="2">Tutor</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="required">Natureza</label>
+                        <select data-bf-select2="{}" data-ng-model="parente.natureza">
+                            <option></option>
+                            <option value="1">Biológica</option>
+                            <option value="2">Sócio-afetiva</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="save()">Salvar</button>
+            <button class="btn btn-default" data-dismiss="modal" tabindex="-1">Salvar e adicionar novo</button>
+            <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>

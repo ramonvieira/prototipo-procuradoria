@@ -1,0 +1,158 @@
+<div class="modal-dialog modal-lg modal-auto-height">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<ul class="modal-header__actions">
+				<li>
+					<a href="" class="pull-right" ng-click="abrirHistoricoCertidao({cda:registro})"><i class="fa fa-fw fa-clock-o"></i></a>
+				</li>
+			</ul>
+			<h3 class="modal-title">Editando certidão de dívida ativa <span class="badge">{{registro.certidao.numero}} / {{registro.certidao.data | arrecAno}}</span></h3>
+		</div>
+		<div class="modal-body">
+			<form name="form">
+				<ol class="bth-wizard" ng-model="registro.currentStep" ng-init="currentStep = 1">
+					<li class="bth-wizard__item" ng-class="{'bth-wizard__item--active': currentStep == 1, 'bth-wizard__item--visited': currentStep > 1}" ng-click="currentStep = 1">
+						<button class="bth-wizard__title bth-wizard__title--action">
+							Dívidas da certidão
+						</button>
+					</li>
+					<li class="bth-wizard__item" ng-class="{'bth-wizard__item--active': currentStep == 2, 'bth-wizard__item--visited': currentStep > 2}" ng-click="currentStep = 2">
+						<button class="bth-wizard__title bth-wizard__title--action">
+							Informações da certidão
+						</button>
+					</li>
+				</ol>
+				
+				<!-- Área do passo 1 -->
+				<div ng-show="currentStep == 1">
+					<h4 class="text-center" ng-if="!dividasAdicionadas.length">
+						É necessário que uma ou mais dívidas sejam associadas a certidão
+					</h4>
+		
+					<div ng-if="dividasAdicionadas.length">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="scrollBar" style="max-height: 250px;">
+									<table class="table">
+										<thead>
+											<tr>
+												<th ng-repeat="col in cols track by $index" width="{{col.width}}" ng-if="col.name != 'numDocumento'">
+													<a href="">{{col.label}}</a>
+													<i class="icon-sort pull-right"></i>
+												</th>
+												<th width="40"></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="divida in dividasAdicionadas track by $index">
+												<td>{{divida.id}}</td>
+												<td>{{divida.credito}}</td>
+												<td>
+													<a href="" title="Visualizar cadastro">
+														{{divida.ref}}
+													</a>
+												</td>
+												<td>{{divida.ano}}</td>
+												<td>{{divida.valor | currency}}</td>
+												<td>{{divida.parcela}}</td>
+												<td>
+													<span class="label label-primary center-block">Aberta</span>
+												</td>
+												<td><button type="button" class="btn btn-default btn-xs btn-block" ng-click="excluirDivida(divida)"><i class="fa fa-fw fa-trash-o"></i></button></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<arrec-pagination ng-if="dividasAdicionadas.length > 10"></arrec-pagination>
+					</div>
+					<div class="row bottom">
+						<div class="col-md-12 text-right">
+							<button type="button" class="btn btn-success btn-sm btn-add" ng-click="addDivida({})">Dívidas</button>
+						</div>
+					</div>
+				</div>
+				<!-- Área do passo 2 -->
+				<div ng-show="currentStep == 2">
+					<div class="row">
+						<div class="col-md-12">
+							<label for="endereco">Endereço</label>
+							<div class="input-group">
+								<input type="text" class="form-control" id="endereco" ng-model="registro.endereco" ng-disabled="true">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button" ng-click="addEndereco({tipo:'SIMPLES'})"><i class="fa fa-fw fa-pencil"></i></button>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-9">
+							<label class="required">Modelo da certidão</label>
+							<div class="input-group">
+								<select name="" id="" bf-select2="{}" ng-model="registro.modelo" ng-required="true">
+									<option value="1">Modelo 1</option>
+									<option value="2">Modelo 2</option>
+									<option value="3">Modelo 3</option>
+									<option value="4">Modelo 4</option>
+									<option value="5">Modelo 5</option>
+								</select>
+								<span class="button-group-addon">
+									<button type="button" class="btn btn-default" title="{{registro.usarTextoCDA ? 'Remove o' : 'Adiciona um'}} texto complementar para a certidão" ng-click="registro.usarTextoCDA = !registro.usarTextoCDA"><i class="fa fa-fw" ng-class="registro.usarTextoCDA ? 'fa-minus' : 'fa-plus'"></i> Texto</button>
+								</span>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<label for="">Data da correção monetária</label>
+							<div class="input-group">
+								<input type="text" bf-date ng-model="registro.dtmonetaria" class="form-control">
+							</div>
+						</div>
+					</div>
+					<div class="row" uib-collapse="!registro.usarTextoCDA">
+						<div class="col-md-12">
+							<label for="textoCDA">Texto complementar da certidão</label>
+							<textarea id="textoCDA" class="form-control" ng-model="registro.textoCDA" rows="3"></textarea>
+						</div>
+					</div>
+					<hr class="top">
+		
+					<!-- Assinar digitalmente -->
+					<div class="row">
+						<div class="col-md-12">
+							<div class="bth-switch">
+								<input id="switch_assinar" type="checkbox" ng-model="registro.assinar">
+								<label for="switch_assinar">Assinar digitalmente</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<div class="row botton">
+				<div class="col-md-12">
+					<div class="bth-powernumber bth-powernumber--inline">
+						Valor atual da CDA:<br>
+						<span class="bth-powernumber__value tx__gray--d10">{{certidao.dividasAdicionadasOriginal.valorTotal | currency}}</span>
+					</div>
+					<div class="bth-powernumber bth-powernumber--inline" ng-if="certidao.alterado">
+						Novo valor da CDA:<br>
+						<span class="bth-powernumber__value tx__blue">{{certidao.valorTotal | currency}}</span>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<button type="button" class="btn btn-default pull-left" ng-show="currentStep > 1" ng-click="currentStep = currentStep - 1">
+				<i class="fa fa-fw fa-arrow-left"></i> Voltar
+			</button>
+			<button type="button" class="btn btn-default pull-left" ng-show="currentStep < 2" ng-click="currentStep = currentStep + 1">
+				Avançar <i class="fa fa-fw fa-arrow-right"></i>
+			</button>
+
+			<button type="button" class="btn btn-primary" ng-click="salvar({})" ng-disabled="!dividasAdicionadas.length || form.$invalid">Salvar</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		</div>
+	</div>
+</div>

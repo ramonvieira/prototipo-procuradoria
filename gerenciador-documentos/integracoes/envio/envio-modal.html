@@ -1,0 +1,201 @@
+<div class="modal-dialog modal-xxl">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<ul class="modal-header__actions" ng-if="!hist">
+				<li>
+					<a href="" class="pull-right"><i class="fa fa-fw fa-clock-o"></i></a>
+				</li>
+			</ul>
+			<h3 class="modal-title">{{tipoPend == 'PENDENTE' ? 'Pendente de envio' : tipoPend == 'ERRO' ? 'Com erro no envio' : tipoPend == 'ERROINTEGRA' ? 'Com erro na integração' : 'Enviado'}}</h3>
+			<div ng-if="hist"><small>Enviado dia 02/07/2019 por: ramon.viquetti</small></div>
+		</div>
+		<div class="modal-body">
+			<div class="row" ng-controller="GerenciadorDocumentosCtrl">
+				<div class="col-md-3">
+					<div class="panel panel-default" ng-repeat="tipoDocumento in tipoDocumentos" ng-hide="tipoDocumento.tipo == 'Dívidas'">
+						<div class="panel-heading">
+							<h3 class="panel-title">{{tipoDocumento.tipo}}</h3>
+						</div>
+						<div class="list-group">
+							<a href="" class="list-group-item" ng-repeat="item in tipoDocumento.itens" ng-click="setDoc(item.id)" ng-class="doctSelect == item.id ? 'active' : ''" ng-if="	(tipoPend == 'PENDENTE' && (documentos | filter: {tipo: item.id, envio: false}).length > 0) ||
+																																																		(tipoPend == 'ENVIADO' && (documentos | filter: {tipo: item.id, envio: true}).length > 0) ||
+																																																		(tipoPend == 'ERRO' && (documentos | filter: {tipo: item.id, erro: true}).length > 0) ||
+																																																		(tipoPend == 'ERROINTEGRA' && (documentos | filter: {tipo: item.id, erroIntegra: true}).length > 0)">
+								{{item.descricao}}
+								<span class="badge" ng-if="tipoPend == 'ENVIADO'">{{(documentos | filter: {tipo: item.id, envio: true}).length}}</span>
+								<span class="badge" ng-if="tipoPend == 'PENDENTE'">{{(documentos | filter: {tipo: item.id, envio: false}).length}}</span>
+								<span class="badge" ng-if="tipoPend == 'ERRO'">{{(documentos | filter: {tipo: item.id, erro: true}).length}}</span>
+								<span class="badge" ng-if="tipoPend == 'ERROINTEGRA'">{{(documentos | filter: {tipo: item.id, erroIntegra: true}).length}}</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="pull-right">
+								<form class="form-inline">
+									<div class="btn-group" ng-if="!hist">
+										<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Mais">
+											Mais
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li class="dropdown-header">Ações</li>
+											<li ng-show="doctSelect == 1"><a href="">Enviar para protesto</a></li>
+											<li ng-show="doctSelect == 1"><a href="">Enviar para execução</a></li>
+											<li ng-show="doctSelect > 1"><a href="">Reenviar</a></li>
+											<li><a href="" ng-controller="dividasAtivasCtrl" ng-click="assinar({})">Assinar digitalmente</a></li>
+											<li><a href="">Reativar</a></li>
+											<li ng-controller="CancelamentoDocumentoCtrl"><a href="">Cancelar documento</a></li>
+										</ul>
+									</div>
+									<div class="input-group">
+										<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+										<div class="input-group-btn">
+											<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+											<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+											<ul class="dropdown-menu dropdown-menu-right dropdown-pesquisas-avancada">
+												<li class="dropdown-header">
+													<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">×</span></button>
+													<h1>Pesquisa avançada</h1>
+												</li>
+												<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+												<li>
+													<a href="" data-value="col1Filter">
+														<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true" class="  select2-offscreen" tabindex="-1">
+															<option value="1">Contribuinte</option>
+															<option value="2">CPF</option>
+															<option value="3">Número do documento</option>
+														</select>
+													</a>
+												</li>
+												<li class="dropdown-header">Utilizando como critério</li>
+												<li>
+													<a href="">
+														<div class="radio-inline">
+															<div class="bth-radio">
+																<input id="rdAlguns" type="radio" value="1" ng-model="tipoPesquisa" class=" " name="5">
+																<label for="rdAlguns">
+																	Alguns dos termos digitados
+																</label>
+															</div>
+														</div>
+														<div class="radio-inline">
+															<div class="bth-radio">
+																<input id="rdTodos" type="radio" value="2" ng-model="tipoPesquisa" class=" " name="6">
+																<label for="rdTodos">
+																	Todos os termos digitados
+																</label>
+															</div>
+														</div>
+														<div class="radio-inline">
+															<div class="bth-radio">
+																<input id="rdNenhum" type="radio" value="2" ng-model="tipoPesquisa" class=" " name="7">
+																<label for="rdTodos">
+																	Nenhum dos termos digitados
+																</label>
+															</div>
+														</div>
+													</a>
+												</li>
+												<li role="separator" class="divider"></li>
+												<li class="dropdown-header">
+													<h1>Outras opções</h1>
+												</li>
+												<li class="dropdown-header">
+													Tipo de erro
+												</li>
+												<li>
+													<select bf-select2="{}" ng-model="vm.atividade">
+														<option value="0">Preenchimento do campo CPF</option>
+														<option value="1">Preenchimento do campo X</option>
+														<option value="2">Preenchimento do campo Y</option>
+														<option value="3">Preenchimento do campo Z</option>
+													</select>
+												</li>
+												<li class="dropdown-header">
+													<div class="row bottom">
+														<div class="col-md-6">
+															Data de emissão
+														</div>
+														<div class="col-md-6">
+															Ano
+														</div>
+													</div>
+												</li>
+												<li>
+													<div class="row">
+														<div class="col-md-6">
+															<div class="input-group date-range">
+																<div class="input-group">
+																	<input class="form-control" type="text" bf-date ng-model="de">
+																</div>
+																<span class="input-group-addon">até</span>
+																<div class="input-group">
+																	<input class="form-control" type="text" bf-date ng-model="ate">
+																</div>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="input-group">
+																<input class="form-control" type="text" ng-model="anode">
+																<span class="input-group-addon">até</span>
+																<input class="form-control" type="text" ng-model="anoate">
+															</div>
+														</div>
+													</div>
+												</li>
+												<li class="dropdown-footer pull-right">
+													<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<ul class="filtrar-por" ng-model="filtrarPor" ng-init="filtrarPor = ''">
+								<li class="{{filtrarPor == 'Opção 1' ? 'active' : ''}}">
+									<div class="btn-group" ng-init="filtrarAssinPor = ''">
+										<a href="" class="dropdown-toggle" data-toggle="dropdown">
+											Assinatura {{filtrarAssinPor == '' ? '' : filtrarAssinPor == false ? '(Não assinada)' : '(Assinada)'}} <span class="caret"></span>
+										</a>
+										<ul class="dropdown-menu">
+											<li><a href="" ng-click="filtrarAssinPor = true"	 ng-class="{'active' : filtrarAssinPor}">Assinada</a></li>
+											<li><a href="" ng-click="filtrarAssinPor = false"	 ng-class="{'active' : !filtrarAssinPor}">Não assinada</a></li>
+										</ul>
+									</div>
+								</li>
+								<li class="{{filtrarPor == 'Opção 1' ? 'active' : ''}}">
+									<div class="btn-group" ng-init="filtrarSituacao = ''">
+										<a href="" class="dropdown-toggle" data-toggle="dropdown">
+											Situação do processo {{filtrarSituacao == '' ? '' : '(' + filtrarSituacao + ')'}} <span class="caret"></span>
+										</a>
+										<ul class="dropdown-menu">
+											<li><a href="" ng-click="filtrarSituacao = 'Em tramitação'" ng-class="{'active' : filtrarSituacao}">Em tramitação</a></li>
+											<li><a href="" ng-click="filtrarSituacao = 'A ajuizar'" ng-class="{'active' : !filtrarSituacao}">A ajuizar</a></li>
+											<li><a href="" ng-click="filtrarSituacao = 'Suspensas'" ng-class="{'active' : !filtrarSituacao}">Suspensas</a></li>
+											<li><a href="" ng-click="filtrarSituacao = 'Canceladas'" ng-class="{'active' : !filtrarSituacao}">Canceladas</a></li>
+											<li><a href="" ng-click="filtrarSituacao = 'Encerradas'" ng-class="{'active' : !filtrarSituacao}">Encerradas</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div ng-include="'gerenciador-documentos/processos/documentos-processos.html'"></div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal">Enviar</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+		</div>
+	</div>
+</div>

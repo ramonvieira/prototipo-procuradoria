@@ -1,0 +1,26 @@
+<div class="container container-fluid" >
+	<div class="row mTop10">
+		<div class="col-md-12">
+			<div class="bth-card">
+				<div class="bth-card__header">
+					<h4 class="bth-card__title">Gerenciador de dívidas</h4>
+				</div>
+				<ul role="tablist" class="nav nav-tabs bottom">
+					<li data-ui-sref="main.gerenciadorDividas.visao-geral" data-ui-sref-active="active">
+						<a href=""><i class="fa fa-fw fa-pie-chart"></i> Visão geral</a>
+					</li>
+					<li data-ui-sref="main.gerenciadorDividas.dividas-ativas" data-ui-sref-active="active">
+						<a href=""><i class="fa fa-fw fa-money"></i> Dívidas</a>
+					</li>
+					<!-- <li data-ui-sref="main.gerenciadorDividas.notificacoes" data-ui-sref-active="active">
+						<a href=""><i class="fa fas fa-pencil-square-o"></i> Notificações</a>
+					</li> -->
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="section-content">
+		<div ui-view="child"></div>
+	</div>
+</div>

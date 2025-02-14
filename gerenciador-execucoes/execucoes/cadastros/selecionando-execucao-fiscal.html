@@ -1,0 +1,234 @@
+<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 class="modal-title">Selecionando execuções fiscais</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <form class="form-inline">
+                            <button type="button" class="btn btn-default btn-sm" title="Atualizar">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+
+                            <div class="input-group">
+                                <input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+                                <ul class="dropdown-menu dropdown-pesquisas-rapidas" aria-labelledby="dropdownPesquisasSalvas">
+                                    <li class="dropdown-header">Pesquisas salvas</li>
+                                    <li>
+                                        <a href="" class="btn-check">
+                                            Pendências com eSocial
+                                            <i class="fa fa-trash-o pull-right btn-excluir" title="Excluir pesquisa rápida"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="btn-check active">
+                                            Exceto demitidos
+                                            <i class="fa fa-trash-o pull-right btn-excluir" title="Excluir pesquisa rápida"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="btn-check">
+                                            
+                                            Admitidos a partir de 01/01/2014
+                                            <i class="fa fa-trash-o pull-right btn-excluir" title="Excluir pesquisa rápida"></i>
+                                        </a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="" class="text-center" ng-click="verPesquisas()">Ver todas</a></li>
+                                </ul>
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-menu-right dropdown-pesquisas-avancada">
+                                        <li class="dropdown-header">
+                                            <button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">×</span></button>
+                                            <h1>Pesquisa avançada</h1>
+                                        </li>
+                                        <li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+                                        <li>
+                                            <a href="" data-value="col1Filter">
+                                                <select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true" class="  select2-offscreen" tabindex="-1">
+                                                    <option value="1">Código da execução fiscal</option>
+                                                    <option value="2">N° do processo</option>
+                                                    <option value="3">Valor da causa (R$)</option>
+                                                    <option value="4">Situação</option>
+                                                </select>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-header">Utilizando como critério</li>
+                                        <li>
+                                            <a href="">
+                                                <div class="radio-inline">
+                                                    <div class="bth-radio">
+                                                        <input id="rdAlguns" type="radio" value="1" ng-model="tipoPesquisa" class=" " name="5">
+                                                        <label for="rdAlguns">
+                                                            Alguns dos termos digitados
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="radio-inline">
+                                                    <div class="bth-radio">
+                                                        <input id="rdTodos" type="radio" value="2" ng-model="tipoPesquisa" class=" " name="6">
+                                                        <label for="rdTodos">
+                                                            Todos os termos digitados
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="radio-inline">
+                                                    <div class="bth-radio">
+                                                        <input id="rdNenhum" type="radio" value="2" ng-model="tipoPesquisa" class=" " name="7">
+                                                        <label for="rdTodos">
+                                                            Nenhum dos termos digitados
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li role="separator" class="divider"></li>
+                                        <li class="dropdown-header">
+                                            <h1>Outras opções</h1>
+                                        </li>
+                                        <li class="dropdown-header">
+                                            <div class="row bottom">
+                                                <div class="col-md-12">
+                                                    Situação(ões)
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <select bf-select2="{}" ng-model="vm.creditos" multiple="true">
+                                                        <option value="1">Situação 1</option>
+                                                        <option value="2">Situação 2</option>
+                                                        <option value="3">Situação 3</option>
+                                                        <option value="4">Situação 4</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="dropdown-footer pull-right">
+                                            <button class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="filtrar-por">
+                        <li class="active"><a href="#">Todos (180)</a></li>
+                        <li><a href="#">Marcados para seleção</a></li>
+                        <li><a href="#">Não marcados para seleção</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <span>
+                        <span class="badge pull-left" style="margin-top: 2px;">
+                            {{getChecked()}} registro(s) selecionado(s)
+                        </span>
+                        &nbsp;
+                        <small>
+                            <a href=""> Selecionar todos os outros 150 resultados</a>
+                        </small>
+                    </span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="3%" class="text-center">
+                                    <div class="bth-checkbox bth-checkbox-inline">
+                                        <input id="chboxAll" type="checkbox" ng-model="checkAll" ng-change="setCheckAll()">
+                                        <label for="chboxAll"></label>
+                                    </div>    
+                                </th>
+                                <th width="15%">
+                                    <a href="">Código</a>
+                                    <i class="icon-sort pull-right"></i>
+                                </th>
+                                <th width="">
+                                    <a href="">N° do processo</a>
+                                    <i class="icon-sort pull-right"></i>
+                                </th>
+                                <th width="25%">
+                                    <a href="">Valor da causa (R$)</a>
+                                    <i class="icon-sort pull-right"></i>
+                                </th>
+                                <th width="15%">
+                                    <a href="">Situação</a>
+                                    <i class="icon-sort pull-right"></i>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="e in execucoes">
+                                <td>
+                                    <div class="bth-checkbox bth-checkbox-inline">
+                                        <input id="chboxAll" type="checkbox" ng-model="e.check">
+                                        <label for="chboxAll"></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{e.codigo}}
+                                </td>
+                                <td>
+                                    {{e.numProcesso}}
+                                </td>
+                                <td class="text-right">
+                                    {{e.valorCausa}}
+                                </td>
+                                <td>
+                                    <span class="label center-block label-success">{{e.situacao}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row bottom">
+                <div class="col-md-6">
+                    <form class="form-inline">
+                        1-20 de 126
+                        <select class="form-control input-sm" ng-model="numberOfResults" bf-select2="{minimumResultsForSearch: -1}" tabindex="-1">
+                            <option value="? number:20 ?"></option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        resultados por página
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <div class="pull-right">
+                        <button class="btn btn-default btn-sm disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+                        <button class="btn btn-default btn-sm active">1</button>
+                        <button class="btn btn-default btn-sm">2</button>
+                        <button class="btn btn-default btn-sm">3</button>
+                        <button class="btn btn-default btn-sm">4</button>
+                        <button class="btn btn-default btn-sm">Próxima <i class="fa fa-angle-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal">Confirmar</button>
+            <button class="btn btn-default" data-dismiss="modal" tabindex="-1">Cancelar</button>
+        </div>
+    </div>
+</div>

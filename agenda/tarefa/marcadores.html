@@ -1,0 +1,17 @@
+<div class="row" ng-show="marcadores.length > 0">
+	<div class="col-md-12">
+		<ul class="nav nav-pills nav-stacked nav-marks">
+			<li role="presentation" ng-repeat="marcador in marcadores" ng-class="{'active' : marc$index}" ng-init="marc$index = false"  ng-click="marc$index = !marc$index;setMarcadores({marc:$index,val:marc$index})">
+				<a href=""><i class="fa fa-fw fa-tag" ng-class="'tx__' + marcador.bColor"></i> {{marcador.descricao}}</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div class="row" ng-show="marcadores.length < 1">
+	<div class="col-md-12">
+		<div class="btn-group">
+			<button type="button" class="btn btn-success btn-xs btn-add" ng-click="editarMarcadores({});marcadores.push({ id: marcadres.length + 1, descricao: 'Novo marcador', color: marcador.color })" title="Cria um marcador">Criar marcador</button>
+		</div>
+	</div>
+</div>

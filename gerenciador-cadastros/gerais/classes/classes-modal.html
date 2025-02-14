@@ -1,0 +1,35 @@
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<h3 class="modal-title">{{isEditing? 'Adicionando' : 'Editando'}} classe</h3>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-3">
+					<label class="required">Código</label>
+					<input type="text" class="form-control" ng-model="codigo" maxlength="10" bf-restrict-number=""/>
+				</div>
+			</div>
+			<div class="row bottom">
+				<div class="col-md-12">
+					<label class="required">Descrição</label>
+					<textarea class="form-control" row="2"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="bth-checkbox-group pull-left">
+				<div class="bth-checkbox bth-checkbox-inline bth-checkbox-danger">
+					<input id="checkbox" type="checkbox"/>
+					<label for="checkbox">Registro desativado</label>
+				</div>
+			</div>
+			<button type="button" class="btn btn-primary">Salvar</button>
+			<button type="button" class="btn btn-default">Salvar e adicionar novo</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		</div>
+	</div>
+</div>

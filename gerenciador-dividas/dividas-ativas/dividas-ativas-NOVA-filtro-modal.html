@@ -1,0 +1,311 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h3 class="modal-title">{{isEditing ? 'Editandooo pesquisa salva' : 'Pesquisa avançada'}} </h3>
+</div>
+<div class="modal-body">
+	<form name="form">
+		<div class="cards mBottom10" ng-if="isEditing || isCreating">
+			<div class="row">
+				<div class="col-md-4">
+					<label for="descricao">Descrição do filtro</label>
+					<input type="text" class="form-control" id="descricao" ng-model="registro.descricao" ng-required="true" maxlength="25" autocomplete="off" />
+				</div>
+				<div class="col-md-8">
+					<label for="ajuda">Texto de ajuda <small class="text-muted">(Ao passar o mouse em cima do filtro, esse texto será apresentado para você)</small></label>
+					<input type="text" class="form-control" id="ajuda" ng-model="registro.ajuda" ng-required="true" autocomplete="off" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-divider-right">
+				<div class="row">
+					<div class="col-md-12">
+						<input type="text" class="form-control input-sm" id="pesquisar" ng-model="registro.pesquisar" placeholder="Pesquisar filtro disponível" autocomplete="off">
+					</div>
+				</div>
+				<div class="bth-card bth-card--filled bth-card--collapse" style="margin-bottom: 5px;" ng-repeat="filtro in registro.filtros | filter: registro.pesquisar" ng-if="isVisibleFilter(filtro)">
+					<div class="bth-card__header" ng-class="{'bth-card__header--opened': filtro.selected}" data-ng-click="filtro.selected = !filtro.selected">
+						<label for="">{{filtro.descricao | uppercase}} <span class="badge" ng-if="filtro.aplicados.length">{{filtro.aplicados.length}}</span></label>
+					</div>
+					<div class="bth-card__body" uib-collapse="!filtro.selected">
+						<span class="badge badge-alt badge-alt-o {{sub.emUso ? 'badge-success' : 'badge-default tx__gray--d10'}} {{sub.tipo == 'DATA' ? '' : 'pointer'}}" style="margin-bottom: 4px; margin-right: 4px;" ng-click="sub.tipo != 'DATA' ? sub.emUso = !sub.emUso : null" ng-repeat="sub in filtro.sub" keep-open>
+							{{sub.descricao}}
+							<i ng-if="sub.tipo == 'DATA'" class="fa fa-fw fa-plus-circle pointer tx__blue {{sub.emUso ? '' : ''}}" ng-click="filtro.sub.push(sub);filtro.sub[filtro.sub.length-1].emUso = true" keep-open></i>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<!-- <div ng-repeat="filtro in registro.filtros"> -->
+				<div ng-repeat="filtro in registro.filtros" ng-if="hasFilter(filtro)">
+					<div class="row">
+						<div class="col-md-12">
+							<!-- <h4 class="text-center" ng-if="!filtro.aplicados.length">Selecione os filtros que deseja utilizar</h4> -->
+							<strong>{{filtro.descricao | uppercase}}</strong>
+							<table class="table table-unfixed table-unstriped table-hover table-condensed bottom table-unbordered">
+								<tbody>
+									<tr ng-repeat="sub in filtro.sub track by $index" ng-if="sub.emUso">
+										<td width="150" class="text-right">
+											{{sub.descricao}}
+										</td>
+										<td>
+											<!-- BOLEAN -->
+											<div ng-show="sub.tipo == 'BOLEAN'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value">
+													<option value="SIM">Sim</option>
+													<option value="NAO">Não</option>
+												</select>
+											</div>
+											<!-- DATA -->
+											<div ng-show="sub.tipo == 'DATA'">
+												<div class="input-group date-range">
+													<div class="input-group">
+														<input id="valor" class="form-control" type="text" bf-date ng-model="sub.value.dataDe" autocomplete="off">
+													</div>
+													<span class="input-group-addon">até</span>
+													<div class="input-group">
+														<input class="form-control" type="text" bf-date ng-model="sub.value.dataAte" autocomplete="off">
+													</div>
+												</div>
+											</div>
+											<!-- TEXTO -->
+											<div ng-show="sub.tipo == 'TEXTO'">
+												<input type="text" class="form-control" ng-model="sub.value">
+											</div>
+											<!-- CEP -->
+											<div ng-show="sub.tipo == 'CEP'">
+												<input type="text" class="form-control" bf-mask-cep ng-model="sub.value">
+											</div>
+											<!-- POR -->
+											<div ng-show="sub.tipo == 'POR'">
+												<usuarios-sistema-select ng-model="sub.value" multiple="true" />
+											</div>
+											<!-- ANO -->
+											<div ng-show="sub.tipo == 'ANO'">
+												<intervalo-select ng-model="sub.value" exemplo-intervalo="2022-2024" />
+											</div>
+											<!-- NUMERO -->
+											<div ng-show="sub.tipo == 'NUMERO'">
+												<intervalo-select ng-model="sub.value" />
+											</div>
+											<!-- VALOR -->
+											<div ng-show="sub.tipo == 'VALOR'">
+												<!-- <select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="1"><span class="badge">Até {{1000 | currency}}</span></option>
+													<option value="2"><span class="badge">De {{1001 | currency}} até {{3000 | currency}}</span></option>
+													<option value="3"><span class="badge">De {{3001 | currency}} até {{10000 | currency}}</span></option>
+													<option value="4"><span class="badge">Maior que {{10000 | currency}}</span></option>
+													<option value="NAO">Personalizar</option>
+												</select> -->
+												<input type="hidden" bf-select2="optionsSelectValores" class="form-control" ng-model="sub.value" />
+											</div>
+											<!-- TIPO_PETICAO -->
+											<div ng-show="sub.tipo == 'TIPO_PETICAO'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value">
+													<option value="1">Inicial</option>
+													<option value="2">Intermediária</option>
+												</select>
+											</div>
+											<!-- TIPO_REFERENTE -->
+											<div ng-show="sub.tipo == 'TIPO_REFERENTE'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="CONTRIBUINTE">Contribuinte</option>
+													<option value="ECONOMICO">Econômico</option>
+													<option value="IMOVEL">Imóvel</option>
+												</select>
+											</div>
+											<!-- REFERENTE -->
+											<div ng-show="sub.tipo == 'REFERENTE'">
+												<intervalo-select ng-model="sub.value" />
+											</div>
+											<!-- CPF_CNPJ -->
+											<div ng-show="sub.tipo == 'CPF_CNPJ'">
+												<input type="text" class="form-control" bf-mask-cpf="" ng-model="sub.value">
+											</div>
+											<!-- CREDITOS -->
+											<div ng-show="sub.tipo == 'CREDITO'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="{{credito.id}}" ng-repeat="credito in creditos">{{credito.descricao}}</option>
+												</select>
+											</div>
+											<!-- VINC_CREDITOS -->
+											<div ng-show="sub.tipo == 'VINC_CREDITO'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="CONTRIB_MELHORIA">Contribuição de melhorias</option>
+													<option value="ECONOMICOS">Econômicos</option>
+													<option value="IMOVEIS">Imóveis</option>
+													<option value="RECEITAS_DIVERSAS">Receitas diversas</option>
+													<option value="PARCELAMENTOS">Parcelamentos</option>
+													<option value="TRANSF_IMOVEIS">Transferência de imóveis</option>
+													<option value="NOTA_FISCAL_AVULSA">Nota fiscal avulsa</option>
+													<option value="AUTOS_INFRACAO">Autos de infração</option>
+													<option value="PROJETOS">Projetos</option>
+													<option value="CONTRIBUINTES">Contribuintes</option>
+													<option value="TX_PROTOCOLO">Taxas protocolo</option>
+													<option value="NOTIFICACAO_ISS">Notificação de ISS</option>
+												</select>
+											</div>
+											<!-- SITUACAO_LANCAMENTO -->
+											<div ng-show="sub.tipo == 'SITUACAO_LANCAMENTO'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="1">Situação lançamento 1</option>
+													<option value="2">Situação lançamento 2</option>
+													<option value="3">Situação lançamento 3</option>
+												</select>
+											</div>
+											<!-- PRESCRICAO -->
+											<div ng-show="sub.tipo == 'PRESCRICAO'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value">
+													<option value="1">Prescrita</option>
+													<option value="2">A prescrever</option>
+													<option value="3">Prescreve em</option>
+													<option value="4">Prescrita em</option>
+												</select>
+											</div>
+											<!-- SITUACAO_CDA -->
+											<div ng-show="sub.tipo == 'SITUACAO_CDA'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="1">Situação CDA 1</option>
+													<option value="2">Situação CDA 2</option>
+													<option value="3">Situação CDA 3</option>
+												</select>
+											</div>
+											<!-- SITUACAO_PROTESTO -->
+											<div ng-show="sub.tipo == 'SITUACAO_PROTESTO'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="1">Situação protesto 1</option>
+													<option value="2">Situação protesto 2</option>
+													<option value="3">Situação protesto 3</option>
+												</select>
+											</div>
+											<!-- SITUACAO_EXECUCAO -->
+											<div ng-show="sub.tipo == 'SITUACAO_EXECUCAO'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="1">Em aberto</option>
+													<option value="2">A ajuizar</option>
+													<option value="3">Suspensa</option>
+													<option value="4">Cancelada</option>
+													<option value="5">Encerrada</option>
+												</select>
+											</div>
+											<!-- ASSINADO -->
+											<div class="col-md-4" ng-show="sub.tipo == 'ASSINADO'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value.assinado">
+													<option value="SIM">Sim</option>
+													<option value="NAO">Não</option>
+												</select>
+											</div>
+											<div class="col-md-7" ng-show="sub.tipo == 'ASSINADO'">
+												<usuarios-sistema-select ng-model="sub.value.assinadoPor" multiple="true" ng-disabled="sub.value.assinado == undefined || sub.value.assinado == 'NAO'" />
+											</div>
+											<!-- AREAS_ASSUNTOS -->
+											<div ng-show="sub.tipo == 'AREAS_ASSUNTOS'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="1">Área e assunto 1</option>
+													<option value="2">Área e assunto 2</option>
+													<option value="3">Área e assunto 3</option>
+												</select>
+											</div>
+											<!-- LOCAIS -->
+											<div ng-show="sub.tipo == 'LOCAIS'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="1">Local 1</option>
+													<option value="2">Local 2</option>
+													<option value="3">Local 3</option>
+												</select>
+											</div>
+											<!-- PROCURADOR -->
+											<div ng-show="sub.tipo == 'PROCURADOR'">
+												<contribuintes-select ng-model="sub.value" multiple="true" />
+											</div>
+											<!-- EXECUTADO -->
+											<div class="col-md-11" ng-show="sub.tipo == 'EXECUTADO'">
+												<contribuintes-select ng-model="sub.value" multiple="true" />
+											</div>
+			
+											<!-- ENDERECO -->
+											<!-- LOGRADOURO -->
+											<div ng-show="sub.tipo == 'LOGRADOURO'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="1">Logradouro 1</option>
+													<option value="2">Logradouro 2</option>
+													<option value="3">Logradouro 3</option>
+												</select>
+											</div>
+											<!-- BAIRRO -->
+											<div ng-show="sub.tipo == 'BAIRRO'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="1">Bairro 1</option>
+													<option value="2">Bairro 2</option>
+													<option value="3">Bairro 3</option>
+												</select>
+											</div>
+											<!-- LOTEAMENTO -->
+											<div ng-show="sub.tipo == 'LOTEAMENTO'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="1">Loteamento 1</option>
+													<option value="2">Loteamento 2</option>
+													<option value="3">Loteamento 3</option>
+												</select>
+											</div>
+											<!-- CONDOMINIO -->
+											<div ng-show="sub.tipo == 'CONDOMINIO'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="1">Condomínio 1</option>
+													<option value="2">Condomínio 2</option>
+													<option value="3">Condomínio 3</option>
+												</select>
+											</div>
+											<!-- DISTRITO -->
+											<div ng-show="sub.tipo == 'DISTRITO'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="1">Distrito 1</option>
+													<option value="2">Distrito 2</option>
+													<option value="3">Distrito 3</option>
+												</select>
+											</div>
+											<!-- SECAO -->
+											<div ng-show="sub.tipo == 'SECAO'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="1">Seção 1</option>
+													<option value="2">Seção 2</option>
+													<option value="3">Seção 3</option>
+												</select>
+											</div>
+											<!-- FACES -->
+											<div ng-show="sub.tipo == 'FACES'">
+												<select bf-select2="{}" id="valor" class="form-control" ng-model="sub.value" multiple="multiple">
+													<option value="1">Faces 1</option>
+													<option value="2">Faces 2</option>
+													<option value="3">Faces 3</option>
+												</select>
+											</div>
+										</td>
+										<td width="50" class="text-center">
+											<!-- Botão excluir -->
+											<button type="button" class="btn btn-link btn-block btn-xs" title="Remove o filtro" ng-click="excluirAplicado(filtro, $index)"><i class="fa fa-fw fa-times"></i></button>
+										</td>
+									</tr>
+									<!-- <tr ng-repeat="aplicado in filtro.aplicados track by $index">
+										<td width="150" class="text-right">
+											<strong>{{aplicado}}</strong>
+										</td>
+										<td>
+									</tr> -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal" ng-if="isEditing">Cancelar</button>
+	<button type="button" class="btn btn-danger btn-delete" data-dismiss="modal" ng-click="filtros.excluir(registro)" ng-if="isEditing">Excluir</button>
+	<button type="button" class="btn btn-default" ng-click="filtros.salvarPesquisar(registro)">Salvar e pesquisar</button>
+	<!-- <button type="button" class="btn btn-primary" ng-click="filtros.pesquisar(registro)"><i class="fa fa-fw fa-search"></i> Pesquisar</button> -->
+	<button type="button" class="btn btn-primary" ng-click="salvar(registro)"><i class="fa fa-fw fa-search"></i> Pesquisar</button>
+</div>

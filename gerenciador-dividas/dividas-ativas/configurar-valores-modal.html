@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 class="modal-title">Configurando faixa de valores</h3>
+</div>
+<div class="modal-body">
+	<form name="form">
+		<div class="alert alert-info alert-icon">A ordem dos valores será ajustada automaticamente assim que as alterações forem salvas</div>
+		<table class="table table-unfixed table-unstriped table-hover">
+			<thead>
+				<tr>
+					<th><span class="required">Faixa de valor</span></th>
+					<th width="60"><span></span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="faixa in registro.faixas track by $index | orderBy: '-valor'">
+					<td>
+						<input type="text" class="form-control" bf-number="" ng-model="faixa.valor" ng-model-options="{debounce:1000}" placeholder="0,00" ng-required="true" />
+					</td>
+					<td class="text-right">
+						<i class="fa fa-fw fa-warning tx__red" ng-if="faixa.isZero" bf-tooltip="O valor deverá ser maior que zero"></i>
+						<i class="fa fa-fw fa-warning tx__red" ng-if="faixa.hasError" bf-tooltip="O valor deverá ser diferente dos outros valores"></i>
+
+						<button class="btn btn-link btn-xs" title="{{registro.faixas.length == 1 ? 'É obrigatório ao menos um valor' : 'Excluir'}}" ng-click="excluirValores($index)" ng-disabled="registro.faixas.length == 1">
+							<i class="fa fa-fw fa-trash-o"></i>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="row bottom">
+			<div class="col-md-12 text-right">
+				<div class="btn-group">
+					<button type="button" class="btn btn-success btn-sm btn-add" title="Adiciona mais um agrupador" ng-click="registro.faixas.push({})">Valor</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" ng-click="salvar(registro.faixas)" ng-disabled="form.$invalid || hasErrorGeral || form.$pristine">Salvar</button>
+    <button type="button" class="btn btn-default" ng-click="restaurar()" title="Restaura os valores padrão do sistema" ng-if="!isPadrao">Restaurar padrões</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+</div>

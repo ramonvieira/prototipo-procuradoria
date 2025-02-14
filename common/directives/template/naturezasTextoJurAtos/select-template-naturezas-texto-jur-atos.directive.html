@@ -1,0 +1,16 @@
+<trib-select-template
+        ng-model="ngModel"
+        ng-required="ngRequired"
+        search="vm.NaturezasTextoJurAtosService.listTemplate"
+        input-field="descricao"
+        input-maxlength="100"
+        on-select="vm.onSelect(item)">
+
+    <item-template ng-non-bindable>
+        {{item.descricao}}
+        <br>
+        <small>
+            {{item.descricao ? 'Descrição: ' + item.descricao : ''}}
+        </small>
+    </item-template>
+</trib-select-template>

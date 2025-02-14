@@ -1,0 +1,373 @@
+<div class="container container-page" data-ng-controller="CancelamentoDocumentoCtrl">
+	<div class="page-header has-filter">
+		<div class="row">
+			<div class="col-md-8">
+				<h1 class="page-title">Cancelamentos de documentos</h1>
+			</div>
+			<div class="col-md-4">
+				<ol class="breadcrumb">
+					<li>Executando</li>
+					<li>Manutenções</li>
+					<li>Cancelamentos de documentos</li>
+				</ol>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-9 col-md-offset-3">
+				<div class="pull-right">
+					<form class="form-inline">
+						<button type="button" class="btn btn-default btn-sm" data-ng-click="adicionar(true)">Realizar cancelamento</button>
+						<!-- Exibir quando houver documentos cancelados -->
+						<button type="button" class="btn btn-default btn-sm" data-ng-click="adicionar(false)">Reativar documento</button>
+						<button type="button" class="btn btn-default btn-sm" title="Atualizar">
+							<i class="fa fa-refresh"></i>
+						</button>
+
+						<!-- Pesquisa inline -->
+						<div class="input-group">
+							<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+
+							<!-- Pesquisa avançada -->
+
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+								<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+
+								<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
+									<li class="dropdown-header">
+										<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+										<h1>Pesquisa avançada</h1>
+									</li>
+									<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+									<li>
+										<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true">
+											<option value="1">Número</option>
+											<option value="2">Ementa</option>
+											<option value="3">Publicação</option>
+											<option value="4">A vigorar</option>
+										</select>
+									</li>
+									<li class="dropdown-header">Utilizando como critério</li>
+									<li>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdAlguns">Alguns dos termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdTodos">Todos os termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdNenhum">Nenhum dos termos digitados</label>
+										</div>
+									</li>
+									<li role="separator" class="divider"></li>
+									<li class="dropdown-header"> 
+										<h1>Outras opções</h1>
+									<li>
+									<li class="dropdown-header">
+										Tipo
+									</li>
+									<li>
+										<select bf-select2="{}" ng-model="entidadesSelect" multiple="multiple">
+											<option value="1">Decreto</option>
+											<option value="2">Lei</option>
+											<option value="2">Portaria</option>
+											<option value="2">Outros</option>
+										</select>
+									</li>
+									<li class="dropdown-footer pull-right">
+										<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="row bottom">
+			<div class="col-md-12">
+				<ul class="filtrar-por" ng-init="filtrarPor=1;">
+					<li class="{{filtrarPor == 1 ? 'active' : ''}}"><a href="" ng-click="filtrarPor = 1">Cancelados</a></li>
+					<li class="{{filtrarPor == 2 ? 'active' : ''}}"><a href="" ng-click="filtrarPor = 2">Reativados</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div ng-show="filtrarPor == 1" class="group-list">
+		    <div class="group-heading" data-ng-class="{open:c.groupOpen}" data-ng-click="c.groupOpen=!c.groupOpen">
+		        <div class="group-title">
+		            <div class="row">
+		                <div class="col-md-9">
+		                    <strong bf-tooltip="Contribuinte">
+		                        João Paulo Cabral
+		                    </strong>
+		                </div>
+		                <div class="col-md-3">
+		                	<small>
+		                		4 cancelamento(s)
+		                	</small>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+
+		    <div class="group-list-itens" uib-collapse="!c.groupOpen" style="height: auto;">
+		        <table class="table ellipsis">
+		            <thead>
+		                <tr>
+		                    <th width="140">
+		                        <a href="">Nº do documento</a>
+		                        <i class="icon-sort pull-right"></i>
+		                    </th>
+		                    <th width="135">
+		                        <a href="">Data da emissão</a>
+		                        <i class="icon-sort pull-right"></i>
+		                    </th>
+		                    <th width="170">
+		                        <a href="">Data do cancelamento</a>
+		                        <i class="icon-sort pull-right"></i>
+		                    </th>
+		                    <th  width="260" class="ellipsis">
+		                        Motivo do cancelamento
+		                    </th>
+		                    <th class="ellipsis">
+		                        Observações do cancelamento
+		                    </th>
+		                    <th width="90"></th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <tr>
+		                    <td>1234</td>
+		                    <td>10/10/2016</td>
+		                    <td>10/10/2016</td>
+		                    <td>Descrição do motivo</td>
+		                    <td>Descrição de observação</td>
+		                    <td class="text-center">
+		                        <a href="" title="Estornar" ng-click="estornar()">
+		                            <i class="fa fa-fw fa-ban"></i>
+		                        </a>
+		                        <a href="" title="Visualizar">
+		                            <i class="fa fa-fw fa-eye"></i>
+		                        </a>
+		                        <div class="btn-group">
+		                        	<a href="" class="dropdown-toggle" data-toggle="dropdown" title="Histórico"><i class="fa fa-fw fa-clock-o"></i></a>
+		                            <ul class="dropdown-menu dropdown-menu-right bth-historico-dropdown">
+		                                <li keep-open>
+		                                    <div class="bth-historico">
+		                                        <div class="row bth-historico-title">
+		                                            <div class="col-md-6"><span class="text-muted">Últimas alterações</span></div>
+		                                            <div class="col-md-6 text-right"><a href="" title="Ver todas as movimentações" ng-click="verHistorico()"><small>Ver todas</small></a></div>
+		                                        </div>
+		                                        <div class="row bth-historico-item">
+		                                            <div class="col-md-3 bth-historico-data">Hoje <small class="text-muted">08:00:33 - 2016</small></div>
+		                                            <div class="col-md-9 bth-historico-icon">
+		                                                <div class="row">
+		                                                    <div class="col-md-1 bth-historico-user"><i class="fa fa-user fa-fw" bf-tooltip="João da Silva"></i></div>
+		                                                    <div class="col-md-11">Cancelado
+		                                                        <div class="bth-historico-descricao text-muted">Motivo: Lorem ipsum dolor sit amet.</div>
+		                                                        <div data-bf-ellipsis class="bth-historico-descricao text-muted">Observação: Lorem ipsum dolor sit amet, consectetur... </div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                        <div class="row bth-historico-item">
+		                                            <div class="col-md-3 bth-historico-data">Ontem <small class="text-muted">08:00:33 - 2016</small></div>
+		                                            <div class="col-md-9 bth-historico-icon">
+		                                                <div class="row">
+		                                                    <div class="col-md-1 bth-historico-user">
+		                                                        <i class="fa fa-user fa-fw" bf-tooltip="João da Silva"></i></div>
+		                                                    <div class="col-md-11">Reativado
+		                                                        <div class="bth-historico-descricao text-muted">Motivo: Lorem ipsum dolor sit amet.</div>
+		                                                        <div data-bf-ellipsis class="bth-historico-descricao text-muted">Observação: Lorem ipsum dolor sit amet, consectetur... </div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </li>
+		                            </ul>
+		                        </div>
+		                    </td>
+		                </tr>
+		            </tbody>
+		        </table>
+
+		        <div class="row">
+                    <div class="col-md-6">
+                        <form class="form-inline ng-pristine ng-valid">
+                            1-20 de 126 resultados por página
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="pull-right">
+                            <button class="btn btn-default btn-xs disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+                            <button class="btn btn-default btn-xs active">1</button>
+                            <button class="btn btn-default btn-xs">2</button>
+                            <button class="btn btn-default btn-xs">3</button>
+                            <button class="btn btn-default btn-xs">4</button>
+                            <button class="btn btn-default btn-xs">Próxima <i class="fa fa-angle-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+		    </div>
+		</div>
+
+		<div ng-show="filtrarPor == 2" class="group-list">
+		    <div class="group-heading" data-ng-class="{open:c.groupOpenE}" data-ng-click="c.groupOpenE=!c.groupOpenE">
+		        <div class="group-title">
+		            <div class="row">
+		                <div class="col-md-9">
+		                    <strong bf-tooltip="Contribuinte">
+		                        João Paulo Cabral
+		                    </strong>
+		                </div>
+		                <div class="col-md-3">
+		                	<small>
+		                		4 cancelamento(s)
+		                	</small>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+
+		    <div class="group-list-itens" uib-collapse="!c.groupOpenE" style="height: auto;">
+		        <table class="table ellipsis">
+		            <thead>
+		                <tr>
+		                    <th width="140">
+		                        <a href="">Nº do documento</a>
+		                        <i class="icon-sort pull-right"></i>
+		                    </th>
+		                    <th width="140">
+		                        <a href="">Natureza</a>
+		                        <i class="icon-sort pull-right"></i>
+		                    </th>
+		                    <th width="140">
+		                        <a href="">Modelo</a>
+		                        <i class="icon-sort pull-right"></i>
+		                    </th>
+		                    <th width="135">
+		                        <a href="">Data da emissão</a>
+		                        <i class="icon-sort pull-right"></i>
+		                    </th>
+		                    <th width="170">
+		                        <a href="">Data da reativação</a>
+		                        <i class="icon-sort pull-right"></i>
+		                    </th>
+		                    <th  width="260" class="ellipsis">
+		                        Motivo da reativação
+		                    </th>
+		                    <th class="ellipsis">
+		                        Observações da reativação
+		                    </th>
+		                    <th width="90"></th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <tr>
+		                    <td>1234</td>
+		                    <td>Petição inicial</td>
+		                    <td>Modelo 1</td>
+		                    <td>10/10/2016</td>
+		                    <td>10/10/2016</td>
+		                    <td>Descrição do motivo</td>
+		                    <td>Descrição de observação</td>
+		                    <td class="text-center">
+		                        <a href="" title="Visualizar">
+		                            <i class="fa fa-fw fa-eye"></i>
+		                        </a>
+		                        <div class="btn-group">
+		                        	<a href="" class="dropdown-toggle" data-toggle="dropdown" title="Histórico"><i class="fa fa-fw fa-clock-o"></i></a>
+		                            <ul class="dropdown-menu dropdown-menu-right bth-historico-dropdown">
+		                                <li keep-open>
+		                                    <div class="bth-historico">
+		                                        <div class="row bth-historico-title">
+		                                            <div class="col-md-6"><span class="text-muted">Últimas alterações</span></div>
+		                                            <div class="col-md-6 text-right"><a href="" title="Ver todas as movimentações" ng-click="verHistorico()"><small>Ver todas</small></a></div>
+		                                        </div>
+		                                        <div class="row bth-historico-item">
+		                                            <div class="col-md-3 bth-historico-data">Hoje <small class="text-muted">08:00:33 - 2016</small></div>
+		                                            <div class="col-md-9 bth-historico-icon">
+		                                                <div class="row">
+		                                                    <div class="col-md-1 bth-historico-user"><i class="fa fa-user fa-fw" bf-tooltip="João da Silva"></i></div>
+		                                                    <div class="col-md-11">Cancelado
+		                                                        <div class="bth-historico-descricao text-muted">Motivo: Lorem ipsum dolor sit amet.</div>
+		                                                        <div data-bf-ellipsis class="bth-historico-descricao text-muted">Observação: Lorem ipsum dolor sit amet, consectetur... </div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                        <div class="row bth-historico-item">
+		                                            <div class="col-md-3 bth-historico-data">Ontem <small class="text-muted">08:00:33 - 2016</small></div>
+		                                            <div class="col-md-9 bth-historico-icon">
+		                                                <div class="row">
+		                                                    <div class="col-md-1 bth-historico-user">
+		                                                        <i class="fa fa-user fa-fw" bf-tooltip="João da Silva"></i></div>
+		                                                    <div class="col-md-11">Reativado
+		                                                        <div class="bth-historico-descricao text-muted">Motivo: Lorem ipsum dolor sit amet.</div>
+		                                                        <div data-bf-ellipsis class="bth-historico-descricao text-muted">Observação: Lorem ipsum dolor sit amet, consectetur... </div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </li>
+		                            </ul>
+		                        </div>
+		                    </td>
+		                </tr>
+		            </tbody>
+		        </table>
+
+		        <div class="row">
+                    <div class="col-md-6">
+                        <form class="form-inline ng-pristine ng-valid">
+                            1-20 de 126 resultados por página
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="pull-right">
+                            <button class="btn btn-default btn-xs disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+                            <button class="btn btn-default btn-xs active">1</button>
+                            <button class="btn btn-default btn-xs">2</button>
+                            <button class="btn btn-default btn-xs">3</button>
+                            <button class="btn btn-default btn-xs">4</button>
+                            <button class="btn btn-default btn-xs">Próxima <i class="fa fa-angle-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+		    </div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<form class="form-inline">
+					1-20 de 126
+					<select class="form-control input-sm" ng-model="numberOfResults">
+						<option value="20">20</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+					</select>
+					resultados por página
+				</form>
+			</div>
+			<div class="col-md-6">
+				<div class="pull-right">
+					<button class="btn btn-default btn-sm disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+					<button class="btn btn-default btn-sm active">1</button>
+					<button class="btn btn-default btn-sm">2</button>
+					<button class="btn btn-default btn-sm">3</button>
+					<button class="btn btn-default btn-sm">4</button>
+					<button class="btn btn-default btn-sm">Próxima <i class="fa fa-angle-right"></i></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

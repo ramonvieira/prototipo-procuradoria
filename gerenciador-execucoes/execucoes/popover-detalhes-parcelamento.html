@@ -1,0 +1,25 @@
+<div class="scrollBar" style="max-height: 255px;">
+	<table class="table top bottom table-condensed">
+		<thead>
+			<tr>
+				<th><span>Parcela</span></th>
+				<th><span>Vencimento</span></th>
+				<th><span>Situação</span></th>
+				<th class="text-right"><span>Total</span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="parcela in [{situacao:'Paga'},{situacao:'Paga'},{situacao:'Paga'},{situacao:'Aberta'},{situacao:'Aberta'},{situacao:'Aberta'},{situacao:'Aberta'},{situacao:'Aberta'},{situacao:'Aberta'},{situacao:'Aberta'},{situacao:'Aberta'},{situacao:'Aberta'},{situacao:'Aberta'},{situacao:'Aberta'},{situacao:'Aberta'},{situacao:'Aberta'},{situacao:'Aberta'},{situacao:'Aberta'}]">
+				<td>{{$index+1}}</td>
+				<td>16/12/2020</td>
+				<td>
+					<span class="badge center-block" ng-class="	parcela.situacao == 'Aberta' ? 'badge-primary' :
+																parcela.situacao == 'Paga' ? 'badge-success' : ''">
+						{{parcela.situacao}}
+					</span>
+				</td>
+				<td class="text-right">{{16 | currency}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

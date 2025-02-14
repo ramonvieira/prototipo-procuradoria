@@ -1,0 +1,30 @@
+<div class="modal-dialog modal-xxl">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">{{isEditing ? 'Editando' : 'Adicionando'}} modelo de petição</h3>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-12">
+					<label class="required" for="descricao">Descrição</label>
+					<input type="text" class="form-control" id="descricao" ng-value="copia ? ('Cópia de ' + modelo.descricao) : isEditing ? modelo.descricao : null" ng-focus="copia ? select({elm:'#descricao'}) : ''">
+				</div>
+				<!-- <div class="col-md-4">
+					<label class="required" for="natureza">Natureza</label>
+					<input type="text" class="form-control" id="natureza">
+				</div> -->
+			</div>
+			<div class="row bottom">
+				<div class="col-md-12">
+					<div ng-include="'common/editor-texto/editor-texto.html'" ng-controller="EditorTextoCtrl"></div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal">Salvar</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal" ng-show="!isEditing">Salvar e adicionar novo</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		</div>
+	</div>
+</div>

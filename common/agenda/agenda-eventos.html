@@ -1,0 +1,56 @@
+<!-- Lista de eventos para a agenda -->
+<div class="bth-schedule bth-schedule--events"ng-hide="eventConsult">
+	<div class="bth-schedule__container">
+		<div class="bth-schedule__day-event" ng-repeat="day in events" ng-dblclick="adicionar({isEditing:true,tipo:'COMPROMISSO',item:$index})">
+			<div class="row" ng-repeat="eventDay in day.events">
+				<div class="col-md-2">{{$index==0 ? 'Sex, 10/05' : ''}}</div>
+				<div class="col-md-2" class="text-muted">
+					<small ng-if="eventDay.title != '200 Intimações a receber'">{{eventDay.hora}}</small>
+				</div>
+				<div class="col-md-6">
+					<div ng-if="eventDay.title != '200 Intimações a receber'"><a href="" ng-click="setEvent(eventDay)" data-bf-popover="'common/agenda/popover-agenda-compromisso.html'" class="popover-active" data-placement="bottom" bf-popover-size="big-popover">{{eventDay.title}}</a> - <small class="text-muted">{{eventDay.obs}}</small></div>
+					<div ng-if="eventDay.title == '200 Intimações a receber'"><a href="" ng-click="recebimentoTrib({tipoPend:'PENDENTERECEBIMENTO'})"><i ng-class="event.icon" class="fa fa-file-text-o"></i> {{eventDay.title}}</a> - <small class="text-muted">{{eventDay.obs}}</small></div>
+				</div>
+				<div class="col-md-2 text-right">
+					<div class="btn-group btn-group-xs">
+						<a href="" class="btn btn-link dropdown-toggle" title="Abre a lista de ações disponíveis" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-fw fa-ellipsis-v"></i>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+							<li class="dropdown-header">Ações disponíveis</li>
+							<li><a href="" ng-click="adicionar({isEditing:true,tipo:'COMPROMISSO',item:$index})"><i class="fa fa-fw fa-pencil"></i> Editar</a></li>
+							<li><a href="" ng-click="day.events.splice($index, 1)"><i class="fa fa-fw fa-trash-o"></i> Excluir</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Lista de eventos para visão geral -->
+<table class="table table-unfixed table-unstriped table-hover table-unbordered" ng-show="eventConsult">
+	<tbody ng-repeat="day in events | limitTo: 1">
+		<tr ng-repeat="eventDay in day.events | limitTo: limitEvents ? limitEvents : null">
+			<td ng-click="adicionar({isEditing:true,tipo:'COMPROMISSO',item:$index})" class="pointer">
+				<small class="text-muted">{{eventDay.hora}}</small>
+			</td>
+			<td ng-click="adicionar({isEditing:true,tipo:'COMPROMISSO',item:$index})" class="pointer">
+				{{eventDay.title}} - <small class="text-muted">{{eventDay.obs}}</small>
+			</td>
+			<td class="text-right" width="30">
+				<div class="btn-group btn-group-xs">
+					<a href="" class="btn btn-link dropdown-toggle" title="Abre a lista de ações disponíveis" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-fw fa-ellipsis-v"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+						<li class="dropdown-header">Ações disponíveis</li>
+						<li><a href="" ng-click="adicionar({isEditing:true,tipo:'COMPROMISSO',item:$index})"><i class="fa fa-fw fa-calendar-o"></i> Adiar</a></li>
+						<li><a href="" ng-click="adicionar({isEditing:true,tipo:'COMPROMISSO',item:$index})"><i class="fa fa-fw fa-pencil"></i> Editar</a></li>
+						<li><a href="" ng-click="day.events.splice($index, 1)"><i class="fa fa-fw fa-trash-o"></i> Excluir</a></li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>

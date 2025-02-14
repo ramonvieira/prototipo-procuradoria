@@ -1,0 +1,24 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h3 class="modal-title">Nome do filtro</h3>
+</div>
+<div class="modal-body">
+	<form name="form">
+		<div class="row">
+			<div class="col-md-12">
+				<label for="descricao" class="required">Descrição do filtro</label>
+				<input type="text" class="form-control" id="descricao" ng-model="filtro.dadosFiltro.descricao" ng-required="true" maxlength="25" autocomplete="off" ng-required="true" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<label for="ajuda">Texto de ajuda <small class="text-muted">(Ao passar o mouse em cima do filtro, esse texto será apresentado para você)</small></label>
+				<input type="text" class="form-control" id="ajuda" ng-model="filtro.dadosFiltro.ajuda" autocomplete="off" />
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="salvar(filtro)">Salvar</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+</div>

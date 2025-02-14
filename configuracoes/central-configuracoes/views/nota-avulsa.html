@@ -1,0 +1,91 @@
+
+<h1 class="titulo-configuracoes">Parâmetros das notas avulsas</h1>
+<div class="row">
+    <div class="col-md-3">
+        <label for="">Nº de dias <i class="fa fa-question-circle" bf-tooltip="Define o nº de dias após a data da emissão, em que o crédito tributário vencerá"></i></label>
+
+        <div class="ui-spinner input-group">
+            <input id="spinner" class="form-control ui-spinner-input" type="text" name="value" autocomplete="off" role="spinbutton">
+            <a class="ui-spinner-button ui-spinner-up" tabindex="-1">
+                <span class="icon-sort-up"></span>
+            </a>
+            <a class="ui-spinner-button ui-spinner-down" tabindex="-1">
+                <span class="icon-sort-down"></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <label for="">Tipo</label>
+
+        <select bf-select2="{}" ng-model="tipoDias">
+            <option value="1">Dias corridos</option>
+
+            <option value="2">Dias úteis</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <label for="" class="required-right">Nº da 1ª nota <i class="fa fa-question-circle" bf-tooltip="Define o nº da primeira nota a ser controlado pelo sistema"></i></label>
+
+        <input type="text" class="form-control">
+    </div>
+
+    <div class="col-md-2">
+        <label for="" class="required">Série</label>
+
+        <input type="text" class="form-control">
+    </div>
+
+    <div class="col-md-3">
+        <label for="">Impressão após pagamento? <i class="fa fa-question-circle" bf-tooltip="Define que a nota poderá ser impressa somente após o seu pagamento"></i></label>
+
+        <select bf-select2="{}" ng-model="impressaoAposPagamento">
+            <option value="1">Sim</option>
+
+            <option value="2">Não</option>
+        </select>
+    </div>
+</div>
+
+<div class="row bottom">
+    <div class="col-md-2">
+        <label for=""><abbr title="Contribuição Social sobre o Lucro Líquido">CSLL</abbr></label>
+
+        <div class="input-group">
+            <input type="text" class="form-control">
+
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <label for=""><abbr title="Contribuição para o Financiamento da Seguridade Social">COFINS</abbr></label>
+
+        <div class="input-group">
+            <input type="text" class="form-control">
+
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+
+   <div class="col-md-2">
+        <label for=""><abbr title="Programa de Integração Social">PIS</abbr>/<abbr title="Programa de Formação do Patrimônio do Servidor Público">PASEP</abbr></label>
+
+        <div class="input-group">
+            <input type="text" class="form-control">
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <label for="">
+            Permitir alterar valores?
+            <i class="fa fa-question-circle" bf-tooltip="Permite que os valores calculados das retenções federais possam ser alterados"></i>
+        </label>
+
+        <select bf-select2="{}" ng-model="permitir" class="form-control">
+            <option value="1">Sim</option>
+            <option value="2">Não</option>
+        </select>
+    </div>
+</div>

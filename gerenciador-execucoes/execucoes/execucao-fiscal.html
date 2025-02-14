@@ -1,0 +1,742 @@
+<div class="bth-card">
+	<div class="bth-card__body">
+		<!-- Toolbar -->
+		<div class="row" ng-init="vm.showPanelIntegra = false">
+			<div class="col-md-2">
+				<div class="btn-group">
+					<button type="button" class="btn btn-success btn-sm btn-add" data-ng-click="openExecucao()" title="Adiciona um nova execução fiscal">Execução fiscal</button>
+				</div>
+			</div>
+			<div class="col-md-10 text-right">
+				<form class="form-inline">	
+					<div class="btn-group btn-group-sm">
+						<button class="btn btn-default" ng-click="vm.retornoMovimentacoesExecucaoFiscal()" title="Sincroniza as movimentações da execução fiscal">
+							<i class="material-icons">refresh</i> Sincronizar movimentações
+						</button>
+						<button type="button" class="btn btn-default" title="Histórico de sincronização de movimentações" ng-click="verUltimasSincronizacoes()">
+							<i class="fa fa-fw fa-history"></i>
+						</button>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Mais">
+							Mais <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<li class="dropdown-header">Mais opções</li>
+							<li>
+								<a href="" data-ng-click="openEmitirPeticaoIntermediariaLote()">Emitir petição intermediária</a>
+							</li>
+							<li>
+								<a href="" data-ng-click="enviarTribunalLote();">Enviar ao tribunal</a>
+							</li>
+							<li>
+								<a href="" ng-controller="AgendaCtrl" ng-click="adicionar({tipo:'COMPROMISSO'})">Agendar compromisso</a>
+							</li>
+							<li>
+								<a href="" ng-controller="AgendaCtrl" ng-click="adicionar({tipo:'TAREFA'})">Adicionar a tarefa</a>
+							</li>
+						</ul>
+					</div>
+					<div class="btn-group" ng-controller="IntegracoesCtrl">
+						<button type="button" class="btn btn-default btn-sm" title="Integrações" ng-click="vm.showPanelIntegra = !vm.showPanelIntegra">
+							<i class="fa fa-plug" ng-class="vm.showPanelIntegra ? 'tx__orange' : ''"></i>
+						</button>
+						<button type="button" class="btn btn-default btn-sm" title="Integrações" ng-click="vm.showGrafico = !vm.showGrafico">
+							<i class="fa fa-pie-chart" ng-class="vm.showGrafico ? 'tx__orange' : ''"></i>
+						</button>
+					</div>
+					<!-- <div class="btn-group" ng-controller="IntegracoesCtrl">
+						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Integrações">
+							<i class="fa fa-plug" ng-class="enviosPendente.length || enviosErro.length || enviosErroIntegra.length > 0 ? 'tx__orange' : ''"></i> <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<li class="dropdown-header">Envio ao tribunal</li>
+							<li>
+								<a href="" ng-click="envioTrib({tipoPend:'PENDENTE'})"><span class="badge" ng-class="enviosPendente.length > 0 ? 'badge-warning' : 'badge-default'">{{enviosPendente.length}}</span> Pendente de envio</a>
+							</li>
+							<li>
+								<a href="" ng-click="envioTrib({tipoPend:'ERRO'})"><span class="badge" ng-class="enviosErro.length > 0 ? 'badge-warning' : 'badge-default'">{{enviosErro.length}}</span> Com erro</a>
+							</li>
+							<li>
+								<a href="" ng-click="envioTrib({tipoPend:'ERROINTEGRA'})"><span class="badge" ng-class="enviosErro.length > 0 ? 'badge-warning' : 'badge-default'">{{enviosErroIntegra.length}}</span> Com erro na integração</a>
+							</li>
+		
+							<li class="dropdown-header">Recebimento do tribunal</li>
+							<li>
+								<a href="" ng-click="recebimentoTrib({tipoPend:'PENDENTERECEBIMENTO'})"><span class="badge">0</span> Pendente de recebimento</a>
+							</li>
+							<li>
+								<a href="" ng-click="recebimentoTrib({tipoPend:'SEMRESPONSAVEL'})"><span class="badge">0</span> Sem responsável</a>
+							</li>
+							<li>
+								<a href="" ng-click="recebimentoTrib({tipoPend:'SEMPROCESSO'})"><span class="badge"></span> Sem processo relacionado</a>
+							</li>
+		
+							<li class="dropdown-header">Recebimento do diário oficial</li>
+							<li>
+								<a href="" ng-click="recebimentoTrib({tipoPend:'PENDENTERECEBIMENTO'})"><span class="badge badge-warning">4</span> Pendente de recebimento</a>
+							</li>
+							<li>
+								<a href="" ng-click="recebimentoTrib({tipoPend:'SEMRESPONSAVEL'})"><span class="badge">0</span> Sem responsável</a>
+							</li>
+							<li>
+								<a href="" ng-click="recebimentoTrib({tipoPend:'SEMPROCESSO'})"><span class="badge">0</span> Sem processo relacionado</a>
+							</li>
+							<li class="dropdown-header">Opções disponíveis</li>
+							<li>
+								<a href="" ng-click="">Histórico</a>
+							</li>
+						</ul>
+					</div> -->
+					<div class="input-group">
+						<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+							<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+							<ul class="dropdown-menu dropdown-menu-right dropdown-pesquisas-avancada" keep-open>
+								<li class="dropdown-header">
+									<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">×</span></button>
+									<h1>Pesquisa avançada</h1>
+								</li>
+								<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+								<li>
+									<a href="" data-value="col1Filter">
+										<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" ng-init="colunasSelect = [1,2,3,4]" multiple="true" class="  select2-offscreen" tabindex="-1">
+											<option value="1">Código</option>
+											<option value="2">Número</option>
+											<option value="3">Executado</option>
+											<option value="4">CPF ou CNPJ do executado</option>
+										</select>
+									</a>
+								</li>
+								<li class="dropdown-header">Utilizando como critério</li>
+								<li>
+									<a href="">
+										<div class="radio-inline">
+											<div class="bth-radio">
+												<input id="rdAlguns" type="radio" value="1" ng-model="tipoPesquisa" class=" " name="5">
+												<label for="rdAlguns">
+													Alguns dos termos digitados
+												</label>
+											</div>
+										</div>
+										<div class="radio-inline">
+											<div class="bth-radio">
+												<input id="rdTodos" type="radio" value="2" ng-model="tipoPesquisa" class=" " name="6">
+												<label for="rdTodos">
+													Todos os termos digitados
+												</label>
+											</div>
+										</div>
+										<div class="radio-inline">
+											<div class="bth-radio">
+												<input id="rdNenhum" type="radio" value="2" ng-model="tipoPesquisa" class=" " name="7">
+												<label for="rdTodos">
+													Nenhum dos termos digitados
+												</label>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li role="separator" class="divider"></li>
+								<li class="dropdown-header">
+									<h1>Outras opções</h1>
+								</li>
+								<li class="dropdown-header">
+									<div class="row bottom">
+										<div class="col-md-6">
+											Grupo(s) de trabalho
+										</div>
+										<div class="col-md-6">
+											Procurador(es)
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="row bottom">
+										<div class="col-md-6">
+											<grupo-profissionais-select ng-model="filtro.grupos" multiple="true" />
+										</div>
+										<div class="col-md-6">
+											<procuradores-select ng-model="filtro.procuradores" multiple="true" />
+										</div>
+									</div>
+								</li>
+								<li class="dropdown-header">
+									<div class="row bottom">
+										<div class="col-md-6">
+											Classe(s)
+										</div>
+										<div class="col-md-6">
+											Vara(s)
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="row bottom">
+										<div class="col-md-6">
+											<select bf-select2="{}" id="classes" multiple="true" class="form-control" ng-model="registro.classes">
+												<option value="{{$index}}" ng-repeat="classe in [].constructor(5) track by $index">Classe {{$index+1}}</option>
+											</select>
+										</div>
+										<div class="col-md-6">
+											<select bf-select2="{}" multiple="true" id="varas" class="form-control" ng-model="registro.varas">
+												<option value="{{$index}}" ng-repeat="vara in [].constructor(5) track by $index">Vara {{$index+1}}</option>
+											</select>
+										</div>
+									</div>
+								</li>
+								<li class="dropdown-header">
+									<div class="row bottom">
+										<div class="col-md-6">
+											Área(s)
+										</div>
+										<div class="col-md-6">
+											Assunto(s)
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="row bottom">
+										<div class="col-md-6">
+											<select bf-select2="{}" id="areas" multiple="true" class="form-control" ng-model="filtro.areas">
+												<option value="{{$index}}" ng-repeat="area in [].constructor(5) track by $index">Área {{$index+1}}</option>
+											</select>
+										</div>
+										<div class="col-md-6">
+											<select bf-select2="{}" id="assuntos" multiple="true" class="form-control" ng-model="filtro.assuntos">
+												<option value="{{$index}}" ng-repeat="assunto in [].constructor(5) track by $index">Assunto {{$index+1}}</option>
+											</select>
+										</div>
+									</div>
+								</li>
+								<li class="dropdown-header">
+									<div class="row bottom">
+										<div class="col-md-3">
+											Possui apenso?
+										</div>
+										<div class="col-md-3">
+											Possui penhora?
+										</div>
+										<div class="col-md-6">
+											Valor
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="row bottom">
+										<div class="col-md-3">
+											<select bf-select2="{}" id="apenso" class="form-control" ng-model="filtro.apenso">
+												<option value="SIM">Sim</option>
+												<option value="NAO">Não</option>
+											</select>
+										</div>
+										<div class="col-md-3">
+											<select bf-select2="{}" id="penhora" class="form-control" ng-model="filtro.penhora">
+												<option value="SIM">Sim</option>
+												<option value="NAO">Não</option>
+											</select>
+										</div>
+										<div class="col-md-6">
+											<div class="input-group">
+												<div class="input-group">
+													<input class="form-control" type="text" bf-number ng-model="filtro.valorDe">
+												</div>
+												<span class="input-group-addon">até</span>
+												<div class="input-group">
+													<input class="form-control" type="text" bf-number ng-model="filtro.valorAte">
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="dropdown-header">
+									<div class="row bottom">
+										<div class="col-md-6">
+											Intervalo por data de cadastro
+										</div>
+										<div class="col-md-6">
+											Intervalo por códigos
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="row bottom">
+										<div class="col-md-6">
+											<div class="input-group date-range">
+												<div class="input-group">
+													<input class="form-control" type="text" bf-date ng-model="filtro.dataCadastroDe">
+												</div>
+												<span class="input-group-addon">até</span>
+												<div class="input-group">
+													<input class="form-control" type="text" bf-date ng-model="filtro.dataCadastroAte">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<input type="text" class="form-control" id="id" bf-mask-cpf="" ng-model="filtro.intervaloCodigo">
+										</div>
+									</div>
+								</li>
+								<li class="dropdown-header">
+									<div class="row bottom">
+										<div class="col-md-6">
+											Movimentação do processo
+										</div>
+										<div class="col-md-6">
+											Data da movimentação do processo
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="row bottom">
+										<div class="col-md-6">
+											<select bf-select2="{}" id="movimentacoes" class="form-control" ng-model="filtro.movimentacoes">
+												<option value="{{$index}}" ng-repeat="movimentacao in movimentacoes track by $index">{{movimentacao.tipo}}</option>
+											</select>
+										</div>
+										<div class="col-md-6">
+											<div class="input-group date-range">
+												<div class="input-group">
+													<input class="form-control" type="text" bf-date ng-model="filtro.dataMovimentacaoDe">
+												</div>
+												<span class="input-group-addon">até</span>
+												<div class="input-group">
+													<input class="form-control" type="text" bf-date ng-model="filtro.dataMovimentacaoAte">
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="dropdown-footer pull-right">
+									<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- Integrações -->
+		<div class="row" uib-collapse="!vm.showPanelIntegra">
+			<div class="col-md-12">
+				<div class="bth-card bth-card--bordered">
+					<div class="bth-card__body">
+						<div ng-include="'gerenciador-documentos/integracoes/painel-integracoes.html'"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Gráficos -->
+		<div class="row" uib-collapse="!vm.showGrafico">
+			<div class="col-md-12">
+				<div class="bth-card bth-card--bordered bth-card--filled">
+					<div class="bth-card__body">
+						<div class="row bottom">
+							<!-- Pendentes de revisão -->
+							<div class="col-md-5 col-divider-right">
+								<div class="row">
+									<div class="col-md-8">
+										<h4 class="top">
+											<span class="fa-stack" style="margin-top: -8px">
+												<i class="fa fa-circle fa-stack-2x tx__green--l30"></i>
+												<i class="fa fa-dollar fa-stack-1x tx__green--d10"></i>
+											</span>
+											<span>Pendentes de revisão</span>
+										</h4>
+		
+									</div>
+									<div class="col-md-4 text-right" ng-init="pagamentosView = '1'">
+										<div class="btn-group dropdown">
+											<button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown" title="Outras opções">
+												<i class="fa fa-fw fa-ellipsis-v"></i>
+											</button>
+											<ul class="dropdown-menu dropdown-menu-right">
+												<li>
+													<a href="" ng-click=""><i class="fa fa-fw fa-download"></i> Download</a>
+													<a href="" ng-click=""><i class="fa fa-fw fa-print"></i> Imprimir</a>
+													<a href="" ng-click=" pagamentosView = '1'"><i class="fa fa-fw fa-pie-chart"></i> Exibir gráfico</a>
+													<a href="" ng-click=" pagamentosView = '2'"><i class="fa fa-fw fa-list"></i> Exibir lista</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div id="pagamentos" ng-show="pagamentosView == '1'"></div>
+								<table class="table table-unstriped table-unfixed table-unbordered table-hover" ng-show="pagamentosView == '2'">
+									<thead>
+										<tr>
+											<th></th>
+											<th class="text-center">Quitadas/canceladas</th>
+											<th class="text-center">Parceladas/suspensas</th>
+											<th class="text-center">Suspensas com dívida</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Execuções fiscais</td>
+											<td class="text-center"><a href="">146</a></td>
+											<td class="text-center"><a href="">248</a></td>
+											<td class="text-center"><a href="">28</a></td>
+										</tr>
+										<tr>
+											<td>Contencioso</td>
+											<td class="text-center"><a href="">146</a></td>
+											<td class="text-center"><a href="">248</a></td>
+											<td class="text-center"><a href="">28</a></td>
+										</tr>
+										<tr>
+											<td>Administrativo</td>
+											<td class="text-center"><a href="">146</a></td>
+											<td class="text-center"><a href="">248</a></td>
+											<td class="text-center"><a href="">28</a></td>
+										</tr>
+										<tr>
+											<td>Protestos</td>
+											<td class="text-center"><a href="">146</a></td>
+											<td class="text-center"><a href="">248</a></td>
+											<td class="text-center"><a href="">28</a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- Sem movimentações -->
+							<div class="col-md-7">
+								<div class="row">
+									<div class="col-md-8" ng-init="semMovimentoView = '1'">
+										<h4 class="top">
+											<span class="fa-stack" style="margin-top: -8px">
+												<i class="fa fa-circle fa-stack-2x tx__red--l30"></i>
+												<i class="fa fa-exchange fa-stack-1x tx__red--d10"></i>
+											</span>
+											<span>Sem movimentações</span>
+										</h4>
+									</div>
+									<div class="col-md-4 text-right">
+										<div class="btn-group dropdown">
+											<button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown" title="Outras opções">
+												<i class="fa fa-fw fa-ellipsis-v"></i>
+											</button>
+											<ul class="dropdown-menu dropdown-menu-right">
+												<li>
+													<a href="" ng-click=""><i class="fa fa-fw fa-download"></i> Download</a>
+													<a href="" ng-click=""><i class="fa fa-fw fa-print"></i> Imprimir</a>
+													<a href="" ng-click="trocaSemMovimentoView('1')"><i class="fa fa-fw fa-pie-chart"></i> Exibir gráfico</a>
+													<a href="" ng-click="trocaSemMovimentoView('2')"><i class="fa fa-fw fa-list"></i> Exibir lista</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div id="semMovimentacoes" ng-show="semMovimentoView == '1'"></div>
+								<table class="table table-unstriped table-unfixed table-unbordered table-hover" ng-show="semMovimentoView == '2'">
+									<thead>
+										<tr>
+											<th></th>
+											<th>6 meses</th>
+											<th>1 ano</th>
+											<th>2 anos</th>
+											<th>5 anos ou mais</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="item in [{tipo:'Execuções fiscais'},{tipo:'Contencioso'},{tipo:'Administrativo'},{tipo:'Protestos'}]">
+											<td>{{item.tipo}}</td>
+											<td>
+												<a href="">45</a>
+												<br>
+												<span class="info">R$ 146.383,45</span>
+											</td>
+											<td>
+												<a href="">248</a>
+												<br>
+												<span class="info">R$ 146.383,45</span>
+											</td>
+											<td>
+												<a href="">28</a>
+												<br>
+												<span class="info">R$ 146.383,45</span>
+											</td>
+											<td>
+												<a href="">28</a>
+												<br>
+												<span class="info">R$ 146.383,45</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<ul role="tablist" class="nav nav-tabs nav-atend">
+			<!-- Todas em aberto -->
+			<li role="presentation" ng-class="{'active': tab == ''}" ng-click="tab = ''">
+				<a data-toggle="tab" role="tab" target="_self">
+					<ul class="list-tabs-value">
+						<li>
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x tx__blue--d10"></i>
+								<i class="fa fa-files-o fa-stack-1x fa-inverse"></i>
+							</span>
+						</li>
+						<li>
+							<h5 class="bottom top">Todas{{navTab == 2 || navTab == 3 ? ' em aberto' : ''}}</h5>
+							<h6 class="bottom top tx__blue--d10" title="Total em execuções fiscais em aberto">R$ 2.705.350,00</h6>
+						</li>
+					</ul> 
+				</a>
+			</li>
+			<!-- A ajuizar -->
+			<li role="presentation" ng-class="{'active': tab == 'A ajuizar'}" ng-click="tab = 'A ajuizar'">
+				<a data-toggle="tab" role="tab" target="_self">
+					<ul class="list-tabs-value">
+						<li>
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x .tx__gray--d20"></i>
+								<i class="fa fa-gavel fa-stack-1x fa-inverse"></i>
+							</span>
+						</li>
+						<li>
+							<h5 class="bottom top">A ajuizar</h5>
+							<h6 class="bottom top tx__gray--d20" title="Total em execuções fiscais a ajuizar">{{sumExecucoesTotal('A ajuizar')| currency}}</h6>
+						</li>
+					</ul> 
+				</a>
+			</li>
+			<!-- Em tramitação -->
+			<li role="presentation" ng-class="{'active': tab == 'Em tramitação'}" ng-click="tab = 'Em tramitação'">
+				<a data-toggle="tab" role="tab" target="_self">
+					<ul class="list-tabs-value">
+						<li>
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x tx__aqua--d10"></i>
+								<i class="fa fa-balance-scale fa-stack-1x fa-inverse"></i>
+							</span>
+						</li>
+						<li>
+							<h5 class="bottom top">Em tramitação</h5>
+							<h6 class="bottom top tx__aqua--d10" title="Total em execuções fiscais em tramitação">{{sumExecucoesTotal('Em tramitação')| currency}}</h6>
+						</li>
+					</ul> 
+				</a>
+			</li>
+			<!-- Suspensas -->
+			<li role="presentation" ng-class="{'active': tab == 'Suspensa'}" ng-click="tab = 'Suspensa'" ng-show="navTab == 1 || navTab == 2">
+				<a data-toggle="tab" role="tab" target="_self">
+					<ul class="list-tabs-value">
+						<li>
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x tx__yellow"></i>
+								<i class="fa fa-pause fa-stack-1x fa-inverse"></i>
+							</span>
+						</li>
+						<li>
+							<h5 class="bottom top">Suspensas</h5>
+							<h6 class="bottom top tx__yellow--d10" title="Total em execuções fiscais suspensas">{{sumExecucoesTotal('Suspensa')| currency}}</h6>
+						</li>
+					</ul> 
+				</a>
+			</li>
+			<!-- Canceladas -->
+			<li role="presentation" ng-class="{'active': tab == 'Cancelada'}" ng-click="tab = 'Cancelada'" ng-show="navTab == 1">
+				<a data-toggle="tab" role="tab" target="_self">
+					<ul class="list-tabs-value">
+						<li>
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x tx__red"></i>
+								<i class="fa fa-ban fa-stack-1x fa-inverse"></i>
+							</span>
+						</li>
+						<li>
+							<h5 class="bottom mTop10">Canceladas</h5>
+						</li>
+					</ul> 
+				</a>
+			</li>
+			<!-- Encerradas -->
+			<li role="presentation" ng-class="{'active': tab == 'Encerrada'}" ng-click="tab = 'Encerrada'" ng-show="navTab == 1">
+				<a data-toggle="tab" role="tab" target="_self">
+					<ul class="list-tabs-value">
+						<li>
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x tx__green--d10"></i>
+								<i class="fa fa-check fa-stack-1x fa-inverse"></i>
+							</span>
+						</li>
+						<li>
+							<h5 class="bottom mTop10">Encerradas</h5>
+						</li>
+					</ul> 
+				</a>
+			</li>
+		</ul>
+
+		<!-- Filtrar por -->
+		<div class="row" ng-hide="tab == 'Cancelada' || tab == 'Encerrada'">
+			<div class="col-md-12">
+				<ul class="filtrar-por">
+					<li class="{{filtrarPor == '' ? 'active' : ''}}"><a href="" ng-click="filtrarPor = ''">Todas</a></li>
+					<li class="{{filtrarPor == 'Quitadas/Canceladas' ? 'active' : ''}}" ng-show="tab == '' || tab == 'A ajuizar' || tab == 'Em tramitação' || tab == 'Suspensa'"><a href="" ng-click="filtrarPor = 'Quitadas/Canceladas'">Quitadas/Canceladas</a></li>
+					<li class="{{filtrarPor == 'Parcelada/Suspensa' ? 'active' : ''}}" ng-show="tab == '' || tab == 'A ajuizar' || tab == 'Em tramitação'"><a href="" ng-click="filtrarPor = 'Parcelada/Suspensa'">Parcelada/Suspensa</a></li>
+					<li class="{{filtrarPor == 'Com dívidas em aberto' ? 'active' : ''}}" ng-show="tab == '' || tab == 'Suspensa'"><a href="" ng-click="filtrarPor = 'Com dívidas em aberto'">Com dívidas em aberto</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- Selecionar todos -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="bth-checkbox bth-checkbox-inline" style="margin-left: 15px">
+					<input type="checkbox" ng-click="checkAll();">
+					<label for=""></label>
+				</div>
+				<div style="display: inline-block">
+					<span class="badge pull-left">
+						0 execução(ões) fiscal(is) selecionada(s)
+					</span>
+					&nbsp;
+					<small>
+						<a href="">Selecionar todos os outros 126 resultados</a>
+					</small>
+				</div>
+			</div>
+		</div>
+		<!-- Listagem -->
+		<div class="row">	
+			<div class="col-md-12">
+				<table class="table">
+					<thead>
+						<tr>
+							<th width="28px"></th>
+							<th width="8%"><span>Código</span></th>
+							<th width="16%"><span>Número</span></th>
+							<th width="5%"><span>Ano</span></th>
+							<th width="12%"><span>Área e assunto</span></th>
+							<th width="12%"><span>Locais</span></th>
+							<th width="15%"><span>Executado</span></th>
+							<th width="11%"><span>Procurador</span></th>
+							<th width="12%" class="text-right"><span>Valor da causa</span></th>
+							<th width="9%" ng-show="tab == ''"><span>Situação</span></th>
+							<th width="65px"></th>
+						</tr>
+					</thead>
+					<tbody >
+					<tr ng-repeat="processo in execucoesFiscais | filter: {situacao: tab}">
+						<td>
+							<div class="bth-checkbox">
+								<input id="chbox" type="checkbox">
+								<label for="chbox">
+								</label>
+							</div>
+						</td>
+						<td>
+							{{processo.id}}
+						</td>
+						<td>
+							<a href="">{{processo.numProcesso}}</a>
+							<br>
+							<span class="badge badge-default" ng-if="processo.apensado" bf-tooltip="Apensado na execução {{processo.apensado}}">Apenso</span>
+							<span class="badge badge-default" ng-if="processo.apensamentos.length > 0">{{processo.apensamentos.length}}
+								<ng-pluralize count="processo.apensamentos.length"
+									when="{
+										0:			'apensamento',
+										1:			'apensamento',
+										'other':	'apensamentos'
+									}">
+								</ng-pluralize>
+							</span>
+						</td>
+						<td>{{processo.ano | arrecAno}}</td>
+						<td>
+							<div class="cell-wrapper">
+								<span>{{processo.area}}</span>
+								<br>
+								<span class="info">{{processo.assunto}}</span>
+							</div>
+						</td>
+						<td>
+							<div class="cell-wrapper">
+								<span>{{processo.tribunal}}</span>
+								<br>
+								<span class="info">{{processo.comarca}}</span>
+								<br>
+								<span class="info">{{processo.vara}}</span>
+							</div>
+						</td>
+						<td>
+							<div class="cell-wrapper">
+								<span>{{processo.executado}}</span>
+								<br>
+								<span class="info">(000.000.000-00)</span>
+							</div>
+						</td>
+						<td>
+							<div class="cell-wrapper">
+								<span>{{processo.procurador}}</span>
+								<br>
+								<span class="info">(000.000.000-00)</span>
+							</div>
+						</td>
+						<td class="text-right">{{processo.valorCausa | currency}}</td>
+						<td ng-show="tab == ''">
+							<label class="label center-block" title="Situação" ng-class="{'label-success': processo.situacao == 'Encerrada', 
+															'label-default': processo.situacao == 'A ajuizar', 
+															'label-warning': processo.situacao == 'Suspensa',
+															'label-danger': processo.situacao == 'Cancelada',
+															'label-info': processo.situacao == 'Em tramitação'}">
+								{{processo.situacao}}
+							</label>
+						</td>
+						<td class="text-right">
+							<div class="btn-group btn-group-xs">
+								<a href="" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-fw fa-ellipsis-v"></i>
+								</a>
+								<ul class="dropdown-menu dropdown-menu-right">
+									<li class="dropdown-header">Opções disponíveis</li>
+									<li ng-click="execucoesFiscais.splice($index, 1)"><a href="">Excluir</a></li>
+									<li ng-click="openMovimentacao();"><a href="">Movimentação</a></li>
+									<li ng-controller="AgendaCtrl" ng-click="adicionar({tipo:'COMPROMISSO'})"><a href="">Agendar compromisso</a></li>
+									<li ng-click="openEmitirPeticaoIntermediaria();"><a href="" ng-class="{'link-disabled': processo.situacao != 'Em tramitação' && processo.situacao != 'Suspensa'}">Emitir petição intermediária</a></li>
+									<li ng-click="enviarTribunal();"><a href="" ng-class="{'link-disabled': processo.situacao == 'Cancelada' || processo.situacao == 'Suspensa'  || processo.situacao == 'Encerrada'}">Enviar para o tribunal</a></li>
+								</ul>
+								<a href="" class="btn btn-link" title="Abre as informações da execução" ng-click="openUrlEdit(processo)">
+									<i class="fa fa-fw fa-arrow-right text-muted"></i>
+								</a>
+							</div>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>	
+		</div>	
+		<div class="row">
+			<div class="col-md-6">
+				<form class="form-inline">
+					1-20 de 126
+					<select class="form-control input-sm" ng-model="numberOfResults">
+						<option value="20">20</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+					</select>
+					resultados por página
+				</form>
+			</div>
+			<div class="col-md-6">
+				<div class="pull-right">
+					<button class="btn btn-default btn-sm disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+					<button class="btn btn-default btn-sm active">1</button>
+					<button class="btn btn-default btn-sm">2</button>
+					<button class="btn btn-default btn-sm">3</button>
+					<button class="btn btn-default btn-sm">4</button>
+					<button class="btn btn-default btn-sm">Próxima <i class="fa fa-angle-right"></i></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,87 @@
+<h1 class="titulo-configuracoes">Parâmetros dos arquivos</h1>
+<div class="row">
+    <div class="col-md-3">
+        <label for="">Arquivo</label>
+        <select bf-select2="{}" ng-model="arquivo" class="form-control">
+            <option value="1">Arquivo 1</option>
+            <option value="2">Arquivo 2</option>
+        </select>
+    </div>
+</div>
+<div class="row" ng-show="arquivo != null && !sequencial">
+    <div class="col-md-12 text-center">
+        <h4>Ainda não há sequenciais por aqui</h4>
+    </div>
+</div>
+<div class="row" ng-show="sequencial">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <label for="" class="required">Descrição</label>
+                    </th>
+                    <th>
+                        <label for="" class="required">Número inicial</label>
+                    </th>
+                    <th>
+                        <label for="" class="required">Disponível para uso?</label>
+                    </th>
+                    <th>
+                        <label for="" class="required">Em teste? <i class="fa fa-question-circle" title="Indica que o sequencial está sendo utilizado para testes de geração de arquivos"></i></label>
+                    </th>
+                    <th>
+                        <label for="" class="required">Reiniciar sequência?</label> <i class="fa fa-question-circle" title="A cada novo exercício o sequencial retorna ao número inicial"></i>
+                    </th>
+                    <th width="12%">
+                        <label for="" class="required">Ano</label>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="has-edit" width="28%">
+                        <input type="text" class="form-control">
+                    </td>
+                    <td class="has-edit">
+                        <input type="text" class="form-control" ng-model="numeroInicial" ng-init="numeroInicial = 1">
+                    </td>
+                    <td class="has-edit">
+                        <select bf-select2="{}" ng-model="disponivelUso">
+                            <option value="1">Sim</option>
+                            <option value="2">Não</option>
+                        </select>
+                    </td>
+                    <td class="has-edit">
+                        <select bf-select2="{}" ng-model="disponivelTeste">
+                            <option value="1">Sim</option>
+                            <option value="2">Não</option>
+                        </select>
+                    </td>
+                    <td class="has-edit">
+                        <select bf-select2="{}" ng-model="reiniciarSequencia">
+                            <option value="1">Sim</option>
+                            <option value="2">Não</option>
+                        </select>
+                    </td>
+                     <td class="has-edit">
+                        <input type="text" class="form-control" ng-disabled="reiniciarSequencia != 1">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row" ng-show="arquivo != null">
+    <div class="col-md-12">
+        <button class="btn btn-sm btn-success btn-add pull-right" title="Adiciona um novo sequencial" ng-click="sequencial=!sequencial">Sequencial</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-right">
+            <button class="btn btn-primary" ng-click="salvarConfiguracao();">Salvar</button>
+            <button class="btn btn-default" title="Restaura a configuração para a última versão salva">Restaurar</button>
+        </div>
+    </div>
+</div>

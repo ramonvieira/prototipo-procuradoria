@@ -1,0 +1,155 @@
+<div class="row row-flex">
+    <div class="col-md-6">
+        <div class="bth-card">
+            <div class="bth-card__header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4>Averbações <span class="badge">2 averbações</span></h4>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <button class="btn btn-xs btn-add btn-success" title="Adiciona uma nova averbação" ng-click="adicionarAverbacao()">
+                            Averbação
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="bth-card__body">
+				<div ng-show="empty">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<i class="fa fa-sticky-note-o fa-5x tx__gray--l10"></i>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<strong class="text-muted">Nenhum dado informado</strong>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<p class="text-muted">
+								Permite registrar uma informação do contribuinte
+							</p>
+						</div>
+					</div>
+				</div>
+                <div class="row" ng-repeat="comment in comments | limitTo: 2" ng-hide="empty">
+                    <div class="col-md-12">
+                        <div class="bth-card bth-card--bordered">
+                            <div class="bth-card__body">
+                                <div class="bth-comment">
+                                    <div class="bth-comment__main">
+                                        <div class="bth-comment__thumb">
+                                            <img src="https://placeimg.com/640/640/people" alt="">
+                                        </div>
+                                        <div class="bth-comment__container">
+                                            <div class="bth-comment__user">
+                                                <strong>{{comment.nome}}</strong> -
+                                                <small class="text-muted">há 5 minutos</small>
+                                            </div>
+                                            <div class="bth-comment__content">
+                                                <div><label>Processo </label>&nbsp;<span class="label label-info"> 0123456789</span></div>
+                                                <div>
+                                                    {{comment.comment}}
+                                                </div>
+                                            </div>
+                                            <div class="bth-comment__actions">
+                                                <button class="btn btn-sm btn-link" ng-click="toggleEdit(c)"><i class="fa fa-fw fa-pencil"></i> EDITAR</button>
+                                                <button class="btn btn-sm btn-link" ng-click="removeComment(comments, $index)"><i class="fa fa-fw fa-trash-o"></i> EXCLUIR</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="bth-card__footer" >
+                <div class="row bottom">
+                    <div class="col-md-12 text-center">
+                            <button class="btn btn-sm btn-default">Carregar mais 5</button>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="bth-card">
+            <div class="bth-card__header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4>Comentários <span class="badge">125 comentários</span></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="bth-card__body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="bth-card bth-card--bordered">
+                            <div class="bth-card__body">
+                                <div class="bth-comment">
+                                    <div class="bth-comment__main">
+                                        <div class="bth-comment__thumb">
+                                            <img src="https://placeimg.com/640/640/people" alt="">
+                                        </div>
+                                        <div class="bth-comment__container">
+                                            <form class="bth-comment__content">
+                                                <div class="bth-comment__input input-group" ng-class="{'bth-comment__input--recording': isRecording}">
+                                                    <textarea class="form-control" ng-model="comment.text" placeholder="Deixe seu comentário"></textarea>
+                                                </div>
+                                                <button class="btn btn-sm btn-primary" type="submit" ng-click="comment = addComment(comments, comment)" ng-disabled="isRecording || !comment.text.length">
+                                                    Comentar
+                                                    <small>(CTRL + ENTER)</small>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="scrollBar" style="max-height: 400px" ng-hide="empty">
+                    <div class="row" ng-repeat="comment in comments">
+                        <div class="col-md-12">
+                            <div class="bth-card bth-card--bordered">
+                                <div class="bth-card__body">
+                                    <div class="bth-comment">
+                                        <div class="bth-comment__main">
+                                            <div class="bth-comment__thumb">
+                                                <img src="https://placeimg.com/640/640/people" alt="">
+                                            </div>
+                                            <div class="bth-comment__container">
+                                                <div class="bth-comment__user">
+                                                    <strong>{{comment.nome}}</strong> -
+                                                    <small class="text-muted">há 5 minutos</small>
+                                                </div>
+                                                <div class="bth-comment__content">
+                                                    <div>
+                                                        {{comment.comment}}
+                                                    </div>
+                                                </div>
+                                                <div class="bth-comment__actions">
+                                                    <button class="btn btn-sm btn-link" ng-click="toggleEdit(c)"><i class="fa fa-fw fa-pencil"></i> EDITAR</button>
+                                                    <button class="btn btn-sm btn-link" ng-click="removeComment(comments, $index)"><i class="fa fa-fw fa-trash-o"></i> EXCLUIR</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bth-card__footer" ng-hide="empty">
+                <div class="row bottom">
+                    <div class="col-md-12 text-center">
+                        <button class="btn btn-sm btn-default">Carregar mais 5</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

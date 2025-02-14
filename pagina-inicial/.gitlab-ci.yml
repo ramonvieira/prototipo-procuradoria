@@ -1,0 +1,18 @@
+image: garland/aws-cli-docker
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  variables:
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID_DESIGN}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY_DESIGN}
+  script:
+    - aws s3 sync . s3://design.bethacloud.com.br/templates/pagina-inicial --exclude '.*' --exclude 'bower.json' --exclude 'gulpfile.js' --exclude 'package.json' --delete
+  environment:
+    name: production
+    url: http://design.bethacloud.com.br
+  only:
+  - production
+  tags:
+    - general

@@ -1,0 +1,364 @@
+<div class="row row-flex">
+	<div class="col-md-12">
+		<div class="bth-card">
+			<div class="bth-card__body">
+				<!-- Abas principais -->
+				<ul class="nav nav-tabs nav-atend">
+					<li ng-repeat="tab in tabs.tabsDividas" ng-class="{'active': tabs.selecionada == tab.key}" ng-click="tabs.set(tab)">
+						<a href="">
+							<ul class="list-tabs-value">
+								<li>
+									<span class="fa-stack fa-lg">
+										<i class="fa fa-circle fa-stack-2x {{tab.colorBg}}"></i>
+										<i class="fa fa-stack-1x fa-inverse {{tab.icon}} {{tab.colorIcon}}"></i>
+									</span>
+								</li>
+								<li>
+									<h5 class="bottom mTop10">{{tab.descricao}}</h5>
+									<!-- <h6 class="bottom top {{tab.colorTx}}" title="Total em dívidas sem certidão emitida">R$ 25.493,62</h6> -->
+								</li>
+							</ul> 
+						</a>
+					</li>
+				</ul>
+				<style>
+					.highlight {
+						background-color: #d1d1d1;
+						display: inline-block;
+						height: 22px;
+						width: 100px;
+						margin-right: 8px;
+					}
+
+					.newFiltros {
+						padding: 4px 8px;
+						background: #ebedf0;
+						border-radius: 2px;
+						margin-left: 0;
+						margin-right: 0;
+						margin-bottom: 10px;
+
+						padding-left: 135px;
+    					position: relative;
+					}
+
+					.newFiltros .btn-group {
+						margin: 4px 0;
+						border-right: 8px solid transparent
+					}
+
+					.newFiltros .btn-group .btExcluir {
+						display: none;
+					}
+
+					.newFiltros::before {
+						content: 'Pesquisas salvas:';
+						position: absolute;
+						left: 8px;
+						top: 8px;
+						text-align: right;
+						display: block;
+						/* border: 1px solid; */
+						width: auto;
+						font-weight: bold;
+					}
+
+					.newFiltros .tools {
+						position: absolute;
+						right: 8px;
+						top: 8px;
+						text-align: right;
+						display: block;
+						/* border: 1px solid; */
+						width: 40px;
+						visibility: hidden;
+					}
+					.newFiltros:hover .tools,
+					.newFiltros.newFiltros--editing .tools {
+						visibility: visible;
+					}
+
+					.newFiltros.newFiltros--editing .btn-group {
+						animation: tilt-shaking 0.20s infinite;
+					}
+					.showOnEdit {display: none;}
+					.newFiltros.newFiltros--editing .btn-group .showOnEdit {
+						display: initial;
+					}
+					.newFiltros.newFiltros--editing .btn-group > button {
+						border: 1px dashed orange;
+					}
+					.newFiltros.newFiltros--editing .btn-group > button:first-child {
+						pointer-events: none;
+					}
+
+					@keyframes tilt-shaking {
+						0% { transform: rotate(0deg); }
+						25% { transform: rotate(.5deg); }
+						50% { transform: rotate(0eg); }
+						75% { transform: rotate(-.5deg); }
+						100% { transform: rotate(0deg); }
+					}
+				</style>
+				
+				<!-- Barra de ferramentas -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="pull-right">
+							<form class="form-inline">
+								<div class="btn-group">
+									<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Mais">
+										Mais <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li class="dropdown-header">Mais opções</li>
+										<li>
+											<a href="" ng-controller="AgendaCtrl" ng-click="adicionar({tipo:'COMPROMISSO'})">Agendar compromisso</a>
+										</li>
+										<li>
+											<a href="" ng-controller="AgendaCtrl" ng-click="adicionar({tipo:'TAREFA'})">Adicionar a tarefa</a>
+										</li>
+									</ul>
+								</div>
+								<div class="btn-group">
+									<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fa fa-fw fa-cog"></i> <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li class="dropdown-header"><i class="fa fa-fw fa-object-group"></i> Agrupamento</li>
+										<li><a href="" class="btn-check" ng-class="{active : agrupador.agrupadoPor == 'credito'}" ng-click="agrupador.set('credito')">Crédito</a></li>
+										<li><a href="" class="btn-check" ng-class="{active : agrupador.agrupadoPor == 'creditoAno'}" ng-click="agrupador.set('creditoAno')">Crédito e ano</a></li>
+										<li><a href="" class="btn-check" ng-class="{active : agrupador.agrupadoPor == 'valor'}" ng-click="agrupador.set('valor')">Valor</a></li>
+										<li><a href="" class="btn-check" ng-class="{active : agrupador.agrupadoPor == 'contribuinte'}" ng-click="agrupador.set('contribuinte')">Contribuinte</a></li>
+										<li><a href="" class="btn-check" ng-class="{active : agrupador.agrupadoPor == 'SEM_AGRUPAMENTO'}" ng-click="agrupador.set('SEM_AGRUPAMENTO')">Sem agrupamento</a></li>
+										<li class="divider"></li>
+										<li><a href="" ng-click="valor.configAgrupador()"><i class="fa fa-fw fa-sort-numeric-asc"></i> Configurar faixa de valores</a></li>
+										<li class="divider"></li>
+										<li class="dropdown-header"><i class="fa fa-fw fa-laptop"></i> Layout</li>
+										<li><a href=""><i class="fa fa-fw fa-columns"></i> Filtros na lateral</a></li>
+										<li><a href=""><i class="fa fa-fw fa-list-alt"></i> Filtros em cima</a></li>
+									</ul>
+								</div>
+								<button type="button" class="btn btn-primary btn-sm" ng-click="emitirCertidao({})" ng-show="tabs.selecionada == 'SEM_CDA'">
+									Emitir CDA
+								</button>
+								<button type="button" class="btn btn-danger btn-sm" ng-show="tabs.selecionada == 'EMITIDA'" ng-click="cancelarCertidao({})">
+									Cancelar CDA
+								</button>
+								<botao-executar class="btn btn-primary btn-sm" ng-show="tabs.selecionada == 'EMITIDA' || tabs.selecionada == 'PROTESTADA'" />
+								<botao-protestar class="btn btn-primary btn-sm" ng-show="tabs.selecionada == 'EMITIDA' || tabs.selecionada == 'EXECUTADA'" />
+								<botao-assinar class="btn btn-primary btn-sm" ng-show="tabs.selecionada == 'EMITIDA'" />
+								<button type="button" class="btn btn-primary btn-sm" ng-show="tabs.selecionada == 'PETICIONADA' || tabs.selecionada == 'PROTESTADA'">
+									Enviar ao tribunal
+								</button>
+								<button type="button" class="btn btn-primary btn-sm" ng-show="tabs.selecionada == 'CDA_CANCELADA'">
+									Reativar
+								</button>
+								<button type="button" class="btn btn-default btn-sm" title="Atualizado em {{0 | arrecDateTime}}. Dependendo de seu volume de dados, poderá demorar vários minutos.">
+									<i class="fa fa-refresh"></i>
+								</button>
+
+								<!-- Pesquisa inline -->
+								<div class="input-group">
+									<input id="searchInput" type="text" placeholder="Pesquisar em" class="form-control input-sm search-field" style="width: 200px;">
+									<div class="btn-group">
+										<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Contribuinte <span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu" style="padding: 10px;width: 350px;">
+											<li>
+												<input type="text" class="form-control input-sm" id="id" ng-model="pesquisaDrop" placeholder="Pesquisar" autocomplete="off">
+											</li>
+											<li class="dropdown-header" ng-repeat-start="em in pesquisarEm | filter:pesquisaDrop">{{em.descricao}}</li>
+											<li ng-repeat="sub in em.sub | filter:pesquisaDrop"><a href="" ng-click="">{{sub.descricao}}</a></li>
+											<li ng-repeat-end role="separator" class="divider"></li>
+										</ul>
+									</div>
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+										<button type="button" class="btn btn-default btn-sm dropdown-toggle" title="Pesquisa avançada" ng-click="filtros.adicionar({action:'TEMP'})"><i class="fa fa-filter"></i></button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<!-- Filtros -->
+				<div class="newFiltros">
+					<div class="filtros" id="sortableTeste">
+						<div class="btn-group btn-group-xs" ng-if="!(filtros.salvos | filter:{tab:tabs.selecionada}).length">
+							<button type="button" class="btn btn-default" title="Clique para criar um filtro personalizado" ng-click="filtros.adicionar({action:'CREATE'})">
+								Criar filtro +
+							</button>
+						</div>
+						<div class="btn-group btn-group-xs tilt-shaking" ng-repeat="filtroSalvo in filtros.salvos | filter:{tab:tabs.selecionada} | orderBy: 'order'" id="filtroSalvo{{$index}}" ng-init="TEMP = filtroSalvo.descricao == 'Filtro temporário'">
+							<button type="button" class="btn {{filtroSalvo.active && TEMP ? 'btn-info' : filtroSalvo.active && !TEMP ? 'btn-primary' : 'btn-default'}}" ng-click="!filtroSalvo.active ? filtros.set(filtroSalvo) : ''" title="{{filtroSalvo.ajuda ? filtroSalvo.ajuda : filtroSalvo.descricao}}">
+								{{TEMP ? '*' : ''}} {{filtroSalvo.descricao | truncatedText:20}}
+							</button>
+							<button type="button" class="btn btn-link showOnEdit">
+								<i class="fa fa-fw fa-arrows"></i>
+							</button>
+							<button type="button" class="btn btn-link showOnEdit" ng-click="filtros.excluir(filtroSalvo)">
+								<i class="fa fa-fw fa-trash"></i>
+							</button>
+							<button type="button" class="btn {{filtroSalvo.active && TEMP ? 'btn-info' : filtroSalvo.active && !TEMP ? 'btn-primary' : 'btn-default'}} dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-if="filtroSalvo.active">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" ng-if="filtroSalvo.active">
+								<li><a href="" ng-click="filtros.editar({action: 'EDIT', filtro:filtroSalvo})"><i class="fa fa-fw fa-pencil"></i> Editar</a></li>
+								<li><a href="" ng-click="filtros.salvar(filtroSalvo)"><i class="fa fa-fw fa-save"></i> Salvar alterações</a></li>
+								<li ng-if="!filtroSalvo.temp"><a href="" ng-click="filtros.renomear(filtroSalvo)"><i class="fa fa-fw fa-i-cursor"></i> Renomear</a></li>
+								<li ng-if="!filtroSalvo.temp"><a href="" ng-click="filtros.adicionar()"><i class="fa fa-fw fa-clone"></i> Clonar</a></li>
+								<li><a href="" ng-click="filtros.excluir(filtroSalvo)"><i class="fa fa-fw fa-trash"></i> Excluir</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="tools" ng-show="(filtros.salvos | filter:{tab:tabs.selecionada}).length">
+						<button type="button" class="btn btn-link btn-xs" title="Title" id="editFiltros"><i class="fa fa-fw fa-pencil"></i></button>
+					</div>
+				</div>
+
+				<!-- Tags pesquisa -->
+				<ul class="bth-tag__list hide">
+					<li>
+						<span class="bth-tag bth-tag--hover" ng-class="tagStyle">
+							<i class="fa fa-thumb-tack tx__blue" ng-if="fixar"></i>
+							<i class="fa fa-search" ng-if="!fixar"></i>
+							0900264-79.2018.8.24.0078
+							<a href="" ng-click="remTagSearch({filter: option} );" class="bth-tag__close">✕</a>
+						</span>
+					</li>
+					<li>
+						<span class="bth-tag bth-tag--hover" ng-class="tagStyle">
+							<i class="fa fa-thumb-tack tx__blue" ng-if="fixar"></i>
+							<i class="fa fa-filter" ng-if="!fixar"></i> <span class="bth-tag__type">Tipo: </span>
+							<span>
+								Contestação
+							</span>
+							<small class="bth-tag__more">
+								e mais
+								<a href="" ng-click="openFilters()">
+									2 itens
+								</a>
+							</small>
+							<a href="" ng-click="remTag(filter);" class="bth-tag__close">✕</a>
+						</span>
+					</li>
+					<li>
+						<div class="btn-group" ng-mouseover="tagStyle = 'tagStyle'" ng-mouseleave="tagStyle = ''" ng-show="filterCount(filters) || filters.searching.nome.length > 0">
+							<button class="btn btn-link btn-xs" ng-init="thumbRotate = true" ng-mouseover="thumbRotate = !fixar ? false : true" ng-mouseleave="thumbRotate = !fixar ? true : false" ng-click="fixar = !fixar" title="{{fixar ? 'Desafixar' : 'Fixar'}} filtros">
+								<i class="fa fa-thumb-tack" ng-class="{'thumb-rotate' : thumbRotate, 'tx__blue' : !thumbRotate}"></i>
+							</button>
+							<button class="btn btn-link btn-xs" ng-click="saveFilters()" title="Adicionar as consultas salvas" ng-if="filterCount(filters) || filters.searching.nome.length > 0">
+								<i class="fa fa-plus"></i>
+							</button>
+							<button class="btn btn-link btn-xs" ng-click="cleanFilters();" title="Limpar filtros" ng-if="filterCount(filters) || filters.searching.nome.length > 0">
+								<i class="fa fa-trash-o"></i>
+							</button>
+						</div>
+					</li>
+				</ul>
+
+				<!-- Sem resultados -->
+				<div class="bth-empty bth-empty--filter mTop30" ng-if="!filtros.filtrando">
+					<h4>Utilize os filtros para mostrar resultados</h4>
+				</div>
+				<!-- Resultados -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="bth-checkbox bth-checkbox-inline">
+							<input id="checkModeloAll" type="checkbox" ng-model="check.all" ng-click="check.setAllVisivel(check.all)">
+							<label for="checkModeloAll"></label>
+						</div>
+						<div style="display: inline-block">
+							<span class="badge pull-left">
+								{{check.qtdSelecionadas}} dívida(s) selecionada(s)
+							</span>
+							&nbsp;
+							<small>
+								<a href="" ng-if="(check.qtdSelecionadas == 0)" ng-click="check.setAll(true)">Selecionar todos os {{check.qtdDisponivel}} resultados</a>
+								<a href="" ng-if="(check.qtdSelecionadas > 0 && check.qtdSelecionadas < check.qtdDisponivel)" ng-click="check.setAll(true)">Selecionar todos os outros {{check.qtdDisponivel - check.qtdSelecionadas}} resultados</a>
+								<a href="" ng-if="check.qtdSelecionadas == check.qtdDisponivel" ng-click="check.setAll(false)">Desmarcar todos os {{check.qtdSelecionadas}} resultados</a>
+							</small>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-if="filtros.filtrando" bf-loading="loadingDividas">
+					<div class="col-md-12">
+						<div class="group-list" ng-repeat="item in itens">
+							<div class="group-heading" data-ng-class="{open:item.groupOpen}" data-ng-click="item.groupOpen=!item.groupOpen">
+								<div class="bth-checkbox">
+									<input id="checkbox" type="checkbox" keep-open>
+									<label for="checkbox">&nbsp;</label>
+								</div>
+								<div class="group-title">
+									<div class="row">
+										<div class="col-md-5">
+											<div class="group-title-header">
+												<div class="ellipsis" title="{{item.descricao}}">
+													<a href="" ng-click="verContribuinte({})">{{item.descricao}}</a><span class="text-muted"> - 014.658.448-55</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3 text-right">
+											<span ng-if="tabs.selecionada == 'SEM_CDA' || tabs.selecionada == 'EMITIDA' || tabs.selecionada == 'CDA_CANCELADA' ">{{item.qtd}} dívidas</span>
+											<span ng-if="tabs.selecionada == 'EXECUTADA'">{{item.qtd}} petições</span>
+											<span ng-if="tabs.selecionada == 'PROTESTADA'">{{item.qtd}} protestos</span>
+										</div>
+										<div class="col-md-3 text-right">
+											<simula-calculo item="item"></simula-calculo>
+										</div>
+										<div class="col-md-1 text-right">
+											<div class="btn-group dropdown">
+												<a class="dropdown-toggle" data-toggle="dropdown" title="Outras opções" href keep-open>
+													<i class="fa fa-fw fa-ellipsis-v"></i>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="group-list-itens" uib-collapse="!item.groupOpen">
+								<!-- Não emitidas -->
+								<div ng-include="'gerenciador-dividas/dividas-ativas/dividas/lista-dividas.html'" ng-if="tabs.selecionada == 'SEM_CDA'"></div>
+			
+								<!-- Dívidas emitidas e canceladas -->
+								<div ng-include="'gerenciador-dividas/dividas-ativas/certidoes/lista-certidoes.html'" ng-if="tabs.selecionada == 'EMITIDA' || tabs.selecionada == 'CDA_CANCELADA'"></div>
+
+								<!-- Protestos -->
+								<div ng-include="'gerenciador-protestos/protestos/lista-protestos.html'" ng-if="tabs.selecionada == 'PROTESTADA'"></div>
+
+								<!-- Execuções -->
+								<div ng-include="'gerenciador-execucoes/execucoes/lista-execucoes.html'" ng-if="tabs.selecionada == 'EXECUTADA'"></div>
+							</div>
+						</div>
+						<div class="row mTop10">
+							<div class="col-md-6">
+								<form class="form-inline">
+									1-20 de 126
+									<select class="form-control input-sm" ng-model="numberOfResults">
+										<option value="20">20</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+									</select>
+									resultados por página
+								</form>
+							</div>
+							<div class="col-md-6">
+								<div class="pull-right">
+									<button class="btn btn-default btn-sm disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+									<button class="btn btn-default btn-sm active">1</button>
+									<button class="btn btn-default btn-sm">2</button>
+									<button class="btn btn-default btn-sm">3</button>
+									<button class="btn btn-default btn-sm">4</button>
+									<button class="btn btn-default btn-sm">Próxima <i class="fa fa-angle-right"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

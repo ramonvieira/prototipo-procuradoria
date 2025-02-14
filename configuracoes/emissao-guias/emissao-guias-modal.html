@@ -1,0 +1,231 @@
+<div class="modal-dialog modal-xl">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">Emitindo guias</h3>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-3">
+					<label for="">Tipo de lançamento</label>
+					<input type="text" class="form-control" value="Créditos protestados" disabled>
+				</div>
+				<div class="col-md-4">
+					<div class="bth-switch mTop30">
+						<input id="switch1" type="checkbox" ng-model="segundaVia">
+						<label for="switch1">
+							2º via
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="cards">
+				<div class="row">
+					<div class="col-md-{{convenio != null ? '4' : '6'}}">
+						<label for="" class="required">Crédito tributário</label>
+						<select bf-select2="{}" ng-model="creditos" ng-disabled="tipoLancamento == 1">
+							<option value="1">IPTU</option>
+							<option value="2">ISS</option>
+						</select>
+					</div>
+					<div class="col-md-{{convenio != null ? '4' : '6'}}">
+						<label class="required" for="">Convênio</label>
+						<select bf-select2="{}" ng-model="convenio">
+							<option value="1">1892182137719 - Convênio para testes</option>
+							<option value="2">5454545645465 - Convênio para testes 2</option>
+						</select>
+					</div>
+					<div class="col-md-4" ng-show="convenio != null">
+						<label for="" class="required">Modelo</label>
+						<select bf-select2="{}" ng-model="modelos">
+							<option value="1">Modelo de relatório 1</option>
+							<option value="2">Modelo de relatório 2</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<!-- <div class="col-md-2">
+						<label for="" class="required">É 2ª via?</label>
+						<select bf-select2="{}" ng-model="segundaVia">
+							<option value="1">Sim</option>
+							<option value="2">Não</option>
+						</select>
+					</div> -->
+					<div class="col-md-2">
+						<label for="" class="required">Data para pagamento</label>
+						<div class="input-group">
+							<input type="text" class="form-control" bf-date ng-model="dataVencimento" ng-disabled="segundaVia != 1">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<label for="">Indexador</label>
+						<select bf-select2="{}" ng-model="indexadores">
+							<option value="1">Indexador 1</option>
+							<option value="2">Indexador 2</option>
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label for="">Mostrar código de barras? <i class="fa fa-question-circle" title="Define se o código de barras será apresentado para débito em conta"></i></label>
+						<select bf-select2="{}" ng-model="apresentarCodigoBarras">
+							<option value="1">Sim</option>
+							<option value="2">Não</option>
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label for="">Cobrar taxa de expediente?</label>
+						<select bf-select2="{}" ng-model="taxaExpediente">
+							<option value="1">Sim</option>
+							<option value="2">Não</option>
+						</select>
+					</div>
+				</div>
+				<div class="row" ng-if="taxaExpediente == 1">
+					<div class="col-md-12">
+						<label for="">Taxa(s)</label>
+						<select ng-model="taxas" bf-select2="{}" multiple>
+							<option value="1">Taxa 1</option>
+							<option value="2">Taxa 2</option>
+							<option value="3">Taxa 3</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		<!-- 	<div class="row">
+				<div class="col-md-2">
+					<label for="">Parcelas ordenadas? <i class="fa fa-question-circle" bf-tooltip="Define que as parcelas serão ordenadas"></i></label>
+					<select bf-select2="{}" ng-model="tipoOrdenacaoParcela">
+						<option value="1">Por contribuinte</option>
+						<option value="2">Por referente vinculado ao crédito tributário</option>
+					</select>
+				</div>
+				<div class="col-md-4">
+					<label for="">Tipo de ordenação <i class="fa fa-question-circle" bf-tooltip="Define o critério de ordenação dos dados apresentados na guia"></i></label>
+					<select bf-select2="{}" ng-model="tipoOrdenacao">
+						<option value="1">Por contribuinte</option>
+						<option value="2">Por referente vinculado ao crédito tributário</option>
+					</select>
+				</div>
+			</div> -->
+			<h4>Filtros</h4>
+			<div class="row">
+				<div class="col-md-12">
+					<label for="">Contribuinte(s)</label>
+					<select bf-select2="{}" ng-model="contribuinte" multiple>
+						<option value="1">Marciano Buzzanello</option>
+						<option value="2">Gabriel Andrade Valandro</option>
+						<option value="3">Cristiano Soares Teixeira</option>
+						<option value="4">Márcio Figueiredo</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<label for="">Protestos por intervalo?</label>
+					<select bf-select2="{}" ng-model="intervaloProtestos" ng-init="intervaloProtestos = 2">
+						<option value="1">Sim</option>
+						<option value="2" selected>Não</option>
+					</select>
+				</div>
+				<div class="col-md-9">
+					<label for="">Protesto(s)</label>
+					<select bf-select2="{}" ng-show="intervaloProtestos == 2" ng-model="protestos" multiple>
+						<option value="1">Protestos 1</option>
+						<option value="2">Protestos 2</option>
+						<option value="3">Protestos 3</option>
+						<option value="4">Protestos 4</option>
+					</select>
+					<div class="input-group" ng-show="intervaloProtestos == 1">
+						<input type="text" class="form-control">
+						<span class="input-group-addon">até</span>
+						<input type="text" class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<label for=""><abbr title="Certidões de Dívida Ativa" >CDA</abbr> por intervalo?</label>
+					<select bf-select2="{}" ng-model="intervaloCDA" ng-init="intervaloCDA = 2">
+						<option value="1">Sim</option>
+						<option value="2" selected>Não</option>
+					</select>
+				</div>
+				<div class="col-md-9">
+					<label for=""><abbr title="Certidões de Dívida Ativa" >CDA</abbr>(s)</label>
+					<select bf-select2="{}" ng-model="CDAs" ng-show="intervaloCDA == 2" multiple>
+						<option value="1">CDA 1</option>
+						<option value="2">CDA 2</option>
+						<option value="3">CDA 3</option>
+						<option value="4">CDA 4</option>
+					</select>
+					<div class="input-group" ng-show="intervaloCDA == 1">
+						<input type="text" class="form-control">
+						<span class="input-group-addon">até</span>
+						<input type="text" class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<label for="">Ano da <abbr title="Certidões de Dívida Ativa" >CDA</abbr> por intervalo?</label>
+					<select bf-select2="{}" ng-model="intervaloAnoCDA" ng-init="intervaloAnoCDA = 2">
+						<option value="1">Sim</option>
+						<option value="2" selected>Não</option>
+					</select>
+				</div>
+				<div class="col-md-9">
+					<label for="">Ano(s)</label>
+					<select bf-select2="{}" ng-show="intervaloAnoCDA == 2" ng-model="anos" multiple>
+						<option value="1">2014</option>
+						<option value="2">2013</option>
+						<option value="3">2012</option>
+						<option value="4">2011</option>
+					</select>
+					<div class="input-group" ng-show="intervaloAnoCDA == 1">
+						<input type="text" class="form-control">
+						<span class="input-group-addon">até</span>
+						<input type="text" class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Período de vencimento</label>
+					<div class="input-group date-range">
+						<div class="input-group">
+							<input class="form-control" type="text" bf-date ng-model="deDate">
+						</div>
+						<span class="input-group-addon">até</span>
+						<div class="input-group">
+							<input class="form-control" type="text" bf-date ng-model="ateDate">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<label for="">Parcelas por intervalo?</label>
+					<select bf-select2="{}" ng-model="intervaloParcelas" ng-init="intervaloParcelas = 1">
+						<option value="1">Sim</option>
+						<option value="2">Não</option>
+					</select>
+				</div>
+				<div class="col-md-4">
+					 <label for="">Número(s) da(s) parcela(s)</label>
+					 <div class="input-group" ng-show="intervaloParcelas == 1">
+						<input class="form-control" type="text" ng-model="de">
+						<span class="input-group-addon">até</span>
+						<input class="form-control" type="text" ng-model="ate">
+					</div>
+					<select bf-select2="{}" ng-show="intervaloParcelas == 2" ng-model="anos" multiple>
+						<option value="1">2014</option>
+						<option value="2">2013</option>
+						<option value="3">2012</option>
+						<option value="4">2011</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary">Emitir</button>
+			<button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		</div>
+	</div>
+</div>

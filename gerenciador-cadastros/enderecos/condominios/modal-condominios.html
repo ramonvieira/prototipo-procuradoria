@@ -1,0 +1,113 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <form name="form">
+            <div class="modal-header" >
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">Cadastrando condomínio</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <label for="condominioNome">Nome do condomínio:</label>
+                        <span class="text-danger" data-original-title="Este campo é obrigatório">*</span>
+                        <input type="text" id="condominioNome" class="form-control" maxlength="50" ng-model="registro.nome"  data-bf-required="true">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="condominioTipo">Tipo do condomínio:</label>
+                        <span class="text-danger" data-original-title="Este campo é obrigatório" maxlength="50">*</span>
+                        <select id="condominioTipo" class="form-control" ng-model="registro.tipoCondominio" data-bf-required="true">
+                            <option>Vertical</option>
+                            <option>Horizontal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="condominioLogradouro">Logradouro:</label>
+                        <input type="hidden" data-ng-model="registro.logradouro.id" data-bf-select2="LogradourosSelectConfig" />
+                    </div>
+                    <div class="col-md-6" >
+                        <label for="condominioBairro">Bairro:</label>
+                        <input type="hidden" data-ng-model="registro.bairro.id" data-bf-select2="BairrosSelectConfig" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="condominioNumero">Número:</label>
+                        <input type="text" id="condominioNumero" data-ng-model="registro.numero" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="condominioCep">CEP:</label>
+                        <input type="text" id="condominioCep" class="form-control" data-ng-model="registro.cep" data-bf-mask="'00.000-000'">
+                    </div>
+                    <div class="col-md-8">
+                        <label for="condominioUtilizacao">Utilização:</label>
+                        <input type="text" id="condominioUtilizacao" data-ng-model="registro.condominiosComplementos.utilizacao" class="form-control" maxlength="60">
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-9">
+                        <label for="condominioResponsavel">Responsável pelo condomínio:</label>
+                        <input type="hidden" data-ng-model="registro.condominiosComplementos.contribuinte.id" data-bf-select2="ContribuinteSelectConfig" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="condominioAno">Ano da construção:</label>
+                        <input type="text" id="condominioAno" class="form-control" maxlength="4" data-ng-model="registro.condominiosComplementos.anoConstrucao" data-bf-restrict-number data-bf-min="1900" data-bf-max="9999"/>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="row" >
+                    <div class="col-md-2">
+                        <label for="condiminioPavimentos">Nº pavimentos:</label>
+                        <spinner min="0" max="9999" spin="1" name="condiminioPavimentos" ng-model="registro.condominiosComplementos.nroPavimentos" />
+                    </div>
+                    <div class="col-md-2">
+                        <label for="condominioApartamentos">Nº apartamentos:</label>
+                        <spinner min="0" max="9999" spin="1" name="condominioApartamentos" ng-model="registro.condominiosComplementos.nroApartamentos" />
+                    </div>
+                    <div class="col-md-2">
+                        <label for="condominioBlocos">Nº blocos:</label>
+                        <spinner min="0" max="9999" spin="1" name="condominioBlocos" ng-model="registro.condominiosComplementos.nroBlocos" />
+                    </div>
+                    <div class="col-md-2">
+                        <label for="condominioGaragens">Nº garagens:</label>
+                        <spinner min="0" max="9999" spin="1" name="condominioGaragens" ng-model="registro.condominiosComplementos.nroGaragens" />
+                    </div>
+                    <div class="col-md-2">
+                        <label for="condominioElevadores">Nº elevadores:</label>
+                        <spinner min="0" max="9999" spin="1" name="condominioElevadores" ng-model="registro.condominiosComplementos.nroElevadores" />
+                    </div>
+                    <div class="col-md-2">
+                        <label for="condominioSalas">Nº salas:</label>
+                        <spinner min="0" max="9999" spin="1" name="condominioSalas" ng-model="registro.condominiosComplementos.nroSalas" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="condominioAreaComum">Área comum:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">m²</span>
+                            <input type="text" id="condominioAreaComum" class="form-control" data-ng-model="registro.condominiosComplementos.areaComum" data-bf-number="4" maxlength="12"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="condominioAreaEdificada">Área edificada:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">m²</span>
+                            <input type="text" id="condominioAreaEdificada" class="form-control" data-ng-model="registro.condominiosComplementos.areaEdificada" data-bf-number="4" maxlength="12"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button class="btn btn-default" data-ng-if="!excluindo" ng-click="remover()"><i class="fa fa-fw fa-trash"></i> Excluir</button>
+                <button class="btn btn-default" data-ng-if="!editando" ng-click="salvar(true)">Salvar e adicionar novo</button>
+                <button class="btn btn-primary" ng-click="salvar()" data-ng-disabled="form.$invalid" data-bf-loading="tracker.salvando">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>

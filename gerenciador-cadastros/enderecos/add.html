@@ -1,0 +1,11 @@
+<div class="btn-group" data-ng-controller="TributosCoreAdicionarCtrl as vm">
+    <button type="button" class="btn btn-sm btn-success btn-add" title="{{vm.getCurrentState().btnAdd.title}}" ng-click="adicionar()">{{vm.getCurrentState().btnAdd.label.short}}</button>
+    <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li ng-repeat="t in vm.tabs" ng-hide="vm.isCurrentState(t.state) || t.isHidden || t.hideAdd">
+            <a href="#" title="{{t.btnAdd.title}}" ng-click="addDropdown()">{{t.btnAdd.label.full}}</a>
+        </li>
+    </ul>
+</div>

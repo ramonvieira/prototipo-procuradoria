@@ -1,0 +1,63 @@
+<div data-ng-controller="TributosCorePaisesCtrl as vm">
+    <div class="row">
+        <div class="col-md-9 col-md-offset-3">
+            <div class="pull-right">
+                <form action="" class="form-inline">
+                    <finder total-registros="true" grid-config="gridConfig" filter-by="descricao, abreviatura" filter-cond="like" finder-value="textobusca" is-carregando="false" fields="columns"></finder>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Padrões</h4>
+            <table class="table table-unfixed table-unstriped">
+                <thead>
+                    <tr>
+                        <th>
+                            Descrição
+                            <i class="pull-right icon-sort"></i>
+                        </th>
+                        <th width="160">Sigla <abbr title="Organização Internacional para Padronização">ISO</abbr> 2 (Letras)<i class="pull-right icon-sort"></i> </th>
+                        <th width="160">Sigla <abbr title="Organização Internacional para Padronização">ISO</abbr> 3 (Letras) <i class="pull-right icon-sort"></i> </th>
+                        <th width="160">Sigla <abbr title="Organização Internacional para Padronização">ISO</abbr> 3 (Dígitos) <i class="pull-right icon-sort"></i> </th>
+                        <th width="160">Código eSocial <i class="pull-right icon-sort"></i> </th>
+                        <th width="100">
+                            <abbr title="Código no Instituto Brasileiro de Geografia e Estatística">IBGE</abbr>
+                            <i class="pull-right icon-sort"></i>
+                        </th>
+                        <th width="100">
+                            <abbr title="Código no Banco Central">BACEN</abbr>
+                            <i class="pull-right icon-sort"></i>
+                        </th>
+                        <th width="61"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Brasil</td>
+                        <td>AB</td>
+                        <td>ABC</td>
+                        <td>123</td>
+                        <td>654879</td>
+                        <td>076</td>
+                        <td>1058</td>
+                        <td class="text-center">
+                            <a href="" title="Editar">
+                                <i class="fa fa-fw fa-pencil" title="Editar"></i>
+                            </a>
+                            <a href="" title="Excluir">
+                                <i class="fa fa-fw fa-trash-o"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <navigator grid-config="gridConfig" loading-tracker="tracker.carregandoRegistros"></navigator>
+        </div>
+    </div>
+</div>

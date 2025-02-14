@@ -1,0 +1,69 @@
+<table class="table table-unfixed table-unstriped">
+	<tbody ui-sortable="sortableOptionsTable" class="table-sortable" ng-model="tarefasSort">
+		<tr ng-repeat="tarefa in tarefas track by $index" ng-click="adicionar({isEditing:true})" class="pointer">
+			<td class="col-fit">
+				<div class="bth-checkbox" keep-open>
+					<input id="cb{{$index}}" name="checkModelo" type="checkbox">
+					<label for="cb{{$index}}">&nbsp;</label>
+				</div>
+			</td>
+			<td>
+				<div class="cell-wrapper">
+					{{tarefa.descricao}}<br>
+					<span class="info">{{tarefa.tipo}}</span>
+				</div>
+			</td>
+			<td>
+				<div class="cell-wrapper">
+					<a href="" title="Número do processo">{{tarefa.ref.numProcesso}}</a><br>
+					<span class="info" title="Executado">{{tarefa.ref.executado.nome}}</span>
+				</div>
+			</td>
+			<td  class="text-right">
+				<ul class="list-inline bottom" style="margin-left:0">
+					<li ng-repeat="procurador in tarefa.procuradores" style="padding: 1px">
+						<img alt="" ng-src="{{procuradores[procurador].procurador.img}}" class="img-circle" width="18px" height="18px" bf-tooltip="{{procuradores[procurador].procurador.nome}}">
+					</li>
+					<li ng-repeat="etiqueta in tarefa.etiquetas" style="padding: 1px">
+						<i class="fa fa-fw fa-tag" ng-class="'tx__' + etiquetas[etiqueta].bColor" title="{{etiquetas[etiqueta].descricao}}"></i>
+					</li>
+				</ul>
+				<button class="btn btn-xs btn-link" keep-open ng-if="tarefa.obs != ''" ng-click="adicionar({isEditing:true})"><i class="fa fa-fw fa-commenting-o"></i></button>
+				<button class="btn btn-xs" keep-open ng-class="	tarefa.venc > 3	? 'btn-link' :
+																tarefa.venc <= 2	? 'btn-danger' : 'btn-warning'" title="{{tarefa.prazo | date: 'dd'}} abril">
+					<span>
+						<small ng-if="tarefa.prazo != null">
+							{{
+								tarefa.venc == 0 ? 'Hoje' :
+								tarefa.venc < 0 ? 'Há ' + (tarefa.venc * -1) + ((tarefa.venc * -1) > 1 ? ' dias' : ' dia') :
+								tarefa.venc + (tarefa.venc > 1 ? ' dias' : ' dia')
+							}}
+						</small>
+						<i class="fa fa-fw fa-calendar" ng-if="tarefa.prazo == null"></i>
+					</span>
+				</button>
+			</td>
+			
+			<td width="80" class="text-right">
+				<div class="btn-group btn-group-xs" uib-dropdown dropdown-append-to-body>
+					<a href="" type="button" class="btn btn-link btn-xs" title="Exibe mais informações sobre a tarefa" data-bf-popover="'gerenciador-tarefas/popover-resumo-tarefa.html'" class="popover-active" data-placement="bottom" bf-popover-size="med-popover" keep-open><i class="fa fa-fw fa-info-circle text-muted"></i></a>
+					<a href="" class="btn btn-xs btn-link dropdown-toggle" title="Abre a lista de ações disponíveis" uib-dropdown-toggle keep-open>
+						<i class="fa fa-fw fa-ellipsis-v"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+						<li class="dropdown-submenu dropdown-submenu-right">
+							<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-circle"></i> Enviar item para</a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li ng-repeat="st in status"><a href=""><span class="bth-status" ng-class="st.color"> {{st.desc}}</span></a></li>
+							</ul>
+						</li>
+						<li class="divider"></li>
+						<li><a href="" ng-click="adicionar({isEditing:true})"><i class="fa fa-fw fa-pencil"></i> Editar</a></li>
+						<li><a href="" ng-click="itens[$parent.$index].subitens.splice($index, 1)"><i class="fa fa-fw fa-trash-o"></i> Excluir</a></li>
+						<li><a href="" ng-click="abrirHistorico({})"><i class="fa fa-fw fa-clock-o"></i> Histórico</a></li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>

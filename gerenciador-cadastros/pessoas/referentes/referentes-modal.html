@@ -1,0 +1,104 @@
+<form name="form">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3 class="modal-title">{{registro.id ? 'Editando': 'Adicionando'}} referente</h3>
+	</div>
+
+	<div class="modal-body" data-bf-loading="tracker.carregandoRegistros">
+		<div class="row">
+			<div class="col-md-3">
+				<label for="tipoReferente" class="required">Tipo</label>
+				<select bf-select2="{}" id="tipoReferente" class="form-control" ng-model="registro.tipoRefer" ng-required="true">
+					<option value="PESSOA">Pessoa</option>
+					<option value="IMOVEL">Imóvel</option>
+					<option value="ECONOMICO">Econômico</option>
+				</select>
+			</div>
+			<div class="col-md-3">
+				<label class="required" id="codigo">Código</label>
+				<input bf-required maxlength="10" type="text" class="form-control" ng-model="registro.codigoRefer" ng-disabled="isEditing">
+			</div>
+			<div class="col-md-6">
+				<contribuintes-select label="Contribuinte" ng-model="registro.pessoa" ng-required="true" ng-disabled="isEditing" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-9">
+				<logradouros-select label="Logradouro" ng-model="registro.logradouro" ng-required="true" ng-disabled="isEditing" />
+			</div>
+			<div class="col-md-3">
+				<label>Número</label>
+				<input maxlength="50" type="text" class="form-control" ng-model="registro.numero">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<bairros-select label="Bairro" ng-required="true" ng-model="registro.bairro" ng-disabled="isEditing" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<municipios-select label="Município" ng-required="true" ng-model="registro.municipio" ng-disabled="isEditing" />
+			</div>
+		</div>
+		<div class="row" ng-if="registro.tipoRefer == 'IMOVEL'">
+			<div class="col-md-12">
+				<contribuintes-select label="Corresponsável" ng-model="registro.corresponsavel" ng-disabled="isEditing" />
+			</div>
+		</div>
+
+		<div class="row" ng-if="registro.tipoRefer == 'IMOVEL'">
+			<div class="col-md-12">
+				<label>Proprietário(s)
+					<a href ng-click="vm.editarProprietario()" title="Editar">
+						<i class="icon icon-pencil"></i>
+					</a>
+				</label>
+				<div class="select2-container select2-container-multi">
+					<ul class="select2-choices ellipsis" data-ui-sortable>
+						<li class="select2-search-choice" ng-repeat="proprietario in registro.proprietarios">
+							<div>
+								<a href ng-click="vm.editarProprietario()" title="Editar"><span class="badge badge-info" ng-if="proprietario.pessoa.obito">ESPÓLIO</span>&nbsp; {{proprietario.pessoa.nome}} ({{proprietario.percentual}}%)
+								</a>
+							</div>
+							<a href ng-click="vm.removeProprietario($index)" title="Excluir" class="select2-search-choice-close" tabindex="-1"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" ng-if="registro.tipoRefer == 'IMOVEL'">
+			<div class="col-md-4">
+				<label>Quadra</label>
+				<input maxlength="50" type="text" class="form-control" ng-model="registro.quadra">
+			</div>
+			<div class="col-md-4">
+				<label>Lote</label>
+				<input maxlength="50" type="text" class="form-control" ng-model="registro.lote">
+			</div>
+			<div class="col-md-4">
+				<label class="required">Inscrição Imobiliária</label>
+				<input bf-required maxlength="50" type="text" class="form-control" ng-model="registro.inscImob">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<label>Complemento</label>
+				<input maxlength="50" type="text" class="form-control" ng-model="registro.complemento">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12" ng-if="registro.tipoRefer == 'ECONOMICO'">
+				<label class="required">Descrição da atividade</label>
+				<textarea ng-required rows="5" class="form-control" maxlength="500" ng-model="registro.descricaoAtividade" ng-focus="mostraCampo = true" ng-blur="mostraCampo = false"></textarea>
+				<span class="u-character-countdown" ng-show="mostraCampo">{{500 - registro.descricaoAtividade.length}} caracteres</span>
+			</div>
+		</div>            
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="vm.salvar()">Salvar</button>
+		<button type="button" class="btn btn-default" ng-disabled="form.$invalid" ng-click="vm.salvar(true)" ng-if="!registro.id">Salvar e adicionar novo</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	</div>
+</form>

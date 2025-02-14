@@ -1,0 +1,133 @@
+
+<div class="modal-dialog modal-xxl">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <div class="modal-header__actions">
+                <label class="label label-success">Ativo</label>
+            </div>
+            <h3 class="modal-title">
+                Adicionando perfil de fiscalização</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-1 text-center">
+                    <i class="fa fa-info-circle fa-2x text-muted mTop10"></i>
+                </div>
+                <div class="col-md-11">
+                    <h4>Informações gerais</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-11 col-md-offset-1">
+                    <div class="bth-card bth-card--filled">
+                        <div class="bth-card__body">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <i class="fa fa-user fa-fw text-muted"></i>
+                                    <strong title="Nome">Ramon Vieira Viquetti</strong> <small title="Nome social">(João)</small>
+                                </div>
+                                <div class="col-md-5">
+                                    <i class="fa fa-id-card fa-fw text-muted"></i>
+                                    <small title="CPF">000.000.000-00</small>
+                                </div>
+                            </div>
+                            <div class="row bottom">
+                                <div class="col-md-11">
+                                    <i class="fa fa-map-marker fa-fw text-muted"></i>
+                                    <small title="Endereço">Rua Antônio Nart, 240, Alto Rio Maina - Siderópolis - SC (Brasil)</small>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-md-3 col-md-offset-1">
+                    <label for="">Matrícula</label>
+                    <input type="text" class="form-control" ng-model="matricula" maxlength="15">
+
+                </div>
+                <div class="col-md-3">
+                    <label for="">Número do registro</label>
+                    <input type="text" class="form-control" ng-model="numeroRegistro" maxlength="15">
+
+                </div>
+                <div class="col-md-5">
+                    <label for="">Usuário do sistema</label>
+                    <select bf-select2="{allowClear:true}" ng-model="user">
+                        <option value=""></option>
+                        <option value="1">@usuario1</option>
+                        <option value="2">@usuario2</option>
+                        <option value="3">@usuario3</option>
+                    </select>
+                </div> 
+            </div> 
+            <div class="row">
+                <div class="col-md-1 text-center">
+                    <i class="fa fa-link fa-2x text-muted mTop10"></i>
+                </div>
+                <div class="col-md-11">
+                    <h4>Atividades de fiscalização vinculadas</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-md-offset-1">
+                    <button class="btn btn-sm btn-primary" title="Vincula atividades econômicas ao fiscal ">Selecionar atividade</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-11 col-md-offset-1">
+                    <div class="group-list">
+                        <div class="group-heading" data-ng-class="{open:groupOpen}" ng-click="groupOpen=!groupOpen">
+                            <div class="group-title">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="group-title-header">
+                                            <div class="ellipsis" title="Grupo de atividades">
+                                                Gráficas
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <span class="badge">1 atividade</span>
+                                    </div>
+                                    <div class="col-md-1 text-right">
+                                        <a href>
+                                            <i class="fa fa-trash-o fa-fw" title="Excluir"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-list-itens" uib-collapse="!groupOpen">                            
+                            <table class="table table-unfixed table-unstriped">
+                                <thead>
+                                    <th>Atividade</th>
+                                    <th width="5%"></th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>0161-0/06 - Impressão de materiais para outros usos</td>
+                                        <td class="text-center">
+                                            <a href>
+                                                <i class="fa fa-trash-o fa-fw" title="Excluir"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Salvar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>

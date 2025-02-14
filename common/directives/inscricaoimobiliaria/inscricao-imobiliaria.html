@@ -1,0 +1,7 @@
+<div class="col-md-12">
+    <label data-ng-class="{required: required}">{{label}}</label>
+    <div ng-class="{'input-group': inscricaoImobiliariaList && inscricaoImobiliariaList.length > 1}" style="width: 100%">
+        <input style="width: {{width}}%" type="text" class="form-control" ng-repeat-start="item in inscricaoImobiliariaList track by $index" data-ng-if="item.configInscricoesImobiliarias.conteudo != 'SOMENTE_NUMEROS'" placeholder="{{item.configInscricoesImobiliarias.descricao}}" data-ng-blur="setCampoFormatado(item)" data-ng-model="item.campo" id="inscricao_{{id}}_{{$index}}" maxlength="{{item.configInscricoesImobiliarias.qtdCaracter}}" data-ng-required="{{required}}" data-ng-disabled="isDisabled" ng-style="{'margin-left': ($index > 0 ? '-1px' : 0)}">
+        <input style="width: {{width}}%" type="text" class="form-control" ng-repeat-end data-ng-if="item.configInscricoesImobiliarias.conteudo == 'SOMENTE_NUMEROS'" placeholder="{{item.configInscricoesImobiliarias.descricao}}" bf-restrict-number data-ng-blur="setCampoFormatado(item)" data-ng-model="item.campo" id="inscricao_{{id}}_{{$index}}" maxlength="{{item.configInscricoesImobiliarias.qtdCaracter}}" data-ng-required="{{required}}" data-ng-disabled="isDisabled" ng-style="{'margin-left': ($index > 0 ? '-1px' : 0)}">
+    </div>
+</div>

@@ -1,0 +1,148 @@
+<div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <form name="form">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">Vinculando quebra
+                </h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="bth-passoapasso" ng-init="etapa = 1">
+                            <ol>
+                                <li ng-click="etapa = 1;" class="{{etapa == 1 ? 'active' : ''}}"><a href="">Selecionar modelo</a></li>
+                                <li ng-click="etapa = 2;" class="{{etapa == 2 ? 'active' : ''}}"><a href="">Vincular quebra</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <div ng-show="etapa == 1">
+                    <div class="row bottom">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th width="30px" class="text-center">
+                                            <div class="checkbox bth-checkbox">
+                                                <input id="chboxAll" type="checkbox" ng-model="checkAll">
+                                                <label for="chboxAll"></label>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            Modelo
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox bth-checkbox">
+                                                <input id="chboxUm" type="checkbox" ng-checked="checkAll">
+                                                <label for="chboxUm"></label>
+                                            </div>
+                                        </td>
+                                        <td class="ellipsis">
+                                            Modelo 1
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox bth-checkbox">
+                                                <input id="chboxDois" type="checkbox" ng-checked="checkAll">
+                                                <label for="chboxDois"></label>
+                                            </div>
+                                        </td>
+                                        <td class="ellipsis">
+                                            Modelo 2
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div ng-show="etapa == 2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button ng-click="addQuebra()" class="btn btn-sm btn-add btn-success" title="Adiciona uma nova quebra">Quebra</button>
+                        </div>
+                    </div>
+
+                    <div class="row bottom">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th width="30px"></th>
+                                        <th width="200px">
+                                            Descrição
+                                        </th>
+                                        <th>
+                                            Itens
+                                        </th>
+                                        <th width="60px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="bth-radio">
+                                                <input id="radio" type="radio" ng-model="radio" name="bthRadioOptions" value="1">
+                                                <label for="radio"></label>
+                                            </div>
+                                        </td>
+                                        <td class="ellipsis">
+                                            Nome da quebra 1
+                                        </td>
+                                        <td class="ellipsis">
+                                            Nome, CPF, Endereço
+                                        </td>
+                                        <td class="text-center">
+                                            <a title="Editar" href=""><i class="fa fa-fw fa-pencil"></i></a>
+                                            <a title="Excluir" href=""><i class="fa fa-fw fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="bth-radio">
+                                                <input id="radioDois" type="radio" ng-model="radio" name="bthRadioOptions" value="1">
+                                                <label for="radioDois"></label>
+                                            </div>
+                                        </td>
+                                        <td class="ellipsis">
+                                            Nome da quebra 2
+                                        </td>
+                                        <td class="ellipsis">
+                                            Nome, CPF, Endereço
+                                        </td>
+                                        <td class="text-center">
+                                            <a title="Editar" href=""><i class="fa fa-fw fa-pencil"></i></a>
+                                            <a title="Excluir" href=""><i class="fa fa-fw fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h4>Ainda não há quebras por aqui</h4>
+                        </div>
+                    </div>
+                     -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default pull-left" ng-click="etapa = 2;" ng-show="etapa == 1">Avançar<i class="fa fa-fw fa-arrow-right"></i></button>
+                <button class="btn btn-default pull-left" ng-click="etapa = 1;" ng-show="etapa == 2"><i class="fa fa-fw fa-arrow-left"></i>Voltar</button>
+                <button class="btn btn-primary" data-dismiss="modal" ng-disabled="radio == null">Continuar</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

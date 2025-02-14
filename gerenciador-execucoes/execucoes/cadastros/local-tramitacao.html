@@ -1,0 +1,49 @@
+<div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <form name="form">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">Editando local de tramitação </h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="required">Tribunal</label>
+                        <select data-bf-select2="{}" ng-model="tribunal">
+                            <option value="0">Lorem ipsum</option>
+                            <option value="1">Lorem ipsum</option>
+                            <option value="2">Lorem ipsum</option>
+                            <option value="3">Lorem ipsum</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="required">Comarca</label>
+                        <select data-bf-select2="{}" ng-model="comarca" ng-disabled="!tribunal">
+                            <option value="0">Lorem ipsum</option>
+                            <option value="1">Lorem ipsum</option>
+                            <option value="2">Lorem ipsum</option>
+                            <option value="3">Lorem ipsum</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row bottom">
+                    <div class="col-md-12">
+                        <label class="required">Vara</label>
+                        <select data-bf-select2="{}" ng-model="vara" ng-disabled="!comarca">
+                            <option value="0">Lorem ipsum</option>
+                            <option value="1">Lorem ipsum</option>
+                            <option value="2">Lorem ipsum</option>
+                            <option value="3">Lorem ipsum</option>
+                        </select>
+                    </div>
+                </div> 
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Salvar</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

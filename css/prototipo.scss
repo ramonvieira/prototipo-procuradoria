@@ -1,0 +1,136 @@
+@import './config';
+
+// ------------------------------------------------------
+// Utilizado para alternar as variações de protótipo
+// ------------------------------------------------------
+.modal .opcoes-tela {
+	top: -75px;
+	right: -25px;
+}
+
+.word-break {
+	word-break: break-word;
+}
+
+pre.word-break {
+	word-break: break-word;
+	white-space: pre-line;
+}
+
+.bth-notes {
+	.list-group {
+		position: relative;
+		.list-group-item {
+			padding: 10px 10px 10px 44px;
+
+			font-size: .9em;
+			margin-bottom: 6px;
+			border-radius: 5px;
+			border: none;
+
+			.bth-notes--check {
+				position: absolute;
+				left: 13px;
+				top: 12px;
+			}
+			.bth-notes--delete {
+				position: absolute;
+				right: 0;
+				top: 0;
+				height: 100%;
+				background: $white;
+			}
+	
+			.dots-drag {
+				position: absolute !important;
+				left: 0;
+			}
+		}
+	}
+}
+
+.opcoes-tela {
+	// font-size: 12px;
+	display: block;
+	position: absolute;
+	top: 45px;
+	right: 10px;
+	padding: 30px 15px 10px;
+	border-radius: 4px;
+	background-color: palette('green', 'light-40');
+	border: 1px solid palette('green', 'light-10');
+	box-shadow: 0 0 20px 0 mix($black, transparent, 18%);
+	width: 40px;
+	height: 40px;
+	z-index: 1050;
+
+	&::before {
+		content: 'Opções de protótipo';
+		position: absolute;
+		left: 8px;
+		right: 0;
+		top: 5px;
+		visibility: hidden;
+		font-size: 10px;
+		font-weight: bold;
+	}
+
+	&::after {
+		position: absolute;
+		left: 8px;
+		top: 10px;
+		content: "\f085";
+		font: 20px FontAwesome;
+	}
+	
+	* {
+		visibility: hidden;
+	}
+
+	&:hover {
+		width: auto;
+		min-width: 160px;
+		height: auto;
+		
+		&::before,
+		* {
+			visibility: initial;
+		}
+
+		&::after {
+			display: none;
+		}
+	}
+}
+
+@keyframes pulse-green {
+	0% {
+		transform: scale(0.75);
+		box-shadow: 0 0 0 0 rgba($green, 0.7);
+	}
+	
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 10px rgba($green, 0);
+	}
+	
+	100% {
+		transform: scale(0.75);
+		box-shadow: 0 0 0 0 rgba($green, 0);
+	}
+}
+
+.opcoes-tela {
+	&:not(:hover) {
+		animation: pulse-green 1.5s infinite;
+	}
+}
+
+.dropdown-menu li a[target='_blank'] {
+	padding-right: 26px !important;
+
+	&::after {
+		bottom: 9px;
+		right: 11px;
+	}
+}

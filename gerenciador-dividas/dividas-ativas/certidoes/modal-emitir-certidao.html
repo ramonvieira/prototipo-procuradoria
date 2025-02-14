@@ -1,0 +1,24 @@
+<div class="modal-dialog modal-sm">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<h3 class="modal-title">Emitindo certidão de dívida ativas</h3>
+		</div>
+		<div class="modal-body">
+			<modelo-documento-form ng-model="registro.certidao" documento="Certidão" correcao="true" />
+			<hr>
+			<switch-valor-minimo ng-model="registro.peticao" label="Valor mínimo para certidão" help="Permite que a certidão seja emitida somente quando a soma dos valores atingir o valor mínimo" />
+            <switch-emitir-peticao ng-model="registro.peticao" ng-disabled="!registro.certidao.modelo" />
+			<switch-assinar ng-model="registro.assinatura" ng-disabled="!registro.certidao.modelo || (registro.peticao.emitirPeticao && !registro.peticao.documento.modelo)" />
+			<switch-enviar-cartorio ng-model="registro.protestar" ng-disabled="!registro.assinatura.assinar" />
+			<switch-enviar-tribunal ng-model="registro.executar" ng-disabled="!registro.peticao.documento.modelo || !registro.assinatura.assinar" />
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Emitir</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Simular emissão</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Cancelar</button>
+		</div>
+	</div>
+</div>

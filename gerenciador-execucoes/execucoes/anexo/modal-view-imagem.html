@@ -1,0 +1,31 @@
+<div class="modal-dialog" ng-keyup="vm.watchKeyEvent($event)">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 class="modal-title">Visualizando imagem {{vm.getCurrentImage().id}} de {{vm.getImages().length}}</h3>
+            <span class="text-muted">
+                nome-da-imagem
+            </span>
+        </div>
+        <div class="modal-body">
+            <div class="row top bottom">
+                <div class="col-md-12 text-center">
+                    <img class="bth-attach__image-full" ng-repeat="i in vm.getImages() track by $index" ng-show="i.active" ng-src="{{i.src}}" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="pull-left">
+                <button class="btn btn-default" ng-click="vm.goPreviousImage()" ng-disabled="!vm.hasPreviousImage()">
+                    <i class="fa fa-fw fa-arrow-left"></i>
+                    Anterior
+                </button>
+                <button class="btn btn-default" ng-click="vm.goNextImage()" ng-disabled="!vm.hasNextImage()">
+                    Próximo
+                    <i class="fa fa-fw fa-arrow-right"></i>
+                </button>
+            </div>
+            <button class="btn btn-default" data-dismiss="modal" tabindex="-1">Fechar</button>
+        </div>
+    </div>
+</div>

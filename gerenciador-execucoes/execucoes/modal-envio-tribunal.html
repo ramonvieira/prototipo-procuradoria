@@ -1,0 +1,42 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">×</span>
+	</button>
+	<h3 class="modal-title">Envio ao tribunal</h3>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<div class="col-md-12">
+			<label class="required">Modelo do script de envio ao tribunal</label>
+			<select name="" id="" bf-select2="{}" ng-model="registro.modeloProtesto">
+				<option value="1">Modelo 1</option>
+				<option value="2">Modelo 2</option>
+				<option value="3">Modelo 3</option>
+				<option value="4">Modelo 4</option>
+				<option value="5">Modelo 5</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="bth-switch">
+				<input id="switch_assinarTodos" type="checkbox" ng-model="registro.assinarTodos" ng-change="registro.assinarNaoAssinados = !registro.assinarTodos">
+				<label for="switch_assinarTodos">Assinar todos os documentos</label>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="bth-switch">
+				<input id="switch_assinarNaoAssinados" type="checkbox" ng-model="registro.assinarNaoAssinados" ng-change="registro.assinarTodos = !registro.assinarNaoAssinados">
+				<label for="switch_assinarNaoAssinados">Assinar somente os documentos não assinados</label>
+			</div>
+		</div>
+	</div>
+	<alerta-movimentacao tipo-emissao="ENVIO_TRIBUNAL" />
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Enviar</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Cancelar</button>
+</div>

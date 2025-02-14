@@ -1,0 +1,37 @@
+<div class="modal-dialog">
+    <div class="modal-content" data-bf-loading="vm.tracker.carregandoRegistro">
+        <form name="form">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">{{vm.getEditando() ? 'Editando': 'Adicionando'}} distrito</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="required" for="nomeDistrito">Descrição</label>
+                        <input type="text" id="nomeBairro" class="form-control" data-ng-model="registro.nome" maxlength="50" data-bf-required="true">
+                    </div>
+                </div>
+                <div class="row bottom">
+                    <div class="col-md-12">
+                        <label class="required" for="municipio">Município</label>
+                        <select name="" id="" bf-select2="{}"  ng-model="mun">
+                            <option value=""></option>
+                            <option value="1">Criciúma 1</option>
+                            <option value="2">Criciúma 2</option>
+                            <option value="3">Criciúma 3</option>
+                            <option value="4">Criciúma 4</option>
+                            <option value="5">Criciúma 5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="vm.salvar(false)" ng-disabled="form.$invalid || vm.hasTrackerActive()" data-bf-loading="vm.tracker.salvandoRegistro">Salvar</button>
+                <button class="btn btn-default" data-ng-if="!vm.getEditando()" ng-click="vm.salvar(true)" data-ng-disabled="form.$invalid || vm.hasTrackerActive()" data-bf-loading="vm.tracker.salvarAdicionarRegistro">Salvar e adicionar novo</button>
+                <button class="btn btn-default" data-ng-if="vm.getEditando()"  ng-click="vm.excluir(vm.registro)" data-bf-permissions operation="excluir"><i class="fa fa-fw fa-trash"></i> Excluir</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

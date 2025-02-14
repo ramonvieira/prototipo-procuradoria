@@ -1,0 +1,22 @@
+<div class="row">
+	<div class="col-md-12">
+		<input type="text" class="form-control input-sm" id="pesquisaMemb" bf-cpf="" ng-model="pesquisaMemb">
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12 scrollBar" style="max-height: 200px;">
+		<ul class="nav nav-pills nav-stacked nav-marks">
+			<li role="presentation" ng-repeat="procurador in procuradores | filter: pesquisaMemb" ng-if="procurador.id != procuradoresSelecionados[0]" ng-class="{'active' : proc$index}" ng-init="proc$index = false"  ng-click="proc$index = !proc$index;setProcuradores({proc:$index,val:proc$index})" style="max-width: 240px" class="ellipsis">
+				<a href="" class="ellipsis"><img ng-src="{{procurador.procurador.img}}" class="img-circle" width="25px" title="{{procurador.procurador.nome}}"> {{procurador.procurador.nome}}</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="row bottom">
+	<div class="col-md-6">
+		<button type="button" class="btn btn-primary btn-block btn-xs" data-dismiss="popover" title="Adiciona novo marcador">Concluir</button>
+	</div>
+	<div class="col-md-6">
+		<button type="button" class="btn btn-default btn-block btn-xs" ng-click="procuradoresSelecionados = null" data-dismiss="popover" title="Adiciona novo marcador">Cancelar</button>
+	</div>
+</div>

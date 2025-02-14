@@ -1,0 +1,33 @@
+<!-- <button type="button" class="btn btn-link btn-xs pull-right" onclick="popover('destroy')"><i class="fa fa-fw fa-close"></i></button> -->
+<div uib-collapse="editandoEtiqueta">
+	<button type="button" id="close" class="close" data-dismiss="popover">&times;</button>
+	<div ng-include="'gerenciador-tarefas/etiquetas.html'"></div>
+	<button type="button" class="btn btn-default btn-sm btn-block" title="Title" ng-click="editandoEtiqueta = true">Editar etiqueta</button>
+</div>
+<div uib-collapse="!editandoEtiqueta">
+	<div class="row" ng-repeat="etiqueta in etiquetas">
+		<div class="col-md-3">
+			<ui-color-selector hide-label="true" model="marc.cor" data-placement="left" class="dropdown-menu-right" input-class="input-sm"></ui-color-selector>
+		</div>
+		<div class="col-md-6">
+			<input type="text" class="form-control input-sm" id="id" ng-model="etiqueta.descricao">
+		</div>
+		<div class="col-md-3">
+			<button type="button" class="btn btn-default btn-sm" title="Exclui a etiqueta" ng-click="etiquetas.splice($index, 1)" ng-if="etiquetas.length > 1"><i class="fa fa-fw fa-trash"></i></button>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<button type="button" class="btn btn-success btn-xs btn-add pull-right" ng-click="etiquetas.push({ id: marcadres.length + 1, descricao: 'Nova etiqueta', color: etiqueta.color })" title="Adiciona nova etiqueta">Adicionar</button>
+		</div>
+	</div>
+	<div class="row bottom">
+		<div class="col-md-6">
+			<button type="button" class="btn btn-primary btn-block btn-sm" ng-click="editandoEtiqueta = false" title="Adiciona nova etiqueta">Salvar</button>
+		</div>
+		<div class="col-md-6">
+			<button type="button" class="btn btn-default btn-block btn-sm" ng-click="editandoEtiqueta = false" title="Adiciona nova etiqueta">Cancelar</button>
+		</div>
+	</div>
+</div>

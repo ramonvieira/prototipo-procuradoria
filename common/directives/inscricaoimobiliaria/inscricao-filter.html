@@ -1,0 +1,20 @@
+<div class="row">
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-{{listagem.length <= 4 ? '6' : '12'}}">
+            <label>Inscrição(ões) imobiliária(s)</label><br>
+            <label>De</label>
+            <div class="input-group">
+                <input style="width: {{100/listagem.length}}%" type="text" class="form-control" ng-repeat="item in listagem track by $index" id="inscricao_de_{{$index}}" placeholder="{{item.descricao}}" ng-model="testes" ng-blur="executaFiltro(listagemCampos, de, ate, $index, 'de');">
+            </div>
+        </div>
+        <div class="col-md-{{listagem.length <= 4 ? '6' : '12'}}">
+            <label>&nbsp;</label><br>
+            <label>Até</label>
+            <div class="input-group">
+                <input style="width: {{100/listagem.length}}%" type="text" class="form-control" ng-repeat="item in listagem track by $index" id="inscricao_ate_{{$index}}" placeholder="{{item.descricao}}" ng-model="testes" ng-blur="executaFiltro(listagemCampos, de, ate, $index, 'ate');">
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,495 @@
+<div ng-show="isEmpty == 'sim'"> 
+    <div class="row">
+    <div class="col-md-12">
+        <div class="bth-card">
+            <div class="bth-card__header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4>Histórico</h4>
+                    </div>
+                    <div class="col-md-4">                                      
+                        <div class="pull-right">
+                            <form action="" class="form-inline">
+                                <div class="input-group">
+                                    <input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+                                    <div class="input-group-btn">
+                                        <button  type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>                                                
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="filtrar-por" ng-init="filtrarHistorico = 'Todos'">
+                            <li ng-class="{'active': filtrarHistorico == 'Todos'}" ng-click="filtrarHistorico = 'Todos'">
+                                <a href> Todos</a>
+                            </li>
+                            <li ng-class="{'active': filtrarHistorico == 'Autorização para declaração'}" ng-click="filtrarHistorico = 'Autorização para declaração'">
+                                <a href> Autorização para declaração</a>
+                            </li>
+                            <li ng-class="{'active': filtrarHistorico == 'Atividades'}" ng-click="filtrarHistorico = 'Atividades'">
+                                <a href> Atividades</a>
+                            </li>
+                            <li ng-class="{'active': filtrarHistorico == 'Contadores'}" ng-click="filtrarHistorico = 'Contadores'">
+                                <a href> Contadores</a>
+                            </li>
+                            <li ng-class="{'active': filtrarHistorico == 'Modalidade de ISS'}" ng-click="filtrarHistorico = 'Modalidade de ISS'">
+                                <a href> Modalidade de <abbr title="Imposto Sobre Serviços">ISS</abbr></a>
+                            </li>
+                            <li ng-class="{'active': filtrarHistorico == 'Tipo de contribuinte'}" ng-click="filtrarHistorico = 'Tipo de contribuinte'">
+                                <a href> Tipo de contribuinte</a>
+                            </li>
+                            <li ng-class="{'active': filtrarHistorico == 'Movimentação da empresa'}" ng-click="filtrarHistorico = 'Movimentação da empresa'">
+                                <a href> Movimentação da empresa</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="bth-card__body">
+                <div class="row mTop50">
+                    <div class="col-md-12 text-center">
+                        <i class="fa fa-history fa-5x tx__gray"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <strong class="text-muted">Nenhum histórico gerado</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p>
+                            <span class="text-muted">
+                                Serão exibidas as informações do histórico de alterações do contribuinte
+                            </span>
+                        </p>
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<div ng-show="isEmpty != 'sim'"> 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bth-card">
+                <div class="bth-card__header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4>Histórico</h4>
+                        </div>
+                        <div class="col-md-4">                                      
+                            <div class="pull-right">
+                                <form action="" class="form-inline">
+                                    <div class="input-group">
+                                        <input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+                                        <div class="input-group-btn">
+                                            <button  type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>                                                
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="filtrar-por" ng-init="filtrarHistorico = 'Todos'">
+                                <li ng-class="{'active': filtrarHistorico == 'Todos'}" ng-click="filtrarHistorico = 'Todos'">
+                                    <a href> Todos</a>
+                                </li>
+                                <li ng-class="{'active': filtrarHistorico == 'Autorização para declaração'}" ng-click="filtrarHistorico = 'Autorização para declaração'">
+                                    <a href> Autorização para declaração</a>
+                                </li>
+                                <li ng-class="{'active': filtrarHistorico == 'Atividades'}" ng-click="filtrarHistorico = 'Atividades'">
+                                    <a href> Atividades</a>
+                                </li>
+                                <li ng-class="{'active': filtrarHistorico == 'Contadores'}" ng-click="filtrarHistorico = 'Contadores'">
+                                    <a href> Contadores</a>
+                                </li>
+                                <li ng-class="{'active': filtrarHistorico == 'Modalidade de ISS'}" ng-click="filtrarHistorico = 'Modalidade de ISS'">
+                                    <a href> Modalidade de <abbr title="Imposto Sobre Serviços">ISS</abbr></a>
+                                </li>
+                                <li ng-class="{'active': filtrarHistorico == 'Tipo de contribuinte'}" ng-click="filtrarHistorico = 'Tipo de contribuinte'">
+                                    <a href> Tipo de contribuinte</a>
+                                </li>
+                                <li ng-class="{'active': filtrarHistorico == 'Movimentação da empresa'}" ng-click="filtrarHistorico = 'Movimentação da empresa'">
+                                    <a href> Movimentação da empresa</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="bth-card__body">
+						<!-- <div class="row">
+								<div class="col-md-12">
+									<div class="bth-timeline bth-timeline--vertical bth-timeline--has-icon bth-timeline--sticky">
+										<ul class="bth-timeline__list" ng-init="itens = [	{tipo:'Edição'			,color: '', 						icon:'fa-pencil', 		qtdCamp: 4},
+																							{tipo:'Comentário'		,color: '', 						icon:'fa-comment', 		desc: 'Amet exercitation eiusmod magna culpa eu irure reprehenderit eiusmod.'},
+																							{tipo:'Averbação'		,color: '', 						icon:'fa-pencil', 		desc: 'Amet exercitation eiusmod magna culpa.'},
+																							{tipo:'Situação'		,color: '', 	icon:'fa-pencil',		desc: 'Desativado'},
+																							{tipo:'Anexo'			,color: '', 						icon:'fa-paperclip', 	desc: 'nome-completo-do-arquivo.doc'},
+																							{tipo:'Edição'			,color: '', 						icon:'fa-pencil',		qtdCamp: 1},
+																							{tipo:'Edição'			,color: '', 						icon:'fa-pencil', 		qtdCamp: 3},
+																							{tipo:'Criado'			,color: 'bth-timeline__item-green',	icon:'fa-plus'}]">
+											<li class="bth-timeline__month">
+												<span class="badge badge-default">Fevereiro/2018</span>
+											</li>
+											<li class="bth-timeline__date" ng-repeat-start="item in itens">
+												<div>Hoje, 02/02</div>
+											</li>
+											<li class="bth-timeline__item" ng-class="item.color" ng-repeat-end>
+												<span class="bth-timeline__time">
+													09:00:00
+												</span>
+												<span class="bth-timeline__icon">
+													<i class="fa fa-fw" ng-class="item.icon"></i>
+												</span>
+												<a href="" class="bth-timeline__title" ng-show="item.qtdCamp > 1" ng-click="abrirHistoricoDetalhes({})">
+													<i class="fa fa-user fa-fw text-muted" title="Editado por ramon.viquetti"></i> {{item.tipo}} <small>({{item.qtdCamp}} campos)</small>
+												</a>
+												<span class="bth-timeline__title" ng-show="item.qtdCamp == 1">
+													<i class="fa fa-user fa-fw text-muted" title="Editado por ramon.viquetti"></i> {{item.tipo}}
+												</span>
+												<span class="bth-timeline__title" ng-show="item.desc != null">
+													<i class="fa fa-user fa-fw text-muted" title="Editado por ramon.viquetti"></i> {{item.tipo}}
+												</span>
+												<span class="bth-timeline__title" ng-show="item.tipo == 'Criado'">
+													<i class="fa fa-user fa-fw text-muted" title="Criador por ramon.viquetti"></i> {{item.tipo}}
+												</span>
+												<div class="bth-timeline__desc" ng-show="item.desc !=null">
+													{{item.desc}}
+													<span ng-show="item.tipo == 'Anexo'">
+														<a href=""><i class="fa fa-fw fa-download"></i></a>
+														<a href=""><i class="fa fa-fw fa-trash"></i></a>
+													</span>
+												</div>
+												<div class="bth-timeline__desc" ng-show="item.qtdCamp <= 1">
+													<strong class="text-muted">Nome do campo</strong><br>
+													<s>Informação antiga</s> <i class="fa fa-fw fa-arrow-right"></i> Informação nova
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div> -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="bth-timeline bth-timeline--vertical bth-timeline--has-icon">
+								<ul class="bth-timeline__list" ng-init="itens = [	{tipo:'Edição'			,color: '', 						icon:'fa-pencil', 		qtdCamp: 4},
+																					{tipo:'Comentário'		,color: '', 						icon:'fa-comment', 		desc: 'Amet exercitation eiusmod magna culpa eu irure reprehenderit eiusmod.'},
+																					{tipo:'Averbação'		,color: '', 						icon:'fa-pencil', 		desc: 'Amet exercitation eiusmod magna culpa.'},
+																					{tipo:'Situação'		,color: '', 						icon:'fa-pencil',		desc: 'Desativado'},
+																					{tipo:'Anexo'			,color: '', 						icon:'fa-paperclip', 	desc: 'nome-completo-do-arquivo.doc'},
+																					{tipo:'Edição'			,color: '', 						icon:'fa-pencil',		qtdCamp: 1},
+																					{tipo:'Edição'			,color: '', 						icon:'fa-pencil', 		qtdCamp: 3},
+																					{tipo:'Criado'			,color: 'bth-timeline__item-green',	icon:'fa-plus'}]">
+									<li class="bth-timeline__month">
+										<span class="badge badge-default">Fevereiro/2018</span>
+									</li>
+									<li class="bth-timeline__date" ng-repeat-start="item in itens">
+										<div>Hoje, 02/02</div>
+									</li>
+									<li class="bth-timeline__item" ng-class="item.color" ng-repeat-end>
+										<span class="bth-timeline__time">
+											09:00:00
+										</span>
+										<span class="bth-timeline__icon">
+											<i class="fa fa-fw" ng-class="item.icon"></i>
+										</span>
+										<a href="" class="bth-timeline__title" ng-show="item.qtdCamp > 1" ng-click="abrirHistoricoDetalhes({})">
+											<i class="fa fa-user fa-fw text-muted" title="Editado por ramon.viquetti"></i> {{item.tipo}} <small>({{item.qtdCamp}} campos)</small>
+										</a>
+										<span class="bth-timeline__title" ng-show="item.qtdCamp == 1">
+											<i class="fa fa-user fa-fw text-muted" title="Editado por ramon.viquetti"></i> {{item.tipo}}
+										</span>
+										<span class="bth-timeline__title" ng-show="item.desc != null">
+											<i class="fa fa-user fa-fw text-muted" title="Editado por ramon.viquetti"></i> {{item.tipo}}
+										</span>
+										<span class="bth-timeline__title" ng-show="item.tipo == 'Criado'">
+											<i class="fa fa-user fa-fw text-muted" title="Criador por ramon.viquetti"></i> {{item.tipo}}
+										</span>
+										<div class="bth-timeline__desc" ng-show="item.desc !=null">
+											{{item.desc}}
+											<span ng-show="item.tipo == 'Anexo'">
+												<a href=""><i class="fa fa-fw fa-download"></i></a>
+												<a href=""><i class="fa fa-fw fa-trash"></i></a>
+											</span>
+										</div>
+										<div class="bth-timeline__desc" ng-show="item.qtdCamp <= 1">
+											<strong class="text-muted">Nome do campo</strong><br>
+											<s>Informação antiga</s> <i class="fa fa-fw fa-arrow-right"></i> Informação nova
+										</div>
+									</li>
+
+                                    <li class="bth-timeline__month" ng-if="filtrarHistorico != 'Movimentação da empresa'">
+                                        <span class="badge badge-default">Fevereiro/2018</span>
+                                    </li>
+                                    <li class="bth-timeline__date" ng-if="filtrarHistorico != 'Movimentação da empresa' && filtrarHistorico != 'Autorização para declaração'">
+                                        <div>Hoje, 04/02
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__item bth-timeline__item-gray" ng-if="filtrarHistorico == 'Tipo de contribuinte' || filtrarHistorico == 'Todos'">
+                                        <span class="bth-timeline__time">
+                                            16:57:07
+                                        </span>
+                                        <span class="bth-timeline__icon" title="Edição">
+                                            <i class="fa fa-pencil fa-fw"></i>
+                                        </span>
+                                        <span class="bth-timeline__title bth-timeline__title--action">
+                                            <i class="fa fa-user fa-fw text-muted" title="Alterado por gabriela.nart"></i>
+                                            Tipo de contribuinte
+                                        </span>
+                                        <div class="bth-timeline__desc">
+                                            <strong class="text-muted">Tipo de contribuinte</strong><br>
+                                            <s>Serviço declarado por conta</s> <i class="fa fa-arrow-right fa-fw"></i> Instituição financeira
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__item bth-timeline__item-red" ng-if="filtrarHistorico == 'Atividades' || filtrarHistorico == 'Todos'">
+                                        <span class="bth-timeline__time">
+                                            16:57:07
+                                        </span>
+                                        <span class="bth-timeline__icon" title="Exclusão">
+                                            <i class="fa fa-trash-o fa-fw"></i>
+                                        </span>
+                                        <span class="bth-timeline__title bth-timeline__title--action">
+                                            <i class="fa fa-user fa-fw text-muted" title="Alterado por gabriela.nart"></i>
+                                            Atividade
+                                        </span>
+                                        <div class="bth-timeline__desc">
+                                            <strong class="text-muted">Item</strong><br>
+                                            <s>1.02 - Programação</s>
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__item bth-timeline__item-red" ng-if="filtrarHistorico == 'Contadores' || filtrarHistorico == 'Todos'">
+                                        <span class="bth-timeline__time">
+                                            16:57:07
+                                        </span>
+                                        <span class="bth-timeline__icon" title="Desvínculo">
+                                            <i class="fa fa-unlink fa-fw"></i>
+                                        </span>
+                                        <span class="bth-timeline__title bth-timeline__title--action">
+                                            <i class="fa fa-user fa-fw text-muted" title="Alterado por gabriela.nart"></i>
+                                            Contador
+                                        </span>
+                                        <div class="bth-timeline__desc">
+                                            <label>Movimentação</label><br>
+                                            Desvínculo<br>
+                                            <label>Contador</label><br>
+                                            <s>Contador antigo <small>(48.060.744/3210-05)</small></s>
+                                            <label>Motivo</label><br>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__item bth-timeline__item-orange" ng-if="filtrarHistorico == 'Contadores' || filtrarHistorico == 'Todos'">
+                                        <span class="bth-timeline__time">
+                                            16:57:07
+                                        </span>
+                                        <span class="bth-timeline__icon" title="Transferência">
+                                            <i class="fa fa-exchange fa-fw"></i>
+                                        </span>
+                                        <span class="bth-timeline__title bth-timeline__title--action">
+                                            <i class="fa fa-user fa-fw text-muted" title="Alterado por gabriela.nart"></i>
+                                            Contador
+                                        </span>
+                                        <div class="bth-timeline__desc">
+                                            <label>Movimentação</label><br>
+                                            Transferência<br>
+                                            <label>Contador</label><br>
+                                            <s>Contador antigo <small>(48.060.744/3210-05)</small></s>
+                                            <i class="fa fa-arrow-right fa-fw"></i>
+                                            Escritório de contabilidade S.A <small>(78.402.244/3017-16)</small><br>
+                                            <label>Motivo</label><br>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__item bth-timeline__item-gray" ng-if="filtrarHistorico == 'Modalidade de ISS' || filtrarHistorico == 'Todos'">
+                                        <span class="bth-timeline__time">
+                                            16:57:07
+                                        </span>
+                                        <span class="bth-timeline__icon" title="Edição">
+                                            <i class="fa fa-pencil fa-fw"></i>
+                                        </span>
+                                        <span class="bth-timeline__title bth-timeline__title--action">
+                                            <i class="fa fa-user fa-fw text-muted" title="Alterado por gabriela.nart"></i>
+                                            Modalidade de <abbr title="Imposto Sobre Serviços">ISS</abbr>
+                                        </span>
+                                        <div class="bth-timeline__desc">
+                                            <strong class="text-muted"> Modalidade de <abbr title="Imposto Sobre Serviços">ISS</abbr></strong><br>
+                                            <s>Não enquadrado</s> <i class="fa fa-arrow-right fa-fw"></i> Fixo
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__date" ng-if="filtrarHistorico == 'Autorização para declaração' || filtrarHistorico == 'Todos'">
+                                        <div>Dom, 03/02
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__item bth-timeline__item-green" ng-if="filtrarHistorico == 'Autorização para declaração' || filtrarHistorico == 'Todos'">
+                                        <span class="bth-timeline__time">
+                                            16:57:07
+                                        </span>
+                                        <span class="bth-timeline__icon" title="Autorizado">
+                                            <i class="fa fa-check fa-fw"></i>
+                                        </span>
+                                        <span href="" class="bth-timeline__title bth-timeline__title--action">
+                                            <i class="fa fa-user fa-fw text-muted" title="Alterado por gabriela.nart"></i>
+                                            Autorização para declarar
+                                        </span>
+                                        <div class="bth-timeline__desc">
+                                            <strong class="text-muted">Situação</strong><br>
+                                            Autorizado<br>
+                                            <strong class="text-muted">Motivo</strong><br>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, magni saepe possimus a dolore voluptates doloremque, earum repellendus corrupti illum officia animi, labore alias id minima fuga. Laudantium, veritatis provident.
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__item bth-timeline__item-yellow" ng-if="filtrarHistorico == 'Autorização para declaração' || filtrarHistorico == 'Todos'">
+                                        <span class="bth-timeline__time">
+                                            13:00:00
+                                        </span>
+                                        <span class="bth-timeline__icon" title="Desautorizado">
+                                            <i class="fa fa-pause fa-fw"></i>
+                                        </span>
+                                        <span href="" class="bth-timeline__title bth-timeline__title--action">
+                                            <i class="fa fa-user fa-fw text-muted" title="Alterado por gabriela.nart"></i>
+                                            Autorização para declarar
+                                        </span>
+                                        <div class="bth-timeline__desc">
+                                            <strong class="text-muted">Situação</strong><br>
+                                            Suspenso<br>
+                                            <strong class="text-muted">Motivo</strong><br>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, magni saepe possimus a dolore voluptates doloremque, earum repellendus corrupti illum officia animi, labore alias id minima fuga. Laudantium, veritatis provident.
+                                        </div>
+                                    </li>                                
+                                    <li class="bth-timeline__date" ng-if="filtrarHistorico != 'Movimentação da empresa' && filtrarHistorico != 'Autorização para declaração'">
+                                        <div>Sáb, 02/02
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__item bth-timeline__item-gray" ng-if="filtrarHistorico == 'Atividades' || filtrarHistorico == 'Todos'">
+                                        <span class="bth-timeline__time">
+                                            16:57:07
+                                        </span>
+                                        <span class="bth-timeline__icon" title="Edição">
+                                            <i class="fa fa-pencil fa-fw"></i>
+                                        </span>
+                                        <span href="" class="bth-timeline__title bth-timeline__title--action">
+                                            <i class="fa fa-user fa-fw text-muted" title="Alterado por gabriela.nart"></i>
+                                            Atividade
+                                        </span>
+                                        <div class="bth-timeline__desc">
+                                            <strong class="text-muted">Item</strong><br>
+                                            <span>1.02 - Programação</span><br>
+                                            <strong class="text-muted">Alíquota</strong><br>
+                                            <s>5,00%</s> <i class="fa fa-arrow-right fa-fw"></i> 2,00
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__item" ng-if="filtrarHistorico == 'Contadores'">
+                                        <span class="bth-timeline__time">
+                                            16:57:07
+                                        </span>
+                                        <span class="bth-timeline__icon" title="Vínculo">
+                                            <i class="fa fa-link fa-fw"></i>
+                                        </span>
+                                        <span href="" class="bth-timeline__title bth-timeline__title--action">
+                                            <i class="fa fa-user fa-fw text-muted" title="Alterado por gabriela.nart"></i>
+                                            Contador
+                                        </span>
+                                        <div class="bth-timeline__desc">
+                                            <label>Movimentação</label><br>
+                                            Vínculo<br>
+                                            <label>Contador</label><br>
+                                            Contador antigo <small>(48.060.744/3210-05)</small><br>
+                                            <label>Motivo</label><br>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__item bth-timeline__item-gray" ng-if="filtrarHistorico == 'Modalidade de ISS' || filtrarHistorico == 'Todos'">
+                                        <span class="bth-timeline__time">
+                                            16:57:07
+                                        </span>
+                                        <span class="bth-timeline__icon" title="Edição">
+                                            <i class="fa fa-pencil fa-fw"></i>
+                                        </span>
+                                        <span href="" class="bth-timeline__title bth-timeline__title--action">
+                                            <i class="fa fa-user fa-fw text-muted" title="Alterado por gabriela.nart"></i>
+                                            Modalidade de <abbr title="Imposto Sobre Serviços">ISS</abbr>
+                                        </span>
+                                        <div class="bth-timeline__desc">
+                                            <strong class="text-muted"> Modalidade de <abbr title="Imposto Sobre Serviços">ISS</abbr></strong><br>
+                                            Não enquadrado<br>
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__item bth-timeline__item-gray" ng-if="filtrarHistorico == 'Tipo de contribuinte' || filtrarHistorico == 'Todos'">
+                                        <span class="bth-timeline__time">
+                                            16:57:07
+                                        </span>
+                                        <span class="bth-timeline__icon" title="Edição">
+                                            <i class="fa fa-pencil fa-fw"></i>
+                                        </span>
+                                        <span href="" class="bth-timeline__title bth-timeline__title--action">
+                                            <i class="fa fa-user fa-fw text-muted" title="Alterado por gabriela.nart"></i>
+                                            Tipo de contribuinte
+                                        </span>
+                                        <div class="bth-timeline__desc">
+                                            <strong class="text-muted">Tipo de contribuinte</strong><br>
+                                            Serviço declarado por conta<br>
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__month" ng-if="filtrarHistorico == 'Autorização para declaração' || filtrarHistorico == 'Todos'">
+                                        <span class="badge badge-default">Janeiro/2019</span>
+                                    </li>
+                                    <li class="bth-timeline__date" ng-if="filtrarHistorico == 'Autorização para declaração' || filtrarHistorico == 'Todos'">
+                                        <div>Seg, 07/01
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__item bth-timeline__item-green" ng-if="filtrarHistorico == 'Autorização para declaração' || filtrarHistorico == 'Todos'">
+                                        <span class="bth-timeline__time">
+                                            09:00:00
+                                        </span>
+                                        <span class="bth-timeline__icon" title="Autorizado">
+                                            <i class="fa fa-check fa-fw"></i>
+                                        </span>
+                                        <span href="" class="bth-timeline__title bth-timeline__title--action">
+                                            <i class="fa fa-user fa-fw text-muted" title="Alterado por gabriela.nart"></i>
+                                            Autorização para declarar
+                                        </span>
+                                        <div class="bth-timeline__desc">
+                                            <strong class="text-muted">Situação</strong><br>
+                                            Autorizado<br>
+                                            <strong class="text-muted">Motivo</strong><br>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, magni saepe possimus a dolore voluptates doloremque, earum repellendus corrupti illum officia animi, labore alias id minima fuga. Laudantium, veritatis provident.
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__month" ng-if="filtrarHistorico == 'Movimentação da empresa' || filtrarHistorico == 'Todos'">
+                                        <span class="badge badge-default">Dezembro/2018</span>
+                                    </li>
+                                    <li class="bth-timeline__date" ng-if="filtrarHistorico == 'Movimentação da empresa' || filtrarHistorico == 'Todos'">
+                                        <div>Seg, 01/12
+                                        </div>
+                                    </li>
+                                    <li class="bth-timeline__item bth-timeline__item-blue" ng-if="filtrarHistorico == 'Movimentação da empresa' || filtrarHistorico == 'Todos'">
+                                        <span class="bth-timeline__time">
+                                            09:00:00
+                                        </span>
+                                        <span class="bth-timeline__icon" title="Movimentação">
+                                            <i class="fa fa-exchange fa-fw"></i>
+                                        </span>
+                                        <span href="" class="bth-timeline__title bth-timeline__title--action">
+                                            <i class="fa fa-user fa-fw text-muted" title="Alterado por gabriela.nart"></i>
+                                            Movimentação da empresa
+                                        </span>
+                                        <div class="bth-timeline__desc">
+                                            <strong class="text-muted">Tipo</strong><br>
+                                            Início
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

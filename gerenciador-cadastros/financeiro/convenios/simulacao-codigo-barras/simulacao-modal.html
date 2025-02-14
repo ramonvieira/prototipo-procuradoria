@@ -1,0 +1,77 @@
+<div class="modal-dialog modal-xxl">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">Simulando códigos de barras</h3>
+		</div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="">Nº da baixa</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label for="">Vencimento</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" bf-date ng-model="vencimento">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="">Valor</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">R$</div>
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="">Usuário</label>
+                    <input type="text" class="form-control" ng-model="usuario" ng-init="usuario = 'gabriel.valandro'" ng-disabled="true">
+                </div>
+                <div class="col-md-1">
+                    <label for="">&nbsp;</label>
+                    <button class="btn btn-default show">
+                        <i class="fa fa-lg fa-fw fa-barcode"></i> Gerar
+                    </button>
+                </div>
+            </div>
+            <h4>Simulações geradas</h4>
+            <div class="row bottom">
+                <div class="scrollBar" style="max-height: 500px">
+                    <table class="table bottom">
+                        <thead>
+                            <tr>
+                                <th width="3%" class="text-center">#</th>
+                                <th width="9%">Valor</th>
+                                <th width="12%">Nosso número</th>
+                                <th width="32%">Código de barras</th>
+                                <th>Linha digitável</th>
+                                <th width="6%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">4</td>
+                                <td class="text-right">20,00</td>
+                                <td>87760009780-32</td>
+                                <td>041910010000042202311610035719790000004184</td>
+                                <td>00190.00009 00502.010184 00016.324186 6 33510000015000</td>
+                                <td class="text-center">
+                                    <a href="">
+                                        <i class="fa fa-fw fa-info-circle" data-placement="left" bf-popover="'gerenciador-cadastros/financeiro/convenios/mais-informacoes/mais-informacoes.html'" title="Mais informações"></i>
+                                    </a>
+                                    <a href="">
+                                        <i class="fa fa-fw fa-trash-o text-muted" title="Excluir"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary">Salvar</button>
+            <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+	</div>
+</div>

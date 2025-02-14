@@ -1,0 +1,32 @@
+{
+  "name": "ui-select",
+  "version": "0.1.18",
+  "license": "MIT",
+  "private": true,
+  "main": "dist/ui-select.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "nbproject",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4",
+    "ui-components": "http://gitlab.dev.bethacloud.com.br/ui-components/ui-components.git",
+    "lodash": "~3.10"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4"
+  },
+  "_release": "0.1.18",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.18",
+    "commit": "ceeef10974725de0aa235df39c9aaf3c19d78b8e"
+  },
+  "_source": "http://gitlab.dev.bethacloud.com.br/ui-components/ui-select.git",
+  "_target": "*",
+  "_originalSource": "http://gitlab.dev.bethacloud.com.br/ui-components/ui-select.git"
+}

@@ -1,0 +1,175 @@
+<div class="container container-fluid">
+	<div class="page-header">
+		<div class="row">
+			<div class="col-md-8">
+				<h1 class="page-title">
+					<button type="button" class="btn btn-link" title="Voltar para a lista de contribuintes" data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.contribuinte"><i class="fa fa-arrow-left fa-fw text-muted"></i> Voltar</button>
+				</h1>
+			</div>
+			<div class="col-md-4">
+				<ol class="breadcrumb">
+					<li><a href="" data-ui-sref="main.cadastros.gerais">Cadastros</a></li>
+					<li><a href="" data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.contribuinte">Contribuintes</a></li>
+					<li>Contribuinte</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="bth-card">
+					<div class="bth-card__body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="media">
+									<div class="media-left">
+										<a href="#">
+											<img src="images/im-economico.svg" width="70px">
+										</a>
+									</div>
+									<div class="media-body">
+										<div class="row">
+											<div class="col-md-3">
+												<h4><div class="ellipsis" title="{{contribuinte.nome}}"><span class="badge badge-primary" title="Código">{{contribuinte.codigo}}</span> {{contribuinte.nome}}</div></h4>
+												<div class="row">
+													<div class="col-md-12">
+														<span ng-if="contribuinte.vinculos[0].contador"><span class="label label-default pointer" ng-controller="ContadoresCtrl" ng-click="adicionar({isEditing:true})"><strong>Contador:</strong> CRC - 483202</span><br></span>
+														<span ng-if="contribuinte.vinculos[0].construtora"><span class="label label-default pointer" ng-controller="ConstrutorasCtrl" ng-click="adicionar({isEditing:true})"><strong>Construtora:</strong> CREA - 123456</span><br></span>
+														<span ng-if="contribuinte.vinculos[0].grafica"><span class="label label-default pointer" ng-controller="GraficasCtrl" ng-click="adicionar({isEditing:true})"><strong>Gráfica:</strong> Liberada</span><br></span>
+														<span ng-if="contribuinte.vinculos[0].engArq"><span class="label label-default pointer" ng-controller="EngenheirosArquitetosCtrl" ng-click="adicionar({isEditing:true})"><strong>Engenheiro/Arquiteto:</strong> CREA/CAU - 98676</span><br></span>
+													</div>
+												</div>
+												<div class="btn-group btn-group-xs btn-group-default" uib-dropdown dropdown-append-to-body>
+													<button type="button" class="btn btn-default" uib-dropdown-toggle>
+														Vincular <span class="caret"></span>
+													</button>
+													<ul class="dropdown-menu" uib-dropdown-menu>
+														<li ng-if="!contribuinte.vinculos[0].contador"><a href="" ng-controller="ConstrutorasCtrl" ng-click="adicionar({})">Construtora</a></li>
+														<li ng-if="!contribuinte.vinculos[0].construtora"><a href="" ng-controller="ContadoresCtrl" ng-click="adicionar({})">Contador</a></li>
+														<li ng-if="!contribuinte.vinculos[0].grafica"><a href="" ng-controller="EngenheirosArquitetosCtrl" ng-click="adicionar({})">Engenheiro/Arquiteto</a></li>
+														<li ng-if="!contribuinte.vinculos[0].engArq"><a href="" ng-controller="GraficasCtrl" ng-click="adicionar({})">Gráfica</a></li>
+													</ul>
+												</div>
+											</div>
+											<div class="col-md-7">
+												<div class="row">
+													<div class="col-md-4">
+														<label><abbr title="Cadastro Nacional de Pessoas Jurídicas">CNPJ</abbr></label><br>
+														<span>{{contribuinte.cpfcnpj}}</span>
+													</div>
+													<div class="col-md-4">
+														<label>Inscrição municipal</label><br>
+														<span>123456789012345</span>
+													</div>
+													<div class="col-md-4">
+														<label>Inscrição estadual</label><br>
+														<span>012345678912345 <small class="label label-default">Isento</small></span>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-4">
+														<label>Nome fantasia</label><br>
+														<span>{{contribuinte.socialFantasia}}</span>
+													</div>
+													<div class="col-md-4">
+														<label>Porte</label><br>
+														Microempresa
+													</div>
+													<div class="col-md-4">
+														<label>Optante do simples?</label><br>
+														Sim
+													</div>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="row">
+													<div class="col-md-12 text-right">
+														<span class="label" ng-class="{
+															'label-success'			: contribuinte.situacao == 'Ativo',
+															'label-danger'			: contribuinte.situacao == 'Desativado'
+														}">{{contribuinte.situacao}}</span>
+														<button class="btn btn-xs btn-default" title="Edita as informações da pessoa" ng-click="editarDadosPrincipais()">
+															<i class="fa fa-pencil fa-fw"></i>
+															Editar
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row" ng-class="{'bottom' : visualizarInfo}">
+											<div class="col-md-12 text-center" ng-init="visualizarInfo = false">
+												<a href ng-click="visualizarInfo = !visualizarInfo">
+													<i class="fa" ng-class="!visualizarInfo ? 'fa-angle-down fa-fw' : 'fa-angle-up fa-fw'"></i>
+													{{!visualizarInfo ? 'Mais' : 'Menos'}} informações
+												</a>
+											</div>
+										</div>
+										<div uib-collapse="!visualizarInfo">
+											<div class="row">
+												<div class="col-md-3">
+													<label>Órgão do registro</label><br>
+													Junta comercial
+												</div>
+												<div class="col-md-3">
+													<label>Número</label><br>
+												2323
+												</div>
+												<div class="col-md-3">
+													<label>Data</label><br>
+												02/03/2018
+												</div>
+												<div class="col-md-3">
+													<label>Natureza jurídica</label><br>
+													---
+												</div>
+											</div>
+											<div class="row">
+											</div>
+											<div class="row">
+												<div class="col-md-4">
+													<label>Responsável</label><br>
+													Ramon Vieira Viquetti
+												</div>
+												<div class="col-md-4">
+													<label>Qualificação</label><br>
+													---
+												</div>
+												<div class="col-md-4">
+													<label>Site</label><br>
+													---
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<ul class="nav nav-tabs nav-material bottom">
+						<li data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.pessoa-juridica.dados-gerais" data-ui-sref-active="active"><a href><i class="fa fa-id-card fa-fw"></i> Dados gerais</a></li>
+						<li data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.pessoa-juridica.simples-nacional" data-ui-sref-active="active"><a href>Simples nacional</a></li>
+						<li data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.pessoa-juridica.declaracoes" data-ui-sref-active="active"><a href><i class="fa fa-files-o fa-fw"></i> Declarações</a></li>
+						<li data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.pessoa-juridica.movimentacoes" data-ui-sref-active="active"><a href><i class="fa fa-exchange fa-fw"></i> Movimentações</a></li>
+						<li data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.pessoa-juridica.anexos" data-ui-sref-active="active"><a href><i class="fa fa-paperclip fa-fw"></i> Anexos</a></li>
+						<li data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.pessoa-juridica.publicidade" data-ui-sref-active="active"><a href><i class="fa fa-tags fa-fw"></i> Publicidade</a></li>
+						<li data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.pessoa-juridica.historico" data-ui-sref-active="active"><a href><i class="fa fa-history fa-fw"></i> Histórico</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div ui-view="child"></div>
+
+		<div class="opcoes-tela">
+			<div class="row bottom">
+				<div class="col-md-12">
+					<div class="bth-switch">
+						<input id="empty" type="checkbox" ng-model="empty">
+						<label for="empty">Sem dados</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

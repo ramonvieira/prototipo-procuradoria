@@ -1,0 +1,33 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	<h3 class="modal-title">Removendo profissional do grupo</h3>
+</div>
+<div class="modal-body">
+	<div class="alert alert-icon alert-warning">Atenção! Você está solicitando a remoção do <strong>{{procurador}}</strong> do grupo <strong>{{registro.descricao}}</strong>.<br>Dessa maneira, será necessário redistribuir as pendências para outro profissional da equipe</div>
+	<div class="alert alert-danger" uib-collapse="registro.id != 2">
+		Nenhum profissional está apto a assumir as pendênias nessa equipe!<br>
+		<small>Será necessário atriuir um responsável apto ao <a href="" class="alert-link" ng-click="openGrupo({registro:grupo})">grupo</a> e <a href="" class="alert-link">verificar novamente</a></small>
+	</div>
+	<hr class="bottom">
+	<div class="form-hover">
+		<div class="row" ng-repeat="area in areas">
+			<div class="col-md-4"><label for="">{{area.descricao}}</label><br><small class="text-muted">736 processos</small></div>
+			<div class="col-md-3">
+				<select bf-select2="{}" class="form-control" ng-model="distribuicao$index">
+					<option value="0">Manter</option>
+					<option value="1">Distribuir para equipe</option>
+					<option value="2">Transferir para:</option>
+				</select>
+			</div>
+			<div class="col-md-5">
+				<select bf-select2="{}" class="form-control" ng-model="novoProf$index" ng-if="distribuicao$index == 2" placeholder="Selecione o novo profissional responsável">
+					<option value="1" ng-repeat="procurador in grupos[0].procuradores">{{procurador.proc.nome}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-danger" data-dismiss="modal">Concluir</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+</div>

@@ -1,0 +1,35 @@
+<table class="table top table-condensed">
+	<tbody>
+		<tr>
+			<td width="150">Data da emissão em</td>
+			<td>15/12/2020 15:42</td>
+		</tr>
+		<tr>
+			<td width="150">Emitido por</td>
+			<td>@ramon.viquetti</td>
+		</tr>
+	</tbody>
+</table>
+<div class="row bottom">
+	<div class="col-md-12">
+		<div class="btn-group btn-group-xs">
+			<div class="btn-group btn-group-xs" uib-dropdown dropdown-append-to-body>
+				<button type="button" class="btn btn-default" uib-dropdown-toggle>
+					{{divida.certidao.numero}} / {{divida.certidao.data | arrecAno}}
+					<i class="fa fa-fw fa-check-circle-o text-greenA7" bf-tooltip="Assinado digitalmente" ng-if="divida.assinatura != null && divida.assinatura.tipo == 'NORMAL'"></i>
+					<i class="fa fa-fw fa-check-circle text-greenA7" bf-tooltip="Assinado digitalmente P7s" ng-if="divida.assinatura != null && divida.assinatura.tipo == 'P7S'"></i>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" uib-dropdown-menu>
+					<li><a href="" title="Abre a certidão em outra aba"><i class="fa fa-fw fa-external-link"></i> Visualizar</a></li>
+					<li><a href="" title="Faz o download da certidão"><i class="fa fa-fw fa-download"></i> Baixar</a></li>
+					<li><a href="" title="Edita a certidão" ng-click="editarCDA({registro:divida})"><i class="fa fa-fw fa-pencil"></i> Editar</a></li>
+				</ul>
+			</div>
+			<a href="" class="btn btn-default" bf-tooltip="Histórico de alterações" ng-click="abrirHistoricoCertidao({cda:certidao})">
+				<i class="fa fa-fw fa-clock-o"></i>
+			</a>
+		</div>
+		
+	</div>
+</div>

@@ -1,0 +1,46 @@
+<table class="table table-unfixed table-unstriped table-hover table-unbordered">
+	<tbody ng-repeat="item in status">
+		<tr ng-class="{'opened' : !groupList}" ng-init="groupList = true">
+			<td class="col-fit col-arrow" ng-click="groupList = !groupList">
+				<div class="btn btn-link btn-sm">
+					<i class="material-icons">keyboard_arrow_down</i>
+				</div>
+			</td>
+			<td class="col-fit">
+				<div class="bth-checkbox">
+					<input id="cb{{$index}}" name="checkModelo" type="checkbox">
+					<label for="cb{{$index}}">&nbsp;</label>
+				</div>
+			</td>
+			<td>
+				<span class="bth-status" ng-class="item.color"> {{item.desc}}</span> <small class="text-muted">(4)</small>
+			</td>
+			<td class="text-right">
+				<div class="dropdown" uib-dropdown dropdown-append-to-body>
+					<a href="" class="btn btn-xs btn-link dropdown-toggle" title="Abre a lista de ações disponíveis" uib-dropdown-toggle keep-open>
+						<i class="fa fa-fw fa-ellipsis-v"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+						<li><a href="" ng-click=""><i class="fa fa-fw fa-i-cursor"></i> Renomear quadro</a></li>
+						<li class="divider"></li>
+						<li class="dropdown-submenu dropdown-submenu-right">
+							<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-circle"></i> Enviar itens para</a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li ng-repeat="st in status"><a href=""><span class="bth-status" ng-class="st.color"> {{st.desc}}</span></a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		<tr class="indentation">
+			
+			<td colspan="6" ng-class="{'collapsed' : !groupList}">
+				<div uib-collapse="groupList" class="collapse scrollBar" style="max-height: 300px;" aria-expanded="false" aria-hidden="true">
+					<!-- <h4 class="text-center" ng-show="item.subitens.length <= 0">Nenhum subitem por aqui</h4> -->
+					<div ng-include="'gerenciador-tarefas/tarefas-table-itens.html'"></div>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>

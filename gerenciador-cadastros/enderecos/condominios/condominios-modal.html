@@ -1,0 +1,164 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content" data-bf-loading="vm.tracker.carregandoRegistro">
+        <form name="form">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >×</button>
+                <h4 class="modal-title">{{vm.getEditando() ? 'Editando': 'Adicionando'}} condomínio</h4>
+            </div>
+            <div class="modal-body">
+                <ul id="myTab" role="tablist" class="nav nav-tabs">
+                    <li role="presentation" class="active">
+                        <a data-toggle="tab" role="tab" href="#infoCondominio" target="_self">Condomínio</a>
+                    </li>
+                    <li role="presentation">
+                        <a data-toggle="tab" role="tab" href="#infoComplementares" target="_self" ng-click="vm.carregaCamposAdicionais();">Campos adicionais</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="infoCondominio" class="tab-pane active" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="condominioCep"><abbr title="Código de Endereçamento Postal">CEP</abbr></label>
+                                <input type="text" id="condominioCep" class="form-control" data-ng-model="cep" bf-mask-cep>
+                            </div>
+                            <div class="col-md-10">
+                                <label class="required">Município</label>
+                                <select name="" id="" bf-select2="{allowClear: true}"  ng-model="item">
+                                    <option value=""></option>
+                                    <option value="1">Criciúma 1</option>
+                                    <option value="2">Criciúma 2</option>
+                                    <option value="3">Criciúma 3</option>
+                                    <option value="4">Criciúma 4</option>
+                                    <option value="5">Criciúma 5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label class="required" for="condominioNome">Descrição</label>
+                                <textarea rows="1" class="form-control"></textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="required" for="condominioTipo">Tipo</label>
+                                 <select name="" id="" bf-select2="{}"  ng-model="tipo">
+                                     <option value=""></option>
+                                     <option value="1">Tipo 1</option>
+                                     <option value="2">Tipo 2</option>
+                                     <option value="3">Tipo 3</option>
+                                     <option value="4">Tipo 4</option>
+                                     <option value="5">Tipo 5</option>
+                                 </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label class="required" for="condominioLogradouro">Logradouro</label>
+                                <select name="" id="" bf-select2="{}"  ng-model="item">
+                                    <option value=""></option>
+                                    <option value="1">Logradouro 1</option>
+                                    <option value="2">Logradouro 2</option>
+                                    <option value="3">Logradouro 3</option>
+                                    <option value="4">Logradouro 4</option>
+                                    <option value="5">Logradouro 5</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="condominioNumero">Número</label>
+                                <input type="text" id="condominioNumero" data-ng-model="numero" maxlength="8" bf-restrict-number class="form-control">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="condominioUtilizacao">Utilização</label>
+                                <input type="text" id="condominioUtilizacao" data-ng-model="utilizacao" class="form-control" maxlength="60">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="required" for="condominioBairro">Bairro</label>
+                                <select name="" id="" bf-select2="{}"  ng-model="item">
+                                    <option value=""></option>
+                                    <option value="1">Bairro 1</option>
+                                    <option value="2">Bairro 2</option>
+                                    <option value="3">Bairro 3</option>
+                                    <option value="4">Bairro 4</option>
+                                    <option value="5">Bairro 5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="condominioResponsavel">Responsável</label>
+                                <select name="" id="" bf-select2="{}"  ng-model="item">
+                                    <option value=""></option>
+                                    <option value="1">Responsável 1</option>
+                                    <option value="2">Responsável 2</option>
+                                    <option value="3">Responsável 3</option>
+                                    <option value="4">Responsável 4</option>
+                                    <option value="5">Responsável 5</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="condominioAno">Ano da construção</label>
+                                <input type="text" id="condominioAno" class="form-control" maxlength="4" data-ng-model="anoConstrucao" data-bf-restrict-number data-bf-min="1900" data-bf-max="9999" ng-change="vm.validarAno()"/>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="condominioAreaComum">Área comum</label>
+                                <div class="input-group">
+                                    <input type="text" data-bf-required="false" id="condominioAreaComum" class="form-control" data-ng-model="areaComum" data-bf-number="4" maxlength="19"/>
+                                    <span class="input-group-addon">m²</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="condominioAreaEdificada">Área edificada</label>
+                                <div class="input-group">
+                                    <input type="text" data-bf-required="false" id="condominioAreaEdificada" class="form-control" data-ng-model="areaEdificada" data-bf-number="4" maxlength="19"/>
+                                    <span class="input-group-addon">m²</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row bottom">
+                            <div class="col-md-2">
+                                <label for="condiminioPavimentos">Nº de pavimentos</label>
+                                <spinner ng-model="nroPavimentos"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="condominioApartamentos">Nº de apartamentos</label>
+                                <spinner ng-model="nroApartamentos" />
+                            </div>
+                            <div class="col-md-2">
+                                <label for="condominioBlocos">Nº de blocos</label>
+                                <spinner ng-model="nroBlocos" />
+                            </div>
+                            <div class="col-md-2">
+                                <label for="condominioGaragens">Nº de garagens</label>
+                                <spinner ng-model="nroGaragens" />
+                            </div>
+                            <div class="col-md-2">
+                                <label for="condominioElevadores">Nº de elevadores</label>
+                                <spinner ng-model="nroElevadores" />
+                            </div>
+                            <div class="col-md-2">
+                                <label for="condominioSalas">Nº de salas</label>
+                                <spinner ng-model="nroSalas" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="infoComplementares" class="tab-pane" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="required">Ano base</label>
+                                <spinner ng-model="anoCorrente"></spinner>
+                            </div>
+                        </div>
+                        <campos-adicionais list="vm.camposAdicionais"/>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="vm.salvar(vm.registro, false)" data-ng-disabled="form.$invalid || vm.hasTrackerActive()" data-bf-loading="vm.tracker.salvandoRegistro">Salvar</button>
+                <button class="btn btn-default" data-ng-if="!vm.getEditando()" ng-click="vm.salvar(vm.registro, true)" data-ng-disabled="form.$invalid || vm.hasTrackerActive()" data-bf-loading="vm.tracker.salvarAdicionarRegistro">Salvar e adicionar novo</button>
+                <button class="btn btn-default" data-ng-if="vm.getEditando()"  ng-click="vm.excluir(vm.registro)" data-bf-permissions operation="excluir"><i class="fa fa-fw fa-trash"></i> Excluir</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

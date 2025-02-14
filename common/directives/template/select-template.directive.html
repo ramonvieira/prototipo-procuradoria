@@ -1,0 +1,20 @@
+<div class="input-template-auto-complete">
+	
+	<input ng-if="!restrictNumber" type="text" bf-required="ngRequired" class="form-control"
+		   ng-model="ngModel[inputField]" maxlength="{{inputMaxlength}}" ng-model-options="{debounce: 400}"
+		   ng-change="vm.search()" autocomplete="off"
+		   ng-keydown="vm.inputKeydown($event)"
+		   placeholder="{{inputPlaceholder}}">
+
+	<input ng-if="restrictNumber === true" type="text" bf-required="ngRequired" class="form-control"
+		 ng-model="ngModel[inputField]" maxlength="{{inputMaxlength}}" ng-model-options="{debounce: 400}"
+		 ng-change="vm.search()" autocomplete="off"
+		 ng-keydown="vm.inputKeydown($event)"
+		 placeholder="{{inputPlaceholder}}"
+		 bf-restrict-number>
+	
+	<div ng-show="vm.showAutoComplete" class="scrollBar"> 
+		<ul class="list-unstyled shadow-2dp" data-bf-loading="vm.tracker" style="max-height: 300px; overflow-y: auto">
+		</ul>
+	</div>
+</div>

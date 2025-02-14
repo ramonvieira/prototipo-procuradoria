@@ -1,0 +1,291 @@
+<uib-tabset>
+	<uib-tab class="pointer">
+		<uib-tab-heading>
+			<i class="fa fa-fw fa-user"></i> Profissionais
+		</uib-tab-heading>
+
+		<div class="row">
+			<div class="col-md-3">
+				<div class="btn-group">
+					<button type="button" class="btn btn-success btn-sm btn-add" ng-click="adicionar({})" title="Adiciona um novo profissional">Profissional</button>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="pull-right">
+					<form class="form-inline">
+						<div class="btn-group">
+							<button id="dropdownExportar" type="button" class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" title="Fazer download">
+								<i class="fa fa-fw fa-download"></i>
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li class="dropdown-header">Formato do arquivo
+								</li>
+								<li>
+									<a href="">PDF</a>
+								</li>
+								<li>
+									<a href="">CSV</a>
+								</li>
+								<li>
+									<a href="">Excel</a>
+								</li>
+							</ul>
+						</div>
+						<div class="input-group">
+							<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+				
+							<!-- Pesquisa avançada -->
+				
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default btn-sm" title="Pesquisar">
+									<i class="fa fa-search"></i>
+								</button>
+								<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+									title="Pesquisa avançada">
+									<i class="fa fa-filter"></i>
+									<span class="caret"></span>
+								</button>
+				
+								<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
+									<li class="dropdown-header">
+										<button type="button" class="close" data-dismiss="dropdown" title="Fechar">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										<h1>Pesquisa avançada</h1>
+									</li>
+									<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+									<li>
+										<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true">
+											<option value="1">Nome</option>
+											<option value="4">CPF/CNPJ</option>
+										</select>
+									</li>
+									<li class="dropdown-header">Utilizando como critério</li>
+									<li>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdAlguns">Alguns dos termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdTodos">Todos os termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdNenhum">Nenhum dos termos digitados</label>
+										</div>
+									</li>
+									<li role="separator" class="divider"></li>
+									<li class="dropdown-header">
+										<h1>Outras opções</h1>
+									</li>
+									<li class="dropdown-header">
+										<div class="row bottom">
+											<div class="col-md-6">
+												Situação
+											</div>
+											<div class="col-md-6">
+												Função
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="row bottom">
+											<div class="col-md-6">
+												<select bf-select2="{}" ng-model="situacao" multiple>
+													<option value="1">Ativo</option>
+													<option value="2">Desativado</option>
+												</select>
+											</div>
+											<div class="col-md-6">
+												<select bf-select2="{}" ng-model="funcao" multiple>
+													<option value="1">Administrador</option>
+													<option value="2">Procurador</option>
+													<option value="3">Assessor</option>
+												</select>
+											</div>
+										</div>
+									</li>
+									<li class="dropdown-footer pull-right">
+										<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+									</li>                                    
+								</ul>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-unstriped table-unfixed">
+					<thead>
+						<tr>
+							<th class="col-fit"></th>
+							<th><span>Profissional</span></th>
+							<th width="130"><span>Função</span></th>
+							<th><span>Grupos de trabalho</span></th>
+							<th width="65"><span></span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-class="{'opened' : groupProc}" ng-repeat-start="profissional in profissionais">
+							<td class="col-fit col-arrow" ng-click="groupProc = !groupProc">
+								<div class="btn btn-link btn-sm">
+									<i class="material-icons">keyboard_arrow_down</i>
+								</div>
+							</td>
+							<td>
+								<div class="cell-wrapper">
+									<div class="img-wrapper">
+										<a href="" data-bf-popover="'common/popover-info-procurador.html'" class="popover-active" data-placement="right" bf-popover-size="med-popover"><img alt="" ng-src="{{profissional.profissional | contribuintes:'img'}}"></a>
+									</div>
+								</div>
+								<div class="cell-wrapper">
+									<a href="" ng-click="adicionar({registro:profissional})">{{profissional.profissional | contribuintes:'nome'}}</a><br>
+									<small class="" ng-if="profissional.ausente">
+										<i class="fa fa-fw fa-clock-o"></i> Profissional ausente entre {{profissional.ausente.dataInicial | arrecDate}} até {{profissional.ausente.dataTermino | arrecDate}}
+									</small>
+								</div>
+							</td>
+							<td>
+								<span class="badge show" ng-class="profissional.funcao == 'Administrador' ? 'badge-primary' : profissional.funcao == 'Procurador' ? 'badge-info' : 'badge-default'">
+									{{profissional.funcao}} <i class="fa fa-fw fa-info-circle" ng-if="profissional.funcao == 'Procurador'" bf-tooltip="OAB: 132445"></i>
+								</span>
+							</td>
+							<td>
+								<small class="text-muted" ng-init="gruposDoProfissionall = gruposDoProfissional(profissional.id)"><div ng-repeat="grupo in gruposDoProfissionall"><a href="" ng-click="openGrupo({registro:grupo})">{{grupo.descricao}}</a>{{$index + 1 < gruposDoProfissionall.length ? ', ' : ''}}</div></small>
+							</td>
+							<td class="text-right">
+								<div class="btn-group dropdown btn-group-xs">
+									<button type="button" class="btn btn-link" ng-click="adicionar({registro:profissional})"><i class="fa fa-fw fa-pencil"></i></button>
+									<button type="button" class="btn btn-link" ng-click="excluir(profissional)"><i class="fa fa-fw fa-trash"></i></button>
+								</div>
+							</td>
+						</tr>
+						<tr class="indentation" ng-repeat-end>
+							<td colspan="5" ng-class="{'collapsed' : !groupProc}">
+								<div uib-collapse="!groupProc" class="collapse" style="height: 0px;" aria-expanded="false" aria-hidden="true">
+									<h5 class="text-center" ng-if="atrib">Assim que possuir, as atribuições relacionadas ao profissional serão exibidas aqui</h5>
+									<table class="table table-unstriped table-unfixed table-hover" ng-if="!atrib">
+										<thead>
+											<tr>
+												<th colspan="2"></th>
+												<th class="text-center" width="100"><span>Execuções</span></th>
+												<th class="text-center" width="100"><span>Contencioso</span></th>
+												<th class="text-center" width="70"><span><abbr title="Administrativo">Adm.</abbr></span></th>
+												<th class="text-center" width="90"><span>Protestos</span></th>
+											</tr>
+										</thead>
+										<tbody ng-repeat="p in pessoas">
+											<tr>
+												<td class="text-center" rowspan="{{p.atribuicoes.length}}"><strong>{{p.tipo}}</strong></td>
+												<td class="text-right">{{p.atribuicoes[0].status}}</td>
+												<td class="text-center" width="100"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Execuções', profiss: profissional.profissional.nome})">{{p.atribuicoes[0].qtdExec}}</a></td>
+												<td class="text-center" width="100"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Contencioso', profiss: profissional.profissional.nome})">{{p.atribuicoes[0].qtdCont}}</a></td>
+												<td class="text-center" width="70"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Administrativo', profiss: profissional.profissional.nome})">{{p.atribuicoes[0].qtdAdm}}</a></td>
+												<td class="text-center" width="90"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Protesto', profiss: profissional.profissional.nome})">{{p.atribuicoes[0].qtdProt}}</a></td>
+											</tr>
+											<tr ng-repeat="dev in p.atribuicoes" ng-if="$index > 0">
+												<td class="text-right">{{dev.status}}</td>
+												<td class="text-center" width="100"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Execuções', profiss: profissional.profissional.nome})">{{dev.qtdExec}}</a></td>
+												<td class="text-center" width="100"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Contencioso', profiss: profissional.profissional.nome})">{{dev.qtdCont}}</a></td>
+												<td class="text-center" width="70"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Administrativo', profiss: profissional.profissional.nome})">{{dev.qtdAdm}}</a></td>
+												<td class="text-center" width="89"><a href="" ng-click="atribuicoesProfiss({status: p.atribuicoes[$index].status, tipo: 'Protesto', profiss: profissional.profissional.nome})">{{dev.qtdProt}}</a></td>
+											</tr>
+										</tbody>
+										<tfoot>
+											<tr>
+												<td colspan="2" class="text-right"><strong>Total</strong></td>
+												<td class="text-center"><strong>606</strong></td>
+												<td class="text-center"><strong>606</strong></td>
+												<td class="text-center"><strong>909</strong></td>
+												<td class="text-center"><strong>909</strong></td>
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</uib-tab>
+	<uib-tab class="pointer" heading="Anexos">
+		<uib-tab-heading>
+			<i class="fa fa-fw fa-users"></i> Grupos
+		</uib-tab-heading>
+		
+		<div ng-if="grupos.length < 1">
+			<div class="bth-img-illustration semGrupos">
+				<h4 class="illustration-title">
+					Com o grupo de trabalho você pode gerenciar os processos e protestos de forma mais organizada.<br>
+					<small>Permite que você crie equipes com diferentes responsabilidades possibilitando distinguir diferentes areas de atuação</small>
+				</h4>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<button class="btn btn-default" title="Adiciona um grupo de trabalho" ng-click="openGrupo({})"><i class="fa fa-fw fas fa-plus"></i> Cadastrar grupo</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" ng-if="grupos.length > 0">
+			<div class="col-md-12">
+				<div class="btn-group">
+					<button type="button" class="btn btn-success btn-sm btn-add" ng-click="openGrupo({})" title="Adiciona um grupo de trabalho">Grupo</button>
+				</div>
+			</div>
+		</div>
+		<div class="row bottom" ng-if="grupos.length > 0">
+			<div class="col-md-12">
+				<div class="row row-flex">
+					<div class="col-md-6 mBottom10" ng-repeat="grupo in grupos track by $index">
+						<div class="bth-card bth-card--bordered bth-card--clickable" ng-click="openGrupo({registro:grupo})">
+							<div class="bth-card__header">
+								<div class="row bottom">
+									<div class="col-md-10">
+										<h4 class="bottom">
+											{{grupo.descricao}} <span ng-show="grupo.desativado"><span class="badge badge-danger" bf-tooltip="Grupo desativado">Desativado</span></span>
+											<small class="text-muted" ng-if="grupo.automatico">(Distribuição automática)</small>
+										</h4>
+									</div>
+									<div class="col-md-2">
+										<div class="btn-group pull-right">
+											<button type="button" class="btn btn-link btn-xs" title="Edita as informações do grupo"><i class="fa fa-fw fa-pencil"></i></button>
+											<button type="button" class="btn btn-link btn-xs" title="Exclui o grupo" ng-click="grupos.splice($index, 1)" keep-open><i class="fa fa-fw fa-trash"></i></button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="bth-card__body bottom">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="badge-group">
+											<span class="badge" ng-repeat="area in grupo.areas track by $index">{{areas[area].descricao}}</span>
+										</div>
+									</div>
+								</div>
+								<div class="row bottom">
+									<div class="col-md-9">
+										<ul class="list-inline bottom">
+											<li ng-repeat="procurador in grupo.procuradores track by $index" style="padding: 0">
+												<img alt="" ng-src="{{procurador.proc |contribuintes:'img'}}" class="img-circle" width="25px" title="{{procurador.proc |contribuintes}}">
+											</li>
+										</ul>
+									</div>
+									<div class="col-md-3">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</uib-tab>
+</uib-tabset>

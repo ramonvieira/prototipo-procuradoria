@@ -1,0 +1,49 @@
+<div class="modal-dialog modal-sm">
+	<div class="modal-content">
+		<form name="form" novalidate>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 class="modal-title">Adicionando cartório</h3>
+			</div>
+			<div class="modal-body" data-bf-loading="tracker.carregandoRegistros">
+				<div class="row">
+					<div class="col-md-12">
+						<label class="required">Contribuinte</label>
+						<input class="form-control" placeholder="Encontre pessoas pelos documentos: CPF, RG, PIS, CNH, etc., ou ainda pelo nome."/>
+					</div>
+				</div>
+				<div class="row bottom">
+					<div class="col-md-{{tipo == 4 || tipo == 5 ? '6' : '12'}}">
+						<label class="required">Tipo</label>
+						<select bf-select2="{}" ng-model="tipo">
+							<option value="1">Registro civil</option>
+							<option value="2">Tabelionato de notas</option>
+							<option value="3">Registro de imóveis</option>
+							<option value="4">Tabelionato de protesto</option>
+							<option value="5">Registro de títulos</option>
+						</select>
+					</div>
+					<div class="col-md-6" ng-if="tipo == 4 || tipo == 5">
+						<label for="identificadorProtesto">
+							Identificador para protesto de títulos
+						</label>
+						<input id="identificadorProtesto" type="text" name="identificadorProtesto" class="form-control" maxlength="4" data-ng-model="registro.identificadorProtesto" data-bf-restrict-number data-bf-max='9999' data-bf-min='0' />
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<!-- Registro poderá ser desativado somente em modo de edição -->
+				<div class="bth-checkbox bth-checkbox-danger pull-left" style="margin-left: 6px; margin-top: 6px">
+					<input id="checkboxS1" type="checkbox">
+					<label for="checkboxS1">Registro desativado</label>
+				</div>
+				<button class="btn btn-primary" data-ng-click="salvar()" data-ng-disabled="form.$invalid" data-bf-loading="tracker.salvandoRegistro">
+					Salvar
+				</button>
+				<button class="btn btn-default" data-ng-if="!editando" data-ng-click="salvar(true)" data-ng-disabled="form.$invalid" data-bf-loading="registro.tracker.salvandoRegistro">Salvar e adicionar novo</button>
+				<button class="btn btn-default btn-delete" data-ng-if="editando" data-ng-click="remover()">Excluir</button>
+				<button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			</div>
+		</form>
+	</div>
+</div>

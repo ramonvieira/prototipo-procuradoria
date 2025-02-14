@@ -1,0 +1,48 @@
+<div class="bth-timeline bth-timeline--vertical bth-timeline--has-icon bth-timeline--sticky scrollBar" ng-init="lists = [{},{}]" style="max-height: 300px">
+	<ul class="bth-timeline__list" ng-init="itens = [	{tipo:'Edição'			,color: '', 						icon:'fa-pencil', 		qtdCamp: 4},
+														{tipo:'Comentário'		,color: '', 						icon:'fa-comment', 		desc: 'Amet exercitation eiusmod magna culpa eu irure reprehenderit eiusmod.'},
+														{tipo:'Averbação'		,color: '', 						icon:'fa-pencil', 		desc: 'Amet exercitation eiusmod magna culpa.'},
+														{tipo:'Situação'		,color: '', 	icon:'fa-pencil',		desc: 'Desativado'},
+														{tipo:'Anexo'			,color: '', 						icon:'fa-paperclip', 	desc: 'nome-completo-do-arquivo.doc'},
+														{tipo:'Edição'			,color: '', 						icon:'fa-pencil',		qtdCamp: 1},
+														{tipo:'Edição'			,color: '', 						icon:'fa-pencil', 		qtdCamp: 3},
+														{tipo:'Criado'			,color: 'bth-timeline__item-green',	icon:'fa-plus'}]">
+		<li class="bth-timeline__month">
+			<span class="badge badge-default">Fevereiro/2018</span>
+		</li>
+		<li class="bth-timeline__date" ng-repeat-start="item in itens">
+			<div>Hoje, 02/02</div>
+		</li>
+		<li class="bth-timeline__item" ng-class="item.color" ng-repeat-end>
+			<span class="bth-timeline__time">
+				09:00:00
+			</span>
+			<span class="bth-timeline__icon">
+				<i class="fa fa-fw" ng-class="item.icon"></i>
+			</span>
+			<a href="" class="bth-timeline__title" ng-show="item.qtdCamp > 1" ng-click="abrirHistoricoDetalhes({})">
+				<i class="fa fa-user fa-fw text-muted" title="Editado por ramon.viquetti"></i> {{item.tipo}} <small>({{item.qtdCamp}} campos)</small>
+			</a>
+			<span class="bth-timeline__title" ng-show="item.qtdCamp == 1">
+				<i class="fa fa-user fa-fw text-muted" title="Editado por ramon.viquetti"></i> {{item.tipo}}
+			</span>
+			<span class="bth-timeline__title" ng-show="item.desc != null">
+				<i class="fa fa-user fa-fw text-muted" title="Editado por ramon.viquetti"></i> {{item.tipo}}
+			</span>
+			<span class="bth-timeline__title" ng-show="item.tipo == 'Criado'">
+				<i class="fa fa-user fa-fw text-muted" title="Criador por ramon.viquetti"></i> {{item.tipo}}
+			</span>
+			<div class="bth-timeline__desc" ng-show="item.desc !=null">
+				{{item.desc}}
+				<span ng-show="item.tipo == 'Anexo'">
+					<a href=""><i class="fa fa-fw fa-download"></i></a>
+					<a href=""><i class="fa fa-fw fa-trash-o"></i></a>
+				</span>
+			</div>
+			<div class="bth-timeline__desc" ng-show="item.qtdCamp <= 1">
+				<strong class="text-muted">Nome do campo</strong><br>
+				<s>Informação antiga</s> <i class="fa fa-fw fa-arrow-right"></i> Informação nova
+			</div>
+		</li>
+	</ul>
+</div>

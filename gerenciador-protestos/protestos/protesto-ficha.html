@@ -1,0 +1,604 @@
+<div class="container container-fluid" data-ng-controller="ProtestoCtrl as ProtestoCtrl">
+	<div class="page-header">
+		<div class="row">
+			<div class="col-md-8">
+				<h1 class="page-title">
+					<button type="button" class="btn btn-link" title="Voltar para a lista de protestos" data-ui-sref="main.gerenciadorProtestos.protestos">
+						<i class="fa fa-arrow-left fa-fw text-muted"></i> Voltar
+					</button>
+				</h1>
+			</div>
+			<div class="col-md-4">
+				<ol class="breadcrumb">
+					<li>Protestos</li>
+					<li>Visualizando protesto</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="bth-card bth-card--depth-1">
+					<div class="bth-card__header">
+						<div class="row">
+							<div class="col-md-6">
+								<h4 class="bth-card__title">
+									<i class="fa fa-file-text-o fa-fw text-muted"></i>
+									Dados do protesto
+								</h4>
+							</div>
+							<div class="col-md-6 text-right">
+								<form class="form-inline">
+									<div class="btn-group">
+										<button type="button" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Cancelar <span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li><a href="#">Emitir carta</a></li>
+											<li><a href="#" ng-click="cancelaProtesto({})">Solicitar</a></li>
+											<li><a href="#">Autorizar</a></li>
+										</ul>
+									</div>
+									<div class="btn-group">
+										<button type="button" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Desistir <span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li><a href="#">Emitir carta</a></li>
+											<li><a href="#">Solicitar</a></li>
+										</ul>
+									</div>
+									<div class="btn-group">
+										<button type="button" class="btn btn-primary dropdown-toggle btn-xs">
+											<i class="fa fa-fw fa-paper-plane"></i> Reenviar
+										</button>
+									</div>
+									<div class="btn-group">
+										<button type="button" class="btn btn-primary dropdown-toggle btn-xs">
+											<i class="fa fa-fw fa-money"></i> Baixa
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="bth-card__body">
+						<div class="row bottom">
+							<div class="col-md-6">
+								<ul class="list-inline">
+									<li>
+										<label>Nº protesto</label><br>
+										<span class="badge">0123/2018</span>
+									</li>
+									<li>
+										<label>Nº certidão</label><br>
+										<span class="badge">0123/2018</span>
+									</li>
+									<li>
+										<label>Contribuinte</label><br>
+										<span title="Nome">Ramon Vieira Viquetti</span>
+										<small title="CPF">(000.000.000-00)</small>
+									</li>
+								</ul>
+							</div>
+							<div class="col-md-2">
+								<label>Data do protesto</label><br>
+								13/06/2018
+							</div>
+							<div class="col-md-2">
+								<label>Valor protestado</label><br>
+								R$ 1.000,00
+							</div>
+							<div class="col-md-2 text-right">
+								<label>Situação</label><br>
+								<label class="label hide" title="Situação" ng-class="{
+																	'label-success':	p.situacao == 'Aguardando distribuição',
+																	'label-default':	p.situacao == 'Distribuída',
+																	'label-warning':	p.situacao == 'Protesto',
+																	'label-danger':		p.situacao == 'Movimentação',
+																	'label-info':		p.situacao == 'Protestada',
+																	'label-info':		p.situacao == 'Paga',
+																	'label-info':		p.situacao == 'Pagamento pendente',
+																	'label-info':		p.situacao == 'Retirada',
+																	'label-info':		p.situacao == 'Negociação',
+																}">
+								{{p.situacao}}
+								</label>
+								<label class="label label-success" title="Situação">Aguardando distribuição</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="bth-card bth-card--depth-1">
+					<div class="bth-card__body">
+						<ul role="tablist" class="nav nav-tabs nav-atend">
+							<li role="presentation" class="active">
+								<a data-toggle="tab" role="tab" href="#Aba0" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x tx__gray--d10"></i>
+												<i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom mTop40">Movimentações</h5>
+										</li>
+									</ul>
+								</a>
+							</li>
+							<li role="presentation">
+								<a data-toggle="tab" role="tab" href="#agenda" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x tx__blue"></i>
+												<i class="fa fa-calendar fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom mTop40">Agenda <span class="badge bg__yellow" title="3 pendentes">3</span></h5>
+										</li>
+									</ul> 
+								</a>
+							</li>
+							<li role="presentation">
+								<a data-toggle="tab" role="tab" href="#Aba1" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x tx__green--d10"></i>
+												<i class="fa fa-dollar fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom mTop40">Dívidas ativas <span class="badge bg__yellow">10</span></h5>
+										</li>
+									</ul>
+								</a>
+							</li>
+							<li role="presentation">
+								<a data-toggle="tab" role="tab" href="#Aba2" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x tx__orange--d10"></i>
+												<i class="fa fa-paperclip fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom mTop40">Documentação</h5>
+										</li>
+									</ul>
+								</a>
+							</li>
+						</ul>
+						<div class="tab-content">
+							<!-- Movimentação -->
+							<div id="Aba0" class="tab-pane active" role="tabpanel">
+								<div class="row">
+									<div class="col-md-6">
+										<button class="btn btn-add btn-success btn-sm" title="Adiciona uma nova movimentação" ng-click="openMovimentacao();">Movimentação</button>
+									</div>
+									<div class="col-md-6 text-right">
+										<small class="text-muted">Atualizado em 13/06/2018 14:48</small>
+										<div class="btn-group">
+											<button class="btn btn-default btn-sm" title="Verifica se há novas informações no cartório"><i class="material-icons">refresh</i> Sincronizar com cartório</button>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="row">
+											<div class="col-md-12">
+												<ul class="filtrar-por">
+													<li class="active"><a href="">Últimas (3)</a></li>
+													<li><a href="">Com pendências (10)</a></li>
+													<li><a href="">Todas (25)</a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="bth-historico scrollBar" style="max-height: 370px; overflow-y: auto">
+											<div class="row bth-historico-item">
+												<div class="col-md-2 bth-historico-data">
+													Hoje
+													<small class="text-muted">16:57:37 - 2017</small>
+												</div>
+												<div class="col-md-10 bth-historico-icon">
+													<div class="row">
+														<div class="col-md-1">
+															<span class="badge" title="Código da movimentação">12345</span>
+														</div>
+														<div class="col-md-6">
+															Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+
+														</div>
+														<div class="col-md-3">
+															<span class="label label-default">Petição</span>
+															<span class="label label-default">Ativo</span>
+														</div>
+														<div class="col-md-2 bth-historico-acoes">
+															<a href="" data-ng-click="open()" title="Editar"><i class="fa fa-pencil fa-fw"></i></a>
+															<a href="" title="Excluir"><i class="fa fa-trash-o fa-fw"></i></a>
+															<a href="" ng-click="openAnexo();" title="Anexos"><i class="fa fa-paperclip fa-fw"></i></a>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="row bth-historico-item">
+												<div class="col-md-2 bth-historico-data">
+													Hoje
+													<small class="text-muted">16:47:00 - 2017</small>
+												</div>
+												<div class="col-md-10 bth-historico-icon">
+													<div class="row">
+														<div class="col-md-1">
+															<span class="badge" title="Código da movimentação">12345</span>
+														</div>
+														<div class="col-md-6">
+															Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+
+														</div>
+														<div class="col-md-3">
+															<span class="label label-default">Petição</span>
+															<span class="label label-default">A ajuizar</span>
+														</div>
+														<div class="col-md-2 bth-historico-acoes">
+															<a href="" data-ng-click="open()" title="Editar"><i class="fa fa-pencil fa-fw"></i></a>
+															<a href="" title="Excluir"><i class="fa fa-trash-o fa-fw"></i></a>
+															<a href="" ng-click="openAnexo();" title="Anexos"><i class="fa fa-paperclip fa-fw"></i></a>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="row bth-historico-item">
+												<div class="col-md-2 bth-historico-data">
+													30/11
+													<small class="text-muted">16:57:37 - 2017</small>
+												</div>
+												<div class="col-md-10 bth-historico-icon">
+													<div class="row">
+														<div class="col-md-1">
+															<span class="badge" title="Código da movimentação">12345</span>
+														</div>
+														<div class="col-md-6">
+															Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+
+														</div>
+														<div class="col-md-3">
+															<span class="label label-default">Petição</span>
+															<span class="label label-default">A ajuizar</span>
+														</div>
+														<div class="col-md-2 bth-historico-acoes">
+															<a href="" data-ng-click="open()" title="Editar"><i class="fa fa-pencil fa-fw"></i></a>
+															<a href="" title="Excluir"><i class="fa fa-trash-o fa-fw"></i></a>
+															<a href="" ng-click="openAnexo();" title="Anexos"><i class="fa fa-paperclip fa-fw"></i></a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Agenda -->
+							<div id="agenda" class="tab-pane" role="tabpanel" ng-controller="AgendaCtrl">
+								<ul role="tablist" class="nav nav-tabs">
+									<li role="presentation" class="active">
+										<a data-toggle="tab" role="tab" href="#compromissos" target="_self"><i class="fa fa-fw fa-calendar"></i> Compromissos</a>
+									</li>
+									<li role="presentation">
+										<a data-toggle="tab" role="tab" href="#tarefas" target="_self"><i class="fa fa-fw fa-tasks"></i> Tarefas</a>
+									</li>
+								</ul>
+								<div class="tab-content">
+									<div id="compromissos" class="tab-pane active" role="tabpanel">
+										<div class="row">
+											<div class="col-md-12">
+												<button type="button" id="agendar" class="btn btn-success btn-sm btn-add" ng-click="adicionar({tipo:'COMPROMISSO'})" title="Adiciona um novo compromisso para sua agenda">Compromisso</button>
+											</div>
+										</div>
+										<div ng-include="'common/agenda/agenda-eventos.html'"></div>
+									</div>
+									<div id="tarefas" class="tab-pane" role="tabpanel" ng-init="tabPendente = true">
+										<div class="row">
+											<div class="col-md-12">
+												<button type="button" class="btn btn-success btn-sm btn-add" ng-click="adicionar({tipo:'TAREFA', source:'PROCESSO'})" title="Adiciona uma nova tarefa">Tarefa</button>
+											</div>
+										</div>
+										<div ng-include="'agenda/tarefa/tarefa-lista.html'"></div>
+									</div>
+								</div>
+							</div>
+							<!-- Dívidas ativas -->
+							<div id="Aba1" class="tab-pane" role="tabpanel">
+								<!-- <div class="row">
+									<div class="col-md-12">
+										<button class="btn btn-sm btn-primary" ng-click="openDividas()" title="Seleciona uma nova dívida">
+											Selecionar dívidas
+										</button>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 text-center">
+										<i class="fa fa-dollar fa-5x text-gray5"></i>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 text-center">
+										<strong class="text-muted">Nenhum dado informado</strong>
+									</div>
+								</div>
+								<div class="row bottom">
+									<div class="col-md-12 text-center">
+										<p>
+											<span class="text-muted">
+												Permite vincular as dívidas ativas do executado ao processo de execução fiscal
+											</span>
+										</p>
+									</div>
+								</div> -->
+								<!-- Primeiro nível -->
+								<table class="table table-unstriped table-unfixed">
+									<!-- Primeiro nível > Cabeçalho -->
+									<!-- <thead>
+										<tr>
+											<th></th>
+											<th>
+												<a href="">
+													Crédito tributário
+													<i class="material-icons">arrow_upward</i>
+												</a>
+											</th>
+											<th>
+												<a href="">
+													Qtd. dívidas
+													<i class="material-icons">arrow_upward</i>
+												</a>
+											</th>
+											<th>
+												<a href="">
+													Total de dívidas
+													<i class="material-icons">arrow_upward</i>
+												</a>
+											</th>
+										</tr>
+									</thead> -->
+									<!-- Primeiro nível > Corpo -->
+									<tbody>
+										<!-- Primeiro nível > Cabeçalho do agrupamento -->
+										<tr ng-repeat-start="c in cda track by $index" ng-class="{'opened': item.collapsed}">
+											<td class="col-fit col-arrow">
+												<button class="btn btn-link btn-sm" ng-click="item.collapsed = !item.collapsed">
+													<i class="material-icons">keyboard_arrow_down</i>
+												</button>
+											</td>
+											<td>
+												{{c.credito}}
+											</td>
+											<td>
+												{{c.registrosAno.length}} dívida(s)
+											</td>
+											<td class="col-fit">
+												{{c.valor}}
+											</td>
+										</tr>
+										<!-- Primeiro nível > Corpo do agrupamento -->
+										<tr ng-repeat-end class="indentation">
+											<td colspan="4" ng-class="{'collapsed': !item.collapsed}">
+												<div uib-collapse="!item.collapsed">
+													<!-- Segundo nível -->
+													<table class="table table-unstriped table-unfixed">
+														<!-- Segundo nível > Cabeçalho -->
+														<!-- <thead>
+															<tr>
+																<th></th>
+																<th>
+																	<a href="#">
+																		Ano
+																		<i class="material-icons">arrow_upward</i>
+																	</a>
+																</th>
+																<th>
+																	<a href="#">
+																		Qtd. dívidas
+																		<i class="material-icons">arrow_upward</i>
+																	</a>
+																</th>
+																<th>
+																	<a href="#">
+																		Total de dívidas
+																		<i class="material-icons">arrow_upward</i>
+																	</a>
+																</th>
+															</tr>
+														</thead> -->
+														<!-- Segundo nível > Corpo -->
+														<tbody>
+															<!-- Segundo nível > Cabeçalho do agrupamento -->
+															<tr ng-repeat-start="registroAno in c.registrosAno" ng-class="{'opened': subitem.subCollapsed}">
+																<td class="col-fit col-arrow">
+																	<button class="btn btn-link btn-sm" ng-click="subitem.subCollapsed = !subitem.subCollapsed">
+																		<i class="material-icons">keyboard_arrow_down</i>
+																	</button>
+																</td>
+																<td class="col-25">
+																	<!-- Segundo nível > Célula com avatar e informação complementar -->
+																	<span>{{registroAno.ano}}</span>
+																</td>
+																<td>{{registroAno.registros.length}} dívida(s)</td>
+																<td class="col-fit">{{c.valor}}</td>
+															</tr>
+															<!-- Segundo nível > Corpo do agrupamento -->
+															<tr ng-repeat-end class="no-indentation">
+																<td colspan="6" ng-class="{'collapsed': !subitem.subCollapsed}">
+																	<div uib-collapse="!subitem.subCollapsed">
+																		<!-- Terceiro nível -->
+																		<table class="table table-unfixed">
+																			<!-- Terceiro nível > Cabeçalho -->
+																			<thead>
+																				<tr>
+																					<th></th>
+																					<th class="col-25">
+																						<a href="">
+																							Data da inscrição
+																							<i class="material-icons">arrow_upward</i>
+																						</a>
+																					</th>
+																					<th>
+																						<a href="">
+																							Nº da dívida
+																							<i class="material-icons">arrow_upward</i>
+																						</a>
+																					</th>
+																					<th>
+																						<a href="">
+																							Referente
+																							<i class="material-icons">arrow_upward</i>
+																						</a>
+																					</th>
+																					<th>
+																						<a href="">
+																							Parcela
+																							<i class="material-icons">arrow_upward</i>
+																						</a>
+																					</th>
+																					<th>
+																						<a href="">
+																							Total
+																							<i class="material-icons">arrow_upward</i>
+																						</a>
+																					</th>
+																					<th></th>
+																				</tr>
+																			</thead>
+																			<!-- Terceiro nível > Corpo -->
+																			<tbody>
+																				<tr ng-repeat="registro in registroAno.registros track by $index">
+																					<td></td>
+																					<td>{{registro.dtInscricao}}</td>
+																					<td><span class="badge">{{registro.numInscricao}}</span></td>
+																					<td><a href="">{{registro.ref}}</a></td>
+																					<td>{{registro.parcela}}</td>
+																					<td>{{registro.valor}}</td>
+																					<td class="col-fit">
+																						<a href="" title="Editar">
+																							<i class="fa fa-fw fa-pencil"></i>
+																						</a>
+																						<a href="" title="Excluir">
+																							<i class="fa fa-fw fa-trash-o"></i>
+																						</a>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																		<!-- Terceiro nível > Paginação -->
+																		<!-- <div class="row">
+																			<div class="col-md-6">
+																				<form class="form-inline">
+																					<small>
+																						1-20 de 100
+																					</small>
+																				</form>
+																			</div>
+																			<div class="col-md-6">
+																				<div class="pull-right">
+																					<button class="btn btn-default btn-xs disabled">
+																						<i class="fa fa-angle-left"></i> Anterior</button>
+																					<button class="btn btn-default btn-xs active">1</button>
+																					<button class="btn btn-default btn-xs">2</button>
+																					<button class="btn btn-default btn-xs">3</button>
+																					<button class="btn btn-default btn-xs">4</button>
+																					<button class="btn btn-default btn-xs">Próxima
+																						<i class="fa fa-angle-right"></i>
+																					</button>
+																				</div>
+																			</div>
+																		</div> -->
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+													<!-- Segundo nível > Paginação -->
+													<!-- <div class="row">
+														<div class="col-md-6">
+															<form class="form-inline">
+																<small>
+																	1-20 de 100
+																</small>
+															</form>
+														</div>
+														<div class="col-md-6">
+															<div class="pull-right">
+																<button class="btn btn-default btn-xs disabled">
+																	<i class="fa fa-angle-left"></i> Anterior</button>
+																<button class="btn btn-default btn-xs active">1</button>
+																<button class="btn btn-default btn-xs">2</button>
+																<button class="btn btn-default btn-xs">3</button>
+																<button class="btn btn-default btn-xs">4</button>
+																<button class="btn btn-default btn-xs">Próxima
+																	<i class="fa fa-angle-right"></i>
+																</button>
+															</div>
+														</div>
+													</div> -->
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- Documentação -->
+							<div id="Aba2" class="tab-pane" role="tabpanel">
+								<div class="row">
+									<div class="col-md-12">
+										<ul role="tablist" class="nav nav-subtabs">
+											<li role="presentation" class="active">
+												<a data-toggle="tab" role="tab" href="#Documentos" target="_self">Documentos</a>
+											</li>
+											<li role="presentation">
+												<a data-toggle="tab" role="tab" href="#Anexos" target="_self">Anexos</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="tab-content">
+									<div id="Documentos" class="tab-pane active" role="tabpanel">
+										<div class="row">
+											<div class="col-md-3">
+												<div class="panel panel-default">
+													<div class="list-group">
+														<a href="" class="list-group-item" ng-repeat="item in documentosProtestos.itens" ng-click="setDoc(item.id)" ng-class="doctSelect == item.id ? 'active' : ''">
+															{{item.descricao}}
+															<span class="badge badge-danger" ng-if="(documentos | filter: {tipo: item.id, erro: true}).length > 0" title="Existem documentos Não integrados">{{ (documentos | filter: {tipo: item.id, erro: true}).length }}</span>
+														</a>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-9" ng-controller="GerenciadorDocumentosCtrl">
+												<div ng-include="'gerenciador-documentos/processos/documentos-processos.html'"></div>
+											</div>
+										</div>
+									</div>
+									<div id="Anexos" class="tab-pane" role="tabpanel">
+										<div class="row">
+											<div class="col-md-12">
+												<bth-attach></bth-attach>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

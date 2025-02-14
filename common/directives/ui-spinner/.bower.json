@@ -1,0 +1,32 @@
+{
+  "name": "ui-spinner",
+  "version": "0.1.12",
+  "license": "MIT",
+  "private": true,
+  "main": "dist/ui-spinner.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "nbproject",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular-mocks": "~1.4",
+    "angular": "~1.4",
+    "jquery": "~2.1"
+  },
+  "dependencies": {
+    "ui-components": "http://gitlab.dev.bethacloud.com.br/arrecadacao/ui-components.git"
+  },
+  "_release": "0.1.12",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.12",
+    "commit": "6c00758fbda62fa547046188ead050d7484c114d"
+  },
+  "_source": "http://gitlab.dev.bethacloud.com.br/arrecadacao/ui-spinner.git",
+  "_target": "*",
+  "_originalSource": "http://gitlab.dev.bethacloud.com.br/arrecadacao/ui-spinner.git"
+}

@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-unstriped table-unbordered">
+            <thead>
+                <th width="85"></th>
+                <th><span>Banco</span></th>
+                <th><span>Agência</span></th>
+                <th><span>Conta</span></th>
+                <th width="44"></th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cb in contaBancaria">
+                    <td>
+                        <span class="label label-info center-block" ng-show="$index < 1">Principal</span>
+                    </td>
+                    <td>
+                        {{cb.banco}}
+                    </td>
+                    <td>
+                        {{cb.agencia}}
+                    </td>
+                    <td>
+                        {{cb.conta}}
+                    </td>
+                    <td class="text-center">
+                        <a href title="Editar" ng-click="adicionarContaBancaria()">
+                            <i class="fa fa-pencil fa-fw"></i>
+                        </a>
+                        <a href title="Excluir">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,219 @@
+<div class="container container-page">
+	<div class="page-header">
+		<div class="row">
+			<div class="col-md-8">
+				<h1 class="page-title">Fiscais</h1>
+			</div>
+			<div class="col-md-4">
+				<ol class="breadcrumb">
+					<li>Administrando</li>
+					<li>Pessoas</li>
+					<li>Fiscais</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="btn-group">
+					<button type="button" class="btn btn-success btn-sm btn-add" data-ng-click="open()" title="Adiciona um novo fiscal">Fiscal</button>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="pull-right">
+					<form class="form-inline">
+						<!-- <button class="btn btn-sm btn-danger" title="Excluir selecionado(s)">Excluir</button> -->
+						<div class="btn-group">
+
+							<!-- Colunas a exibir -->
+
+							<div class="btn-group">
+								<button id="dropdownColunas" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Definir colunas a exibir">
+									<i class="fa fa-columns"></i> 
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li class="dropdown-header">Colunas a exibir</li>
+									<div class="dropdown-menu-checkbox">
+										<div class="bth-checkbox">
+											<input id="coluna2" type="checkbox" ng-model="coluna2IsVisible">
+											<label for="coluna2">Contribuinte</label>
+										</div>
+									</div>
+									<div class="dropdown-menu-checkbox">
+										<div class="bth-checkbox">
+											<input id="coluna4" type="checkbox" ng-model="coluna4IsVisible">
+											<label for="coluna4">CPF</label>
+										</div>
+									</div>
+
+								</ul>
+							</div>
+
+							<!-- Altura das linhas -->
+
+							<div class="btn-group">
+								<button id="dropdownAltura" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Definir altura das linhas">
+									<i class="fa fa-reorder"></i> 
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownAltura">
+									<li class="dropdown-header">Altura das linhas</li>
+									<li><a href="" ng-click="setLineHeight('1')" class="btn-check" ng-class="{'active' : lineHeight == 1}">Padrão</a></li>
+									<li><a href="" ng-click="setLineHeight('2')" class="btn-check" ng-class="{'active' : lineHeight == 2}">Condensada</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="btn-group">
+							<button id="dropdownExportar" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Fazer download">
+								<i class="fa fa-download"></i>
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" keep-open>
+								<li class="dropdown-header">Formato do arquivo</li>
+								<li><a href="">PDF</a></li>
+								<li><a href="">CSV</a></li>
+								<li><a href="">Excel</a></li>
+							</ul>
+						</div>
+						
+						<button type="button" class="btn btn-default btn-sm" title="Atualizar">
+							<i class="fa fa-refresh"></i>
+						</button>
+
+						<!-- Pesquisa inline -->
+						<div class="input-group">
+							<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+
+							<!-- Pesquisa avançada -->
+
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+								<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+
+								<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
+									<li class="dropdown-header">
+										<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+										<h1>Pesquisa avançada</h1>
+									</li>
+									<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+									<li>
+										<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true">
+											<option value="1">Contribuinte</option>
+											<option value="4">CPF</option>
+										</select>
+									</li>
+									<li class="dropdown-header">Utilizando como critério</li>
+									<li>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdAlguns">Alguns dos termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdTodos">Todos os termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdNenhum">Nenhum dos termos digitados</label>
+										</div>
+									</li>
+									<li class="dropdown-footer pull-right">
+										<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- Utilizar quando não houverem registros cadastrados ainda -->
+
+		<!-- <div class="row">
+			<div class="col-md-12">
+				<div class="col-md-12 text-center">
+					<h4>Ainda não há gráficas por aqui</h4>
+				</div>
+			</div>
+		</div> -->
+
+		<!-- Utilizar quando a busca não retornar resultados -->
+
+		<!-- <div class="row">
+			<div class="col-md-12 text-center">
+				<h4>Nenhum resultado encontrado para o(s) filtro(s) utilizado(s)</h4>
+			</div>
+		</div> -->
+
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table" ng-class="{'table-condensed' : lineHeight == 2}">
+					<thead>
+						<tr>
+							<th>
+								<a href="">Contribuinte</a>
+								<i class="icon-sort pull-right"></i>
+							</th>
+							<th width="180">
+								<a href=""><abbr title="Cadastro de Pessoas Físicas">CPF</abbr></a>
+								<i class="icon-sort pull-right"></i>
+							</th>
+							<th width="100">
+								Situação
+							</th>
+							<th width="65">
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Jõao Silva</td>
+							<td>000.000.000-00</td>
+							<td><span class="label label-success center-block">Ativado</span></td>
+							<td class="text-center">
+								<a href ng-click="open(true, false)" title="Editar"> <i class="fa fa-fw fa-pencil"></i></a>
+								<a href title="Excluir"><i class="fa fa-fw fa-trash-o"></i></a>
+							</td>
+						</tr>
+						<tr>
+							<td>Maria Souza</td>
+							<td>000.000.000-00</td>
+							<td><span class="label label-danger center-block">Desativado</span></td>
+							<td class="text-center">
+								<a href ng-click="open(true, true)" title="Editar"> <i class="fa fa-fw fa-pencil"></i></a>
+								<a href title="Excluir"><i class="fa fa-fw fa-trash-o"></i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<form class="form-inline">
+					1-20 de 126
+					<select class="form-control input-sm" ng-model="numberOfResults">
+						<option value="20">20</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+					</select>
+					resultados por página
+				</form>
+			</div>
+			<div class="col-md-6">
+				<div class="pull-right">
+					<button class="btn btn-default btn-sm disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+					<button class="btn btn-default btn-sm active">1</button>
+					<button class="btn btn-default btn-sm">2</button>
+					<button class="btn btn-default btn-sm">3</button>
+					<button class="btn btn-default btn-sm">4</button>
+					<button class="btn btn-default btn-sm">Próxima <i class="fa fa-angle-right"></i></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

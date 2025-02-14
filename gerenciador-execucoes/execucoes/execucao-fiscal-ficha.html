@@ -1,0 +1,893 @@
+<div class="container container-fluid">
+	<div class="page-header">
+			<div class="row bottom">
+				<div class="col-md-7">
+					<h1 class="page-title">
+						<button type="button" class="btn btn-link" title="Voltar para a lista de execuções fiscais" data-ui-sref="main.gerenciadorExecucoes.execucoes">
+							<i class="fa fa-arrow-left fa-fw text-muted"></i> Voltar
+						</button>
+					</h1>
+				</div>
+				<div class="col-md-5">
+					<ol class="breadcrumb">
+						<li><a data-ui-sref="main.gerenciadorExecucoes">Execuções</a></li>
+						<li>Visualizando execução fiscal</li>
+					</ol>                
+				</div>
+			</div>
+		</div>
+		<div class="section-content">
+			<div class="row row-flex">
+				<div class="col-md-4">
+					<div class="bth-card bth-card--depth-1">
+						<div class="bth-card__header">
+							<div class="row bottom">
+								<div class="col-md-9">
+									<h4 class="bth-card__title">
+										<i class="fa fa-file-text-o fa-fw text-muted"></i>
+										Execução fiscal {{processo.id}}
+									</h4> 
+								</div>
+								<div class="col-md-3 text-right">
+									<button class="btn btn-xs btn-default" title="Editar dados do processo" data-ng-click="openDadosExecucao()">
+										<i class="fa fa-pencil fa-fw"></i>
+										Editar
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="bth-card__body">
+							<div class="row"> 
+								<div class="col-md-6">   
+									<label>Processo</label><br>
+									<span>{{processo.numProcesso}} <span class="badge badge-default" ng-if="processo.apensado" bf-tooltip="Apensado na execução {{processo.apensado}}">Apenso</span></span>
+								</div> 
+								<div class="col-md-6">
+									<label>Situação</label><br>
+									<span>
+										<label class="label" title="Situação" ng-class="{'label-success': processo.situacao == 'Encerrada', 
+											'label-default': processo.situacao == 'A ajuizar', 
+											'label-warning': processo.situacao == 'Suspensa',
+											'label-danger': processo.situacao == 'Cancelada',
+											'label-info': processo.situacao == 'Em tramitação'}">
+											{{processo.situacao}}
+										</label>
+									</span>
+								</div> 
+							</div>
+							<div class="row">         
+								<div class="col-md-6">
+									<label>Data</label><br>
+									<span>01/01/2017</span>
+								</div>
+								<div class="col-md-6">
+									<label>Procedimento</label><br>
+									<span>Sumaríssimo</span>
+								</div>
+							</div>
+							<div class="row">    
+								<div class="col-md-6">
+									<label>Honorários (R$)</label><br>
+									<span>{{processo.honorarios | currency}}</span>
+								</div>                            
+									<div class="col-md-6">
+									<label>Valor da causa (R$)</label><br>
+									<span>{{processo.valorCausa | currency}}</span>
+								</div> 
+							</div>  
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="bth-card bth-card--depth-1">      
+						<div class="bth-card__header">
+							<div class="row bottom">
+								<div class="col-md-9">
+									<h4 class="bth-card__title">
+										<i class="fa fa-university fa-fw text-muted"></i>
+										Local de tramitação
+									</h4> 
+								</div>
+								<div class="col-md-3 text-right">
+									<button class="btn btn-xs btn-default" title="Editar local de tramitação" ng-click="openLocalTramitacao()">
+										<i class="fa fa-pencil fa-fw"></i>
+										Editar
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="bth-card__body">
+							<div class="row">
+								<div class="col-md-12">
+									<label>Tribunal</label><br>
+									<span>
+										{{processo.tribunal}}
+									</span> 
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<label>Comarca</label><br>
+									<span>
+										{{processo.comarca}}
+									</span> 
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<label>Vara</label><br>
+									<span>
+										{{processo.vara}}
+									</span> 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="bth-card bth-card--depth-1">      
+						<div class="bth-card__header">
+							<div class="row bottom">
+								<div class="col-md-9">
+									<h4 class="bth-card__title">
+										<i class="fa fa-info-circle fa-fw text-muted"></i>
+										Informações gerais
+									</h4> 
+								</div>
+								<div class="col-md-3 text-right">
+									<button class="btn btn-xs btn-default" title="Editar informações gerais" ng-click="openInformacoesGerais()">
+										<i class="fa fa-pencil fa-fw"></i>
+										Editar
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="bth-card__body">
+							<div class="row">
+								<div class="col-md-12">
+									<label>Área</label><br>
+									<span>
+										{{processo.area}}
+									</span> 
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<label>Classe</label><br>
+									<span>
+										{{processo.classe}}
+									</span> 
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<label>Assunto</label><br>
+									<span>
+										{{processo.assunto}}
+									</span> 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="bth-card bth-card--depth-1">
+						<div class="bth-card__header">
+							<div class="row bottom">
+								<div class="col-md-9">
+									<h4 class="bth-card__title">
+										<i class="fa fa-users fa-fw text-muted"></i>
+										Partes
+									</h4> 
+								</div>
+								<div class="col-md-3 text-right">
+									<button class="btn btn-xs btn-default" data-ng-click="openParte()" title="Editar partes do processo">
+										<i class="fa fa-pencil fa-fw"></i>
+										Editar
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="bth-card__body">
+							<div class="row bottom"> 
+								<div class="col-md-2">   
+									<label>Executado</label><br>
+									<span title="Nome">{{processo.executado}}</span>
+									<small title="CPF">(000.000.000-00)</small>
+								</div>               
+								<div class="col-md-3">
+									<label>Exequente</label><br>
+									<span title="Nome">{{processo.exequente}}</span>
+									<small title="CPF">(000.000.000-00)</small>
+								</div>
+								<div class="col-md-3">
+									<label>Procurador</label><br>
+									<span title="Nome">{{processo.procurador}}</span>
+									<small title="CPF">(000.000.000-00)</small>
+										
+								</div>
+								<div class="col-md-2">
+									<label>Grupo de trabalho</label><br>
+									<span> Grupo de Trabalho 01</span>
+											
+								</div>
+								
+								<div class="col-md-2 text-right">  
+									<small><a href="" data-ng-click="groupOpen=!groupOpen">{{groupOpen ? 'Menos informações':'Mais informações'}}</a></small>                                
+								</div>  
+							</div> 
+							<div uib-collapse="!groupOpen">
+								<hr>
+								<div class="row bottom">
+									
+									<div class="col-md-6">
+										<div class="header-list-item-flex">
+											<div class="col-md-10">
+												<label>Nome</label>
+											</div>
+											<div class="col-md-2">
+												<label>Tipo</label>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="list-item-flex" ng-repeat="p in partes" ng-show="$index >2">
+											<div class="item-content-flex">
+												<div class="row bottom">
+													<div class="col-md-10">
+														{{p.nome}} <small> ({{p.cpf}})</small>
+													</div>
+													<div class="col-md-2">
+														<span class="label center-block"
+														ng-class="p.tipo == 'Advogado' ?'label-default' : 'label-info'">{{p.tipo}}</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div> 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="bth-card bth-card--depth-1">
+						<div class="bth-card__body">
+							<ul role="tablist" class="nav nav-tabs nav-atend">
+								<li role="presentation" class="active">
+									<a data-toggle="tab" role="tab" href="#Aba0" target="_self">
+										<ul class="list-tabs-value">
+											<li>
+												<span class="fa-stack fa-lg">
+													<i class="fa fa-circle fa-stack-2x tx__gray--d10"></i>
+													<i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
+												</span>
+											</li>
+											<li>
+												<h5 class="bottom mTop40">Movimentações</h5>
+											</li>
+										</ul> 
+									</a>
+								</li>
+								<li role="presentation">
+									<a data-toggle="tab" role="tab" href="#Aba7" target="_self">
+										<ul class="list-tabs-value">
+											<li>
+												<span class="fa-stack fa-lg">
+													<i class="fa fa-circle fa-stack-2x tx__blue"></i>
+													<i class="fa fa-tasks fa-stack-1x fa-inverse"></i>
+												</span>
+											</li>
+											<li>
+												<h5 class="bottom mTop40">Tarefas <span class="badge" title="3 pendentes">3</span></h5>
+											</li>
+										</ul> 
+									</a>
+								</li>
+								<li role="presentation">
+									<a data-toggle="tab" role="tab" href="#Aba1" target="_self">
+										<ul class="list-tabs-value">
+											<li>
+												<span class="fa-stack fa-lg">
+													<i class="fa fa-circle fa-stack-2x tx__green--d10"></i>
+													<i class="fa fa-dollar fa-stack-1x fa-inverse"></i>
+												</span>
+											</li>
+											<li>
+												<h5 class="bottom top">Dívidas ativas</h5>
+												<h5 class="bottom top tx__green--d10" title="Total em dívidas ativas">R$ 2.621,00</h5>
+											</li>
+										</ul> 
+									</a>
+								</li>
+								<!-- <li role="presentation">
+									<a data-toggle="tab" role="tab" href="#Aba2" target="_self">
+										<ul class="list-tabs-value">
+											<li>
+												<span class="fa-stack fa-lg">
+													<i class="fa fa-circle fa-stack-2x tx__red--d10"></i>
+													<i class="fa fa-money fa-stack-1x fa-inverse"></i>
+												</span>
+											</li>
+											<li>
+												<h5 class="bottom top">Custas</h5>
+												<h5 class="bottom top tx__red--d10" title="Total em dívidas ativas">R$ 2.621,00</h5>
+											</li>
+										</ul> 
+									</a>
+								</li> -->
+								<li role="presentation">
+									<a data-toggle="tab" role="tab" href="#Aba3" target="_self">
+										<ul class="list-tabs-value">
+											<li>
+												<span class="fa-stack fa-lg">
+													<i class="fa fa-circle fa-stack-2x tx__blue--d10"></i>
+													<i class="fa fa-link fa-stack-1x fa-inverse"></i>
+												</span>
+											</li>
+											<li>
+												<h5 class="bottom mTop40">Apensamentos <span class="badge">{{processo.apensamentos.length}}</span> </h5>
+											</li>
+										</ul> 
+									</a>
+								</li>
+								<li role="presentation">
+									<a data-toggle="tab" role="tab" href="#Aba5" target="_self">
+										<ul class="list-tabs-value">
+											<li>
+												<span class="fa-stack fa-lg">
+													<i class="fa fa-circle fa-stack-2x tx__orange--d10"></i>
+													<i class="fa fa-paperclip fa-stack-1x fa-inverse"></i>
+												</span>
+											</li>
+											<li>
+												<h5 class="bottom mTop40">Documentação</h5>
+											</li>
+										</ul> 
+									</a>
+								</li>
+								<li role="presentation">
+									<a data-toggle="tab" role="tab" href="#Aba6" target="_self">
+										<ul class="list-tabs-value">
+											<li>
+												<span class="fa-stack fa-lg">
+													<i class="fa fa-circle fa-stack-2x tx__pink--d10"></i>
+													<i class="fa fa-tags fa-stack-1x fa-inverse"></i>
+												</span>
+											</li>
+											<li>
+												<h5 class="bottom mTop40">Inf. adicionais</h5>
+											</li>
+										</ul> 
+									</a>
+								</li>
+							</ul>
+							<div class="tab-content">
+								<!-- Movimentação -->
+								<div id="Aba0" class="tab-pane active" role="tabpanel">
+									<div class="row">
+										<div class="col-md-12">
+											<button class="btn btn-add btn-success btn-sm" title="Adiciona uma nova movimentação" ng-click="openMovimentacao();">Movimentação</button>
+										</div>
+									</div>
+									<div class="row">                            
+										<div class="col-md-12">
+											<div class="row">
+												<div class="col-md-12">
+													<ul class="filtrar-por">
+														<li class="active"><a href="">Últimas (3)</a></li>
+														<li><a href="">Com pendências (10)</a></li>
+														<li><a href="">Todas (25)</a></li>
+													</ul>
+												</div>
+											</div>
+											<div class="bth-historico scrollBar" style="max-height: 370px; overflow-y: auto">                              
+												<div class="row bth-historico-item">
+													<div class="col-md-2 bth-historico-data">
+														Hoje
+														<small class="text-muted">16:57:37 - 2017</small>
+													</div>
+											
+													<div class="col-md-10 bth-historico-icon">
+														<div class="row">
+															<div class="col-md-1">
+																<span class="badge" title="Código da movimentação">12345</span>
+															</div>
+															<div class="col-md-6">
+																Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+																
+															</div>
+															<div class="col-md-3">
+																<span class="label label-default">Petição</span>
+																<span class="label label-default">Ativo</span>
+															</div>
+															<div class="col-md-2 bth-historico-acoes">                                                        
+																<i class="fa fa-user fa-fw tx__gray--d10" title="Por: ramon.viquetti"></i>
+																<a href="" data-ng-click="open()" title="Editar"><i class="fa fa-pencil fa-fw"></i></a>
+																<a href="" title="Excluir"><i class="fa fa-trash-o fa-fw"></i></a>  
+																<a href="" ng-click="openAnexo();" title="Anexos"><i class="fa fa-paperclip fa-fw"></i></a>                                             
+															</div>
+														</div>
+													</div>
+												</div>
+											
+												<div class="row bth-historico-item">
+													<div class="col-md-2 bth-historico-data">
+														Hoje
+														<small class="text-muted">16:47:00 - 2017</small>
+													</div>
+											
+													<div class="col-md-10 bth-historico-icon">
+														<div class="row">
+															<div class="col-md-1">
+																<span class="badge" title="Código da movimentação">12345</span>
+															</div>
+															<div class="col-md-6">
+																Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+																
+															</div>
+															<div class="col-md-3">
+																<span class="label label-default">Petição</span>
+																<span class="label label-default">A ajuizar</span>
+															</div>
+															<div class="col-md-2 bth-historico-acoes">                                                        
+																<i class="fa fa-user fa-fw tx__gray--d10" title="Por: ramon.viquetti"></i>
+																<a href="" data-ng-click="open()" title="Editar"><i class="fa fa-pencil fa-fw"></i></a>
+																<a href="" title="Excluir"><i class="fa fa-trash-o fa-fw"></i></a>  
+																<a href="" ng-click="openAnexo();" title="Anexos"><i class="fa fa-paperclip fa-fw"></i></a>                                             
+															</div>
+														</div>
+													</div>
+												</div>
+											
+												<div class="row bth-historico-item">
+													<div class="col-md-2 bth-historico-data">
+														30/11
+														<small class="text-muted">16:57:37 - 2017</small>
+													</div>
+											
+													<div class="col-md-10 bth-historico-icon">
+														<div class="row">
+															<div class="col-md-1">
+																<span class="badge" title="Código da movimentação">12345</span>
+															</div>
+															<div class="col-md-6">
+																Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+																
+															</div>
+															<div class="col-md-3">
+																<span class="label label-default">Petição</span>
+																<span class="label label-default">A ajuizar</span>
+															</div>
+															<div class="col-md-2 bth-historico-acoes">
+																<i class="fa fa-user fa-fw tx__gray--d10" title="Por: ramon.viquetti"></i>
+																<a href="" data-ng-click="open()" title="Editar"><i class="fa fa-pencil fa-fw"></i></a>
+																<a href="" title="Excluir"><i class="fa fa-trash-o fa-fw"></i></a>                                                         
+																<a href="" ng-click="openAnexo();" title="Anexos"><i class="fa fa-paperclip fa-fw"></i></a>                                              
+															</div>
+														</div>
+													</div>
+												</div>
+											</div> 
+										</div>
+									</div> 
+								</div>
+								<!-- Agenda -->
+								<div id="Aba7" class="tab-pane" role="tabpanel" ng-controller="TarefasCtrl">
+									<div class="row">
+										<div class="col-md-6">
+											<button type="button" class="btn btn-add btn-success bth-block btn-sm" ng-click="adicionar({})" title="Adiciona uma nova tarefa">
+												Nova tarefa
+											</button>
+										</div>
+										<div class="col-md-6 text-right">
+											<div class="btn-group btn-group-sm" uib-dropdown dropdown-append-to-body>
+												<button type="button" class="btn btn-default" uib-dropdown-toggle>
+													Mais <span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+													<li><a href=""><i class="fa fa-fw fa-user"></i> Alterar responsáveis</a></li>
+													
+													<li ng-controller="ExecucaoFiscalCtrl"><a href="" ng-click="openEmitirPeticaoIntermediariaLote()"><i class="fa fa-fw fa-file-text-o"></i> Emitir petição intermediária</a></li>
+													<li ng-controller="ExecucaoFiscalCtrl"><a href="" ng-click="enviarTribunalLote()" ng-class="{'link-disabled': processo.situacao == 'Cancelada' || processo.situacao == 'Suspensa'  || processo.situacao == 'Encerrada'}" keep-open><i class="fa fa-fw fa-cloud-upload"></i> Enviar para o tribunal</a></li>
+													<li class="dropdown-submenu dropdown-submenu-right">
+														<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-circle"></i> Enviar itens para</a>
+														<ul class="dropdown-menu dropdown-menu-right">
+															<li ng-repeat="st in status"><a href=""><span class="bth-status" ng-class="st.color"> {{st.desc}}</span></a></li>
+														</ul>
+													</li>
+													<ul class="dropdown-menu dropdown-menu-right">
+														<li ng-repeat="st in status"><a href=""><span class="bth-status" ng-class="st.color"> {{st.desc}}</span></a></li>
+													</ul>
+													<li class="divider"></li>
+													<li><a href=""><i class="fa fa-fw fa-trash"></i> Excluir</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div ng-include="'gerenciador-tarefas/tarefas-table-situacao.html'"></div>
+								</div>
+								<!-- Dívidas ativas -->
+								<div id="Aba1" class="tab-pane" role="tabpanel">
+									<div class="row">
+										<div class="col-md-12">
+											<button class="btn btn-sm btn-add btn-success" ng-click="openDividas()" title="Adiciona uma nova dívida">
+												Dívida
+											</button>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="group-list" ng-repeat="c in cda track by $index">
+												<div class="group-heading" data-ng-class="{open:c.groupOpen}" data-ng-click="c.groupOpen=!c.groupOpen">
+													<div class="group-title">
+														<div class="row">
+															<div class="col-md-7">
+																<strong bf-tooltip="Crédito">
+																	{{c.credito}}
+																</strong>
+															</div>
+															<div class="col-md-2 text-right">
+																<small>
+																	8 dívidas
+																</small>
+															</div>
+															<div class="col-md-3 text-right">
+																<small>
+																	<strong bf-tooltip="Total da dívida">
+																		R$ {{c.valor}}
+																	</strong>
+																</small>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="group-list-itens" uib-collapse="!c.groupOpen" style="height: auto;">
+													<div class="group-list" ng-repeat="a in c.registrosAno">
+														<div class="group-heading" data-ng-class="{open:a.groupAnoOpen}" data-ng-click="a.groupAnoOpen=!a.groupAnoOpen">
+															<div class="group-title">
+																<div class="row">
+																	<div class="col-md-7">
+																		<strong bf-tooltip="Ano">
+																			{{a.ano}}
+																		</strong>
+																	</div>
+																	<div class="col-md-2 text-right">
+																		<small>
+																			{{a.registros.length}} dívidas
+																		</small>
+																	</div>
+																	<div class="col-md-3 text-right">
+																		<small>
+																			<strong bf-tooltip="Total da dívida">
+																				R$ {{c.valor}}
+																			</strong>
+																		</small>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="group-list-itens" uib-collapse="!a.groupAnoOpen" style="height: auto;">
+															<table class="table ellipsis">
+																<thead>
+																	<tr>
+																		<th ng-repeat="c in cols | filter:{active: true} track by $index" width="{{c.width}}" ng-class="c.class">
+																			<span>{{c.label}}</span>
+																		</th>
+																		<th width="31">
+																		</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr ng-repeat-start="divida in a.registros | filter:{situacao: filtro}">
+																		<td>
+																			<span class="badge badge-default show"><a href="" bf-popover="'gerenciador-dividas/dividas-ativas/dividas/popover-detalhes-inscicao.html'" class="popover-active" data-placement="right" bf-popover-size="med-popover">{{divida.numInscricao}}</a></span>
+																		</td>
+																		<td>
+																			<a href="" title="Visualizar cadastro">
+																				Imóvel {{divida.ref}}
+																			</a>
+																		</td>
+																		<td><cda divida="divida" /></td>
+																		<td><span class="badge badge-default show" ng-if="divida.protestada"><a href="" bf-popover="'gerenciador-dividas/dividas-ativas/dividas/popover-detalhes-protesto.html'" class="popover-active" data-placement="bottom" bf-popover-size="med-popover">1234 / 2020</a> <i class="fa fa-fw fa-check-circle-o text-greenA7" bf-tooltip="Assinado digitalmente" ng-if="divida.assinado"></i></span></td>
+																		<td>{{divida.dtVencimento}}</td>
+																		<td class="text-right"><a href="" bf-popover="'gerenciador-dividas/dividas-ativas/dividas/popover-detalhes-valor.html'" class="popover-active" data-placement="left" bf-popover-size="popover-xs">{{divida.valor | currency}}</a></td>
+																		<td>
+																			<span class="badge center-block pointer" ng-class="	divida.situacao == 'Aberta' ? 'badge-primary' :
+																														divida.situacao == 'Paga' ? 'badge-success' :
+																														divida.situacao == 'Parcelada' ? 'badge-default' : ''" bf-popover="'gerenciador-execucoes/execucoes/popover-detalhes-parcelamento.html'" class="popover-active" data-placement="left" bf-popover-size="med-popover">
+																				{{divida.situacao}}
+																				<a href="" ng-if="divida.situacao == 'Parcelada'"><i class="fa fa-fw fa-info-circle"></i></a>
+																			</span> 
+																		</td>                                            
+																		<td class="text-center">
+																			<a href="">
+																				<i class="fa fa-fw fa-trash-o"></i>
+																			</a>
+																		</td>
+																	</tr>
+																	<tr ng-repeat-end ng-if="divida.open">
+																		<td colspan="3">
+																			<div>
+																				<label for="">Livro</label> 1010
+																			</div>
+																			<div>
+																				<label for="">Folha</label> 20
+																			</div>
+																			<div>
+																				<label for="">Posição</label> 30
+																			</div>
+																			<div>
+																				<label for="">Inscrição</label> 90
+																			</div>
+																		</td>
+																		<td colspan="5">
+																			<div>
+																				<label for="">Dívida</label> 1001
+																			</div>
+																			<div>
+																				<label for="">Parcelamento</label> 30
+																			</div>
+																			<div>
+																				<label for="">Valor parcelado</label> R$ 1.000,00
+																			</div>
+																			<div>
+																				<label for="">Valor pago</label> R$ 800,00
+																			</div>
+																			<div>
+																				<label for="">Saldo</label> R$ 400,00
+																			</div>
+																		</td>                                            
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Apensamentos -->
+								<div id="Aba3" class="tab-pane" role="tabpanel">    
+									<div class="row">
+										<div class="col-md-12">
+											<button class="btn btn-sm btn-primary" ng-click="openVinculoExecucaoFiscal()" title="Seleciona uma nova execução fiscal">
+												Selecionar execuções fiscais
+											</button>
+										</div>
+									</div>
+									<div ng-if="!processo.apensamentos.length">
+										<div class="row">
+											<div class="col-md-12 text-center">
+												<i class="fa fa-link fa-5x text-gray5"></i>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12 text-center">
+												<strong class="text-muted">Nenhum dado informado</strong>
+											</div>
+										</div>
+										<div class="row bottom">
+											<div class="col-md-12 text-center">
+												<p>
+													<span class="text-muted">
+														Permite vincular os apensamentos dessa execução fiscal
+													</span>
+												</p>
+											</div>
+										</div>
+									</div>
+									<div class="row" ng-if="processo.apensamentos.length">
+										<div class="header-list-item-flex">
+											<div class="col-md-2">
+												<label>Código da execução fiscal</label>
+											</div>
+											<div class="col-md-4">
+												<label>Nº do processo</label>
+											</div>
+											<div class="col-md-4">
+												<label>Valor da causa (R$)</label>
+											</div>
+											<div class="col-md-1">
+												<label>Situação</label>
+											</div>
+											<div class="col-md-1"></div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="list-item-flex" ng-repeat="a in processo.apensamentos">
+												<div class="item-content-flex">
+													<div class="row">
+														<div class="col-md-2">
+															{{a.id}}
+														</div>
+														<div class="col-md-4">
+															{{a.numProcesso}}
+														</div>
+														<div class="col-md-4">
+															{{a.valorCausa | currency}}
+														</div>
+														<div class="col-md-1">
+															<span class="label label-success center-block">{{a.situacao}}</span>
+														</div>
+														<div class="col-md-1 text-right">
+															<a href="" title="Adicionar observação" ng-click="openObservacao()">
+																<i class="fa fa-commenting fa-fw"></i>
+															</a>
+															<a href="" title="Excluir">
+																<i class="fa fa-trash-o fa-fw"></i>
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div> 
+								</div>
+								<!-- Documentação -->
+								<div id="Aba5" class="tab-pane" role="tabpanel">
+									<div class="row">
+										<div class="col-md-12">
+											<ul role="tablist" class="nav nav-subtabs">
+												<li role="presentation" class="active">
+													<a data-toggle="tab" role="tab" href="#Documentos" target="_self">Documentos</a>
+												</li>
+												<li role="presentation">
+													<a data-toggle="tab" role="tab" href="#Anexos" target="_self">Anexos</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="tab-content">
+										<div id="Documentos" class="tab-pane active" role="tabpanel">
+											<div class="row">
+												<div class="col-md-3">
+													<div class="panel panel-default">
+														<div class="list-group">
+															<a href="" class="list-group-item" ng-repeat="item in documentosExecucao.itens" ng-click="setDoc(item.id)" ng-class="doctSelect == item.id ? 'active' : ''">
+																{{item.descricao}}
+																<span class="badge badge-danger" ng-if="(documentos | filter: {tipo: item.id, erro: true}).length > 0" title="Existem documentos Não integrados">{{ (documentos | filter: {tipo: item.id, erro: true}).length }}</span>
+															</a>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-9" ng-controller="GerenciadorDocumentosCtrl">
+													<div ng-include="'gerenciador-documentos/processos/documentos-processos.html'"></div>
+												</div>
+											</div>
+										</div>
+										<div id="Anexos" class="tab-pane" role="tabpanel">
+											<div class="row">
+												<div class="col-md-12">
+													<bth-attach></bth-attach>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Informações adicionais -->
+								<div id="Aba6" class="tab-pane" role="tabpanel">
+									<div class="row">
+										<div class="col-md-12">
+											<ul role="tablist" class="nav nav-subtabs">
+												<li role="presentation" class="active">
+													<a data-toggle="tab" role="tab" href="#custas" target="_self">custas</a>
+												</li>
+												<li role="presentation">
+													<a data-toggle="tab" role="tab" href="#infAdicionais" target="_self">Informações adicionais</a>
+												</li>
+												<li role="presentation">
+													<a data-toggle="tab" role="tab" href="#localizacao" target="_self">Localização</a>
+												</li>
+												<li role="presentation">
+													<a data-toggle="tab" role="tab" href="#penhora" target="_self">Penhoras <span class="badge">{{penhoras.length}}</span></a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="tab-content">
+										<div id="custas" class="tab-pane active" role="tabpanel">
+											<div class="row">
+												<div class="col-md-12">
+													<button class="btn btn-sm btn-add btn-success" title="Adiciona uma nova custa" ng-click="openCusta()">Custa</button>
+												</div>
+											</div>
+											<div class="row bottom">
+												<div class="header-list-item-flex">
+													<div class="col-md-7">
+														<label>Custa</label>
+													</div>
+													<div class="col-md-3">
+														<label>Valor (R$)</label>
+													</div>
+													<div class="col-md-2"></div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<div class="list-item-flex" ng-repeat="c in custas">
+														<div class="item-content-flex">
+															<div class="row">
+																<div class="col-md-7">
+																	{{c.custa}}
+																</div>
+																<div class="col-md-3">
+																	{{c.valor}}
+																</div>
+																<div class="col-md-2 text-right">
+																	<a href="" title="Editar">
+																		<i class="fa fa-pencil fa-fw"></i>
+																	</a>
+																	<a href="" title="Excluir">
+																		<i class="fa fa-trash-o fa-fw"></i>
+																	</a>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div id="infAdicionais" class="tab-pane" role="tabpanel">
+											<div class="row">
+												<div class="col-md-12">
+													<button class="btn btn-sm btn-default" data-ng-click="openInformacoesAdicionais()" title="Editar informações adicionais">
+														<i class="fa fa-pencil fa-fw"></i>
+														Editar
+													</button>
+												</div>
+											</div> 
+											<div class="row">
+												<div class="col-md-12">
+													<label>Ano base </label><br>
+													<span>2018</span>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<label>Campo adicional 01</label><br>
+													<span>Informação do campo adicional 01</span>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<label>Campo adicional 02</label><br>
+													<span>Informação do campo adicional 02</span>
+												</div>
+											</div>
+										</div>
+										<div id="localizacao" class="tab-pane" role="tabpanel">
+											<div class="row">
+												<div class="col-md-12">
+													<button class="btn btn-sm btn-default" data-ng-click="openLocalizacao()" title="Editar localização">
+														<i class="fa fa-pencil fa-fw"></i>
+														Editar
+													</button>
+												</div>
+											</div>                                                 
+											<div class="row">
+												<div class="col-md-12">
+													<bth-hierarchy nodes="localRH"></bth-hierarchy>
+												</div>
+											</div>
+										</div>
+										<div id="penhora" class="tab-pane" role="tabpanel">
+											<penhoras-lista lista="penhoras" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

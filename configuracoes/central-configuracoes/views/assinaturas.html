@@ -1,0 +1,51 @@
+<h1 class="titulo-configuracoes">Modalidade de assinatura de documentos</h1>
+<div class="row row-flex">
+	<div class="col-md-5">
+		<div class="bth-card bth-card--bordered bth-card--clickable" ng-click="tipoAssinatura = 'UNICA'" ng-class="{'bth-card--active': tipoAssinatura == 'UNICA'}">
+			<div class="bth-card__body">
+				<div class="bth-card__mark">
+					<div class="bth-radio">
+						<input id="unica" value="UNICA" type="radio" name="assinatura" ng-model="tipoAssinatura">
+						<label for="unica">
+						</label>
+					</div>
+				</div>
+				<div class="row bottom">
+					<div class="col-md-12 text-center">
+						<img src="images/im_assinatura-unica.svg" height="160px">
+						<h4>Permitir apenas uma assinatura</h4>
+						<p class="text-muted bottom">O documento é enviado ao NoPaper, recebendo uma nova folha contendo apenas a assinatura digital do responsável.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-5">
+		<div class="bth-card bth-card--bordered bth-card--clickable" ng-click="tipoAssinatura = 'MULTIPLA'" ng-class="{'bth-card--active': tipoAssinatura == 'MULTIPLA'}">
+			<div class="bth-card__body">
+				<div class="bth-card__mark">
+					<div class="bth-radio">
+						<input id="multipla" value="MULTIPLA" type="radio" name="assinatura" ng-model="tipoAssinatura">
+						<label for="multipla">
+						</label>
+					</div>
+				</div>
+				<div class="row bottom">
+					<div class="col-md-12 text-center">
+						<img src="images/im_assinatura-multipla.svg" height="160px">
+						<h4>Permitir assinaturas múltiplas</h4>
+						<p class="text-muted bottom">O documento pode ser enviado uma ou mais vezes ao NoPaper para receber assinaturas digitais, sem adicionar fisicamente folhas no final do documento.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="pull-right">
+			<button class="btn btn-primary" ng-click="salvarConfiguracao();">Salvar</button>
+		</div>
+	</div>
+</div>

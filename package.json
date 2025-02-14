@@ -1,0 +1,31 @@
+{
+  "name": "procuradoria",
+  "version": "1.0.0",
+  "description": "Front Procuradoria",
+  "main": "index.js",
+  "repository": "https://gitlab.services.betha.cloud/arrecadacao/prototipos/front-procuradoria.git",
+  "author": {
+    "name": "Betha Sistemas",
+    "email": "betha@betha.com.br",
+    "url": "http://www.betha.com.br/"
+  },
+  "scripts": {
+    "start": "hs -c1p 8082",
+    "json-server": "json-server db.json --watch --port 9004 --host 127.0.0.1"
+  },
+  "devDependencies": {
+    "bth-design": "^3.15.0",
+    "http-server": "^0.12.1",
+    "json-server": "^0.16.1"
+  },
+  "dependencies": {
+    "angular-ui-bootstrap": "^2.5.6",
+    "angular-ui-sortable": "^0.19.0",
+    "angular-ui-tinymce": "^0.0.19",
+    "jquery-ui": "^1.12.1",
+    "stickyfilljs": "^2.0.3",
+    "tinymce": "^4.5.9",
+    "ui-commons": "^2.0.0",
+    "ui-modal": "^2.0.1"
+  }
+}

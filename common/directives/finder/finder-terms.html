@@ -1,0 +1,33 @@
+<!-- Termos digitados -->
+<div class="row" data-ng-show="filters.keywords.length || filters.others.length">
+	<div class="col-md-10">
+		<div class="select2-borderless">
+			<div class="select2-container select2-container-multi">
+				<ul class="select2-choices">
+					<li class="select2-search-choice fadeInRight" data-ng-repeat="item in filters.keywords track by $index">
+						<div>{{item}}</div>
+						<a href="" class="select2-search-choice-close" tabindex="-1" ng-click="remove('keywords', item, $index)"></a>
+					</li>
+					<li class="select2-search-choice fadeInRight" data-ng-repeat="item in filters.others">
+						<div>{{getObject(columns, item.column).descricao + ': '}}
+							<span data-ng-if="getObject(columns, item.column).type == 'enum'" data-ng-repeat="value in item.value track by $index"> {{value | enumDescription:getObject(columns, item.column).enum}} {{$last ? '': '-'}}</span>
+							<span data-ng-if="getObject(columns, item.column).type == 'date'"> {{item.value | bfDate}}</span>
+							<span data-ng-if="getObject(columns, item.column).type == 'select'" data-ng-repeat="value in item.value track by $index">{{value.descricao || value.nome || value.secao || value.idImovel || value.idEconomico || value.nroParcelamento || value.nroOficial}} {{$last ? '': ' - '}}</span>
+							<span data-ng-if="getObject(columns, item.column).type == 'intervalYear'"> {{item.value.anoInicial}} até {{item.value.anoFinal}}</span>
+							<span data-ng-if="getObject(columns, item.column).type == 'intervalDate'"> {{item.value.dataInicial | bfDate}}  {{getObject(columns, item.column).limitInterval ? '' : 'até '}}  {{getObject(columns, item.column).limitInterval ? '' : item.value.dataFinal | bfDate}}</span>
+							<span data-ng-if="getObject(columns, item.column).type == 'intervalDateTime'"> {{item.value.dataInicial | bfMaskDate}}  {{getObject(columns, item.column).limitInterval ? '' : 'até '}}  {{getObject(columns, item.column).limitInterval ? '' : item.value.dataFinal | bfMaskDate}}</span>
+							<span data-ng-if="getObject(columns, item.column).type == 'spinner'"> {{item.value}}</span>
+						</div>
+						<a href="" class="select2-search-choice-close" tabindex="-1" ng-click="remove('others', item, $index)"></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-2">
+		<div class="barra-btn-pesquisa">
+			<a class="btn btn-primary btn-xs" href="" ng-click="adicionarPopupPesquisas();" title="Salvar filtro">Salvar</a>
+			<a class="btn btn-primary btn-xs" href="" ng-click="limparPesquisa();" title="Limpar filtros e configurações">Limpar</a>
+		</div>
+	</div>
+</div>

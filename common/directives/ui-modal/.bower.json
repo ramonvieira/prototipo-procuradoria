@@ -1,0 +1,32 @@
+{
+  "name": "ui-modal",
+  "version": "0.1.3",
+  "license": "MIT",
+  "private": true,
+  "main": "dist/ui-modal.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "nbproject",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular-mocks": "~1.4",
+    "angular": "~1.4",
+    "jquery": "~2.1"
+  },
+  "dependencies": {
+    "ui-components": "http://gitlab.dev.bethacloud.com.br/ui-components/ui-components.git"
+  },
+  "_release": "0.1.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.3",
+    "commit": "a6380582c21e71983cade017ff90d4925f3d10ce"
+  },
+  "_source": "http://gitlab.dev.bethacloud.com.br/ui-components/ui-modal.git",
+  "_target": "*",
+  "_originalSource": "http://gitlab.dev.bethacloud.com.br/ui-components/ui-modal.git"
+}

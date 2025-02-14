@@ -1,0 +1,21 @@
+{
+  "name": "ui-components",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "main": "dist/ui-components.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "nbproject",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular-mocks": "~1.4"
+  },
+  "dependencies": {
+    "angular": "~1.4"
+  }
+}

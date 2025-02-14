@@ -1,0 +1,87 @@
+<div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <form name="form">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">Adicionando quebra
+                </h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="" class="required">
+                            Descrição
+                        </label>
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="row bottom">
+                    <div class="col-md-6" style="width: 48%;">
+                        <div class="panel panel-default bottom">
+                            <div class="panel-heading">
+                                Fonte de dados
+                            </div>
+                            <!-- <div class="panel-body panel-body-open-script">
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-touched" placeholder="Pesquisar" ng-model="pesquisar" style="">
+                            
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <ul class="list-group">
+                                <li class="header list-group-item" style="height: 39px;">
+                                    <input type="text" ng-model="search" placeholder="Pesquisar" class="ng-pristine ng-untouched ng-valid" style="height: 39px;">
+                                </li>
+                            </ul>
+                            <ul class="list-group bottom scrollBar sortable4" style="height: 205px;" ng-init="modelos=[{nome: 'Nome'},{nome: 'CPF'},{nome: 'Endereço'},{nome: 'Idade'},{nome: 'Lorem'},{nome: 'Lorem'}]" id="sortable4" ui-sortable="sortableOptions">
+                                <li class="list-group-item" ng-repeat="m in modelos">
+                                    <a href class="handle">
+                                        <div class="pull-left dots-drag" title="Clique, segure e arraste para reordenar o crédito">
+                                            <i class="fa fa-fw text-muted"></i>
+                                        </div>
+                                       {{m.nome}}
+                                    </a>
+                                </li>
+                                <!-- Quando não estiver item na listagem -->
+                                <li class="list-group-item text-center">
+                                    <h4>Ainda não há fonte de dados por aqui</h4>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> 
+                    <div class="col-md-2 text-center" style="width: 4%; padding-top: 134px;">
+                        <i class="fa fa-arrows-h fa-lg"></i>
+                    </div>
+                    <div class="col-md-6" style="width: 48%;">
+                        <div class="panel panel-default bottom">
+                            <div class="panel-heading">
+                                Itens selecionados
+                            </div>
+                            <ul class="list-group bottom scrollBar sortable4" style="height: 244px;" ng-init="modelosDois=[]" id="sortable4" ui-sortable="sortableOptions">
+                                <li class="list-group-item" ng-repeat="mDois < 1 in modelosDois">
+                                    <a href class="handle">
+                                        <div class="pull-left dots-drag" title="Clique, segure e arraste para reordenar o crédito">
+                                            <i class="fa fa-fw text-muted"></i>
+                                        </div>
+                                       {{mDois.nome}}
+                                    </a>
+                                </li>
+                                <!-- Quando não estiver item na listagem -->
+                                <li class="list-group-item text-center">
+                                    <h4>Ainda não há itens por aqui</h4>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal">Salvar</button>
+                <button class="btn btn-default" data-dismiss="modal">Salvar e adicionar novo</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

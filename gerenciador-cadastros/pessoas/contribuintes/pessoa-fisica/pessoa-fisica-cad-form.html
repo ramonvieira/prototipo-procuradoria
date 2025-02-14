@@ -1,0 +1,79 @@
+<div class="row">
+	<div class="col-md-8">
+		<label class="required">
+			Nome
+		</label>
+		<input class="form-control" type="text" ng-model="nome">
+	</div>
+	<div class="col-md-4">
+		<label><abbr title="Cadastro de Pessoas Físicas">CPF</abbr></label>
+		<input class="form-control" type="text" ng-model="cpf">
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-8">
+		<label>
+			Nome social
+		</label>
+		<input class="form-control" type="text" ng-model="nomeSocial">
+	</div>
+	<div class="col-md-4">
+		<label>
+			Inscrição municipal
+		</label>
+		<input class="form-control" type="text" ng-model="inscricaoMunicipal">
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-3">
+		<label>
+			Data de nascimento
+		</label>
+		<div class="input-group">
+			<input class="form-control" data-bf-date="{}" ng-model="datNascimento">
+		</div>
+	</div>
+	<div class="col-md-3">
+		<label>
+			Data de óbito
+		</label>
+		<div class="input-group">
+			<input class="form-control" data-bf-date="{}" ng-model="datObito">
+		</div>
+	</div>
+	<div class="col-md-3">
+		<label>Sexo</label>
+		<select class="form-control" data-bf-select2="{}" ng-model="sexo">
+			<option value="0">Feminino</option>
+			<option value="1">Masculino</option>
+		</select>
+	</div>
+	<div class="col-md-3">
+		<label>Estado civil</label>
+		<select class="form-control" data-bf-select2="{}" ng-model="estadoCivil">
+			<option value="Solteiro">Solteiro</option>
+			<option value="Casado">Casado</option>
+			<option value="Divorciado">Divorciado</option>
+			<option value="Viúvo">Viúvo</option>
+			<option value="Separado consensualmente">Separado consensualmente</option>
+			<option value="Separado judicialmente">Separado judicialmente</option>
+			<option value="União estável">União estável</option>
+		</select>
+	</div> 
+</div>
+<div class="row" ng-controller="ContribuintesCtrl">
+	<div class="col-md-6">
+		<label for="telefone">Telefone</label>
+		<input class="form-control" type="text" id="telefone" ng-model="telefone" ng-focus="addTelefone({})">
+	</div>
+	<div class="col-md-6">
+		<label for="email">E-mail</label>
+		<input class="form-control" type="text" id="email" ng-model="email" ng-focus="addEmail({})">
+	</div>
+</div>
+<div class="row" ng-controller="ContribuintesCtrl">
+	<div class="col-md-12">
+		<label class="required" for="endereco">Endereço</label>
+		<input class="form-control" type="text" id="endereco" ng-model="endereco" ng-focus="addEndereco({})">
+	</div>
+</div>

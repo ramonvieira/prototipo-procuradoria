@@ -1,0 +1,75 @@
+
+<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h3 class="modal-title inline-block">{{(edit)?'Editando':'Adicionando'}} fiscal</h3>
+            <span class="tagline pull-right" style="margin-right: 10px">
+            </span>
+        </div>
+        <div class="modal-body">
+            <div class="cards">
+                <div class="row">
+                    <div class="col-md-9">
+                        <label class="required">Contribuinte</label>
+                        <input type="text" class="form-control" ng-model="Contribuinte" bf-select2="configSelect"/>
+                    </div>
+                    <div class="col-md-3">
+                        <label><abbr title="Cadastro de Pessoas Físicas">CPF</abbr></label>
+                        <input type="text" class="form-control" ng-model="CPF" ng-disabled="true"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="">Matrícula</label>
+                        <input type="text" class="form-control" ng-model="matricula">
+
+                    </div>
+                    <div class="col-md-3">
+                        <label for="">Número do registro</label>
+                        <input type="text" class="form-control" ng-model="numeroRegistro">
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Usuário do sistema</label>
+                        <select bf-select2="{allowClear:true}" ng-model="user">
+                            <option value=""></option>
+                            <option value="1">Usuário 1</option>
+                            <option value="2">Usuário 2</option>
+                            <option value="3">Usuário 3</option>
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row bottom">
+                <div class="col-md-6">
+                    <label>Telefone(s) <a href data-ng-click="addTelefone()" title="Editar" tabindex="-1"><i class="icon icon-pencil"></i></a></label>
+                    <div class="select2-container select2-container-multi select2-container-disabled">
+                        <ul class="select2-choices" data-ui-sortable data-ng-model="contribuinte.telefones">
+                            <li class="select2-search-choice" data-ng-repeat="telefone in contribuinte.telefones">
+                                <div>{{telefone.numero}} ({{telefone.descricao}})</div>
+                                <a href data-ng-click="removeTelefone($index)" title="Excluir" class="select2-search-choice-close" tabindex="-1"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+
+            <div ng-show="edit" class="bth-checkbox bth-checkbox-danger pull-left">
+                <input id="desativadoChbx1" type="checkbox" ng-model="status">
+                <label for="desativadoChbx1">Registro desativado</label>
+            </div>
+
+            <button type="button" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn btn-default">Salvar e adicionar novo</button>
+            <button type="button" class="btn btn-default">Cancelar</button>
+        </div>
+    </div>
+</div>

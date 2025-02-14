@@ -1,0 +1,31 @@
+<table class="table top table-condensed">
+	<tbody>
+		<tr>
+			<td width="150">Data da execução</td>
+			<td>15/12/2020 14:56</td>
+		</tr>
+		<tr>
+			<td width="150">Executado por</td>
+			<td>@ramon.viquetti</td>
+		</tr>
+		<tr>
+			<td>Status</td>
+			<td>
+				<span class="badge" title="Situação" ng-class="{'badge-success': divida.situacao == 'Encerrada', 
+																'badge-default': divida.situacao == 'A ajuizar', 
+																'badge-warning': divida.situacao == 'Suspensa',
+																'badge-danger': divida.situacao == 'Cancelada',
+																'badge-info': divida.situacao == 'Em tramitação'}">
+					{{divida.statusExecucao}}
+				</span>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div class="row bottom">
+	<div class="col-md-12">
+		<a href="" class="btn btn-default btn-xs" title="Clique para fazer o download do documento">
+			<i class="fa fa-fw fa-download"></i> 1234 / 2020 <i class="fa fa-fw fa-check-circle-o text-greenA7" bf-tooltip="Assinado digitalmente" ng-if="divida.assinado"></i>
+		</a>
+	</div>
+</div>

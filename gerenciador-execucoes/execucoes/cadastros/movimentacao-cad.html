@@ -1,0 +1,78 @@
+<div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <form name="form">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">Adicionando movimentação</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="required">Descrição</label>
+                        <textarea rows="1" class="form-control" ng-model="descricao" maxlength="500"></textarea>                        
+                    </div>
+                </div>
+                <div class="row">                    
+                    <div class="col-md-3">
+                        <label class="required">Altera a situação?</label>
+                        <select data-bf-select2="{}" ng-model="alteraSituacao">
+                            <option value="0">Sim</option>
+                            <option value="1">Não</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <label ng-class="{required : alteraSituacao == 0}">Situação</label>
+                        <select data-bf-select2="{}" ng-model="situacao">
+                            <option value="1">Em tramitação</option>
+                            <option value="2">Cancelado</option>
+                            <option value="3">Encerrado</option>
+                            <option value="4">Suspenso</option>                            
+                        </select>
+                    </div>
+                </div>
+                <div class="row bottom" ng-show="situacao == 1 || situacao == 4">
+                    <div class="col-md-12">
+                        <h4>Pendências</h4>
+                    </div>
+                </div>
+                <div class="row" ng-show="situacao == 1 || situacao == 4">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead>
+                                <th>Pendência</th>
+                                <th width="15%">Prazo</th>
+                                <th width="5%"></th>
+                            </thead>
+                            <tbody ng-init="pendencias = [{}]">
+                                <tr ng-repeat="p in pendencias">
+                                    <td class="has-edit">
+                                        <select data-bf-select2="{}" ng-model="pendencia">
+                                            <option value="0">Pendência 01</option>
+                                            <option value="1">Pendência 02</option>
+                                        </select>
+                                    </td>
+                                    <td class="has-edit">
+                                       <input class="form-control" type="text" ng-model="prazo" ng-value="pendencia ? prazo = '430': prazo" disabled>                            
+                                    </td>
+                                    <td class="text-center">
+                                        <a href ng-click="pendencias.splice($index, 1)"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row bottom" ng-show="situacao == 1 || situacao == 4">
+                    <div class="col-md-12 text-right">
+                        <button class="btn btn-sm btn-add btn-success" title="Adiciona uma nova pendência" ng-click="pendencias.push({})">Pendência</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Salvar</button>
+                <button class="btn btn-default" data-dismiss="modal">Salvar e adicionar novo</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

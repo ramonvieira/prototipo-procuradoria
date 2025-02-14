@@ -1,0 +1,41 @@
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">Adicionando e-mail</h3>
+		</div>
+		<div class="modal-body">
+			<form role="form">
+				<div class="row bottom">
+					<div class="col-md-1 text-center">
+						<i class="fa fa-envelope fa-2x text-muted mTop10"></i>
+					</div>
+					<div class="col-md-11">
+						<h4>Informações de e-mail</h4>
+						<div class="row">
+							<div class="col-md-12">
+								<label class="required">Descrição</label>
+								<input type="text" id="descricao" class="form-control" data-ng-model="email.descricao" maxlength="20"/>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<label class="required">E-mail</label>
+								<input type="email" id="email" class="form-control" data-ng-model="email.endereco" maxlength="60"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<div class="bth-checkbox bth-checkbox-info pull-left">
+				<input id="checkbox-info" type="checkbox" checked="">
+				<label for="checkbox-info">E-mail principal</label>
+			</div>
+			<button class="btn btn-primary" data-ng-click="save()" data-dismiss="modal">Salvar</button>
+			<button class="btn btn-default" data-dismiss="modal" tabindex="-1">Salvar e adicionar novo</button>
+			<button class="btn btn-default" data-dismiss="modal" tabindex="-1">Cancelar</button>
+		</div>
+	</div>
+</div>

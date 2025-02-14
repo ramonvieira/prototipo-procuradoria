@@ -1,0 +1,550 @@
+<div class="row row-flex">
+	<div class="col-md-6">
+		<div class="bth-card">
+			<div class="bth-card__body">
+				<div class="row bottom">
+					<div class="col-md-6">
+						<h4 class="top">
+							<span class="fa-stack" style="margin-top: -8px">
+								<i class="fa fa-circle fa-stack-2x tx__red--l30"></i>
+								<i class="fa fa-dollar fa-stack-1x tx__red--d10"></i>
+							</span>
+							<span>Dívidas</span>
+						</h4>
+					</div>
+					<div class="col-md-6 text-right">
+
+						<div class="btn-group btn-group-xs" ng-init="totalDivida = '1'">
+							<label class="btn btn-default" ng-class="{active: totalDivida === '1'}">
+								<input type="radio" ng-model="totalDivida" value="1"> Em aberto
+							</label>
+							<label class="btn btn-default" ng-class="{active: totalDivida === '2'}">
+								<input type="radio" ng-model="totalDivida" value="2"> Recuperada
+							</label>
+						</div>
+						<div class="btn-group dropdown">
+							<button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown" title="Outras opções">
+								<i class="fa fa-fw fa-ellipsis-v"></i>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li>
+									<a href="" ng-click=""><i class="fa fa-fw fa-download"></i> Download</a>
+									<a href="" ng-click=""><i class="fa fa-fw fa-print"></i> Imprimir</a>
+									<a href="" ng-click=" pagamentosView = '1'"><i class="fa fa-fw fa-pie-chart"></i> Exibir gráfico</a>
+									<a href="" ng-click=" pagamentosView = '2'"><i class="fa fa-fw fa-list"></i> Exibir lista</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<fusioncharts height="250" width="100%" type="doughnut2d" datasource="{{dividasEmAberto}}" ng-show="totalDivida == '1'"></fusioncharts>
+				<fusioncharts height="250" width="100%" type="doughnut2d" datasource="{{dividasRecup}}" ng-show="totalDivida == '2'"></fusioncharts>
+			</div>
+		</div>
+	</div>
+
+	<!-- Dívidas a prescrever -->
+	<div class="col-md-6">
+		<div class="bth-card">
+			<div class="bth-card__body">
+				<div class="row bottom">
+					<div class="col-md-6">
+						<h4 class="top">
+							<span class="fa-stack" style="margin-top: -8px">
+								<i class="fa fa-circle fa-stack-2x tx__gray--l10"></i>
+								<i class="fa fa-calendar-o fa-stack-1x tx__gray--d10"></i>
+							</span>
+							<span>Possibilidade de prescrição</span>
+						</h4>
+					</div>
+					<div class="col-md-6 text-right">
+						<div class="btn-group btn-group-xs" ng-init="possibilidadePresc = '2'">
+							<label class="btn btn-default" ng-class="{active: possibilidadePresc === '2'}">
+								<input type="radio" ng-model="possibilidadePresc" value="2"> Por mês
+							</label>
+							<label class="btn btn-default" ng-class="{active: possibilidadePresc === '1'}">
+								<input type="radio" ng-model="possibilidadePresc" value="1"> Por ano
+							</label>
+						</div>
+					</div>
+				</div>
+				<fusioncharts height="250" width="100%" type="scrollcolumn2d" datasource="{{possibilidadPrescrAno}}" ng-show="possibilidadePresc == '1'"></fusioncharts>
+				<fusioncharts height="250" width="100%" type="scrollcolumn2d" datasource="{{possibilidadPrescrMes}}" ng-show="possibilidadePresc == '2'"></fusioncharts>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row row-flex">
+	<!-- Empresas x Dívida -->
+	<div class="col-md-6">
+		<div class="bth-card">
+			<div class="bth-card__body">
+				<div class="row bottom">
+					<div class="col-md-12">
+						<h4 class="top">
+							<span class="fa-stack" style="margin-top: -8px">
+								<i class="fa fa-circle fa-stack-2x tx__blue--l30"></i>
+								<i class="fa fa-industry fa-stack-1x tx__blue--d10"></i>
+							</span>
+							<span>Empresas x Dívida</span>
+						</h4>
+					</div>
+				</div>
+				<ul role="tablist" class="nav nav-tabs nav-ju stified">
+					<li role="presentation" class="active">
+						<a data-toggle="tab" role="tab" href="#Aba1" target="_self">Em dívida</a>
+					</li>
+					<li role="presentation">
+						<a data-toggle="tab" role="tab" href="#Aba2" target="_self">Em protesto</a>
+					</li>
+					<li role="presentation">
+						<a data-toggle="tab" role="tab" href="#Aba3" target="_self">Em execução</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<!-- Em dívida -->
+					<div id="Aba1" class="tab-pane scrollBar active" role="tabpanel" style="max-height: 300px">
+						<table class="table table-unstriped table-unfixed">
+							<thead>
+								<tr>
+									<th width="30"></th>
+									<th>
+										<a href="">
+											Empresa
+											<i class="material-icons">arrow_upward</i>
+										</a>
+									</th>
+									<th>
+										<a href="">
+											Valor
+											<i class="material-icons">arrow_upward</i>
+										</a>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="empresa in empresasDividas track by $index">
+									<td class="col-fit col-arrow">
+										{{$index+1}}º
+									</td>
+									<td>
+										{{empresa.nome}}
+									</td>
+									<td class="col-fit text-right">
+										<a href="#" title="Clique para ver as dívidas dessa empresa">{{empresa.valor}}</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- Em protesto -->
+					<div id="Aba2" class="tab-pane scrollBar" role="tabpanel" style="max-height: 300px">
+						<table class="table table-unstriped table-unfixed">
+							<thead>
+								<tr>
+									<th width="30"></th>
+									<th>
+										<a href="">
+											Empresa
+											<i class="material-icons">arrow_upward</i>
+										</a>
+									</th>
+									<th>
+										<a href="">
+											Valor
+											<i class="material-icons">arrow_upward</i>
+										</a>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="empresa in empresasProtestos track by $index">
+									<td class="col-fit col-arrow">
+										{{$index+1}}º
+									</td>
+									<td>
+										{{empresa.nome}}
+									</td>
+									<td class="col-fit text-right">
+										<a href="#" title="Clique para ver as dívidas dessa empresa">{{empresa.valor}}</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- Em execução -->
+					<div id="Aba3" class="tab-pane scrollBar" role="tabpanel" style="max-height: 300px">
+						<table class="table table-unstriped table-unfixed">
+							<thead>
+								<tr>
+									<th width="30"></th>
+									<th>
+										<a href="">
+											Empresa
+											<i class="material-icons">arrow_upward</i>
+										</a>
+									</th>
+									<th>
+										<a href="">
+											Valor
+											<i class="material-icons">arrow_upward</i>
+										</a>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="empresa in empresasProtestos | orderBy: 'nome'">
+									<td class="col-fit col-arrow">
+										{{$index+1}}º
+									</td>
+									<td>
+										{{empresa.nome}}
+									</td>
+									<td class="col-fit text-right">
+										<a href="#" title="Clique para ver as dívidas dessa empresa">{{empresa.valor}}</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Detalhamento das dívidas -->
+	<div class="col-md-6">
+		<div class="bth-card">
+			<div class="bth-card__body">
+				<div class="row bottom">
+					<div class="col-md-12">
+						<h4 class="top">
+							<span class="fa-stack" style="margin-top: -8px">
+								<i class="fa fa-circle fa-stack-2x tx__orange--l30"></i>
+								<i class="fa fa-list fa-stack-1x tx__orange--d10"></i>
+							</span>
+							<span>Detalhamento das dívidas</span>
+						</h4>
+					</div>
+				</div>
+				<ul role="tablist" class="nav nav-tabs nav-ju stified">
+					<li role="presentation" class="active">
+						<a data-toggle="tab" role="tab" href="#abaDetalDividas1" target="_self">Por crédito</a>
+					</li>
+					<li role="presentation">
+						<a data-toggle="tab" role="tab" href="#abaDetalDividas2" target="_self">Por faixa de valor</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<!-- Por receita -->
+					<div id="abaDetalDividas1" class="tab-pane scrollBar active" role="tabpanel" style="max-height: 300px">
+						<table class="table table-unstriped table-unfixed">
+							<thead>
+								<tr>
+									<th width="30"></th>
+									<th>
+										<a href="">
+											Empresa
+											<i class="material-icons">arrow_upward</i>
+										</a>
+									</th>
+									<th>
+										<a href="">
+											Quantidade
+											<i class="material-icons">arrow_upward</i>
+										</a>
+									</th>
+									<th>
+										<a href="">
+											Valor
+											<i class="material-icons">arrow_upward</i>
+										</a>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="credito in creditos | orderBy: 'valor'">
+									<td class="col-fit col-arrow">
+										{{$index+1}}º
+									</td>
+									<td>
+										{{credito.descricao}}
+									</td>
+									<td>
+										{{credito.quantidade}}
+									</td>
+									<td class="col-fit text-right">
+										{{credito.valor}}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					<!-- Por faixa de valor -->
+					<div id="abaDetalDividas2" class="tab-pane scrollBar" role="tabpanel" style="max-height: 300px">
+						<table class="table table-unstriped table-unfixed">
+							<thead>
+								<tr>
+									<th width="30"></th>
+									<th>
+										<a href="">
+											Empresa
+											<i class="material-icons">arrow_upward</i>
+										</a>
+									</th>
+									<th>
+										<a href="">
+											Quantidade
+											<i class="material-icons">arrow_upward</i>
+										</a>
+									</th>
+									<th>
+										<a href="">
+											Valor
+											<i class="material-icons">arrow_upward</i>
+										</a>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="faixa in faixaValor | orderBy: 'valor'">
+									<td class="col-fit col-arrow">
+										{{$index+1}}º
+									</td>
+									<td>
+										{{faixa.descricao}}
+									</td>
+									<td>
+										{{faixa.quantidade}}
+									</td>
+									<td class="col-fit text-right">
+										{{faixa.valor}}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row row-flex">
+	<!-- Evolução da dívida -->
+	<div class="col-md-12">
+		<div class="bth-card">
+			<div class="bth-card__body">
+				<div class="row bottom">
+					<div class="col-md-6">
+						<h4 class="top">
+							<span class="fa-stack" style="margin-top: -8px">
+								<i class="fa fa-circle fa-stack-2x tx__orange--l30"></i>
+								<i class="fa fa-area-chart fa-stack-1x tx__orange--d10"></i>
+							</span>
+							<span>Evolução da dívida</span>
+						</h4>
+					</div>
+					<div class="col-md-6 text-right">
+						<!-- <div class="btn-group btn-group-xs">
+							<label class="btn btn-default" ng-class="{active: controlador === '1'}">
+								<input type="radio" ng-model="controlador" value="1"> <i class="fa fa-fw fa-pencil"></i>
+							</label>
+							<label class="btn btn-default" ng-class="{active: controlador === '2'}">
+								<input type="radio" ng-model="controlador" value="2"> <i class="fa fa-fw fa-pencil"></i>
+							</label>
+						</div> -->
+						<div class="btn-group btn-group-xs" ng-init="evolucaoDividaView = '1'">
+							<label class="btn btn-default" ng-class="{active: evolucaoDividaView === '1'}">
+								<!-- <input type="radio" ng-model="evolucaoDividaView" value="1"><i class="fa fa-fw fa-pie-chart"></i> -->
+								<input type="radio" ng-model="evolucaoDividaView" value="1"><i class="material-icons">pie_chart</i>
+							</label>
+							<label class="btn btn-default" ng-class="{active: evolucaoDividaView === '2'}">
+								<!-- <input type="radio" ng-model="evolucaoDividaView" value="2"><i class="fa fa-fw fa-list-ol"></i> -->
+								<input type="radio" ng-model="evolucaoDividaView" value="2"><i class="material-icons">format_list_bulleted</i>
+							</label>
+						</div>
+						<div class="btn-group btn-group-xs" ng-init="evolucaoDivida = '2'">
+							<label class="btn btn-default" ng-class="{active: evolucaoDivida === '2'}">
+								<input type="radio" ng-model="evolucaoDivida" value="2"> Por mês
+							</label>
+							<label class="btn btn-default" ng-class="{active: evolucaoDivida === '1'}">
+								<input type="radio" ng-model="evolucaoDivida" value="1"> Por ano
+							</label>
+						</div>
+					</div>
+				</div>
+				<fusioncharts height="200" width="100%" type="scrollcolumn2d" datasource="{{evolucaoDividaAno}}" ng-show="evolucaoDivida == '1' && evolucaoDividaView == '1'"></fusioncharts>
+				<div ng-show="evolucaoDivida == '1' && evolucaoDividaView == '2'">
+					<table class="table table-unstriped table-unfixed">
+						<thead>
+							<tr>
+								<th width="70">
+								</th>
+								<th colspan="2" class="text-center"><span>Dívidas</span></th>
+								<th colspan="2" class="text-center"><span>Protestos</span></th>
+								<th colspan="2" class="text-center"><span>Execuções</span></th>
+							</tr>
+							<tr>
+								<th>
+									<a href="">
+										Ano
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th class="text-right">
+									<a href="">
+										Qtd
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th class="text-right">
+									<a href="">
+										Valor
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th class="text-right">
+									<a href="">
+										Qtd
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th class="text-right">
+									<a href="">
+										Valor
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th class="text-right">
+									<a href="">
+										Qtd
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th class="text-right">
+									<a href="">
+										Valor
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="empresa in empresasDividas">
+								<td>
+									<strong>{{2018-$index}}</strong>
+								</td>
+								<td class="text-right">
+									98
+								</td>
+								<td class="text-right">
+									562.096,12
+								</td>
+								<td class="text-right">
+									98
+								</td>
+								<td class="text-right">
+									562.096,12
+								</td>
+								<td class="text-right">
+									98
+								</td>
+								<td class="text-right">
+									562.096,12
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<fusioncharts height="200" width="100%" type="scrollcolumn2d" datasource="{{evolucaoDividaMes}}" ng-show="evolucaoDivida == '2' && evolucaoDividaView == '1'"></fusioncharts>
+				<!-- <div id="evolucaoDividaMes"			ng-show="evolucaoDivida == '2' && evolucaoDividaView == '1'"></div> -->
+				<div id="evolucaoDividaMesList"		ng-show="evolucaoDivida == '2' && evolucaoDividaView == '2'">
+					<table class="table table-unstriped table-unfixed">
+						<thead>
+							<tr>
+								<th width="70">
+								</th>
+								<th colspan="2" class="text-center"><span>Dívidas</span></th>
+								<th colspan="2" class="text-center"><span>Protestos</span></th>
+								<th colspan="2" class="text-center"><span>Execuções</span></th>
+							</tr>
+							<tr>
+								<th>
+									<a href="">
+										Mês
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th class="text-right">
+									<a href="">
+										Qtd
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th class="text-right">
+									<a href="">
+										Valor
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th class="text-right">
+									<a href="">
+										Qtd
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th class="text-right">
+									<a href="">
+										Valor
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th class="text-right">
+									<a href="">
+										Qtd
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+								<th class="text-right">
+									<a href="">
+										Valor
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="mes in config_meses">
+								<td>
+									<strong>{{mes.label}}</strong>
+								</td>
+								<td class="text-right">
+									98
+								</td>
+								<td class="text-right">
+									562.096,12
+								</td>
+								<td class="text-right">
+									98
+								</td>
+								<td class="text-right">
+									562.096,12
+								</td>
+								<td class="text-right">
+									98
+								</td>
+								<td class="text-right">
+									562.096,12
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

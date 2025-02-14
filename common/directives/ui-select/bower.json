@@ -1,0 +1,23 @@
+{
+  "name": "ui-select",
+  "version": "0.1.18",
+  "license": "MIT",
+  "private": true,
+  "main": "dist/ui-select.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "nbproject",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4",
+    "ui-components": "http://gitlab.dev.bethacloud.com.br/ui-components/ui-components.git",
+    "lodash": "~3.10"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4"
+  }
+}

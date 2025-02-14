@@ -1,0 +1,3 @@
+<td class="has-input" ng-repeat="item in inscricaoImobiliariaList track by $index">
+    <input type="text" class="form-control" data-ng-blur="setCampoFormatado(item)" data-ng-model="item.campo" id="inscricao_{{id}}_{{$index}}" maxlength="{{item.configInscricoesImobiliarias.qtdCaracter}}" data-ng-required="{{required}}" data-ng-disabled="isDisabled">
+</td>

@@ -1,0 +1,60 @@
+<table class="table">
+	<thead>
+		<tr>
+			<th width="30" ng-if="!consult"></th>
+			<th ng-if="SHOW_CONTRIBUINTE"><span>Contribuinte/Referente</th>
+			<th ng-if="SHOW_ANO" width="50"><span>Ano</span></th>
+			<th ng-if="SHOW_CREDITO" width="70"><span>Crédito</span></th>
+			<th ng-if="SHOW_INSCRICAO" width="80"><span>Inscrição</span></th>
+			<th ng-if="SHOW_CERTIDAO" width="115"><span>Certidão</span></th>
+			<th ng-if="SHOW_PROTESTO" width="95"><span>Protesto</span></th>
+			<th ng-if="SHOW_PETICAO" width="105"><span>Petição</span></th>
+			<th ng-if="SHOW_VENCIMENTO" width="100"><span>Vencimento</span></th>
+			<th ng-if="SHOW_INFO" class="nowrap" width="40"><i class="fa fa-fw fa-info-circle tx__gray--d10" bf-tooltip="Informações adicionais"></i></th>
+			<th ng-if="SHOW_TOTAL" class="text-right" width="100"><span>Total</span></th>
+			<th ng-if="SHOW_OPTIONS && !consult" width="35"><span></span></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="divida in dividas | limitTo: 40 track by $index">
+			<td ng-if="!consult">
+				<div class="bth-checkbox">
+					<input id="checkbox" type="checkbox">
+					<label for="checkbox">&nbsp;</label>
+				</div>
+			</td>
+			<td ng-if="SHOW_CONTRIBUINTE && !consult"><referente-por-contribuinte referente="divida.referente" tipo-referente="divida.tipoReferente" wrap="false" /></td>
+			<td ng-if="SHOW_ANO">{{divida.ano}}</td>
+			<td ng-if="SHOW_CREDITO"><credito-tributario credito="divida.credito" descricao="false" /></td>
+			<td ng-if="SHOW_INSCRICAO"><span class="badge badge-default show"><a href="" bf-popover="'gerenciador-dividas/dividas-ativas/dividas/popover-detalhes-inscicao.html'" class="popover-active" data-placement="bottom" bf-popover-size="med-popover">{{divida.inscricao.numero}}</a></span></td>
+			<td ng-if="SHOW_CERTIDAO"><cda divida="divida" ng-show="divida.certidao.numero"></cda></td>
+			<td ng-if="SHOW_PROTESTO"><span class="badge badge-default show" ng-if="divida.protesto && divida.protesto.numero"><a href="" bf-popover="'gerenciador-dividas/dividas-ativas/dividas/popover-detalhes-protesto.html'" class="popover-active" data-placement="bottom" bf-popover-size="med-popover">{{divida.protesto.numero}}</a> <i class="fa fa-fw tx__green {{divida.protesto.assinatura.tipo == 'P7S' ? 'fa-check-circle' : 'fa-check-circle-o'}}" bf-tooltip="Assinado digitalmente {{divida.protesto.assinatura.tipo == 'P7S' ? 'P7S' : ''}}" ng-if="divida.protesto.assinatura.assinado"></i></span></td>
+			<td ng-if="SHOW_PETICAO">
+				<span class="badge badge-default show" ng-if="divida.peticao.peticionando" bf-tooltip="Peticionamento em andamento">
+					{{divida.peticao.numero}}
+					<i class="fa fa-fw fa-hourglass-2 text-muted"></i>
+				</span>
+				<span class="badge badge-default show" ng-if="!divida.peticao.peticionando && divida.peticao.numero">
+					<a href="" bf-popover="'gerenciador-dividas/dividas-ativas/dividas/popover-detalhes-execucao.html'" class="popover-active" data-placement="bottom" bf-popover-size="med-popover">
+						{{divida.peticao.numero}}
+					</a>
+					<i class="fa fa-fw tx__green {{divida.peticao.assinatura.tipo == 'P7S' ? 'fa-check-circle' : 'fa-check-circle-o'}}" bf-tooltip="Assinado digitalmente {{divida.peticao.assinatura.tipo == 'P7S' ? 'P7S' : ''}}" ng-if="divida.peticao.assinatura.assinado"></i>
+				</span>
+			</td>
+			<td ng-if="SHOW_VENCIMENTO">{{divida.dataInscr | arrecDate}}</td>
+			<td ng-if="SHOW_INFO">
+				<span class="badge badge-alt badge-alt-o badge-info" bf-tooltip="Notificado" ng-if="divida.notific">
+					<i class="fa fa-fw fa-file"></i>
+				</span>
+			</td>
+			<td ng-if="SHOW_TOTAL" class="text-right">
+				<simula-calculo item="divida" show-icon="false" show-label="false"/>
+			</td>
+			
+			<td ng-if="SHOW_OPTIONS && !consult" class="text-right">
+				<options-dividas-ativas />
+			</td>
+		</tr>
+	</tbody>
+</table>
+<arrec-pagination small="principal ? false : true" show-total="false" show-paginas="false" ng-if="SHOW_PAGINACAO && dividas.length > 20" />

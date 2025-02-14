@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="pt" data-ng-app="app" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="pt" data-ng-app="app" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="pt" data-ng-app="app" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="pt" data-ng-app="app" class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Procuradoria</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+	
+	<!-- Base Design -->
+	<!-- <link rel="stylesheet" href="node_modules/bth-design/dist/bth-design.css"> -->
+	<!-- <link rel="stylesheet" href="https://cdn.test.betha.cloud/base/g4/design/3.15.0/bth-design.css"> -->
+	<!-- <link rel="stylesheet" href="http://127.0.0.1:5500/dist/bth-design.css"> -->
+	<link rel="stylesheet" href="https://cdn.test.betha.cloud/base/g4/design/4.0.3/bth-design.css">
+	
+	<!-- Estilos Específicos desta Aplicação -->
+	<link rel="stylesheet" href="css/sys.css">
+</head>
+<body class="suite-arr"> 
+
+	<!--[if lt IE 9]>
+		<p class="alert-danger well">
+			Você está usando um navegador <strong>desatualizado</strong>. Por favor <a href="http://browsehappy.com/">atualize seu navegador</a> para melhorar sua experiência.
+		</p>
+	<![endif]-->
+
+	<!-- Loading -->
+	<div class="modal-backdrop modal-no-opacity" data-bf-loading-app></div>
+	<div class="modal fade in" style="display:block" data-bf-loading-app>
+		<div class="modal-dialog modal-loading">
+			<div class="modal-content">
+				<div class="modal-body clearfix">
+					<i class="icon-spinner icon-spin icon-3x pull-left"></i>
+					<h4>Carregando...</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Header -->
+	<div ui-view="header"></div>
+	<!-- Dashboard -->
+	<!-- <div ui-view="dashboard"></div> -->
+	<!-- Conteúdo da página -->
+	<div class="">
+		<div ui-view></div>
+	</div>
+	<!-- Footer 
+	<div ui-view="footer"></div>-->
+
+	<!-- Base Design e Front-end -->
+	<script src="https://cdn.betha.cloud/base/g4/front-end/2.13/js/base.js"></script>
+	<script src="https://cdn.betha.cloud/base/g4/front-end/2.13/angular/base.js"></script>
+
+	<script src="https://cdn.test.betha.cloud/base/g4/design/4.0.3/bth-design.js"></script>
+	
+	<script src="common/app.js"></script>
+    <script src="common/states.js"></script>
+	<script src="common/header.ctrl.js"></script>
+	<script src="common/config.js"></script>
+	<script src="common/data-filter.js"></script>
+
+	<script src="common/services/acesso-store.js"></script>
+	<script src="common/libs/base64.js"></script>
+	<script src="common/libs/moment-with-locales.min.js"></script>
+	<script src="components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="common/libs/ng-flow-standalone.min.js"></script>
+	<script src="common/libs/FileSaver.js"></script>
+    <script src="common/libs/lodash.min.js"></script>
+
+	<script src="common/libs/fusioncharts.js"></script>
+    <script src="common/libs/angular-fusioncharts.min.js"></script>
+    <script src="common/libs/fusioncharts.theme.ocean.js"></script>
+
+	<!-- Scripts nova listagem -->
+	<script type="text/javascript" src="common/libs/jquery.dragtable.js"></script>
+	<script type="text/javascript" src="common/libs/jquery.stickytableheaders.js"></script>
+	<script type="text/javascript" src="components/tinymce/tinymce.min.js"></script>
+	<script type="text/javascript" src="components/angular-ui-tinymce/src/tinymce.js"></script>
+	<script type="text/javascript" src="common/editor-texto/editor-texto.ctrl.js"></script>
+	<script type="text/javascript" src="components/angular-ui-sortable/src/sortable.js"></script>
+
+	<script src="common/enums.js"></script>
+	<script src="common/enums-filter.js"></script>
+	<script src="common/storage.js"></script>
+	<script src="common/arrec-modal.js"></script>
+
+	<!-- Customizadas da Arrecadacao -->
+	<script src="common/db.js"></script>
+	<script src="common/services/commons.service.js"></script>
+	<script src="common/services/modal-cad.js"></script>
+	<script src="common/factories/grid-config.js"></script>
+	<script src="common/factories/format-enum.factory.js"></script>
+	<script src="common/factories/format-campos-adicionais.factory.js"></script>
+	<script src="common/directives/finder/finder.directive.js"></script>
+	<script src="common/directives/finder/finder-terms.directive.js"></script>
+	<script src="common/directives/finder/finder-modal.controller.js"></script>
+	<script src="common/directives/finder/ver-filtros/ver-filtros-modal.controller.js"></script>
+	<script src="common/directives/finder/finder.service.js"></script>
+	<script src="common/directives/arrec-pagination/arrec-pagination.ctrl.js"></script>
+	<script src="common/directives/arrec-depara/arrec-depara.ctrl.js"></script>
+	<script src="common/directives/arrec-observacoes/arrec-observacoes.js"></script>
+	<script src="common/directives/navigator/navigator.js"></script>
+	<script src="common/directives/undo-time.js"></script>
+	<script src="common/directives/count-down.js"></script>
+	<script src="common/directives/spinner/spinner.js"></script>
+	<script src="common/directives/spinner/spinner-ctrl.js"></script>
+    <script src="common/directives/only-number.js"></script>
+	<script src="common/directives/switch.js"></script> 
+    <script src="common/directives/inline-edit.js"></script>
+    <script src="common/directives/dd-text-collapse.js"></script>
+	<script src="common/directives/ui-position.js"></script>
+	<script src="common/directives/bthtimepicker.js"></script>
+	<script src="common/directives/partialReadOnly/partialReadOnly.js"></script>
+	<script src="common/sticky-panel.js"></script>
+	<script src="common/directives/keep-open/keep-open.js"></script>
+	<script src="common/directives/bth-megamenu-search/bth-megamenu-search.js"></script>
+	<script src="common/directives/bth-attach/bth-attach.js"></script>
+	<script src="common/directives/ui-color-selector/color-selector.directive.js"></script>
+	<script src="common/directives/ui-icon-selector/icon-selector.directive.js"></script>
+
+	<script src="components/ui-components/src/ui-components.module.js"></script>
+	<script src="components/ui-modal/src/ui-modal.service.js"></script>
+	<script src="components/ui-commons/dist/ui-commons.min.js"></script>
+	
+	<script src="common/directives/ui-select/dist/ui-select.min.js"></script>
+	<script src="common/directives/ui-spinner/dist/ui-spinner.min.js"></script>
+
+	<script src="common/directives/bth-hierarchy/bth-hierarchy.js"></script>
+    <script src="common/directives/bth-hierarchy/bth-hierarchy-node.js"></script>
+	<script src="common/directives/arrec-select2-intervalo/arrec-select2-intervalo.js"></script>
+	<script src="common/directives/arrec-select2-intervalo-valor/arrec-select2-intervalo-valor.js"></script>
+	<script src="common/directives/bth-tag-list/bth-tag-list.ctrl.js"></script>
+	<script src="common/directives/full-filter/full-filter.ctrl.js"></script>
+	<script src="common/directives/arrec-filter/arrec-filter.js"></script>
+	<script src="common/directives/bth-empty/bth-empty.js"></script>
+	<script src="common/directives/referentes/referentes.ctrl.js"></script>
+	<script src="common/directives/referentes/referentes-imoveis.ctrl.js"></script>
+	<script src="common/directives/referentes/referentes-economicos.ctrl.js"></script>
+	<script src="common/autenticacao/autenticacao.ctrl.js"></script>
+
+	<script src="configuracoes/formulas/formulas-ctrl.js"></script>
+
+	<script src="gerenciador-cadastros/gerais/gerais.ctrl.js"></script>
+
+	<script src="gerenciador-cadastros/gerais/motivos/motivos.controller.js"></script>
+	<script src="gerenciador-cadastros/gerais/modelos-peticoes/modelos-peticoes.ctrl.js"></script>
+	
+	<!--script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" type="text/javascript"></script-->
+	<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy--q_qL5eX2T_G04qL0P6jYUjFL4OMVI&libraries=places"></script> -->
+	
+	
+	
+	<!-- Controllers Específicos desta Aplicação -->
+	<script src="common/visao-geral.ctrl.js"></script>
+	<script src="common/agenda/agenda.ctrl.js"></script>
+	<script src="common/agenda/agenda.service.js"></script>
+	<!-- <script src="agenda/tarefa/tarefa.crtl.js"></script> -->
+	
+	<script src="gerenciador-cadastros/cadastros-auxiliares/cadastros-auxiliares.ctrl.js"></script>
+	<script src="gerenciador-cadastros/gerais/categoria-bens/categoria-bens.ctrl.js"></script>
+
+	<script src="gerenciador-cadastros/penhoras/penhoras.ctrl.js"></script>
+	<script src="gerenciador-cadastros/pessoas/pessoas.ctrl.js"></script>
+	<script src="gerenciador-cadastros/pessoas/contribuintes/contribuintes.ctrl.js"></script>
+	<script src="gerenciador-cadastros/pessoas/contribuintes/pessoa-juridica/publicidades/publicidades-ctrl.js"></script>
+	<script src="gerenciador-cadastros/pessoas/contribuintes/pessoa-fisica/pessoa-fisica-ctrl.js"></script>
+	<script src="gerenciador-cadastros/pessoas/contribuintes/pessoa-juridica/pessoa-juridica-ctrl.js"></script>
+	<script src="gerenciador-cadastros/pessoas/advogados/advogados-controller.js"></script>
+	<script src="gerenciador-cadastros/pessoas/cartorios/cartorios-controller.js"></script>
+	<script src="gerenciador-cadastros/pessoas/referentes/referentes.ctrl.js"></script>
+	<script src="gerenciador-cadastros/pessoas/profissionais/profissionais.ctrl.js"></script>
+	<script src="gerenciador-cadastros/pessoas/grupo-profissionais/grupo-profissionais.ctrl.js"></script>
+	<script src="gerenciador-cadastros/pessoas/profissionais-novo/profissionais.ctrl.js"></script>
+	<script src="gerenciador-cadastros/pessoas/profissionais-novo/profissionais.ctrl.js"></script>
+
+	<script src="gerenciador-cadastros/cbo/cbo-service.js"></script>
+	<script src="gerenciador-cadastros/cbo/cbo-select.js"></script>
+	<script src="gerenciador-cadastros/fiscais/fiscais-ctrl.js"></script>
+
+
+	<script src="gerenciador-cadastros/enderecos/enderecos.ctrl.js"></script>
+	<script src="gerenciador-cadastros/enderecos/add.js"></script>
+	<script src="gerenciador-cadastros/enderecos/siglas-iso2.js"></script>
+
+	<script src="gerenciador-cadastros/enderecos/faces/faces-controller.js"></script>
+	<script src="gerenciador-cadastros/enderecos/logradouros/logradouros-controller.js"></script>
+	<script src="gerenciador-cadastros/enderecos/condominios/condominios-controller.js"></script>
+	<script src="gerenciador-cadastros/enderecos/loteamentos/loteamentosComplementos-controller.js"></script>
+	<script src="gerenciador-cadastros/enderecos/bairros/bairros-controller.js"></script>
+	<script src="gerenciador-cadastros/enderecos/distritos/distritos-controller.js"></script>
+	<script src="gerenciador-cadastros/enderecos/estados/estados-controller.js"></script>
+	<script src="gerenciador-cadastros/enderecos/municipios/municipios-controller.js"></script>
+	<script src="gerenciador-cadastros/enderecos/paises/paises-controller.js"></script>
+	
+	<script src="gerenciador-cadastros/enderecos/localidades/localidades-controller.js"></script>
+	<script src="gerenciador-cadastros/enderecos/secoes/secoes-controller.js"></script>
+	
+	<script src="gerenciador-cadastros/financeiro/financeiro.ctrl.js"></script>
+	<script src="gerenciador-cadastros/financeiro/agenciasBancarias/agencias-bancarias-controller.js"></script>
+	<script src="gerenciador-cadastros/financeiro/bancos/bancos-ctrl.js"></script>
+	<script src="gerenciador-cadastros/financeiro/convenios/convenios-ctrl.js"></script>
+	<script src="gerenciador-cadastros/financeiro/creditos-tributarios/creditos-tributarios-ctrl.js"></script>
+	<script src="gerenciador-cadastros/financeiro/indexadores/indexadores-ctrl.js"></script>
+	
+	<script src="gerenciador-cadastros/gerais/areas-assuntos/areas-assuntos-ctrl.js"></script>
+	<script src="gerenciador-cadastros/gerais/locais-tramitacao/locais-tramitacao-ctrl.js"></script>
+	<script src="gerenciador-cadastros/gerais/classes/classes-ctrl.js"></script>
+	
+	<script src="configuracoes/central-configuracoes/views/views.ctrl.js"></script>
+	<script src="configuracoes/central-configuracoes/central-configuracoes-ctrl.js"></script>
+	<script src="configuracoes/central-configuracoes/views/documentos/config-documentos.ctrl.js"></script>
+	<script src="configuracoes/emissao-guias/emissao-guias-ctrl.js"></script>
+	<script src="configuracoes/assinando-documentos-digitais/assinando-documentos-digitais.js"></script>
+	
+	<script src="gerenciador-cadastros/locais-arquivamento/locais-arquivamento-controller.js"></script>
+	
+	<script src="gerenciador-protestos/protestos/protesto-controller.js"></script>
+	<script src="gerenciador-dividas/gerenciador-dividas-controller.js"></script>
+	<script src="gerenciador-dividas/dividas-ativas/dividas-ativas-ctrl.js"></script>
+	<script src="gerenciador-dividas/dividas-ativas/dividas-ativas-NOVA.ctrl.js"></script>
+	<script src="gerenciador-dividas/dividas-ativas/dividas-ativas-FILTRO.js"></script>
+	<script src="gerenciador-protestos/gerenciador-protestos-controller.js"></script>
+	<script src="gerenciador-execucoes/execucoes/execucao-fiscal-controller.js"></script>
+	<script src="gerenciador-execucoes/gerenciador-execucoes-controller.js"></script>
+	<script src="gerenciador-cadastros/gerenciador-cadastros-controller.js"></script>
+	
+	<script src="gerenciador-documentos/integracoes/integracoes.crtl.js"></script>
+	<script src="gerenciador-documentos/cacador/cacador.ctrl.js"></script>
+	<script src="gerenciador-documentos/cancelamento-documentos/cancelamento-documentos-ctrl.js"></script>
+	<script src="gerenciador-documentos/gerenciador-documentos.ctrl.js"></script>
+	<script src="gerenciador-documentos/protestos/protestos.ctrl.js"></script>
+	
+	<script src="gerenciador-documentos/cda/cda.ctrl.js"></script>
+	<script src="gerenciador-documentos/peticoes/peticoes.ctrl.js"></script>
+	
+	<script src="gerenciador-tarefas/tarefas.ctrl.js"></script>
+
+</body>
+</html>

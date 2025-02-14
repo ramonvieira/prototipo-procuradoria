@@ -1,0 +1,34 @@
+<ul class="bth-kanban-lists" ui-sortable="sortableOptionsLists">
+    <li class="bth-kanban-list-item" ng-click="adicionar({})" ng-repeat="item in tarefas">
+        <div class="bth-kanban-list-item__options">
+            <i class="fa fa-fw fa-info-circle text-muted" title="Exibe mais informações sobre a tarefa" data-bf-popover="'gerenciador-tarefas/popover-resumo-tarefa.html'" class="popover-active" data-placement="right" bf-popover-size="med-popover" keep-open></i>
+            <span class="bth-kanban-list-item__move"></span>
+        </div>
+        <div class="bth-kanban-list-item__title">{{item.descricao}}</div>
+        <div><small class="text-muted" title="Executado">{{item.ref.executado.nome}}</small></div>
+        <div class="row bottom">
+            <div class="col-md-6">
+                <img alt="" ng-src="{{procuradores[procurador].procurador.img}}" class="img-circle" width="18px" height="18px" bf-tooltip="{{procuradores[procurador].procurador.nome}}" ng-repeat="procurador in item.procuradores">
+                <i class="fa fa-fw fa-tag" ng-class="'tx__' + etiquetas[etiqueta].bColor" title="{{etiquetas[etiqueta].descricao}}" ng-repeat="etiqueta in item.etiquetas"></i>
+            </div>
+            <div class="col-md-6 text-right">
+                <div class="btn-group">
+                    <button class="btn btn-xs btn-link" keep-open ng-if="item.obs != ''" ng-click="adicionar({})"><i class="fa fa-fw fa-commenting-o"></i></button>
+                    <button class="btn btn-xs" keep-open ng-class="	item.venc > 3	? 'btn-link' :
+                                                                    item.venc <= 2	? 'btn-danger' : 'btn-warning'" title="{{item.prazo | date: 'dd'}} abril">
+                        <span>
+                            <small ng-if="item.prazo != null">
+                                {{
+                                    item.venc == 0 ? 'Hoje' :
+                                    item.venc < 0 ? 'Há ' + (item.venc * -1) + ((item.venc * -1) > 1 ? ' dias' : ' dia') :
+                                    item.venc + (item.venc > 1 ? ' dias' : ' dia')
+                                }}
+                            </small>
+                            <i class="fa fa-fw fa-calendar" ng-if="item.prazo == null"></i>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>

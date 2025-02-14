@@ -1,0 +1,74 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">Adicionando sócio</h3>
+		</div>
+		<div class="modal-body">
+			<form role="form">
+				<div class="row bottom">
+					<div class="col-md-1 text-center">
+						<i class="fa fa-user fa-2x text-muted mTop10"></i>
+					</div>
+					<div class="col-md-11">
+						<h4>Informações do sócio</h4>
+						<div class="row">
+							<div class="col-md-7">
+								<label class="required">Nome</label>
+								<select bf-select2="{}" ng-model="nome" id="nome">
+									<option value="{{$index}}" ng-repeat="contribuinte in contribuintes">{{contribuinte.nome}}</option>
+								</select>
+							</div>
+							<div class="col-md-5">
+								<label>Qualificação</label>
+								<select bf-select2="{}" ng-model="qualificacao" id="qualificacao">
+									<option value="{{$index}}" ng-repeat="qualificacao in qualificacoes">{{qualificacao.descricao}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-7">
+								<label for="banco">Responsável</label>
+								<select bf-select2="{}" ng-model="responsavel" id="responsavel">
+									<option value="{{$index}}" ng-repeat="contribuinte in contribuintes">{{contribuinte.nome}}</option>
+								</select>
+							</div>
+							<div class="col-md-5">
+								<label>Qualificação</label>
+								<select bf-select2="{}" ng-model="qualificacaoResp" id="qualificacaoResp">
+									<option value="{{$index}}" ng-repeat="qualificacao in qualificacoes">{{qualificacao.descricao}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="row bottom">
+							<div class="col-md-4">
+								<label class="required">Participação</label>
+								<div class="input-group">
+									<input class="form-control text-right" type="text" ng-model="percentualParticipacao">
+									<span class="input-group-addon">%</span>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<label>Data da inclusão</label>
+								<div class="input-group">
+									<input class="form-control" data-bf-date ng-model="dtaInclusao">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<label>Data de desligamento</label>
+								<div class="input-group">
+									<input class="form-control" data-bf-date ng-model="dataDesligamento">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary">Salvar</button>
+			<button class="btn btn-default" data-dismiss="modal">Salvar e adicionar novo</button>
+			<button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		</div>
+	</div>
+</div>

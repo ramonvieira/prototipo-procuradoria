@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-success btn-block btn-add" ng-if="url == '/compromissos'" ng-click="adicionar({tipo:'COMPROMISSO'})" title="Adiciona um novo compromisso para sua agenda">Compromisso</button>
+        <button type="button" class="btn btn-success btn-block btn-add" ng-if="url == '/tarefa'" ng-click="adicionar({tipo: 'TAREFA'})" title="Adiciona uma nova tarefa">Tarefa</button>
+    </div>
+</div>
+<h4>
+    Filtros
+    <buttom class="btn btn-link btn-xs pull-right" ng-click="maisFiltros = !maisFiltros">{{maisFiltros ? 'Menos' : 'Mais'}} filtros</buttom>
+</h4>
+<div uib-collapse="!maisFiltros">
+    <div class="row mBottom5">
+        <div class="col-md-12">
+            <label for="numDivida">Dívida</label>
+            <input type="text" class="form-control input-sm" id="numDivida" bf-cpf="" ng-model="numDivida">
+        </div>
+    </div>
+    <div class="row mBottom5">
+        <div class="col-md-12">
+            <label for="numProcess">Processo</label>
+            <input type="text" class="form-control input-sm" id="numProcess" bf-cpf="" ng-model="numProcess">
+        </div>
+    </div>
+    <div class="row mBottom5">
+        <div class="col-md-12">
+            <label for="numProtest">Protesto</label>
+            <input type="text" class="form-control input-sm" id="numProtest" bf-cpf="" ng-model="numProtest">
+        </div>
+    </div>
+</div>
+<div class="row mBottom5">
+    <div class="col-md-12">
+        <label for="descricao">Descrição</label>
+        <input type="text" class="form-control input-sm" id="descricao" placeholder="Pesquisar na descrição" ng-model="descricao">
+    </div>
+</div>
+<h4>Procuradores/Assessores</h4>
+<div class="row bottom" ng-controller="GrupoProfissionaisCtrl">
+    <div class="col-md-12">
+        <ul class="list-inline bottom" style="margin-left:0">
+            <li ng-repeat="procurador in grupos[0].procuradores" style="padding: 1px">
+                <img alt="" ng-src="{{procurador.proc.procurador.img}}" class="img-circle" width="25px" bf-tooltip="{{procurador.proc.procurador.nome}}">
+            </li>
+        </ul>
+    </div>
+</div>
+<hr>
+<h4>
+    Etiquetas
+    <buttom class="btn btn-link btn-xs pull-right" ng-click="editarMarcadores({})" ng-show="marcadores.length > 0">Editar etiquetas</buttom>
+</h4>
+<div ng-include="'agenda/tarefa/marcadores.html'"></div>

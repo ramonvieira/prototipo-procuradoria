@@ -1,0 +1,83 @@
+<b>Refinar a busca</b>
+<div class="row row-flex">
+    <div class="col">
+        <h5>Pesquisar em</h5>
+        <ul class="bth-filter__list bth-filter__list--radio">
+            <li class="ui-list-container-radio">
+                <div class="bth-radio">
+                    <input id="rdColumn0" type="radio" name="rdColumn" value="0" ng-model="pesquisarEm">
+                    <label for="rdColumn0" class="ng-binding">Almoxarifado</label>
+                </div>
+            </li>
+            <li class="ui-list-container-radio">
+                <div class="bth-radio">
+                    <input id="rdColumn1" type="radio" name="rdColumn" value="1" ng-model="pesquisarEm">
+                    <label for="rdColumn1" class="ng-binding">Subalmoxarifado</label>
+                </div>
+            </li>
+            <li class="ui-list-container-radio">
+                <div class="bth-radio">
+                    <input id="rdColumn2" type="radio" name="rdColumn" value="2" ng-model="pesquisarEm">
+                    <label for="rdColumn2" class="ng-binding">CBO</label>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col">
+        <h5>Considerando apenas registros que</h5>
+        <ul class="bth-filter__list bth-filter__list--radio">
+            <li class="ui-list-container-radio">
+                <div class="bth-radio text-ellipsis">
+                    <input id="radio1" type="radio" name="rdSearch2" value="contains" ng-model="$parent.$root.searchCriteria" ng-checked="$parent.$root.searchCriteria == 'contains'" class="ng-pristine ng-untouched ng-valid" checked="checked">
+                    <label for="radio1">
+                        <div class="tag-busca tag-contem">Ab</div>
+                        Contenham <span class="search-query ng-binding">o termo digitado</span>
+                    </label>
+                </div>
+            </li>
+            <li class="ui-list-container-radio">
+                <div class="bth-radio text-ellipsis">
+                    <input id="radio2" type="radio" name="rdSearch2" value="notEquals" ng-model="$parent.$root.searchCriteria" ng-checked="$parent.$root.searchCriteria == 'notEquals'" class="ng-pristine ng-untouched ng-valid">
+                    <label for="radio2">
+                        <div class="tag-busca tag-nao-contem">Ab</div>
+                        Não contenham <span class="search-query ng-binding">o termo digitado</span>
+                    </label>
+                </div>
+            </li>
+            <li class="ui-list-container-radio">
+                <div class="bth-radio text-ellipsis">
+                    <input id="radio3" type="radio" name="rdSearch2" value="startsWith" ng-model="$parent.$root.searchCriteria" ng-checked="$parent.$root.searchCriteria == 'startsWith'" class="ng-pristine ng-untouched ng-valid">
+                    <label for="radio3">
+                        <div class="tag-busca tag-inicia"><span>A</span>b</div>
+                        Iniciem com <span class="search-query ng-binding">o termo digitado</span>
+                    </label>
+                </div>
+            </li>
+            <li class="ui-list-container-radio">
+                <div class="bth-radio text-ellipsis">
+                    <input id="radio4" type="radio" name="rdSearch2" value="endsWith" ng-model="$parent.$root.searchCriteria" ng-checked="$parent.$root.searchCriteria == 'endsWith'" class="ng-pristine ng-untouched ng-valid">
+                    <label for="radio4">
+                        <div class="tag-busca tag-termina">A<span>b</span></div>
+                        Terminem com <span class="search-query ng-binding">o termo digitado</span>
+                    </label>
+                </div>
+            </li>
+            <li class="ui-list-container-radio">
+                <div class="bth-radio text-ellipsis">
+                    <input id="radio5" type="radio" name="rdSearch2" value="equalsTo" ng-model="$parent.$root.searchCriteria" ng-checked="$parent.$root.searchCriteria == 'equalsTo'" class="ng-pristine ng-untouched ng-valid">
+                    <label for="radio5">
+                        <div class="tag-busca tag-exatamente">'Ab'</div>
+                        Sejam exatamente <span class="search-query ng-binding">o termo digitado</span>
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="row bottom">
+    <div class="col-md-12 text-right">
+        <button class="btn btn-sm btn-primary" data-dismiss="popover" ng-click="addTextSearch(); $parent.showRefineFilterPopover = false;">Aplicar</button>
+        <button class="btn btn-sm btn-default" data-dismiss="popover" ng-click="$parent.showRefineFilterPopover = false;">Cancelar</button>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<div ng-show="tarefas.length > 0" ng-init="tabPendente = true">
+	<ul role="tablist" class="nav nav-tabs">
+		<li role="presentation" ng-class="{'active' : tabPendente}">
+			<a ng-click="tabPendente = true">Pendentes <span class="badge badge-warning">{{(tarefas | filter: {pendente: true}).length}}</span></a>
+		</li>
+		<li role="presentation" ng-class="{'active' : !tabPendente}">
+			<a ng-click="tabPendente = false">Finalizadas</a>
+		</li>
+	</ul>
+</div>
+<div ng-include="'agenda/tarefa/tarefa-lista.html'"></div>

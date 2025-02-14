@@ -1,0 +1,73 @@
+
+<div class="row" data-ng-repeat="registro in getList(filter) track by $index">
+    <div class="col-md-12">
+        <div data-ng-if="registro.tipo != 'ITEM_SELECAO'">
+            <label for="tituloCampo" >
+                {{registro.titulo}}
+                <i class="icon-question-sign" data-bf-tooltip={{registro.ajudaCampo}}></i>
+            </label>
+        </div>
+        <div data-ng-if="registro.tipo == 'TEXTO'">
+            <input data-ng-if="registro.desabilitado=='SIM' || ngDisabled" type="text" id="itemTextoDisabled" class="form-control" data-ng-value="registro.texto" trim="false" maxlength="{{registro.maxDigitos}}" ng-focus="campoFocado = true" ng-blur="campoFocado = false" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled"/>
+            <input data-ng-if="registro.desabilitado=='NAO' || ngDisabled" type="text" id="itemTexto" class="form-control" data-ng-model="registro.texto" trim="false" maxlength="{{registro.maxDigitos}}" ng-focus="campoFocado = true" ng-blur="campoFocado = false" />
+            <span class="contagemCaracteres" ng-show="campoFocado" ng-click="registro.texto = ''">
+                <small>Você digitou {{0 + registro.texto.length}} de {{registro.maxDigitos}} caracteres disponíveis.</small>
+            </span>
+        </div>
+        <div data-ng-if="registro.tipo == 'AREA_TEXTO'">
+            <textarea id="itemAreaTexto" class="form-control" ng-model="registro.areaTexto" ng-trim="false" maxlength="{{registro.maxDigitos}}" ng-focus="campoFocado2 = true" ng-blur="campoFocado2 = false" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled"></textarea>
+            <span class="contagemCaracteres" ng-show="campoFocado2" ng-click="registro.areaTexto = ''">
+                <small>Você digitou {{0 + registro.areaTexto.length}} de {{registro.maxDigitos}} caracteres disponíveis.</small>
+            </span>
+        </div>
+        <div data-ng-if="registro.tipo == 'CPF'">
+            <input type="text" id="cpf" class="form-control" data-bf-mask-cpf ng-model="registro.texto" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled">
+        </div>
+        <div data-ng-if="registro.tipo == 'CNPJ'">
+            <input type="text" id="cnpj" class="form-control" data-bf-mask-cnpj ng-model="registro.texto" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled">
+        </div>
+        <div data-ng-if="registro.tipo == 'EMAIL'">
+            <input type="text" id="itemEmail" class="form-control" ng-model="registro.texto" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled" maxlength="60" data-bf-validate-email>
+        </div>
+        <div data-ng-if="registro.tipo == 'TELEFONE'">
+            <input type="text" id="itemFone" class="form-control" ng-model="registro.texto" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled" data-bf-mask-phone>
+        </div>
+        <div data-ng-if="registro.tipo == 'NUMERICO' || registro.tipo == 'VALOR_VENAL_TERRITORIAL' || registro.tipo == 'VALOR_VENAL_CONSTRUIDO' || registro.tipo == 'VALOR_VENAL' || registro.tipo == 'AREA_CONSTRUIDA' || registro.tipo == 'AREA_TOTAL' || registro.tipo == 'AREA_TERRENO'">
+            <div data-ng-if="registro.formato == 'INTEIRO'">
+                <ui-number ng-if="!registro.unidadeMedida || !registro.unidadeMedida.numero" ng-model="registro.vlCampo" integer="registro.maxDigitos" fraction="0" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled"/>
+                <ui-number ng-if="registro.unidadeMedida && registro.unidadeMedida.numero" ng-model="registro.vlCampo" integer="registro.maxDigitos" fraction="0" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled">
+                    <span class="input-group-addon">{{ registro.unidadeMedida.numero }}</span>
+                </ui-number>
+            </div>
+            <div data-ng-if="registro.formato == 'DECIMAL'">
+                <ui-number ng-if="!registro.unidadeMedida || !registro.unidadeMedida.numero" ng-model="registro.vlCampo" integer="registro.maxDigitos" fraction="registro.maxCasasDecimais" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled"/>
+                <ui-number ng-if="registro.unidadeMedida && registro.unidadeMedida.numero" ng-model="registro.vlCampo" integer="registro.maxDigitos" fraction="registro.maxCasasDecimais" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled">
+                    <span class="input-group-addon">{{ registro.unidadeMedida.numero }}</span>
+                </ui-number>
+            </div>
+        </div>
+        <div data-ng-if="registro.tipo == 'LISTA_SELECAO'">
+            <input data-ng-if="!isInfoComplModel" type="hidden" data-bf-select2="registro.camposAdicionaisSelectOptions" ng-model="registro.idOpcoesCopy" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled"/>
+            <input data-ng-if="isInfoComplModel" type="hidden" data-bf-select2="registro.camposAdicionaisSelectOptions" ng-model="registro.informacoesComplementares.id" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled"/>
+        </div>
+        <div data-ng-if="registro.tipo == 'DATA'">
+            <div class="input-group">
+                <input type="text" id="itemData-{{$index}}" class="form-control" data-ng-model="registro.dhCampo" data-bf-date="{showDate: true, dateFormat: (registro.formato)}" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled"/>
+            </div>
+        </div>
+        <div data-ng-if="registro.tipo == 'HORA'">
+            <div class="input-group">
+                <input type="text" id="hCampo-{{$index}}" class="form-control" data-ng-model="registro.dhCampo" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled" data-bf-date="{showTime: true, timeFormat: (registro.formatoHora | lowercase) }"/>
+            </div>
+        </div>
+        <div data-ng-if="registro.tipo == 'DATAHORA'">
+            <div class="input-group">
+                <input type="text" class="form-control" id="dhCampo-{{$index}}" data-ng-model="registro.dhCampo" data-bf-date="{showDate: true, dateFormat: (registro.formato), showTime: true, timeFormat: (registro.formatoHora | lowercase) }" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled"/>
+            </div>
+        </div>
+        <div data-ng-if="registro.tipo == 'MULTIPLA_SELECAO'">
+            <input data-ng-if="!isInfoComplModel" type="hidden" data-bf-select2="registro.camposAdicionaisSelectOptions" ng-model="registro.idOpcoesCopy" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled" multiple="true">
+            <input data-ng-if="isInfoComplModel" type="hidden" data-bf-select2="registro.camposAdicionaisSelectOptions" ng-model="registro.informacoesComplementares" data-ng-disabled="registro.desabilitado=='SIM' || ngDisabled" multiple="true">
+        </div>
+    </div>
+</div>

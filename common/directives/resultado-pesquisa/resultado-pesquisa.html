@@ -1,0 +1,6 @@
+<td colspan="{{colspan}}" ng-show="exibir && !isCarregando && (!filters.keyword && !filters.keywords.length)">
+    <h4 class="text-center">Ainda não há  {{cadastro | lowercase}} por aqui. <a href ng-click="adicionar();">Que tal adicionar um agora?</a></h4>
+</td>
+<td colspan="{{colspan}}" ng-show="exibir && !isCarregando && (filters.keyword || filters.keywords.length)">
+    <h4 class="text-center">Nenhum resultado encontrado para o(s) filtro(s) utilizado(s)</h4>
+</td>

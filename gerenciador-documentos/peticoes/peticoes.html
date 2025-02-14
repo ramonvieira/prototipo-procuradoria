@@ -1,0 +1,279 @@
+<div class="bth-card">
+	<div class="bth-card__body">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="pull-right">
+					<form class="form-inline">
+						<botao-enviar-tribunal class="btn btn-primary btn-sm" />
+						<botao-assinar class="btn btn-primary btn-sm" />
+                        <div class="btn-group">
+	
+                            <!-- Colunas a exibir -->
+        
+                            <div class="btn-group">
+                                <button id="dropdownColunas" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Definir colunas a exibir">
+                                    <i class="fa fa-columns"></i> 
+                                    <span class="caret"></span>
+                                </button>
+                            </div>
+        
+                            <!-- Altura das linhas -->
+        
+                            <div class="btn-group">
+                                <button id="dropdownAltura" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Definir altura das linhas">
+                                    <i class="fa fa-reorder"></i> 
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownAltura">
+                                    <li class="dropdown-header">Altura das linhas</li>
+                                    <li><a href="" ng-click="setLineHeight('1')" class="btn-check" ng-class="{'active' : lineHeight == 1}">Padrão</a></li>
+                                    <li><a href="" ng-click="setLineHeight('2')" class="btn-check" ng-class="{'active' : lineHeight == 2}">Condensada</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="btn-group">
+                            <button id="dropdownExportar" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Fazer download">
+                                <i class="fa fa-fw fa-download"></i>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header">Formato do arquivo
+                                </li>
+                                <li>
+                                    <a href="">PDF</a>
+                                </li>
+                                <li>
+                                    <a href="">CSV</a>
+                                </li>
+                                <li>
+                                    <a href="">Excel</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-default btn-sm" title="Atualizar">
+                            <i class="fa fa-refresh"></i>
+                        </button>
+						<div class="input-group">
+							<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+		
+							<!-- Pesquisa avançada -->
+		
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+								<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+		
+								<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
+									<li class="dropdown-header">
+										<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+										<h1>Pesquisa avançada</h1>
+									</li>
+									<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+									<li>
+										<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true">
+											<option value="1">Descrição</option>
+										</select>
+									</li>
+									<li class="dropdown-header">Utilizando como critério</li>
+									<li>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdAlguns">Alguns dos termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdTodos">Todos os termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdNenhum">Nenhum dos termos digitados</label>
+										</div>
+									</li>
+									<li role="separator" class="divider"></li>
+									<li class="dropdown-header">
+										<h1>Outras opções</h1>
+									</li>
+									<li>
+										<div class="row bottom">
+											<div class="col-md-8">
+												<label>Data da emissão</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-8">
+												<div class="input-group date-range">
+													<div class="input-group">
+														<input class="form-control" type="text" bf-date="" ng-model="filtro.emissaoDe">
+													</div>
+													<span class="input-group-addon">até</span>
+													<div class="input-group">
+														<input class="form-control" type="text" bf-date="" ng-model="filtro.emissaoAte">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row bottom">
+											<div class="col-md-6">
+												<label>Intervalo por número do documento <i class="fa fa-fw fa-info-circle"></i></label>
+											</div>
+											<div class="col-md-6">
+												<label>Intervalo por ano do documento <i class="fa fa-fw fa-info-circle"></i></label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<input type="text" class="form-control" id="numDocumento" ng-model="registro.numDocumento">
+											</div>
+											<div class="col-md-6">
+												<input type="text" class="form-control" id="anoDocumento" ng-model="registro.anoDocumento">
+											</div>
+										</div>
+										<div class="row bottom">
+											<div class="col-md-6">
+												<label>Possui CPF/CNPJ?</label>
+											</div>
+											<div class="col-md-6">
+												<label>Documento assinado?</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<select bf-select2="{}" id="cpfcnpj" class="form-control" ng-model="filtro.cpfcnpj">
+													<option value="SIM">Sim</option>
+													<option value="NAO">Não</option>
+												</select>
+											</div>
+											<div class="col-md-6">
+												<select bf-select2="{}" id="docAssinado" class="form-control" ng-model="filtro.docAssinado">
+													<option value="SIM">Sim</option>
+													<option value="NAO">Não</option>
+												</select>
+											</div>
+										</div>
+										<div class="row bottom">
+											<div class="col-md-6">
+												<label>CDAs assinadas</label>
+											</div>
+											<div class="col-md-6">
+												<label>Documento enviado ao tribunal</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<select bf-select2="{}" id="cdaAssinada" class="form-control" ng-model="filtro.cdaAssinada">
+													<option value="SIM">Sim</option>
+													<option value="NAO">Não</option>
+												</select>
+											</div>
+											<div class="col-md-6">
+												<select bf-select2="{}" id="docEnviadoTrib" class="form-control" ng-model="filtro.docEnviadoTrib">
+													<option value="SIM">Sim</option>
+													<option value="NAO">Não</option>
+												</select>
+											</div>
+										</div>
+										<div class="row bottom">
+											<div class="col-md-12">
+												<label>Intervalo por código da execução fiscal <i class="fa fa-fw fa-info-circle"></i></label>
+											</div>
+										</div>
+										<div class="row bottom">
+											<div class="col-md-12">
+												<input type="text" class="form-control" id="codigoExecucao" ng-model="registro.codigoExecucao">
+											</div>
+										</div>
+									</li>
+
+									<li class="dropdown-footer pull-right">
+										<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="bth-checkbox bth-checkbox-inline">
+					<input type="checkbox" ng-click="checkAll();">
+					<label for=""></label>
+				</div>
+				<div style="display: inline-block">
+					<span class="badge pull-left">
+						0 documento(s) selecionado(s)
+					</span>
+					&nbsp;
+					<small>
+						<a href="">Selecionar todos os outros {{peticoes.length}} resultados</a>
+					</small>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-hover table-unfixed">
+					<thead>
+						<tr>
+							<th width="35px"></th>
+							<th width="165px"><a href="">Código <i class="icon-sort pull-right"></i></a></th>
+							<th width="195px"><a href="">Nº processo <i class="icon-sort pull-right"></i></a></th>
+							<th><a href="">Contribuinte <i class="icon-sort pull-right"></i></a></th>
+							<th width="165px"><a href="">Data da emissão <i class="icon-sort pull-right"></i></a></th>
+							<th width="80px" class="text-center"><span>Anexos</span></th>
+							<th width="60" class="text-center"><span>Envio</span></th>
+							<th width="30"></th>
+						</tr>
+					</thead>
+					<tbody >
+						<tr ng-repeat="peticao in peticoes">
+							<td>
+								<div class="bth-checkbox">
+									<input id="chbox" type="checkbox">
+										<label for="chbox">
+									</label>
+								</div>
+							</td>
+							<td>
+                                <button class="btn btn-default btn-xs ng-binding" title="Visualizar petição">
+                                    <i class="fa fa-download"></i> {{peticao.certidao.numero}} / {{peticao.certidao.data | arrecAno}}
+                                </button>
+                                <i class="fa fa-fw fa-check-circle-o text-greenA7" bf-tooltip="Assinado digitalmente" ng-if="peticao.assinado || peticao.hashAssinaturaP7s"></i>
+                                <i class="fa fa-check-circle fa-fw text-greenA7" bf-tooltip="Assinado digitalmente P7s" ng-if="peticao.hashAssinaturaP7s"></i>
+                                <i class="fa fa-fw fa-warning tx__yellow--d10" bf-tooltip="A CDA  da petição não está assinada" ng-if="!peticao.assinado && !hashAssinaturaP7s"></i>
+                            </td>
+							<td>{{peticao.processo}}</td>
+							<td>
+								<a href="" ng-click="verContribuinte({})">{{peticao.contrib}}</a> <span class="text-muted">506.724.289-20</span>
+							</td>
+							<td>{{peticao.certidao.data | arrecDate}}</td>
+							<td class="text-center">
+								<button type="button" class="btn btn-link btn-xs" title="Anexar/Anexos"><i class="fa fa-fw fa-paperclip"></i></button>
+							</td>
+							<td class="text-center">
+								<i class="fa fa-fw fa-warning tx__red" ng-if="peticao.envio.data && peticao.envio.erro" bf-tooltip="Ocorreu inconsistência no envio deste documento ao tribunal!"></i>
+								<i class="fa fa-fw fa-check tx__green" ng-if="peticao.envio.data && !peticao.envio.erro" bf-tooltip="Este documento já foi enviado ao tribunal, sua tentativa de reenvio será ignorada!"></i>
+							</td>
+							<td class="text-center">
+								<div class="btn-group btn-group-xs">
+									<a href="" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+										<i class="fa fa-fw fa-ellipsis-v"></i>
+									</a>
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li class="dropdown-header">Ações disponíveis</li>
+										<li><a href="" ng-click="">Baixar documento</a></li>
+										<li><botao-enviar-tribunal ng-disabled="peticao.envio.data && !peticao.envio.erro" /></li>
+										<li><botao-assinar /></li>
+										<li><a href="" ng-click="">Visualizar execução fiscal</a></li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>	
+		</div>
+		<arrec-pagination />
+	</div>
+</div>

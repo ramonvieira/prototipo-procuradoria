@@ -1,0 +1,88 @@
+<div class="modal-dialog modal-xl">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<ul class="modal-header__actions">
+				<li>
+					<span class="label label-success">Ativo</span>
+				</li>
+			</ul>
+			<h3 class="modal-title">{{isEditing ? 'Editando' : 'Adicionando'}}</h3>
+			<br><small>{{contribuinteEdit.nome}}</small>
+		</div>
+		<div class="modal-body">
+			<!-- Tipo da pessoa -->
+			<div ng-show="!isEditing">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<h4>Selecione o tipo de contribuinte a ser cadastrado</h4>
+					</div>
+				</div>
+				<div class="row row-flex">
+					<div class="col-md-3 col-md-offset-3">
+						<div class="bth-card bth-card--bordered bth-card--clickable" ng-click="tipoSelecionado = 'Pessoa física'" ng-class="{'bth-card--active': tipoSelecionado == 'Pessoa física'}">
+							<div class="bth-card__body">
+								<div class="bth-card__mark">
+									<div class="bth-radio">
+										<input id="radio2" value="Pessoa física" type="radio" name="modulo2" ng-model="tipoSelecionado">
+										<label for="radio2">
+										</label>
+									</div>
+								</div>
+								<div class="row bottom">
+									<div class="col-md-12 text-center">
+										<img src="images/im-contribuinte.svg" height="55px">
+										<h4 class="bottom">Pessoa física</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="bth-card bth-card--bordered bth-card--clickable" ng-click="tipoSelecionado = 'Pessoa jurídica'" ng-class="{'bth-card--active': tipoSelecionado == 'Pessoa jurídica'}">
+							<div class="bth-card__body">
+								<div class="bth-card__mark">
+									<div class="bth-radio">
+										<input id="radio3" value="Pessoa jurídica" type="radio" name="modulo2" ng-model="tipoSelecionado">
+										<label for="radio3">
+										</label>
+									</div>
+								</div>
+								<div class="row bottom">
+									<div class="col-md-12 text-center">
+										<img src="images/im-economico.svg" height="55px">
+										<h4 class="bottom">Pessoa jurídica</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr ng-show="tipoSelecionado != null">
+			</div>
+
+			<!-- Dados da pessoa física -->
+			<div uib-collapse="tipoSelecionado != 'Pessoa física'">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<div ng-include="'gerenciador-cadastros/pessoas/contribuintes/pessoa-fisica/pessoa-fisica-cad-form.html'"></div>
+					</div>
+				</div>
+			</div>
+			<!-- Dados da pessoa jurídica -->
+			<div uib-collapse="tipoSelecionado != 'Pessoa jurídica'">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<div ng-include="'gerenciador-cadastros/pessoas/contribuintes/pessoa-juridica/pessoa-juridica-cad-form.html'"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal">Salvar</button>
+			<button type="button" class="btn btn-primary" data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.pessoa-fisica.dados-pessoais({contribuinte: 20})" data-dismiss="modal" ng-hide="isEditing">Salvar continuar editando</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal" ng-hide="isEditing">Salvar e adicionar novo</button>
+			<button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		</div>
+	</div>
+</div>

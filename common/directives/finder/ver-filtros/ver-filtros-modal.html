@@ -1,0 +1,62 @@
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">Pesquisas salvas</h3>
+		</div>
+    	<div class="modal-body">
+            <form name="search" data-ng-submit="vm.carregar()">
+                <div class="row">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-7">
+                        <div class="input-group">
+                            <input id="searchInput" type="text" data-ng-change="vm.searchChanged()" data-ng-model="vm.searchInput" placeholder="Pesquisar" class="form-control input-sm search-field">
+                            <div class="input-group-btn">
+                                <button type="button" data-ng-click="vm.carregar()" class="btn btn-primary btn-default btn-sm" title="Pesquisar" style="color: #333 !important; background-color: #fff !important; border-color: #ccc !important;"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </form>
+            <form name="form">
+                <div data-bf-loading="vm.tracker.count"></div>
+                <div class="row bottom" data-bf-loading="vm.tracker.carregandoRegistros">
+                    <div class="col-md-12" data-ng-show="vm.listagem.length">
+                        <table class="spread-sheet ">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Pesquisa
+                                    </th>
+                                    <th width="12%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="registro in vm.listagem track by registro.id" data-bf-undo-group>
+                                    <td>
+                                        {{registro.descricao}}
+                                    </td>
+                                    <td>
+                                        <a href="" title="Editar" ng-click="vm.editar(registro)">
+                                            <i class="fa text-muted fa-pencil fa-fw"></i>
+                                        </a>
+                                        <a href="" title="Excluir" data-bf-undo="vm.excluir(registro)" data-bf-undo-title="O pesquisa {{registro.descricao}} foi marcada para exclusão">
+                                            <i class="fa text-muted fa-trash-o fa-fw"></i>
+                                        </a>
+                                        <a href="" title="Utilizar" ng-click="vm.selectFilter(registro)">
+                                            <i class="fa text-muted fa-external-link fa-fw"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <navigator data-ng-show="vm.listagem.length && !vm.tracker.carregandoRegistros.active()" hide-result-selection="true" grid-config="vm.findParams" page-changed="vm.carregar()" loading-tracker="vm.tracker.carregandoRegistros" total-registros="vm.totalRegistros"></navigator>
+            </form>
+    	</div>
+	    <div class="modal-footer">
+        	<button class="btn btn-default" data-dismiss="modal" tabindex="-1">Cancelar</button>
+        </div>
+	</div>
+</div>

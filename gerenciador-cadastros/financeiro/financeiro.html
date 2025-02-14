@@ -1,0 +1,14 @@
+<div class="row">
+	<div class="col-md-3">
+		<div class="list-group">
+			<a href="" class="list-group-item" ng-repeat="cadastro in cadastros" data-ui-sref="{{cadastro.sref}}" data-ui-sref-active="active">
+				{{cadastro.descricao}}
+			</a>
+		</div>
+	</div>
+	<div class="col-md-9">
+		<div class="bth-card">
+			<div class="bth-card__body" ui-view="child"></div>
+		</div>
+	</div>
+</div>

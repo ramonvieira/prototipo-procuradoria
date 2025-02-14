@@ -1,0 +1,149 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h3 class="modal-title">Histórico de sincronização de movimentações</h3>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="pull-right">
+				<form class="form-inline">
+					<small class="text-muted" ng-if="tipoPend == 'PENDENTERECEBIMENTO' && !hist"><span ng-if="!sincroniza.sincronizando">Sincronizado em {{sincroniza.ultimaConsulta | arrecDate:'DD/MM/YYYY HH:mm'}}</span><i class="fa fa-fw fa-spin fa-spinner" ng-if="sincroniza.sincronizando"></i></small>
+					<div class="btn-group" ng-if="tipoPend == 'PENDENTERECEBIMENTO' && !hist">
+						<button type="button" class="btn btn-default btn-sm" title="Verifica se há novas informações no tribunal" ng-click="sincroniza.sincronizar()"><i class="fa fa-fw fa-refresh"></i> Sincronizar</button>
+					</div>
+					<div class="btn-group" ng-if="tipoPend == 'PENDENTERECEBIMENTO' && !hist">
+						<button type="button" class="btn btn-primary btn-sm" title="Recebe as intimações dos itens selecionados" ng-click="confirmarRecebimento(RECEBIMENTOS)" ng-disabled="qtdSelecionados == 0">Confirmar recebimento</button>
+					</div>
+					<div class="input-group">
+						<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+							<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+							<ul class="dropdown-menu dropdown-menu-right dropdown-pesquisas-avancada" keep-open>
+								<li class="dropdown-header">
+									<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">×</span></button>
+									<h1>Pesquisa avançada</h1>
+								</li>
+								<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+								<li>
+									<a href="" data-value="col1Filter">
+										<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" ng-init="colunasSelect = [1,2,3,4]" multiple="true" class="select2-offscreen" tabindex="-1">
+											<option value="1">Nº do aviso</option>
+											<option value="2">Executado</option>
+											<option value="3">Teor</option>
+											<option value="4">Processo</option>
+										</select>
+									</a>
+								</li>
+								<li class="dropdown-header">Utilizando como critério</li>
+								<li>
+									<a href="">
+										<div class="radio-inline">
+											<div class="bth-radio">
+												<input id="rdAlguns" type="radio" value="1" ng-model="tipoPesquisa" class=" " name="5">
+												<label for="rdAlguns">
+													Alguns dos termos digitados
+												</label>
+											</div>
+										</div>
+										<div class="radio-inline">
+											<div class="bth-radio">
+												<input id="rdTodos" type="radio" value="2" ng-model="tipoPesquisa" class=" " name="6">
+												<label for="rdTodos">
+													Todos os termos digitados
+												</label>
+											</div>
+										</div>
+										<div class="radio-inline">
+											<div class="bth-radio">
+												<input id="rdNenhum" type="radio" value="2" ng-model="tipoPesquisa" class=" " name="7">
+												<label for="rdTodos">
+													Nenhum dos termos digitados
+												</label>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li role="separator" class="divider"></li>
+								<li class="dropdown-header">
+									<h1>Outras opções</h1>
+								</li>
+								<li ng-if="tipoPend != 'PENDENTERECEBIMENTO'" class="dropdown-header">
+									<div class="row bottom">
+										<div class="col-md-6">
+											Data de disponibilização
+										</div>
+										<div class="col-md-6">
+										</div>
+									</div>
+								</li>
+								<li ng-if="tipoPend != 'PENDENTERECEBIMENTO'">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="input-group date-range">
+												<div class="input-group">
+													<input class="form-control" type="text" bf-date ng-model="de">
+												</div>
+												<span class="input-group-addon">até</span>
+												<div class="input-group">
+													<input class="form-control" type="text" bf-date ng-model="ate">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+										</div>
+									</div>
+								</li>
+								<li class="dropdown-header">
+									<div class="row bottom">
+										<div class="col-md-6">
+											Tipo(s) de aviso
+										</div>
+										<div class="col-md-6">
+											Tipo(s) de prazo
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="row bottom">
+										<div class="col-md-6">
+											<select bf-select2="{}" multiple="true" ng-model="filtro.tiposComunic">
+												<option value="{{tipo.id}}" ng-repeat="tipo in tiposComunic">{{tipo.descricao}}</option>
+											</select>
+										</div>
+										<div class="col-md-6" ng-if="tipoPend != 'PENDENTERECEBIMENTO'">
+											<select bf-select2="{}" multiple="true" ng-model="filtro.tiposPrazo">
+												<option value="{{tipo.id}}" ng-repeat="tipo in tiposPrazo">{{tipo.descricao}}</option>
+											</select>
+										</div>
+									</div>
+								</li>
+								<li class="dropdown-footer pull-right">
+									<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-6">
+			<label for="processosRecebidos">Sincronizado em</label>
+			<input type="hidden" bf-select2="optionsSelectHistorico" id="processosRecebidos" class="form-control" ng-model="registro.processosRecebidos" ng-change="historico.set(registro.processosRecebidos)" />
+		</div>
+	</div>
+
+	<div class="row" bf-loading="loadingRecebimentos">
+		<div class="col-md-12">
+			<lista-recebimentos recebimentos="RECEBIMENTOS" tipo-pend="tipoPend" ng-if="!historico.carregando" selectable="false" />
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" data-dismiss="modal">Salvar</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">Salvar e adicionar novo</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+</div>

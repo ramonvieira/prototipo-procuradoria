@@ -1,0 +1,152 @@
+<div class="container container-fluid">
+	<div class="page-header">
+		<div class="row">
+			<div class="col-md-8">
+				<h1 class="page-title">
+					<button type="button" class="btn btn-link" title="Voltar para a lista de contribuintes" data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.contribuinte"><i class="fa fa-arrow-left fa-fw text-muted"></i> Voltar</button>
+				</h1>
+			</div>
+			<div class="col-md-4">
+				<ol class="breadcrumb">
+					<li><a href="" data-ui-sref="main.cadastros.gerais">Cadastros</a></li>
+					<li><a href="" data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.contribuinte">Contribuintes</a></li>
+					<li>Contribuinte</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="bth-card">
+					<div class="bth-card__body">
+						<div class="media">
+							<div class="media-left">
+								<a href="#">
+									<img src="images/users.svg" width="90px">
+								</a>
+							</div>
+							<div class="media-body">
+								<div class="row bottom">
+									<div class="col-md-4">
+										<h4><div class="ellipsis" title="{{contribuinte.nome}}"><span class="badge badge-primary" title="Identificador">{{contribuinte.codigo}}</span> {{contribuinte.nome}}</div></h4>
+										<div class="row">
+											<div class="col-md-12">
+												<span ng-if="contribuinte.vinculos[0].adv"><span class="label label-default pointer" ng-controller="AdvogadosCtrl" ng-click="adicionar({isEditing:true})"><strong>Advogados:</strong> Liberada</span><br></span>
+												<span ng-if="contribuinte.vinculos[0].cart"><span class="label label-default pointer" ng-controller="CartoriosCtrl" ng-click="adicionar({isEditing:true})"><strong>Cartórios:</strong> Matrícula - 98676</span><br></span>
+											</div>
+										</div>
+
+										<div class="btn-group btn-group-xs btn-group-default">
+											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												Vincular <span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu">
+												<li ng-if="!contribuinte.vinculos[0].adv"><a href="" ng-controller="AdvogadosCtrl" ng-click="adicionar({})">Advogados</a></li>
+												<li ng-if="!contribuinte.vinculos[0].cart"><a href="" ng-controller="CartoriosCtrl" ng-click="adicionar({})">Cartórios</a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-md-4">
+												<label><abbr title="Cadastro de Pessoas Físicas">CPF</abbr></label><br>
+												<span>{{contribuinte.cpfcnpj}}</span>
+											</div>
+											<div class="col-md-4">
+												<label>Nome social</label><br>
+												<span>{{contribuinte.socialFantasia}}</span>
+											</div>
+											<div class="col-md-4">
+												<label>Inscrição municipal</label><br>
+												<span>123456789012345</span>
+											</div>
+										</div>
+										<div class="row bottom">
+											<div class="col-md-4">
+												<label>Nascimento/Óbito</label><br>
+												<span>{{contribuinte.nascimento}} / {{contribuinte.obito ? '01/01/2019' : '---'}}</span>
+											</div>
+											<div class="col-md-4">
+												<label>RG</label><br>
+												<span>123456</span>
+											</div>
+											<div class="col-md-4">
+												<label>Nacionalidade</label><br>
+												<span>Brasileira</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="row">
+											<div class="col-md-12 text-right">
+												<span class="label" ng-class="{
+													'label-success'			: contribuinte.situacao == 'Ativo',
+													'label-danger'			: contribuinte.situacao == 'Desativado'
+												}">{{contribuinte.situacao}}</span>
+												<button class="btn btn-xs btn-default" title="Edita as informações da pessoa" ng-click="editarDadosPrincipais()">
+													<i class="fa fa-pencil fa-fw"></i>
+													Editar
+												</button>
+											</div>  
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 text-center" ng-init="visualizarInfo = false">
+										<a href ng-click="visualizarInfo = !visualizarInfo">
+											<i class="fa" ng-class="!visualizarInfo ? 'fa-angle-down fa-fw' : 'fa-angle-up fa-fw'"></i>
+											{{!visualizarInfo ? 'Mais' : 'Menos'}} informações
+										</a>
+									</div>
+								</div>
+								<div uib-collapse="!visualizarInfo">
+									<div class="row">
+										<div class="col-md-2">
+											<label>Estado civil</label><br>
+											<span class="bth-card__title">Solteira</span>
+										</div>										
+										<div class="col-md-2">
+											<label>Sexo</label><br>
+											<span class="bth-card__title">Feminino</span>
+										</div>
+										<div class="col-md-3">
+											<label>Naturalidade</label><br>
+											<span class="bth-card__title">---</span>
+										</div>
+										<div class="col-md-3">
+											<label>Site</label><br>
+											<span class="bth-card__title">---</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<ul class="nav nav-tabs bottom">
+						<li data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.pessoa-fisica.dados-pessoais" data-ui-sref-active="active"><a href><i class="fa fa-id-card fa-fw"></i> Dados pessoais</a></li>
+						<li data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.pessoa-fisica.declaracoes" data-ui-sref-active="active"><a href>Declarações</a></li>
+						<li data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.pessoa-fisica.movimentacoes" data-ui-sref-active="active"><a href><i class="fa fa-exchange fa-fw"></i> Movimentações</a></li>
+						<li data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.pessoa-fisica.anexos" data-ui-sref-active="active"><a href><i class="fa fa-paperclip fa-fw"></i> Anexos</a></li>
+						<li data-ui-sref="main.gerenciadorCadastros.pessoas.contribuintes.pessoa-fisica.historico" data-ui-sref-active="active"><a href><i class="fa fa-history fa-fw"></i> Histórico</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div ui-view="child"></div>
+
+		
+		<div class="opcoes-tela">
+			<div class="row bottom">
+				<div class="col-md-12">
+					<div class="bth-switch">
+						<input id="empty" type="checkbox" ng-model="empty">
+						<label for="empty">Sem dados</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

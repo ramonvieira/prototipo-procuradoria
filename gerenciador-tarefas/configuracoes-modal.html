@@ -1,0 +1,175 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<ul class="modal-header__actions">
+				<li>
+					<a href="" class="pull-right"><i class="fa fa-fw fa-clock-o"></i></a>
+				</li>
+			</ul>
+			<h3 class="modal-title">Configurações</h3>
+		</div>
+		<div class="modal-body">
+			<h4>Situação</h4>
+			<div class="row">
+				<div class="col-md-12">
+
+					<table class="table table-unfixed table-unstriped table-sortable" id="movimentacoes">
+						<thead>
+							<tr>
+								<th colspan="6"></th>
+								<th colspan="4" class="text-center"><span>Receber notificações de prazo <i class="fa fa-fw fa-info-circle" bf-tooltip="Notifica o usuário quando os prazos estiverem próximos a data de conclusão"></i></span></th>
+							</tr>
+							<tr>
+								<th colspan="6"></th>
+								<th colspan="2" class="text-center"><span>Minhas<br>tarefas</span></th>
+								<th colspan="2" class="text-center"><span>Compartilhada comigo</span></th>
+							</tr>
+							<tr>
+								<th class="col-fit"></th>
+								<th class="col-fit"><span>Cor</span></th>
+								<th><span>Rótulo</span></th>
+								<th width="75"><span>Tarefas</span></th>
+								<th width="75"><span>Uso</span></th>
+								<th width="75"><span>Padrão</span></th>
+								<th class="text-center" width="80"><span>Sistema</span></th>
+								<th class="text-center" width="70"><span>E-mail</span></th>
+								<th class="text-center" width="80"><span>Sistema</span></th>
+								<th class="text-center" width="70"><span>E-mail</span></th>
+								<th width="30"></th>
+							</tr>
+						</thead>
+						<tbody ui-sortable="{handle: '.handle', axis: 'y', containment: '#movimentacoes'}">
+							<tr ng-repeat="stat in status">
+								<td class="text-center handle">
+									<a href="" class="pull-left dots-drag" title="Clique, segure e arraste para reordenar">
+										<i class="fa fa-fw text-muted"></i>
+									</a>
+								</td>
+								<td class="has-edit">
+									<ui-color-selector hide-label="true" model="stat.cor" data-placement="left" class="dropdown-menu-right"></ui-color-selector>
+								</td>
+								<td class="has-edit">
+									<input type="text" class="form-control input-sm" id="descricao" ng-model="descricao" ng-init="descricao = stat.desc" ng-disabled="stat.padrao">
+								</td>
+								<td>
+									{{stat.uso}}
+								</td>
+								<td>
+									<span class="label show" ng-class="{
+										'label-success'			: stat.uso > 0,
+										'label-default'			: stat.uso < 1,
+									}" title="{{stat.uso > 0 ? 'Há tarefas que estão utilizando esse status' : 'Este status ainda não foi utilizado'}}">{{stat.uso > 0 ? 'Em uso' : 'Sem uso'}}</span>
+								</td>
+								<td>
+									<span class="label show" ng-class="{
+										'label-success'			: stat.padrao,
+										'label-default'			: !stat.padrao,
+									}" title="{{stat.padrao ? 'Padrão do sistema' : 'Adicionado pelo usuário'}}">{{stat.padrao ? 'Sim' : 'Não'}}</span>
+								</td>
+								<td class="text-center">
+									<div class="bth-switch">
+										<input id="notifEmailMinhas{{$index}}" type="checkbox" ng-model="stat.notifEmailMinhas">
+										<label for="notifEmailMinhas{{$index}}">&nbsp;</label>
+									</div>
+								</td>
+								<td class="text-center">
+									<div class="bth-switch">
+										<input id="notifSisMMinhas{{$index}}" type="checkbox" ng-model="stat.notifSisMMinhas">
+										<label for="notifSisMMinhas{{$index}}">&nbsp;</label>
+									</div>
+								</td>
+								<td class="text-center">
+									<div class="bth-switch">
+										<input id="notifEmailComp{{$index}}" type="checkbox" ng-model="stat.notifEmailComp">
+										<label for="notifEmailComp{{$index}}">&nbsp;</label>
+									</div>
+								</td>
+								<td class="text-center">
+									<div class="bth-switch">
+										<input id="notifSisComp{{$index}}" type="checkbox" ng-model="stat.notifSisComp">
+										<label for="notifSisComp{{$index}}">&nbsp;</label>
+									</div>
+								</td>
+								<td class="text-right">
+									<div class="btn-group">
+										<button class="btn btn-link btn-xs" ng-click="status.splice($index, 1)" ng-show="!stat.padrao" ng-disabled="stat.uso" title="{{stat.uso ? 'Para excluir uma situação em uso, é necessário primeiramente transferir os itens para outra situação' : ''}}"><i class="fa fa-fw fa-trash-o"></i></>
+									</div>
+									
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<button type="button" class="btn btn-success btn-sm" title="Adiciona um novo status" ng-click="status.push({padrao:false, uso: 0})">Adicionar</button>
+				</div>
+			</div>
+			<div class="row bottom">
+				<div class="col-md-4">
+					<label class="required" for="horaNotificacao">Notificar prazo:</label>
+					<div class="input-group">
+						<input type="number" class="form-control text-right" id="iniciarNotificacoes" min="2" ng-model="iniciarNotificacoes">
+						<span class="input-group-addon">dias antes do vencimento</span>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<label class="required" for="horaNotificacao">Hora da notificação do prazo</label>
+					<div class="input-group">
+						<input type="text" id="horaNotificacao" class="form-control" ng-model="horaNotificacao" bf-date="{showTime: true, timeFormat: 'hh:mm'}" ng-required="true">
+					</div>
+				</div>
+			</div>
+			<hr>
+
+			<h4>Compartilhamento</h4>
+			<p><small class="text-muted">Selecione os profissionais ou grupos que poderão acessar sua agenda</small></p>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-unfixed table-unstriped">
+						<thead>
+							<tr>
+								<th><span>Procurador/Grupo de trabalho</span></th>
+								<th width="150"><span>Acesso</span></th>
+								<th class="col-fit"></th>
+							</tr>
+						</thead>
+						<tbody ng-init="acessos=[{}]">
+							<tr ng-repeat="subitem in acessos">
+								<td>
+									<div class="input-group">
+										<input type="hidden" bf-select2="compartFiltroOptions" ng-model="acess$index" ng-disabled="isEditing">
+									</div>
+									<!-- <select bf-select2="compartFiltroOptions" id="acess{{$index}}" class="form-control" ng-model="acess$index">
+										<option value="$index" ng-repeat="compartilhamento in compartilhamentosDisponiveis() track by $index">{{compartilhamento.descricao}}</option>
+									</select> -->
+								</td>
+								<td>
+									<select bf-select2="{}" id="tipoAcesso{{$index}}" class="form-control" ng-model="tipoAcesso$index">
+										<option value="1">Edição</option>
+										<option value="2">Visualização</option>
+									</select>
+								</td>
+								
+								<td class="col-fit">
+									<a href="" class="btn btn-link btn-sm" ng-click="acessos.splice($index, 1)"><i class="fa fa-fw fa-trash"></i></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<button type="button" class="btn btn-success btn-sm bth-add" title="Adicionar um novo compartilhamento" ng-click="acessos.push({})">Adicionar</button>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal">Salvar</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		</div>
+	</div>
+</div>

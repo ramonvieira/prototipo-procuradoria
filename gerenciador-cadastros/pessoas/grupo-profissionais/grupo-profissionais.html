@@ -1,0 +1,26 @@
+<div ng-include="'gerenciador-cadastros/pessoas/grupo-profissionais/grupo-gerenciador.html'"></div>
+
+<div ng-if="grupoTrab || grupos.length < 1">
+	<div class="bth-img-illustration semGrupos">
+		<h4 class="illustration-title">
+			Com o grupo de trabalho você pode gerenciar os processos e protestos de forma mais organizada.<br>
+			<small>Permite que você crie equipes com diferentes responsabilidades possibilitando distinguir diferentes areas de atuação</small>
+		</h4>
+	</div>
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<button class="btn btn-default" title="Adiciona um grupo de trabalho" ng-click="openGrupo({})"><i class="fa fa-fw fas fa-plus"></i> Cadastrar grupo</button>
+		</div>
+	</div>
+</div>
+
+<div class="opcoes-tela">
+	<div class="row bottom">
+		<div class="col-md-12">
+			<div class="bth-switch">
+				<input id="grupoTrab" type="checkbox" ng-model="grupoTrab">
+				<label for="grupoTrab">Sem grupos</label>
+			</div>
+		</div>
+	</div>
+</div>

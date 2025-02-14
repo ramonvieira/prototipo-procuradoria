@@ -1,0 +1,80 @@
+<div class="modal-dialog modal-sm">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">Histórico</h3>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-6"></div>
+				<div class="col-md-6">
+					<form novalidate>
+						<div class="input-group pull-right">
+							<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" ng-model="vm.searchParam">
+							<div class="input-group-btn">
+								<button type="submit" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<finder-terms id="historico-movimentacoes"></finder-terms>
+			<div class="row">
+				<div class="col-md-12">
+					
+					<div class="row bth-historico-item">
+					    <div class="col-md-3 bth-historico-data">Hoje <small class="text-muted">08:00:33 - 2016</small></div>
+					    <div class="col-md-9 bth-historico-icon">
+					        <div class="row">
+					            <div class="col-md-1 bth-historico-user"><i class="fa fa-user fa-fw" bf-tooltip="João da Silva"></i></div>
+					            <div class="col-md-11">Cancelado
+					                <div class="bth-historico-descricao text-muted">Motivo: Lorem ipsum dolor sit amet.</div>
+					                <div class="bth-historico-descricao text-muted">Observação: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et aliquam nulla, qui harum doloribus eum magni sapiente quis unde quos optio tenetur. Maiores velit ipsum repudiandae praesentium corporis repellendus animi. </div>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+					<div class="row bth-historico-item">
+					    <div class="col-md-3 bth-historico-data">Ontem <small class="text-muted">08:00:33 - 2016</small></div>
+					    <div class="col-md-9 bth-historico-icon">
+					        <div class="row">
+					            <div class="col-md-1 bth-historico-user">
+					                <i class="fa fa-user fa-fw" bf-tooltip="João da Silva"></i></div>
+					            <div class="col-md-11">Reativado
+					                <div class="bth-historico-descricao text-muted">Motivo: Lorem ipsum dolor sit amet.</div>
+					                <div class="bth-historico-descricao text-muted">Observação: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae nisi quisquam eveniet repudiandae, dolorem suscipit voluptatum laudantium laborum fugit cupiditate, sit, facere eos, labore nulla cum eius quaerat quae! Ipsum. </div>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+				</div>
+			</div>
+		    <div class="row bottom">
+		        <div class="col-md-6">
+		            <form class="form-inline">
+		                1-20 de 126
+		                <select class="form-control input-sm" ng-model="numberOfResults">
+		                    <option value="20">20</option>
+		                    <option value="50">50</option>
+		                    <option value="100">100</option>
+		                </select>
+		                resultados por página
+		            </form>
+		        </div>
+		        <div class="col-md-6">
+		            <div class="pull-right">
+		                <button class="btn btn-default btn-sm disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+		                <button class="btn btn-default btn-sm active">1</button>
+		                <button class="btn btn-default btn-sm">2</button>
+		                <button class="btn btn-default btn-sm">3</button>
+		                <button class="btn btn-default btn-sm">4</button>
+		                <button class="btn btn-default btn-sm">Próxima <i class="fa fa-angle-right"></i></button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	    <div class="modal-footer">
+	        <button class="btn btn-default" data-dismiss="modal">Fechar</button>
+	    </div>
+	</div>
+</div>

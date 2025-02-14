@@ -1,0 +1,11 @@
+<div class="bth-info-head">
+	<h1>Refinar a busca</h1>
+	<a href="" class="pull-right" ng-show="vm.refine" ng-click="vm.refine = false; $parent.showRefineFilterPopover = false">Desfazer alterações</a>
+</div>
+<div style="min-height: 100px"></div>
+<div class="row bottom">
+	<div class="col-md-12 text-right">
+		<button class="btn btn-sm btn-primary" data-dismiss="popover" ng-click="addTextSearch(); $parent.showRefineFilterPopover = false; vm.refine = true">Aplicar</button>
+		<button class="btn btn-sm btn-default" data-dismiss="popover" ng-click="$parent.showRefineFilterPopover = false;">Cancelar</button>
+	</div>
+</div>

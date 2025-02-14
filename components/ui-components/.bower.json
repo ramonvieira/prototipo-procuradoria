@@ -1,0 +1,30 @@
+{
+  "name": "ui-components",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "main": "dist/ui-components.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "nbproject",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular-mocks": "~1.4"
+  },
+  "dependencies": {
+    "angular": "~1.4"
+  },
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.0",
+    "commit": "0106f5e8b7a59fdff95141ac94cb371017af5b41"
+  },
+  "_source": "http://192.168.41.172:8082/ui-components/ui-components.git",
+  "_target": "*",
+  "_originalSource": "http://192.168.41.172:8082/ui-components/ui-components.git"
+}

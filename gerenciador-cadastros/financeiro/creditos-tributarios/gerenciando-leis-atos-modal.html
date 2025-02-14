@@ -1,0 +1,154 @@
+<div class="modal-dialog modal-sm">
+	<div class="modal-content">
+		<form name="form">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h3 class="modal-title">Gerenciando leis/atos</h3>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-4">
+						<label for="">Lei/ato</label>
+						<select bf-select2="{}" ng-model="leiAto" class="form-control" ng-change="setLeiAto(leiAto)">
+							<option value="{{la}}" ng-repeat="la in leisAtos">{{la.descricao}}</option>
+						</select>
+					</div>
+				</div>
+				<ul role="tablist" class="nav nav-tabs" ng-show="leiAtoSelected != null">
+					<li role="presentation" class="active">
+						<a href="#lancamentosNaoInscritos" data-toggle="tab" role="tab" target="_self">Lançamentos não inscritos</a>
+					</li>
+					<li role="presentation">
+						<a href="#lancamentosInscritos" data-toggle="tab" role="tab" target="_self">Lançamentos inscritos</a>
+					</li>
+					<li role="presentation">
+						<a href="#execucoesFiscais" data-toggle="tab" role="tab" target="_self">Execuções fiscais</a>
+					</li>
+				</ul>
+				<div class="tab-content"  ng-show="leiAtoSelected != null">
+					<div id="lancamentosNaoInscritos" class="tab-pane active" role="tabpanel">
+						<div class="row" ng-show="!leiAtoSelected.receitasNaoInscritos.length">
+							<div class="col-md-12 text-center">
+								<h4>Ainda não há receitas por aqui</h4>
+							</div>
+						</div>
+						<div class="row" ng-show="leiAtoSelected.receitasNaoInscritos.length">
+							<div class="col-md-12">
+								<table class="table bottom">
+									<thead>
+										<tr>
+											<th><span>Receita</span></th>
+											<th width="19%"><span class="required">Tipo de ação</span></th>
+											<th width="30"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="receitaNaoInscritos in leiAtoSelected.receitasNaoInscritos">
+											<td class="has-edit">
+												<receitas-select ng-model="receitaNaoInscritos.receita"></receitas-select>
+											</td>
+											<td class="has-edit">
+												<select bf-select2="{}" ng-model="receitaNaoInscritos.tipoAcao">
+													<option value="{{tipo.id}}" ng-repeat="tipo in tiposAcao">{{tipo.descricao}}</option>
+												</select>
+											</td>
+											<td class="text-center">
+												<a title="Excluir" href="" ng-click="leiAtoSelected.receitasNaoInscritos.splice($index, 1)"><i class="fa fa-trash-o"></i></a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="row bottom">
+							<button class="btn btn-sm btn-success btn-add pull-right" title="Adiciona uma nova receita" ng-click="leiAtoSelected.receitasNaoInscritos.push({})">
+								Receita
+							</button>
+						</div>
+					</div>
+
+					<div id="lancamentosInscritos" class="tab-pane" role="tabpanel">
+						<div class="row" ng-show="!leiAtoSelected.receitasInscritos.length">
+							<div class="col-md-12 text-center">
+								<h4>Ainda não há receitas por aqui</h4>
+							</div>
+						</div>
+						<div class="row" ng-show="leiAtoSelected.receitasInscritos.length">
+							<div class="col-md-12">
+								<table class="table bottom">
+									<thead>
+										<tr>
+											<th><span>Receita</span></th>
+											<th width="19%"><span class="required">Tipo de ação</span></th>
+											<th width="30"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="receitaInscritos in leiAtoSelected.receitasInscritos">
+											<td class="has-edit">
+												<receitas-select ng-model="receitaInscritos.receita"></receitas-select>
+											</td>
+											<td class="has-edit">
+												<select bf-select2="{}" ng-model="receitaInscritos.tipoAcao">
+													<option value="{{tipo.id}}" ng-repeat="tipo in tiposAcao">{{tipo.descricao}}</option>
+												</select>
+											</td>
+											<td class="text-center">
+												<a title="Excluir" href="" ng-click="leiAtoSelected.receitasInscritos.splice($index, 1)"><i class="fa fa-trash-o"></i></a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="row bottom">
+							<button class="btn btn-sm btn-success btn-add pull-right" title="Adiciona uma nova receita" ng-click="leiAtoSelected.receitasInscritos.push({})">
+								Receita
+							</button>
+						</div>
+					</div>
+					<div id="execucoesFiscais" class="tab-pane" role="tabpanel">
+						<div class="row" ng-show="!leiAtoSelected.receitasExecucoes.length">
+							<div class="col-md-12 text-center">
+								<h4>Ainda não há receitas por aqui</h4>
+							</div>
+						</div>
+						<div class="row" ng-show="leiAtoSelected.receitasExecucoes.length">
+							<div class="col-md-12">
+								<table class="table bottom">
+									<thead>
+										<tr>
+											<th><span>Receita</span></th>
+											<th width="30"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="execucao in leiAtoSelected.receitasExecucoes">
+											<td class="has-edit">
+												<receitas-select ng-model="receitasExecucoes.receita"></receitas-select>
+											</td>
+								
+											<td class="text-center">
+												<a title="Excluir" href="" ng-click="leiAtoSelected.receitasExecucoes.splice($index, 1)"><i class="fa fa-trash-o"></i></a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="row bottom">
+							<button class="btn btn-sm btn-success btn-add pull-right" title="Adiciona uma nova receita" ng-click="leiAtoSelected.receitasExecucoes.push({})">
+								Receita
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button class="btn btn-primary" data-dismiss="modal">Salvar</button>
+				<button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			</div>
+		</form>
+	</div>
+</div>

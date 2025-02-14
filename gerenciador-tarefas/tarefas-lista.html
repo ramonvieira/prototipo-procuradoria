@@ -1,0 +1,439 @@
+<div class="bth-filter__backdrop ng-hide">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3" ng-init="showAlert = true">
+			<div class="alert alert-info alert-icon" ng-show="showAlert">
+				Foram adicionados novos critérios à pesquisa. <a href="" class="alert-link" ng-click="showAlert = !showAlert">Atualizar os resultados</a>.
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-5">
+		<div class="btn-group">
+			<button type="button" class="btn btn-add btn-success bth-block btn-sm" ng-click="adicionar({})" title="Adiciona uma nova tarefa">
+				Tarefa
+			</button>
+		</div>
+		<div class="btn-group" style="margin-right: 10px;" ng-if="nav == 'Calendário'">
+			<button type="button" class="btn btn-default btn-sm" ng-click="setViewObras({view:'hoje'})" ng-class="{'active' : viewAgenda=='hoje'}">Hoje</button>
+		</div>
+		<div class="btn-group" ng-if="nav == 'Calendário'">
+			<button type="button" class="btn btn-link btn-sm" title="Exibe o {{
+																				viewCalendar == 'dia' ? 'dia' :
+																				viewCalendar == 'semana' ? 'semana' : 'mês'
+																			}} anterior"><i class="fa fa-angle-left"></i></button>
+			<button type="button" class="btn btn-link btn-sm" title="Exibe {{
+																				viewCalendar == 'dia' ? 'o próximo dia' :
+																				viewCalendar == 'semana' ? 'a próxima semana' : 'o próximo mês'
+																			}}"><i class="fa fa-angle-right"></i></button>
+		</div>
+		<div class="btn-group" style="margin-left: 10px;" ng-if="nav == 'Calendário'">
+			{{
+				viewCalendar == 'dia' ? '02 de abril de 2020' :
+				viewCalendar == 'semana' ? '02 à 09 de abr de 2020' : 'Abril'
+			}}
+		</div>
+	</div>
+	<div class="col-md-7 text-right">
+		<form class="form-inline">
+			<div class="btn-group btn-group-sm" uib-dropdown dropdown-append-to-body>
+				<button type="button" class="btn btn-default" uib-dropdown-toggle>
+					Mais <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" uib-dropdown-menu>
+					<li><a href=""><i class="fa fa-fw fa-user"></i> Alterar responsáveis</a></li>
+					
+					<li ng-controller="ExecucaoFiscalCtrl" ng-click="openEmitirPeticaoIntermediariaLote();"><a href=""><i class="fa fa-fw fa-file-text-o"></i> Emitir petição intermediária</a></li>
+					<li ng-controller="ExecucaoFiscalCtrl" ng-click="enviarTribunalLote()"><a href="" ng-class="{'link-disabled': processo.situacao == 'Cancelada' || processo.situacao == 'Suspensa'  || processo.situacao == 'Encerrada'}"><i class="fa fa-fw fa-cloud-upload"></i> Enviar para o tribunal</a></li>
+					<li class="dropdown-submenu dropdown-submenu-right">
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-circle"></i> Enviar itens para</a>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<li ng-repeat="st in status"><a href=""><span class="bth-status" ng-class="st.color"> {{st.desc}}</span></a></li>
+						</ul>
+					</li>
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li ng-repeat="st in status"><a href=""><span class="bth-status" ng-class="st.color"> {{st.desc}}</span></a></li>
+					</ul>
+					<li class="divider"></li>
+					<li><a href=""><i class="fa fa-fw fa-trash"></i> Excluir</a></li>
+				</ul>
+			</div>
+
+			<div class="btn-group" ng-show="nav == 'Calendário'" ng-init="viewCalendar = 'dia'">
+				<button type="button" class="btn btn-default btn-sm" ng-click="viewCalendar = 'dia'" ng-class="{'active' : viewCalendar == 'dia'}" title="Exibe os dias">Dia</button>
+				<button type="button" class="btn btn-default btn-sm" ng-click="viewCalendar = 'semana'" ng-class="{'active' : viewCalendar == 'semana'}" title="Exibe as semanas">Semana</button>
+				<button type="button" class="btn btn-default btn-sm" ng-click="viewCalendar = 'mes'" ng-class="{'active' : viewCalendar == 'mes'}" title="Exibe os meses">Mês</button>
+			</div>
+			<div class="btn-group btn-group-sm" uib-dropdown dropdown-append-to-body>
+				<button type="button" class="btn btn-default" uib-dropdown-toggle title="Exibindo em forma de {{viewTarefa == 'row' ? 'quadros' : 'lista'}}">
+					<i class="fa fa-fw fa-gear"></i> <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" uib-dropdown-menu ng-init="ordenarPor = 1">
+					<li class="dropdown-header">Exibir tarefas em</li>
+					<li><a href="" class="btn-check" ng-class="{'active' : viewTarefa=='row'}" title="Exibe em forma de quadros" ng-click="setViewTarefa({view:'row'})" keep-open><i class="fa fa-fw fa-th-large"></i> Quadros</a></li>
+					<li><a href="" class="btn-check" ng-class="{'active' : viewTarefa!='row'}"  title="Exibe em forma de listagem" ng-click="setViewTarefa({view:'column'})" keep-open><i class="fa fa-fw fa-th-list"></i> Lista</a></li>
+					<li class="dropdown-header">Ordenar tarefas por</li>
+					<li><a href="" class="btn-check" ng-class="{'active' : ordenarPor == 1}" ng-click="ordenarPor = 1" keep-open><i class="fa fa-fw fa-calendar"></i> Vencimento</a></li>
+					<li><a href="" class="btn-check" ng-class="{'active' : ordenarPor == 2}" ng-click="ordenarPor = 2" keep-open><i class="fa fa-fw fa-user"></i> Responsável</a></li>
+					<li><a href="" class="btn-check" ng-class="{'active' : ordenarPor == 3}" ng-click="ordenarPor = 3" keep-open><i class="fa fa-fw fa-calendar-plus-o"></i> Data de criação (Recente)</a></li>
+					<li><a href="" class="btn-check" ng-class="{'active' : ordenarPor == 4}" ng-click="ordenarPor = 4" keep-open><i class="fa fa-fw fa-calendar-plus-o"></i> Data de criação (Antigo)</a></li>
+					<li><a href="" class="btn-check" ng-class="{'active' : ordenarPor == 5}" ng-click="ordenarPor = 5" keep-open><i class="fa fa-fw fa-list"></i> Descrição</a></li>
+					<li><a href="" class="btn-check" ng-class="{'active' : ordenarPor == 6}" ng-click="ordenarPor = 6" keep-open><i class="fa fa-fw fa-list"></i> Tipo</a></li>
+					<li class="divider"></li>
+					<li><a href="" ng-click="configuracoes({})"><i class="fa fa-fw fa-gear"></i> Configurações</a></li>
+				</ul>
+			</div>
+			<!-- Pesquisa -->
+			<div class="input-group input-group-sm search" ng-init="refine = false" ng-class="refine ? 'refine-active': ''" ng-if="filterFixed == 0">
+				<input id="searchInput" type="text" placeholder="Digite o que está buscando e tecle ENTER" class="form-control input-sm search-field">
+				<div class="input-group-btn">
+					<div ng-include="'common/refinar-busca.html'" class="input-group-btn" uib-dropdown dropdown-append-to-body></div>
+				</div>
+				<button type="button" class="btn btn-default btn-sm" title="Pesquisar (ENTER)">
+					<i class="fa fa-search"></i>
+				</button>
+				<button type="button" class="btn btn-default btn-sm" id="filtroAvancado" title="Filtros" ng-click="setFilter({float:true})"><i class="fa fa-fw fa-filter"></i> <span class="badge badge-primary" ng-if="pesquisando && filterFixed == 0">5</span></button>
+			</div>
+			<!-- <div class="input-group input-group-sm search" ng-init="refine = false" ng-class="refine ? 'refine-active': ''" ng-if="filterFixed == 0">
+				<input id="searchInput" type="text" placeholder="Digite o que está buscando e tecle ENTER" class="form-control input-sm search-field">
+				<div class="input-group-btn">
+					<div ng-include="'common/refinar-busca.html'" class="input-group-btn" uib-dropdown dropdown-append-to-body></div>
+				</div>
+				<button type="button" class="btn btn-default btn-sm" title="Pesquisar (ENTER)">
+					<i class="fa fa-search"></i>
+				</button>
+				<button type="button" class="btn btn-default btn-sm" id="filtroAvancado" title="Filtros" ng-click="setFilter({float:true})"><i class="fa fa-fw fa-filter"></i></button>
+			</div> -->
+		</form>
+	</div>
+</div>
+
+<ul class="bth-tag__list" ng-if="pesquisando && filterFixed == 0">
+	<li>
+		<span class="bth-tag bth-tag--hover" ng-class="tagStyle">
+			<i class="fa fa-thumb-tack tx__blue" ng-if="fixar"></i>
+			<i class="fa fa-search" ng-if="!fixar"></i>
+			0900264-79.2018.8.24.0078
+			<a href="" ng-click="remTagSearch({filter: option} );" class="bth-tag__close">✕</a>
+		</span>
+	</li>
+	<li>
+		<span class="bth-tag bth-tag--hover" ng-class="tagStyle">
+			<i class="fa fa-thumb-tack tx__blue" ng-if="fixar"></i>
+			<i class="fa fa-filter" ng-if="!fixar"></i> <span class="bth-tag__type">Tipo: </span>
+			<span>
+				Contestação
+			</span>
+			<small class="bth-tag__more">
+				e mais
+				<a href="" ng-click="openFilters()">
+					2 itens
+				</a>
+			</small>
+			<a href="" ng-click="remTag(filter);" class="bth-tag__close">✕</a>
+		</span>
+	</li>
+	<li>
+		<div class="btn-group" ng-mouseover="tagStyle = 'tagStyle'" ng-mouseleave="tagStyle = ''" ng-show="filterCount(filters) || filters.searching.nome.length > 0">
+			<button class="btn btn-link btn-xs" ng-init="thumbRotate = true" ng-mouseover="thumbRotate = !fixar ? false : true" ng-mouseleave="thumbRotate = !fixar ? true : false" ng-click="fixar = !fixar" title="{{fixar ? 'Desafixar' : 'Fixar'}} filtros">
+				<i class="fa fa-thumb-tack" ng-class="{'thumb-rotate' : thumbRotate, 'tx__blue' : !thumbRotate}"></i>
+			</button>
+			<button class="btn btn-link btn-xs" ng-click="saveFilters()" title="Adicionar as consultas salvas" ng-if="filterCount(filters) || filters.searching.nome.length > 0">
+				<i class="fa fa-plus"></i>
+			</button>
+			<button class="btn btn-link btn-xs" ng-click="cleanFilters();" title="Limpar filtros" ng-if="filterCount(filters) || filters.searching.nome.length > 0">
+				<i class="fa fa-trash-o"></i>
+			</button>
+		</div>
+	</li>
+</ul>
+
+<div style="min-height:700px">
+	<!-- Kanban -->
+	<div class="bth-kanban bth-kanban--row" ng-show="viewTarefa == 'row'">
+		<!-- <ul class="kanban-flow" ui-sortable="sortableOptionsKanbanFlow"> -->
+		<ul class="kanban-flow">
+			<!-- Situação -->
+			<li class="kanban-flow-item" ng-if="nav == 'Situação' || nav == 'Calendário'" ng-repeat="st in status">
+				<div class="kanban-flow-item__title">
+					<div class="row bottom">
+						<div class="col-md-9">
+							<h5 ng-init="kbSt$indexEdit = false">
+								<input type="text" class="form-control input-sm" id="kbSt{{$index}}" ng-model="kbSt$index" ng-init="kbSt$index = item.desc" ng-show="kbSt$indexEdit">
+								<span class="bth-status" ng-class="st.color" ng-hide="kbSt$indexEdit"> {{st.desc}} <small class="text-muted">({{
+									st.desc == 'Pendente'	? tarefasPendentes.length :
+									st.desc == 'Em análise'	? tarefasEmAnalise.length :
+									st.desc == 'Distribuir'	? tarefasDistribuir.length : null	
+								}})</small></span>
+							</h5>
+						</div>
+						<div class="col-md-3 text-right">
+							<div class="btn-group btn-group-xs" uib-dropdown dropdown-append-to-body>
+								<a href="" class="btn btn-link dropdown-toggle" uib-dropdown-toggle>
+									<i class="fa fa-fw fa-ellipsis-v"></i>
+								</a>
+								<ul class="dropdown-menu" ng-class="{'dropdown-menu-right' : $index > 0}" uib-dropdown-menu>
+									<!-- <li><a href="" ng-click=""><i class="fa fa-fw fa-i-cursor"></i> Renomear quadro</a></li> -->
+									<li class="dropdown-submenu dropdown-submenu-right">
+										<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-circle"></i> Enviar itens para</a>
+										<ul class="dropdown-menu" ng-class="{'dropdown-menu-right' : $index > 0}">
+											<li ng-repeat="st in status"><a href=""><span class="bth-status" ng-class="st.color"> {{st.desc}}</span></a></li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="kanban-flow-item__body">
+					<div ng-include="'gerenciador-tarefas/tarefas-kanban-itens.html'"></div>
+				</div>
+				<div class="kanban-flow-item__footer">
+					<button type="button" class="btn btn-add btn-link bth-block btn-sm" ng-click="adicionar({})" title="Adiciona uma nova tarefa">
+						Tarefa
+					</button>
+				</div>
+			</li>
+			<li ng-if="nav == 'Situação' || nav == 'Calendário'">
+				<button type="button" class="btn btn-link btn-add btn-sm" style="width: 200px;" ng-click="configuracoes({})">Status</button>
+			</li>
+			<!-- Grupo -->
+			<li class="kanban-flow-item" ng-if="nav == 'Grupo de trabalho'" ng-repeat="grupo in grupos">
+				<div class="kanban-flow-item__title">
+					<div class="row bottom">
+						<div class="col-md-12 ellipsis">
+							<h5>{{grupo.descricao}}</h5>
+						</div>
+						<!-- <div class="col-md-3 text-right">
+							<div class="btn-group btn-group-xs" uib-dropdown dropdown-append-to-body>
+								<a href="" class="btn btn-link dropdown-toggle" uib-dropdown-toggle>
+									<i class="fa fa-fw fa-ellipsis-v"></i>
+								</a>
+								<ul class="dropdown-menu" ng-class="{'dropdown-menu-right' : $index > 0}" uib-dropdown-menu>
+									<li><a href="" ng-click=""><i class="fa fa-fw fa-i-cursor"></i> Renomear quadro</a></li>
+									<li class="dropdown-submenu dropdown-submenu-right">
+										<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-circle"></i> Enviar itens para</a>
+										<ul class="dropdown-menu" ng-class="{'dropdown-menu-right' : $index > 0}">
+											<li ng-repeat="st in status"><a href=""><span class="bth-status" ng-class="st.color"> {{st.desc}}</span></a></li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div> -->
+					</div>
+				</div>
+				<div class="kanban-flow-item__body">
+					
+					<ul class="bth-kanban-lists-group">
+						<li class="bth-kanban-lists-group-item" ng-repeat="group in status">
+							<div class="bth-kanban-lists-group__title" ng-class="{'opened': group$index}" ng-init="group$index = false" ng-click="group$index = !group$index">
+								<span class="bth-status" ng-class="group.color"></span> {{group.desc}} <small class="text-muted">(10)</small> <i class="fa fa-fw fa-angle-up"></i>
+							</div>
+							<div class="bth-kanban-lists-group__content" uib-collapse="group$index">
+								<div ng-include="'gerenciador-tarefas/tarefas-kanban-itens.html'"></div>
+							</div>
+						</li>
+					</ul>
+
+				</div>
+				<div class="kanban-flow-item__footer">
+					<button type="button" class="btn btn-add btn-link bth-block btn-sm" ng-click="adicionar({})" title="Adiciona uma nova tarefa">
+						Tarefa
+					</button>
+				</div>
+			</li>
+			<li ng-if="nav == 'Grupo de trabalho'">
+				<button ng-controller="GrupoProfissionaisCtrl" ng-click="openGrupo({})" type="button" class="btn btn-link btn-add btn-sm" style="width: 200px;">Grupo</button>
+			</li>
+			<!-- Responsável -->
+			<li class="kanban-flow-item" ng-if="nav == 'Responsável'" ng-repeat="responsavel in procuradores">
+				<div class="kanban-flow-item__title">
+					<div class="row bottom">
+						<div class="col-md-12 ellipsis">
+							<h5 title="{{responsavel.procurador.nome}}"><img alt="" ng-src="{{responsavel.procurador.img}}" class="img-circle" width="25px"> {{responsavel.procurador.nome}}</h5>
+						</div>
+						<!-- <div class="col-md-3 text-right">
+							<div class="btn-group btn-group-xs" uib-dropdown dropdown-append-to-body>
+								<a href="" class="btn btn-link" title="Abre a lista de ações disponíveis" uib-dropdown-toggle>
+									<i class="fa fa-fw fa-ellipsis-v"></i>
+								</a>
+								<ul class="dropdown-menu" ng-class="{'dropdown-menu-right' : $index > 0}" uib-dropdown-menu>
+									<!- <li class="dropdown-submenu dropdown-submenu-right">
+										<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-circle"></i> Enviar itens para</a>
+										<ul class="dropdown-menu" ng-class="{'dropdown-menu-right' : $index > 0}">
+											<li ng-repeat="st in status"><a href=""><span class="bth-status" ng-class="st.color"> {{st.desc}}</span></a></li>
+										</ul>
+									</li> ->
+								</ul>
+							</div>
+						</div> -->
+					</div>
+				</div>
+				<div class="kanban-flow-item__body">
+					
+					<ul class="bth-kanban-lists-group">
+						<li class="bth-kanban-lists-group-item" ng-repeat="group in status">
+							<div class="bth-kanban-lists-group__title" ng-class="{'opened': group$index}" ng-init="group$index = false" ng-click="group$index = !group$index">
+								<span class="bth-status"></span> {{group.desc}} <small class="text-muted">(10)</small> <i class="fa fa-fw fa-angle-up"></i>
+							</div>
+							<div class="bth-kanban-lists-group__content" uib-collapse="group$index">
+								<div ng-include="'gerenciador-tarefas/tarefas-kanban-itens.html'"></div>
+							</div>
+						</li>
+					</ul>
+
+				</div>
+				<div class="kanban-flow-item__footer">
+					<button type="button" class="btn btn-add btn-link bth-block btn-sm" ng-click="adicionar({})" title="Adiciona uma nova tarefa">
+						Nova tarefa
+					</button>
+				</div>
+			</li>
+			<li ng-if="nav == 'Responsável'">
+				<button ng-controller="ProfissionaisCtrl" ng-click="adicionar({})" type="button" class="btn btn-link btn-add btn-sm" style="width: 200px;">Profissional</button>
+			</li>
+		</ul>
+	</div>
+
+	<!-- Lista -->
+	<div ng-show="viewTarefa == 'column'">
+		<!-- Situação -->
+		<div ng-include="'gerenciador-tarefas/tarefas-table-situacao.html'" ng-if="nav == 'Situação' || nav == 'Calendário'"></div>
+		
+		<div class="row" ng-if="nav == 'Situação' || nav == 'Calendário'">
+			<div class="col-md-12 text-right">
+				<button type="button" class="btn btn-link btn-add btn-sm" ng-click="configuracoes({})">Status</button>
+			</div>
+		</div>
+		
+		<!-- Grupo -->
+		<table class="table table-unfixed table-unstriped table-hover table-unbordered" ng-if="nav == 'Grupo de trabalho'">
+			<tbody ng-repeat="grupo in grupos">
+				<tr ng-class="{'opened' : !groupList}" ng-init="groupList = true">
+					<td class="col-fit col-arrow" ng-click="groupList = !groupList">
+						<div class="btn btn-link btn-sm">
+							<i class="material-icons">keyboard_arrow_down</i>
+						</div>
+					</td>
+					<td class="col-fit">
+						<div class="bth-checkbox">
+							<input id="cb{{$index}}" name="checkModelo" type="checkbox">
+							<label for="cb{{$index}}">&nbsp;</label>
+						</div>
+					</td>
+					<td>
+						{{grupo.descricao}} <small class="text-muted">(4)</small>
+					</td>
+					<td class="text-right">
+						<div class="dropdown" uib-dropdown dropdown-append-to-body>
+							<a href="" class="btn btn-xs btn-link dropdown-toggle" title="Abre a lista de ações disponíveis" uib-dropdown-toggle keep-open>
+								<i class="fa fa-fw fa-ellipsis-v"></i>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+								<li class="dropdown-submenu dropdown-submenu-right">
+									<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-circle"></i> Enviar itens para</a>
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li ng-repeat="st in status"><a href=""><span class="bth-status" ng-class="st.color"> {{st.desc}}</span></a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+				<tr class="indentation">
+					
+					<td colspan="6" ng-class="{'collapsed' : !groupList}">
+						<div uib-collapse="groupList" class="collapse scrollBar" style="max-height: 300px;" aria-expanded="false" aria-hidden="true">
+							<!-- <h4 class="text-center" ng-show="item.subitens.length <= 0">Nenhum subitem por aqui</h4> -->
+							<div ng-include="'gerenciador-tarefas/tarefas-table-itens.html'"></div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="row" ng-if="nav == 'Grupo de trabalho'">
+			<div class="col-md-12 text-right">
+				<button ng-controller="GrupoProfissionaisCtrl" ng-click="openGrupo({})" type="button" class="btn btn-link btn-add btn-sm">Grupo</button>
+			</div>
+		</div>
+
+		<!-- Responsável -->
+		<table class="table table-unfixed table-unstriped table-hover table-unbordered" ng-if="nav == 'Responsável'">
+			<tbody ng-repeat="procurador in procuradores">
+				<tr ng-class="{'opened' : !groupProc}" ng-init="groupProc = true">
+					<td class="col-fit col-arrow" ng-click="groupProc = !groupProc">
+						<div class="btn btn-link btn-sm">
+							<i class="material-icons">keyboard_arrow_down</i>
+						</div>
+					</td>
+					<td class="col-fit">
+						<div class="bth-checkbox">
+							<input id="cb{{$index}}" name="checkModelo" type="checkbox">
+							<label for="cb{{$index}}">&nbsp;</label>
+						</div>
+					</td>
+					<td>
+						<img alt="" ng-src="{{procurador.procurador.img}}" class="img-circle" width="25px" bf-tooltip="{{procurador.proc.procurador.nome}}"> {{procurador.procurador.nome}} <small class="text-muted">(4)</small>
+					</td>
+					<td class="col-fit">
+						<div class="dropdown" uib-dropdown dropdown-append-to-body>
+							<a href="" class="btn btn-xs btn-link dropdown-toggle" title="Abre a lista de ações disponíveis" uib-dropdown-toggle keep-open>
+								<i class="fa fa-fw fa-ellipsis-v"></i>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+								<!-- <li class="dropdown-submenu dropdown-submenu-right">
+									<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-circle"></i> Enviar itens para</a>
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li ng-repeat="st in status"><a href=""><span class="bth-status" ng-class="st.color"> {{st.desc}}</span></a></li>
+									</ul>
+								</li> -->
+							</ul>
+						</div>
+					</td>
+				</tr>
+				<tr class="indentation">
+					
+					<td colspan="6" ng-class="{'collapsed' : !groupProc}">
+						<div uib-collapse="groupProc" class="collapse" aria-expanded="false" aria-hidden="true">
+							<table class="table table-unfixed table-unstriped table-hover table-unbordered" ui-sortable="{axis:'y'}">
+								<tbody ng-repeat="item in status">
+									<tr ng-class="{'opened' : !groupList}" ng-init="groupList = true">
+										<td class="col-fit col-arrow" ng-click="groupList = !groupList">
+											<div class="btn btn-link btn-sm">
+												<i class="material-icons">keyboard_arrow_down</i>
+											</div>
+										</td>
+										<td class="col-fit">
+											<div class="bth-checkbox">
+												<input id="cb{{$index}}" name="checkModelo" type="checkbox">
+												<label for="cb{{$index}}">&nbsp;</label>
+											</div>
+										</td>
+										<td>
+											<span class="bth-status" ng-class="item.color"> {{item.desc}}</span> <small class="text-muted">(4)</small>
+										</td>
+									</tr>
+									<tr class="indentation">
+										
+										<td colspan="6" ng-class="{'collapsed' : !groupList}">
+											<div uib-collapse="groupList" class="collapse scrollBar" style="max-height: 300px;" aria-expanded="false" aria-hidden="true">
+												<!-- <h4 class="text-center" ng-show="item.subitens.length <= 0">Nenhum subitem por aqui</h4> -->
+												<div ng-include="'gerenciador-tarefas/tarefas-table-itens.html'"></div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="row" ng-if="nav == 'Responsável'">
+			<div class="col-md-12 text-right">
+				<button ng-controller="ProfissionaisCtrl" ng-click="adicionar({})" type="button" class="btn btn-link btn-add btn-sm">Profissional</button>
+			</div>
+		</div>
+	</div>
+</div>

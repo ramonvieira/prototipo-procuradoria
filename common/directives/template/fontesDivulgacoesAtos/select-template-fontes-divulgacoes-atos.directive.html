@@ -1,0 +1,17 @@
+<trib-select-template
+        ng-model="ngModel"
+        ng-required="ngRequired"
+        search="vm.FontesDivulgacoesAtosService.listTemplate"
+        input-field="descricao"
+        input-maxlength="50"
+        on-select="vm.onSelect(item)"
+        enum="enum">
+
+    <item-template ng-non-bindable>
+        {{item.descricao}}
+        <br>
+        <small>
+            Meio de comunicação: {{vm.getDescricaoEnum(item.meioComunicacao)}}
+        </small>
+    </item-template>
+</trib-select-template>

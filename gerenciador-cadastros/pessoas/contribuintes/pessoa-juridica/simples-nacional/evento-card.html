@@ -1,0 +1,87 @@
+<div class="bth-card__header">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="bth-card__title">Eventos</h4>
+        </div>
+    </div>
+</div>
+<div class="bth-card__body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row bottom">
+                <div class="header-list-item-flex">
+                    <div class="col-md-4">
+                        <label>Descrição</label>
+                    </div>
+                    <div class="col-md-1">
+                        <label>Data inicial</label>
+                    </div>
+                    <div class="col-md-1">
+                        <label>Data final</label>
+                    </div>
+                    <div class="col-md-1">
+                        <label>Data do efeito</label>
+                    </div>
+                    <div class="col-md-1">
+                        <label>Processo</label>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Responsável</label>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Data da ocorrência</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 scrollBar" style="max-height: 370px; overflow-y: auto">
+                    <div class="list-item-flex" ng-repeat="ev in eventos">
+                        <div class="item-content-flex">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    {{ev.descricao}}
+                                </div>
+                                <div class="col-md-1">
+                                    {{ev.dataInicial}}
+                                </div>
+                                <div class="col-md-1">
+                                    {{ev.dataFinal}}
+                                </div>
+                                <div class="col-md-1">
+                                    {{ev.dataEfeito}}
+                                </div>
+                                <div class="col-md-1">
+                                    {{ev.processo}}
+                                </div>
+                                <div class="col-md-2">
+                                    {{ev.responsavel}}
+                                </div>
+                                <div class="col-md-2">
+                                    {{ev.dataOcorrencia}}
+                                </div>
+                            </div>
+                            <div class="row bottom">
+                                <div class="col-md-12 text-right">
+                                    <a href="" ng-click="groupChild22=!groupChild22" class="btn-link btn-sm link">{{!groupChild22 ? 'Mais detalhes': 'Menos detalhes'}}</a>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="groupChild22">
+                                <div class="col-md-12">
+                                    <label>Observações</label>
+                                    <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="bth-card__footer" >
+    <div class="row bottom">
+        <div class="col-md-12 text-center">
+                <button class="btn btn-sm btn-default">Carregar mais 5</button>
+        </div>
+    </div>
+</div> -->

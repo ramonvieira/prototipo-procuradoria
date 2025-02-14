@@ -1,0 +1,133 @@
+<li class="menu-right megamenu-search">
+    <a href="#" class="drop" ng-mouseover="vm.setTab(1)"><i class="fa fa-th-large"></i></a>
+    <div class="megamenu-dropdown tiles-container busca-dropdown">
+        <div class="busca-sistema">
+            <div class="busca">
+                <form name="formBusca" novalidate>
+                    <input type="text" name="termo" class="form-control" ng-model="busca.termo" ng-change="vm.resetScroll()" placeholder="O que você deseja fazer?">
+                    <a href="" class="limpar-busca" ng-if="busca.termo" ng-click="vm.cleanSearch($event)"></a>
+                </form>
+            </div>
+            <ul class="tabs-busca">
+                <li data-num="1" tabindex="1" ng-if="recursos.length" class="onda" ng-click="vm.setTab(1);vm.resetScroll()">
+                    Recursos
+                    <span class="resultados-encontrados" ng-if="busca.termo">{{(recursos | filter:{name: busca.termo}).length}}</span>
+                </li>
+                <li data-num="2" tabindex="1" ng-if="relatorios.length" class="onda" ng-click="vm.setTab(2);vm.resetScroll()">
+                    Relatórios
+                    <span class="resultados-encontrados" ng-if="busca.termo">{{(relatorios | filter:{name: busca.termo}).length}}</span>
+                </li>
+                <li data-num="3" tabindex="1" ng-if="scripts.length" class="onda" ng-click="vm.setTab(3);vm.resetScroll()">
+                    Scripts
+                    <span class="resultados-encontrados" ng-if="busca.termo">{{(scripts | filter:{name: busca.termo}).length}}</span>
+                </li>
+                <li data-num="4" tabindex="1" ng-if="consultas.length" class="onda" ng-click="vm.setTab(4);vm.resetScroll()">
+                    Consultas
+                    <span class="resultados-encontrados" ng-if="busca.termo">{{(consultas | filter:{name: busca.termo}).length}}</span>
+                </li>
+                <div class="indicador-ativo arr"></div>
+            </ul>
+        </div>
+        <div class="nano">
+            <div class="nano-content">
+                <div class="tabs-busca-resultados" ng-if="vm.isCurrentTab(1)">
+                    <p class="lead text-center bottom tabs-busca-resultados--empty" ng-if="!(recursos | filter:{name: busca.termo}).length && busca.termo">
+                        Nenhum resultado encontrado
+                    </p>
+                    <ul class="mega-fluxos noselect" ng-hide="busca.termo" style="padding: 0 15px;">
+                        
+                        <li class="arr" ng-if="r.pinned" tabindex="1" ng-repeat="r in recursos track by $index">
+                            <a href data-ng-click="vm.open(r)" title="{{r.name}}">
+                                <i class="fa fa-{{r.icon}}"></i>
+                                <span class="mega-fluxos--ellipsis">{{r.name}}</span>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                    <ul class="list-unstyled lista-resultados" ng-if="busca.termo">
+                        <li  tabindex="1" class="lista-resultados__item" ng-repeat="a in recursos | filter:{name: busca.termo}">
+                            <span data-ng-click="vm.open(a)" class="pointer ellipsis">
+                                {{a.name}}
+                            </span>
+                            <i class="fa fa-thumb-tack pull-right pointer" ng-click="a.pinned = !a.pinned" ng-class="a.pinned ? 'text-blueB9' : 'text-gray8 fa-rotate-45'" ng-attr-title="{{a.pinned && 'Remover link do acesso rápido' || 'Adicionar link ao acesso rápido' }}"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tabs-busca-resultados" ng-if="vm.isCurrentTab(2)">
+                    <p class="lead text-center bottom tabs-busca-resultados--empty" ng-if="!(relatorios | filter:{name: busca.termo}).length && busca.termo">
+                        Nenhum resultado encontrado
+                    </p>
+                    <ul class="mega-fluxos noselect" ng-hide="busca.termo" style="padding: 0 15px;">
+                        <li class="arr" ng-if="r.pinned" tabindex="1" ng-repeat="r in relatorios track by $index">
+                            <a href title="{{r.name}}">
+                                <i class="fa fa-{{r.icon}}"></i>
+                                <span>{{r.name}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled lista-resultados" ng-if="busca.termo">
+                        <li  tabindex="1" class="lista-resultados__item" ng-repeat="a in relatorios | filter:{name: busca.termo}">
+                            <span class="pointer ellipsis">
+                                {{a.name}}
+                            </span>
+                            <i class="fa fa-thumb-tack pull-right pointer" ng-click="a.pinned = !a.pinned" ng-class="a.pinned ? 'text-blueB9' : 'text-gray5 fa-rotate-45'" ng-attr-title="{{a.pinned && 'Remover link do acesso rápido' || 'Adicionar link ao acesso rápido' }}"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tabs-busca-resultados" ng-if="vm.isCurrentTab(3)">
+                    <p class="lead text-center bottom tabs-busca-resultados--empty" ng-if="!(scripts | filter:{name: busca.termo}).length && busca.termo">
+                        Nenhum resultado encontrado
+                    </p>
+                    <ul class="mega-fluxos noselect" ng-hide="busca.termo" style="padding: 0 15px;">
+                        <li class="arr" ng-if="r.pinned" tabindex="1" ng-repeat="r in scripts track by $index">
+                            <a href data-ng-click="vm.open(r)" title="{{r.name}}">
+                                <i class="fa fa-{{r.icon}}"></i>
+                                <span>{{r.name}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled lista-resultados" ng-if="busca.termo">
+                        <li  tabindex="1" class="lista-resultados__item" ng-repeat="a in scripts | filter:{name: busca.termo}">
+                            <span class="pointer ellipsis">
+                                {{a.name}}
+                            </span>
+                            <i class="fa fa-thumb-tack pull-right pointer" ng-click="a.pinned = !a.pinned" ng-class="a.pinned ? 'text-blueB9' : 'text-gray5 fa-rotate-45'" ng-attr-title="{{a.pinned && 'Remover link do acesso rápido' || 'Adicionar link ao acesso rápido' }}"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tabs-busca-resultados" ng-if="vm.isCurrentTab(4)">
+                    <p class="lead text-center bottom tabs-busca-resultados--empty" ng-if="!(consultas | filter:{name: busca.termo}).length && busca.termo">
+                        Nenhum resultado encontrado
+                    </p>
+                    <ul class="mega-fluxos noselect" ng-hide="busca.termo" style="padding: 0 15px;">
+                        <li class="arr" ng-if="r.pinned" tabindex="1" ng-repeat="r in consultas track by $index">
+                            <a href data-ng-click="vm.open(r)" title="{{r.name}}">
+                                <i class="fa fa-{{r.icon}}"></i>
+                                <span>{{r.name}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled lista-resultados" ng-if="busca.termo">
+                        <li  tabindex="1" class="lista-resultados__item" ng-repeat="a in consultas | filter:{name: busca.termo}">
+                            <span class="pointer ellipsis">
+                                {{a.name}}
+                            </span>
+                            <i class="fa fa-thumb-tack pull-right pointer" ng-click="a.pinned = !a.pinned" ng-class="a.pinned ? 'text-blueB9' : 'text-gray5 fa-rotate-45'" ng-attr-title="{{a.pinned && 'Remover link do acesso rápido' || 'Adicionar link ao acesso rápido' }}"></i>
+                        </li>
+                    </ul>
+                    <!--    
+                    <ul class="list-unstyled lista-resultados" ng-if="formBusca.termo.$valid">
+                        <li  tabindex="1" ng-repeat="a in consultas">
+                            {{a}}
+                            <i class="fa fa-thumb-tack pull-right pointer"
+                               ng-click="pinned = !pinned"
+                               ng-class="pinned ? 'text-blueB9' : 'text-gray5 fa-rotate-45'"
+                               ng-attr-title="{{pinned && 'Remover link do acesso rápido' || 'Adicionar link ao acesso rápido' }}"></i>
+                        </li>
+                    </ul> 
+                    -->
+                </div>
+            </div>
+        </div>
+    </div>
+</li>

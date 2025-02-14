@@ -1,0 +1,73 @@
+
+<div class="modal-dialog modal-sm" data-ng-controller="LocaisArquivamentoCadCtrl">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h3 class="modal-title inline-block">{{(edit)?'Editando':'Adicionando'}} local de arquivamento</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="required">Descrição</label>
+                    <input type="text" class="form-control" ng-model="descricao" maxlength="50"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Localização</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <th width="7%">Nível</th>
+                            <th width="25%"><span class="required">Local</span></th>
+                            <th>Descrição</th>
+                            <th width="5%"></th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="l in localizacao track by $index">
+                                <td>
+                                    {{$index+1}}°
+                                </td>
+                                <td class="has-edit">
+                                    <select bf-select2="{}" ng-model="l.local">
+                                        <option value="1">Prédio</option>
+                                        <option value="2">Andar</option>
+                                        <option value="3">Sala</option>
+                                        <option value="4">Arquivo</option>
+                                        <option value="5">Armário</option>
+                                        <option value="6">Prateleira</option>
+                                        <option value="7">Mesa</option>
+                                        <option value="8">Outro</option>
+                                    </select>
+                                </td>
+                                <td class="has-edit">
+                                    <input type="text" class="form-control" maxlength="30" ng-model="l.descricaoLocal">
+                                </td>
+                                <td class="text-center">
+                                    <a href title="Remover localização" ng-click="localizacao.splice($index, 1)" ng-class="$index == 0 ? 'link-disabled':''">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-success btn-add btn-sm pull-right" ng-click="localizacao.push({})" title="Adiciona uma nova localização">Localização</button>
+                </div>
+            </div> 
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn btn-default">Salvar e adicionar novo</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>

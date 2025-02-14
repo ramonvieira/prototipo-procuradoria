@@ -1,0 +1,101 @@
+<div class="modal-dialog modal-lg modal-auto-height">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<ul class="modal-header__actions">
+				<li>
+					<a href="" class="pull-right"><i class="fa fa-fw fa-clock-o"></i></a>
+				</li>
+			</ul>
+			<h3 class="modal-title">{{isEditing ? 'Editando' : 'Adicionando'}} grupo de trabalho</h3>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-4">
+					<label class="required" for="descricao">Descrição do grupo</label>
+					<input type="text" class="form-control" id="descricao" ng-model="registro.descricao">
+				</div>
+				<div class="col-md-8">
+					<label>&nbsp;</label>
+					<div class="bth-switch mTop5">
+						<input id="automatico" type="checkbox" ng-model="registro.automatico">
+						<label for="automatico">Distribuir automaticamente os processos</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label for="area">Área(s)</label>
+					<select bf-select2="{}" ng-model="registro.areas" id="area" multiple>
+						<option value="{{$index}}" ng-repeat="area in areas">{{area.descricao}}</option>
+					</select>
+				</div>
+			</div>
+			<h4 class="text-center mTop30">Selecione os profissionais que fazem parte do grupo</h4>
+			<table class="table table-unfixed table-unstriped table-hover">
+				<thead>
+					<tr ng-show="registro.automatico">
+						<th></th>
+						<th></th>
+						<th></th>
+						<th colspan="2" class="text-center"><span>Parcicipa da distribuição de</span></th>
+					</tr>
+					<tr>
+						<th class="col-fit">
+							<div class="bth-checkbox">
+								<input id="checkModeloAll" type="checkbox">
+								<label for="checkModeloAll">&nbsp;</label>
+							</div>
+						</th>
+						<th><span>Profissional</span></th>
+						<th width="120"><span>Tipo</span></th>
+						<th width="120" class="text-center" ng-show="registro.automatico"><span>Processos</span></th>
+						<th width="120" class="text-center" ng-show="registro.automatico"><span>Tarefas</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="procurador in procuradoresAll">
+						<td>
+							<div class="bth-checkbox">
+								<input id="proc{{$index}}" name="checkModelo" type="checkbox" ng-model="procurador.selected" ng-checked="procurador.selected">
+								<label for="proc{{$index}}">&nbsp;</label>
+							</div>
+						</td>
+						<td>
+							<div class="cell-wrapper">
+								<img ng-src="{{procurador.procurador.img}}" class="img-circle" width="30" style="margin: 0 auto">
+							</div>
+							<div class="cell-wrapper">
+								<small class="ellipsis text-muted">{{procurador.procurador.nome}}</small>
+							</div>
+						</td>
+						<td><span class="label show" ng-class="procurador.funcao == 'Administrador' ? 'label-primary' : procurador.funcao == 'Procurador' ? 'label-info' : 'label-default'">{{procurador.funcao}}</span></td>
+						<td class="text-center" ng-show="registro.automatico">
+							<div class="bth-switch" ng-show="procurador.selected">
+								<input id="distribProcessos{{$index}}" type="checkbox" ng-model="procurador.distribProcessos">
+								<label for="distribProcessos{{$index}}">&nbsp;</label>
+							</div>
+						</td>
+						<td class="text-center" ng-show="registro.automatico">
+							<div class="bth-switch" ng-show="procurador.selected">
+								<input id="distribTarefas{{$index}}" type="checkbox" ng-model="procurador.distribTarefas">
+								<label for="distribTarefas{{$index}}">&nbsp;</label>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="modal-footer">
+			<div class="bth-checkbox-group pull-left">
+				<div class="bth-checkbox bth-checkbox-inline bth-checkbox-danger">
+					<input id="checkbox" type="checkbox" ng-model="registro.desativado">
+					<label for="checkbox">Desativar grupo</label>
+				</div>
+			</div>
+			<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="salvar(registro)">Salvar</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Salvar e adicionar novo</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		</div>
+	</div>
+</div>

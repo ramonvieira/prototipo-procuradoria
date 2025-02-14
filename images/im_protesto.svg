@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="246px" height="246px" viewBox="0 0 246 246" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>im_protesto</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Export" transform="translate(-1122.000000, -282.000000)"></g>
+        <g id="Arrecadação" transform="translate(-1158.000000, -3413.000000)">
+            <g id="Group-5" transform="translate(1170.000000, 3470.586624)">
+                <g id="im_guia-unificada" transform="translate(119.000000, 1.413376)">
+                    <g id="Grupo_49" fill="#EBEDF0">
+                        <path d="M0.14793038,33.594774 L0.14793038,120.322807 C0.14793038,125.564447 4.39355395,129.813635 9.63079604,129.813635 L95.1324422,129.813635 C100.369563,129.813635 104.615308,125.564326 104.615308,120.322807 L104.615308,8.14300235 C104.615308,3.76255818 101.067235,0.211506554 96.6904661,0.211506554 L33.3640823,0.346065033 L0.14793038,33.594774 Z" id="Caminho_130"></path>
+                    </g>
+                    <path d="M25.6167988,64.3026108 L48.7955488,87.486798 M91.5830488,44.8275862 L48.9338415,87.486798" id="Combined-Shape" stroke="#54A668" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <polygon id="Caminho_128" fill="#E1E3E6" fill-rule="nonzero" points="19.847561 33.3004926 0 33.3004926 0 53.1527094"></polygon>
+                    <path d="M33.2926829,0 L33.2926829,19.3004926 C33.2926829,27.0324791 27.0246694,33.3004926 19.2926829,33.3004926 L0,33.3004926 L0,33.3004926 L33.2926829,0 Z" id="Rectangle" fill="#C0C0C0"></path>
+                </g>
+                <path d="M155,30.731662 C155.053973,25.2210029 150.981965,20.5443464 145.561781,19.7548093 L101.695651,19.2006754 C91.2270225,0.84755733 78.0233468,-10.3842355 41.641847,16.0586596 C41.4293852,36.5821354 41.2154362,44.2799353 41,64.8064041 C62.3115548,79.7017772 80.5138493,88.1255726 98.3430382,86.1206855 C110.693426,84.731888 124.521693,79.3426818 139.625812,72.3360846 C139.807478,72.3590706 133.008702,65.4186718 119.229483,51.5148882 L119.229483,41.5738296 L123.698191,41.7130043 C131.389944,41.6561372 138.588786,41.6277036 145.294716,41.6277036 C150.790161,40.9639491 154.943258,36.3007769 155,30.731662 Z" id="Caminho_46" fill="#F7DC9A" fill-rule="nonzero" transform="translate(98.000000, 43.413376) scale(1, -1) translate(-98.000000, -43.413376) "></path>
+                <rect id="Retângulo_1034" fill="#A7C4E7" fill-rule="nonzero" x="0" y="0.413375602" width="55" height="86" rx="11.867"></rect>
+                <circle id="Elipse_12" fill="#FFFFFF" fill-rule="nonzero" cx="39" cy="66.4133756" r="6"></circle>
+                <path d="M119,44.4133756 C108.844161,44.1391846 101.654048,43.0888758 97.4296599,41.2624491 C93.2052718,39.4360225 89.0620518,35.8196646 85,30.4133756" id="Line-6" stroke="#F3CC6B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

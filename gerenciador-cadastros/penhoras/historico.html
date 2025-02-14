@@ -1,0 +1,31 @@
+<div class="bth-timeline bth-timeline--vertical bth-timeline--has-icon bth-timeline--sticky scrollBar" style="max-height: 300px">
+	<ul class="bth-timeline__list" ng-init="itens = [	
+                                                        {tipo:'Cancelada'    ,color: 'bth-timeline__item-red',                          icon:'',    desc: 'Motivo descrito aqui'},
+														{tipo:'Concluída'    ,color: 'bth-timeline__item-green',                          icon:'',    desc: 'Motivo descrito aqui'},
+														{tipo:'Em aberto'    ,color: 'bth-timeline__item-blue',                          icon:'',    desc: 'Motivo descrito aqui'},
+														{tipo:'Adicionado'	 ,color: 'bth-timeline__item-green',  icon:'fa-plus'}]">
+		<li class="bth-timeline__month">
+			<span class="badge badge-default">Janeiro/2023</span>
+		</li>
+		<li class="bth-timeline__date" ng-repeat-start="item in itens">
+			<div>Hoje, 02/02</div>
+		</li>
+		<li class="bth-timeline__item" ng-class="item.color" ng-repeat-end>
+			<span class="bth-timeline__time">
+				09:00:00
+			</span>
+			<span class="bth-timeline__icon">
+				<i class="fa fa-fw" ng-class="item.icon"></i>
+			</span>
+			<span class="bth-timeline__title" ng-show="item.desc != null">
+				<i class="fa fa-user fa-fw text-muted" title="Editado por {{item.resp}}"></i> {{item.tipo}}
+			</span>
+			<span class="bth-timeline__title" ng-show="item.tipo == 'Adicionado'">
+				<i class="fa fa-user fa-fw text-muted" title="Adicionado por {{item.resp}}"></i> {{item.tipo}}
+			</span>
+			<div class="bth-timeline__desc" ng-show="item.desc !=null">
+				{{item.desc}}
+			</div>
+		</li>
+	</ul>
+</div>

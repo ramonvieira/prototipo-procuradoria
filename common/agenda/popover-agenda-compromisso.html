@@ -1,0 +1,110 @@
+<div class="row">
+	<div class="col-md-12 text-right">
+		<div class="btn-group">
+			<button type="button" class="btn btn-link btn-sm" title="Editar" ng-click="adicionar({isEditing:true,tipo:'COMPROMISSO',item:$index})"><i class="fa fa-fw fa-pencil"></i></button>
+			<button type="button" class="btn btn-link btn-sm" title="Excluir"><i class="fa fa-fw fa-trash-o"></i></button>
+			<button type="button" class="btn btn-link btn-sm" title="Fechar" data-dismiss="popover"><i class="fa fa-fw fa-close"></i></button>
+		</div>
+	</div>
+</div>
+<!-- Dados do agendamento -->
+<div>
+	<div class="bth-card">
+		<div class="bth-card__header top">
+			<h4 class="top">
+				<span class="fa-stack" style="margin-top: -8px">
+					<i class="fa fa-circle fa-stack-2x tx__aqua--l30"></i>
+					<i class="fa fa-calendar fa-stack-1x tx__aqua--d10"></i>
+				</span>
+				<span>{{eventSelected.desc ? eventSelected.desc : 'Título do compromisso'}}</span>
+			</h4>
+		</div>
+		<div class="bth-card__body" style="padding-left: 52px">
+			Sexta, 3 de abril. 09:30 até 10:00
+		</div>
+	</div>
+</div>
+<hr class="bottom top" ng-show="eventSelected.vinculos[0].procuradores.length > 0 || eventSelected.marcadores.length > 0 || eventSelected.vinculos[1].dividas.length > 0 || eventSelected.vinculos[2].processos.length > 0 || eventSelected.vinculos[3].protestos.length > 0">
+
+<div class="scrollBar" style="max-height: 255px;">
+
+	<!-- Procuradores/Assessores -->
+	<div ng-show="eventSelected.vinculos[0].procuradores.length > 0">
+		<div class="bth-card">
+			<div class="bth-card__header">
+				<h5 class="top">
+					<span class="fa-stack" style="margin-top: -5px">
+						<i class="fa fa-circle fa-stack-2x tx__aqua--l30"></i>
+						<i class="fa fa-user fa-stack-1x tx__aqua--d10"></i>
+					</span>
+					<span>Procuradores/Assessores</span>
+				</h5>
+			</div>
+			<div class="bth-card__body" style="padding-left: 52px">
+				<ul class="list-unstyled bottom">
+					<li ng-repeat="procurador in eventSelected.vinculos[0].procuradores" class="mBottom5 hover-visibility">
+						<img ng-src="{{procuradores[procurador].procurador.img}}" class="img-circle" width="25px" title="{{procuradores[procurador].procurador.nome}}"> {{procuradores[procurador].procurador.nome}}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- Etiquetas -->
+	<div ng-show="eventSelected.marcadores.length > 0">
+		<div class="bth-card">
+			<div class="bth-card__header">
+				<h5 class="top">
+					<span class="fa-stack" style="margin-top: -5px">
+						<i class="fa fa-circle fa-stack-2x tx__orange--l30"></i>
+						<i class="fa fa-tag fa-stack-1x tx__orange--d10"></i>
+					</span>
+					<span>Etiquetas</span>
+				</h5>
+			</div>
+			<div class="bth-card__body" style="padding-left: 52px">
+				<span class="badge badge-default badge--inline" ng-repeat="marcador in eventSelected.marcadores"><i class="fa fa-fw fa-tag" ng-class="'tx__' + marcadores[marcador].bColor"></i> {{marcadores[marcador].descricao}}</span>
+			</div>
+		</div>
+	</div>
+	<!-- Vínculos -->
+	<div ng-show="eventSelected.vinculos[1].dividas.length > 0 || eventSelected.vinculos[2].processos.length > 0 || eventSelected.vinculos[3].protestos.length > 0">
+		<hr class="bottom top">
+		<div class="bth-card">
+			<div class="bth-card__header">
+				<h5 class="top">
+					<span class="fa-stack" style="margin-top: -5px">
+						<i class="fa fa-circle fa-stack-2x tx__blue--l30"></i>
+						<i class="fa fa-link fa-stack-1x tx__blue--d10"></i>
+					</span>
+					<span>Vínculos</span>
+				</h5>
+			</div>
+			<div class="bth-card__body" style="padding-left: 52px">
+				<div class="row" ng-show="eventSelected.vinculos[1].dividas.length > 0">
+					<div class="col-md-3 text-right">
+						<small>Dívida(s)</small>
+					</div>
+					<div class="col-md-9">
+						<span class="badge badge-default badge--inline" ng-repeat="divida in eventSelected.vinculos[1].dividas" bf-tooltip="Contribuinte: Nome da Pessoa"><a href="">{{divida}}</a></span>
+					</div>
+				</div>
+				<div class="row" ng-show="eventSelected.vinculos[2].processos.length > 0">
+					<div class="col-md-3 text-right">
+						<small>Processo(s)</small>
+					</div>
+					<div class="col-md-9">
+						<span class="badge badge-default badge--inline" ng-repeat="processo in eventSelected.vinculos[2].processos" bf-tooltip="Exequente: Nome da Pessoa. Executado: Nome da pessoa"><a href="">{{processo}}</a></span>
+					</div>
+				</div>
+				<div class="row" ng-show="eventSelected.vinculos[3].protestos.length > 0">
+					<div class="col-md-3 text-right">
+						<small>Protesto(s)</small>
+					</div>
+					<div class="col-md-9">
+						<span class="badge badge-default badge--inline" ng-repeat="protesto in eventSelected.vinculos[3].protestos" bf-tooltip="Contribuinte: Nome da Pessoa"><a href="">{{protesto}}</a></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

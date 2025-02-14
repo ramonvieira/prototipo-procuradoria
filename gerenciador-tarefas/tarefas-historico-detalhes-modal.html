@@ -1,0 +1,91 @@
+<div class="modal-dialog modal-sm">
+	<div class="modal-content">
+		<div class="modal-header">
+			<a href="#" focus-modal-marking-first=""></a><button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 class="modal-title">Histórico</h3>
+			<h6 class="top bottom text-muted">Imóvel 1234</h6>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-6"></div>
+				<div class="col-md-6">
+					<!-- Pesquisa inline -->
+					<div class="input-group">
+						<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<table class="table table-unstriped table-unfixed">
+				<tbody>
+					<tr ng-repeat="alteracao in alteracoes | limitTo: 2">
+						<td class="col-fit">
+			
+						</td>
+						<td class="text-right col-20">{{alteracao.campo}}:</t>
+						<td><strike>{{alteracao.antes}}</strike> <i class="fa fa-fw fa-arrow-right"></i> ---</td>
+					</tr>
+					<tr ng-class="{'opened' : groupMultipleA}">
+						<td class="col-fit col-arrow" ng-click="groupMultipleA = !groupMultipleA">
+							<button class="btn btn-link btn-sm">
+								<i class="material-icons">keyboard_arrow_down</i>
+							</button>
+						</td>
+						<td class="text-right">Endereço <span class="badge">1</span> :</td>
+						<td colspan="2"></td>
+					</tr>
+					<tr class="indentation">
+						<td colspan="5" ng-class="{'collapsed' : !groupMultipleA}">
+							<div uib-collapse="!groupMultipleA" aria-expanded="true" aria-hidden="false">
+								<table class="table table-unfixed table-unstriped table-hover" ng-init="calculos=[{},{},{},{},{}]">
+									<tbody>
+										<tr ng-repeat="alteracao in alteracoes">
+											<td class="text-right">{{alteracao.campo}}:</t>
+											<td><strike>{{alteracao.antes}}</strike> <i class="fa fa-fw fa-arrow-right"></i> {{alteracao.depois}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</td>
+					</tr>
+					<tr ng-class="{'opened' : groupMultipleC}">
+						<td class="col-fit col-arrow" ng-click="groupMultipleC = !groupMultipleC">
+							<button class="btn btn-link btn-sm">
+								<i class="material-icons">keyboard_arrow_down</i>
+							</button>
+						</td>
+						<td class="text-right">Endereço <span class="badge">2</span> :</td>
+						<td colspan="2"></td>
+					</tr>
+					<tr class="indentation">
+						<td colspan="5" ng-class="{'collapsed' : !groupMultipleC}">
+							<div uib-collapse="!groupMultipleC" aria-expanded="true" aria-hidden="false">
+								<table class="table table-unfixed table-unstriped table-hover" ng-init="calculos=[{},{},{},{},{}]">
+									<tbody>
+										<tr ng-repeat="alteracao in alteracoes">
+											<td class="text-right">{{alteracao.campo}}:</t>
+											<td><strike>{{alteracao.antes}}</strike> <i class="fa fa-fw fa-arrow-right"></i> {{alteracao.depois}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="col-fit col-arrow">
+			
+						</td>
+						<td class="text-right">Teste:</t>
+						<td><strike>Teste</strike> <i class="fa fa-fw fa-arrow-right"></i> Teste</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-default" data-dismiss="modal">Fechar</button><a href="#" focus-modal-marking-last=""></a>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,427 @@
+<div class="modal-dialog modal-xxl">
+	<div class="modal-content">
+		<form name="form" novalidate>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<h3 class="modal-title">Adicionando execução fiscal</h3>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="bth-passoapasso" ng-init="step='dadosProcesso'">
+							<ol>
+								<li ng-click="step ='dadosProcesso'" ng-class="step != 'dadosProcesso'? 'completed':'active'"><a href="">Dados do processo</a></li>
+								<li ng-click="step ='partesProcesso'" ng-class="{active : step =='partesProcesso', completed: step == 'financeiro' || step =='resumo' }"><a href=""> Partes do processo</a></li>
+								<li ng-click="step ='financeiro'" ng-class="{active : step =='financeiro', completed: step =='resumo'  || step == 'informacoesAdicionais'}"><a href=""> Dívidas ativas</a></li>
+								<li ng-click="step ='informacoesAdicionais'" ng-class="{active : step =='informacoesAdicionais'}"><a href=""> Informações adicionais</a></li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<div ng-show="step =='dadosProcesso'">
+					<div class="row bottom">
+						<div class="col-md-1 text-center">
+							<i class="fa fa-file-text-o fa-2x text-muted mTop10"></i>
+						</div>
+						<div class="col-md-11">
+							<h4>Dados do processo</h4>      
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 col-md-offset-1">
+							<label class="required">Número do processo</label>
+							<div class="input-group">
+								<input type="text" class="form-control" ng-model="numProcesso" maxlength="20">
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default" title="Recupera a execução automaticamente através do número do processo"><i class="fa fa-fw fa-balance-scale tx__green"></i></button>
+								</span>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<label>Procedimento</label>
+							<select data-bf-select2="{}" ng-model="procedimento">
+								<option value="0">Especial</option>
+								<option value="1">Ordinário</option>
+								<option value="2">Sumário</option>
+								<option value="3">Sumaríssimo</option>
+							</select>
+						</div>
+						<div class="col-md-3">
+							<label class="required">Valor da causa</label>
+							<input type="text" class="form-control" ng-model="valor" maxlength="25"/>
+						</div>
+						<div class="col-md-3">
+							<label>Honorários</label>
+							<input type="text" class="form-control" ng-model="honorarios" maxlength="25"/>
+						</div>
+					</div> 
+					<div class="row bottom">
+						<div class="col-md-1 text-center">
+							<i class="fa fa-university fa-2x text-muted mTop10"></i>
+						</div>
+						<div class="col-md-11">
+							<h4>Local de tramitação</h4>  
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-md-offset-1">
+							<label class="required">Tribunal</label>
+							<select data-bf-select2="{}" ng-model="tribunal">
+								<option value="0">Lorem ipsum</option>
+								<option value="1">Lorem ipsum</option>
+								<option value="2">Lorem ipsum</option>
+								<option value="3">Lorem ipsum</option>
+							</select>
+						</div>
+						<div class="col-md-4">
+							<label class="required">Comarca</label>
+							<select data-bf-select2="{}" ng-model="comarca" ng-disabled="!tribunal">
+								<option value="0">Lorem ipsum</option>
+								<option value="1">Lorem ipsum</option>
+								<option value="2">Lorem ipsum</option>
+								<option value="3">Lorem ipsum</option>
+							</select>
+						</div>
+						<div class="col-md-3">
+							<label class="required">Vara</label>
+							<select data-bf-select2="{}" ng-model="vara" ng-disabled="!comarca">
+								<option value="0">Lorem ipsum</option>
+								<option value="1">Lorem ipsum</option>
+								<option value="2">Lorem ipsum</option>
+								<option value="3">Lorem ipsum</option>
+							</select>
+						</div>
+					</div> 
+					<div class="row bottom">
+						<div class="col-md-1 text-center">
+							<i class="fa fa-info-circle fa-2x text-muted mTop10"></i>
+						</div>
+						<div class="col-md-11">
+							<h4>Informações gerais</h4>    
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-md-offset-1">
+							<label class="required">Área</label>
+							<select data-bf-select2="{}" ng-model="area">
+								<option value="0">Lorem ipsum</option>
+								<option value="1">Lorem ipsum</option>
+								<option value="2">Lorem ipsum</option>
+								<option value="3">Lorem ipsum</option>
+							</select>
+						</div>
+						<div class="col-md-4">
+							<label class="required">Assunto</label>
+							<select data-bf-select2="{}" ng-model="assunto">
+								<option value="0">Lorem ipsum</option>
+								<option value="1">Lorem ipsum</option>
+								<option value="2">Lorem ipsum</option>
+								<option value="3">Lorem ipsum</option>
+							</select>
+						</div>
+						<div class="col-md-3">
+							<label class="required">Classe</label>
+							<select data-bf-select2="{}" ng-model="classe">
+								<option value="0">Lorem ipsum</option>
+								<option value="1">Lorem ipsum</option>
+								<option value="2">Lorem ipsum</option>
+								<option value="3">Lorem ipsum</option>
+							</select>
+						</div>
+					</div>   
+				</div>
+				<div ng-show="step =='partesProcesso'">
+				   <div class="row bottom">
+						<div class="col-md-1 text-center">
+							<i class="fa fa-users fa-2x text-muted mTop10"></i>
+						</div>
+						<div class="col-md-11">
+							<h4>Partes do processo</h4>    
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-11 col-md-offset-1">
+							<label class="required">Executado</label>
+							<input type="hidden" bf-select2="userOptions" ng-model="executado" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-11 col-md-offset-1">
+							<label class="required">Exequente</label>
+							<input type="hidden" bf-select2="userOptions"  ng-model="exequente" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-11 col-md-offset-1">                                            
+							<grupo-profissionais-select label="Grupo de trabalho" ng-model="grupoTrabalho" ng-required="true" />
+						</div>
+					</div>
+					<div class="row bottom">
+						<div class="col-md-11 linha-vertical col-md-offset-1">
+							<label class="required">Procurador</label>
+						</div>
+					</div>
+					<div class="row linha-vertical-list">
+						<div class="col-md-11 col-md-offset-1">
+							<procuradores-select ng-model="procurador" id="procurador" ng-disabled="!grupoTrabalho" />
+						</div>
+					</div>
+					<div class="row bottom">
+						<div class="col-md-11 linha-vertical col-md-offset-1">
+							<label for="assessor">Assessor</label>
+						</div>
+					</div>
+					<div class="row linha-vertical-list">
+						<div class="col-md-11 col-md-offset-1">
+							<assessores-select ng-model="assessor" id="assessor" ng-disabled="!grupoTrabalho" />
+						</div>
+					</div>
+					<div class="row bottom">
+						<div class="col-md-11 col-md-offset-1">
+							<h4>Mais partes do processo</h4>
+							<span>
+								Caso existam mais partes no processo, essas poderão ser informadas aqui.
+							</span>  
+						</div>
+					</div>
+					<div class="row bottom" ng-init="participantes = [{}]">
+						<div class="col-md-7 col-md-offset-1">
+							<label>Parte</label>
+						</div>
+						<div class="col-md-3">
+							<label>Participação</label>
+						</div>
+					</div>
+					<div class="row" ng-repeat="p in participantes">
+						<div class="col-md-7 col-md-offset-1">
+							<input type="hidden" bf-select2="userOptions"  ng-model="p.parte" />
+						</div>
+						<div class="col-md-3">
+							<select data-bf-select2="{}" ng-model="p.participacao">
+								<option value="0">Exequente</option>
+								<option value="1">Executado</option>
+								<option value="2">Procurador</option>
+								<option value="3">Advogado</option>
+							</select>
+						</div>
+						<div class="col-md-1">
+							<button class="btn btn-default" title="Excluir" ng-click="participantes.splice($index, 1)" ng-class="{'link-disabled': $index < 1}"><i class="fa fa-trash-o"></i></button>
+						</div>
+					</div>
+					<div class="row bottom">
+						<div class="col-md-12 text-right">
+							<button class=" btn btn-add btn-sm btn-success" title="Adiciona uma nova parte ao processo" ng-click="participantes.push({})">Parte</button>
+						</div>
+					</div>  
+				</div>
+				<div ng-show="step =='financeiro'">
+				   <div class="row">
+						<div class="col-md-1 text-center">
+							<i class="fa fa-usd fa-2x text-muted mTop10"></i>
+						</div>
+						<div class="col-md-11">
+							<h4>Dívidas ativas</h4>
+							<span>
+								Vincule as dívidas ativas do executado {{executado.nome}} ao processo de execução fiscal.
+							</span>      
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-11 col-md-offset-1">
+							<button class="btn btn-sm btn-primary" ng-click="openDividas()" title="Seleciona uma nova dívida">
+								Selecionar dívidas
+							</button>
+						</div>
+					</div>
+					<div class="row bottom">
+						<div class="col-md-11 col-md-offset-1">
+							<div class="group-list" ng-repeat="c in cda track by $index">
+								<div class="group-heading" data-ng-class="{open:c.groupOpen}" data-ng-click="c.groupOpen=!c.groupOpen">
+									<div class="group-title">
+										<div class="row">
+											<div class="col-md-7">
+												<strong bf-tooltip="Crédito">
+													{{c.credito}}
+												</strong>
+											</div>
+											<div class="col-md-2 text-right">
+												<small>
+													8 dívidas
+												</small>
+											</div>
+											<div class="col-md-3 text-right">
+												<small>
+													<strong bf-tooltip="Total da dívida">
+														R$ {{c.valor}}
+													</strong>
+												</small>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="group-list-itens" uib-collapse="!c.groupOpen" style="height: auto;">
+									<div class="group-list" ng-repeat="a in c.registrosAno">
+											<div class="group-heading" data-ng-class="{open:a.groupAnoOpen}" data-ng-click="a.groupAnoOpen=!a.groupAnoOpen">
+												<div class="group-title">
+													<div class="row">
+														<div class="col-md-7">
+															<strong bf-tooltip="Ano">
+																{{a.ano}}
+															</strong>
+														</div>
+														<div class="col-md-2 text-right">
+															<small>
+																{{a.registros.length}} dívidas
+															</small>
+														</div>
+														<div class="col-md-3 text-right">
+															<small>
+																<strong bf-tooltip="Total da dívida">
+																	R$ {{c.valor}}
+																</strong>
+															</small>
+														</div>
+													</div>
+												</div>
+											</div>
+										<div class="group-list-itens" uib-collapse="!a.groupAnoOpen" style="height: auto;">
+											<table class="table ellipsis">
+												<thead>
+													<tr>
+														<th ng-repeat="c in cols | filter:{active: true} track by $index" width="{{c.width}}">
+															<a href="">{{c.label}}</a>
+															<i class="icon-sort pull-right"></i>
+														</th>
+														<th width="31">
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat-start="r in a.registros | filter:{situacao: filtro}">
+													
+														<td ng-class="{'has-alert' : $index < 5}">
+															<a href="" ng-click="r.open = !r.open">
+																<i class="fa fa-fw fa-{{r.open ? 'minus' : 'plus'}}-circle"></i>
+															</a>
+															
+															{{r.numInscricao}}
+															<span class="label label-info pull-right" ng-show= "r.protestada"><small>Protestada</small></span>
+														</td>
+														<td>{{r.dtInscricao}}</td>
+														<td>
+															<a href="" title="Visualizar cadastro">
+																{{r.ref}}
+															</a>
+														</td>
+														<td>{{r.parcela}}</td>
+														<td>{{r.dtVencimento}}</td>
+														<td class="text-right">{{r.valor}}</td>                                            
+														<td>
+															<span class="label center-block" ng-class="r.situacao == 'Aberta' ?'label-primary' : r.situacao == 'Paga' ?'label-success' : r.situacao == 'Parcelada' ?'label-default' : ''">
+																{{r.situacao}}
+															</span> 
+														</td>                                            
+														<td class="text-center">
+															<a href="">
+																<i class="fa fa-fw fa-trash-o"></i>
+															</a>
+														</td>
+													</tr>
+													<tr ng-repeat-end ng-if="r.open">
+														<td colspan="3">
+															<div>
+																<label for="">Livro</label> 1010
+															</div>
+															<div>
+																<label for="">Folha</label> 20
+															</div>
+															<div>
+																<label for="">Posição</label> 30
+															</div>
+															<div>
+																<label for="">Inscrição</label> 90
+															</div>
+														</td>
+														<td colspan="5">
+															<div>
+																<label for="">Dívida</label> 1001
+															</div>
+															<div>
+																<label for="">Parcelamento</label> 30
+															</div>
+															<div>
+																<label for="">Valor parcelado</label> R$ 1.000,00
+															</div>
+															<div>
+																<label for="">Valor pago</label> R$ 800,00
+															</div>
+															<div>
+																<label for="">Saldo</label> R$ 400,00
+															</div>
+														</td>                                            
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row list-footer">
+						<div class="col-md-12">
+							<div class="list-total-group">Total de dívidas: R$ 2.000,00</div>
+						</div>
+					</div>
+				</div>
+				<div ng-show="step =='informacoesAdicionais'">
+				   <div class="row bottom">
+						<div class="col-md-1 text-center">
+							<i class="fa fa-tags fa-2x text-muted mTop10"></i>
+						</div>
+						<div class="col-md-11">
+							<h4>Informações adicionais</h4>     
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 col-md-offset-1">
+							<label class="required">Nome do campo</label>
+							<input type="text" class="form-control" ng-model="infoAdicional01">
+						</div>
+						<div class="col-md-4">
+							<label class="required">Nome do campo</label>
+							<input type="text" class="form-control" ng-model="infoAdicional01">
+						</div>
+						<div class="col-md-4">
+							<label class="required">Nome do campo</label>
+							<input type="text" class="form-control" ng-model="infoAdicional01">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 col-md-offset-1">
+							<label class="required">Nome do campo</label>
+							<input type="text" class="form-control" ng-model="infoAdicional01">
+						</div>
+						<div class="col-md-4">
+							<label class="required">Nome do campo</label>
+							<input type="text" class="form-control" ng-model="infoAdicional01">
+						</div>
+						<div class="col-md-4">
+							<label class="required">Nome do campo</label>
+							<input type="text" class="form-control" ng-model="infoAdicional01">
+						</div>
+					</div> 
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-left" ng-disabled="step =='dadosProcesso'"><i class="fa fa-arrow-left fa-fw"></i>Voltar</button>
+				<button type="button" class="btn btn-default pull-left" ng-disabled="step =='informacoesAdicionais'"><i class="fa fa-arrow-right fa-fw"></i>Avançar</button>
+				<button type="button" class="btn btn-primary" ng-disabled="step != 'informacoesAdicionais'" ng-click="openUrl()" data-dismiss="modal">Salvar e continuar</button>
+				<button type="button" class="btn btn-default" ng-disabled="step != 'informacoesAdicionais'">Salvar e adicionar novo</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			</div>
+		</form>
+	</div>
+</div>

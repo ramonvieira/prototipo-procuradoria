@@ -1,0 +1,67 @@
+<div ng-controller="AdvogadosCtrl">
+	<div class="row">
+		<div class="col-md-2">
+			<div class="btn-group">
+				<button type="button" class="btn btn-sm btn-success btn-add" title="Adiciona um novo advogado ou procurador" data-ng-click="adicionar({})">Advogado/Procurador</button>
+			</div>
+		</div>
+		<div class="col-md-10 form-inline">
+			<finder class="pull-right" data-grid-config="gridConfig" data-filter-by="nrooab, pessoa.nome" data-filter-cond="like" is-carregando="isCarregando" finder-value="textobusca"></finder>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div>
+				<table id="advogadosTable" class="table table-striped table-hover table-bordered table-fixed">
+					<thead>
+					<tr>
+						<th>Nome</th>
+						<th width="130">
+							Tipo
+						</th>
+						<th width="130">
+							<abbr title="Ordem dos Advogados do Brasil">OAB</abbr>
+						</th>
+						<th width="61"></th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>João da Silva</td>
+						<td>Advogado</td>
+						<td>SC 16.669-N</td>
+						<td class="text-center">
+							<a href data-ng-click="editar(registro)" data-bf-permissions operation="editar" title="Editar">
+								<i class="fa fa-pencil"></i>
+							</a>
+							&nbsp;
+							<a id="excluir-{{registro.id}}" href="" data-bf-permissions operation="excluir" title="Excluir" data-bf-undo="remover(registro)" data-bf-undo-title="O advogado {{registro.nome}} foi marcado para exclusão">
+								<i class="fa fa-fw fa-trash-o u-cursor-pointer"></i>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Maria de Souza</td>
+						<td>Procurador</td>
+						<td>PR 13.341-B</td>
+						<td class="text-center">
+							<a href data-ng-click="editar(registro)" data-bf-permissions operation="editar" title="Editar">
+								<i class="fa fa-pencil"></i>
+							</a>
+							&nbsp;
+							<a id="excluir-{{registro.id}}" href="" data-bf-permissions operation="excluir" title="Excluir" data-bf-undo="remover(registro)" data-bf-undo-title="O advogado {{registro.nome}} foi marcado para exclusão">
+								<i class="fa fa-fw fa-trash-o u-cursor-pointer"></i>
+							</a>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<navigator data-grid-config="gridConfig" data-loading-tracker="tracker.carregandoRegistros"></navigator>
+		</div>
+	</div>
+</div>

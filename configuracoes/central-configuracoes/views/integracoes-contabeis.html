@@ -1,0 +1,69 @@
+<h1 class="titulo-configuracoes">Parâmetros da integração contábil</h1>
+
+<div class="row">
+    <div class="col-md-2">
+        <label for="">Tipo</label>
+        <select bf-select2="{}" ng-model="tipo" class="form-control">
+            <option value="1">Arrecadações</option>
+            <option value="2">Lançamentos</option>
+        </select>
+    </div>
+    <div class="col-md-5" ng-show="tipo==1">
+        <label for="">Script de envio</label>
+        <select bf-select2="{}" ng-model="scriptEnvio" class="form-control">
+            <option value="1">Item 1</option>
+            <option value="2">Item 2</option>
+            <option value="3">Item 3</option>
+        </select>
+    </div>
+    <div class="col-md-5" ng-show="tipo==1">
+        <label for="">Script de recebimento</label>
+        <select bf-select2="{}" ng-model="scriptRecebimento" class="form-control">
+            <option value="1">Item 1</option>
+            <option value="2">Item 2</option>
+            <option value="3">Item 3</option>
+        </select>
+    </div>
+</div>
+
+<div class="row" ng-show="tipo==2">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Script de envio</th>
+                    <th>Script de recebimento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="integracaoLancamento in integracoesLancamentos">
+                    <td>{{integracaoLancamento.item}}</td>
+                    <td class="has-edit">
+                        <select bf-select2="{}" ng-model="">
+                            <option value="1">Item 1</option>
+                            <option value="2">Item 2</option>
+                            <option value="3">Item 3</option>
+                        </select>
+                    </td>
+                    <td class="has-edit">
+                        <select bf-select2="{}" ng-model="">
+                            <option value="1">Item 1</option>
+                            <option value="2">Item 2</option>
+                            <option value="3">Item 3</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-right">
+            <button class="btn btn-primary" ng-click="salvarConfiguracao();">Salvar</button>
+            <button class="btn btn-default" title="Restaura a configuração para a última versão salva">Restaurar</button>
+        </div>
+    </div>
+</div>

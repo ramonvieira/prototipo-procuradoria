@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- Ao selecionar, fixa os dados do campo "Logradouro" ao clicar em "Salvar e adicionar novo" -->
+        <label class="checkbox-inline pull-right margin-checkbox-planta">
+            <small>
+                <input type="checkbox">
+                Fixar dados para o próximo registro
+            </small>
+        </label>
+        <small class="icone-ajuda-checkbox-inline"><i class="fa fa-question-circle text-muted-noColor-ajuda" bf-tooltip="Ao salvar e adicionar um novo registro, manterá os dados"></i></small>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <label class="required">Logradouro</label>
+        <input type="hidden" ng-model="registro.logradouro.id" bf-select2="logradourosSelectConfig"data-ng-change="logradouroAlterado()" bf-required="true">
+        </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <label>Seção</label>
+        <input type="text" class="form-control">
+    </div>
+
+    <div class="col-md-6">
+        <label for="">Face</label>
+
+        <select bf-select2="{}" ng-model="face" class="form-control">
+            <option value="1">Item 1</option>
+            <option value="2">Item 2</option>
+            <option value="3">Item 3</option>
+        </select>
+    </div>
+</div>

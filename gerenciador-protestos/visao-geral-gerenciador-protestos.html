@@ -1,0 +1,156 @@
+<div class="row row-flex">
+	<div class="col-md-6">
+		<div class="bth-card">
+			<div class="bth-card__body">
+				<div class="row bottom">
+					<!-- Sem movimentações -->
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-8">
+								<h4 class="top">
+									<span class="fa-stack" style="margin-top: -8px">
+										<i class="fa fa-circle fa-stack-2x tx__red--l30"></i>
+										<i class="fa fa-exchange fa-stack-1x tx__red--d10"></i>
+									</span>
+									<span>Protestos sem movimentações</span>
+								</h4>
+							</div>
+							<div class="col-md-4 text-right">
+								<div class="btn-group btn-group-xs">
+									<label class="btn btn-default" ng-class="{'active': protSemMovimentoView == '1'}">
+										<input type="radio" ng-click="trocaProtSemMovimentoView('1')"> <i class="fa fa-fw fa-pie-chart"></i>
+									</label>
+									<label class="btn btn-default" ng-class="{'active': protSemMovimentoView == '2'}">
+										<input type="radio" ng-click="trocaProtSemMovimentoView('2')"> <i class="fa fa-fw fa-list"></i>
+									</label>
+								</div>
+								<div class="btn-group dropdown">
+									<button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown" title="Outras opções">
+										<i class="fa fa-fw fa-ellipsis-v"></i>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li>
+											<a href="" ng-click=""><i class="fa fa-fw fa-download"></i> Download</a>
+											<a href="" ng-click=""><i class="fa fa-fw fa-print"></i> Imprimir</a>
+											<!-- <a href="" ng-click="trocaProtSemMovimentoView('1')"><i class="fa fa-fw fa-pie-chart"></i> Exibir gráfico</a>
+											<a href="" ng-click="trocaProtSemMovimentoView('2')"><i class="fa fa-fw fa-list"></i> Exibir lista</a> -->
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<fusioncharts height="250" width="100%" type="scrollcolumn2d" datasource="{{semMovimentacoes}}" ng-show="protSemMovimentoView == '1'"></fusioncharts>
+						<table class="table table-unstriped table-unfixed table-unbordered table-hover" ng-show="protSemMovimentoView == '2'">
+							<thead>
+								<tr>
+									<th class="text-center"><span>6 meses</span></th>
+									<th class="text-center"><span>1 ano</span></th>
+									<th class="text-center"><span>2 anos</span></th>
+									<th class="text-center"><span>5 anos ou mais</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in [{tipo:'Protestos'}]">
+									<td class="text-center">
+										<a href="">45</a>
+										<br>
+										<span class="info">R$ 146.383,45</span>
+									</td>
+									<td class="text-center">
+										<a href="">248</a>
+										<br>
+										<span class="info">R$ 146.383,45</span>
+									</td>
+									<td class="text-center">
+										<a href="">28</a>
+										<br>
+										<span class="info">R$ 146.383,45</span>
+									</td>
+									<td class="text-center">
+										<a href="">28</a>
+										<br>
+										<span class="info">R$ 146.383,45</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div id="empresasDividas" ng-show="totalDivida == '1'"></div>
+				<div id="dividasRecup" ng-show="totalDivida == '2'"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Dívidas a prescrever -->
+	<div class="col-md-6">
+		<div class="bth-card">
+			<div class="bth-card__header">
+				<div class="row">
+					<div class="col-md-6">
+						<h4 class="bth-card__title">Possibilidade de prescrição</h4>
+					</div>
+					<div class="col-md-6 text-right">
+						<div class="btn-group btn-group-xs" ng-init="possibilidadePresc = '2'">
+							<label class="btn btn-default" ng-class="{active: possibilidadePresc === '2'}">
+								<input type="radio" ng-model="possibilidadePresc" value="2"> Por mês
+							</label>
+							<label class="btn btn-default" ng-class="{active: possibilidadePresc === '1'}">
+								<input type="radio" ng-model="possibilidadePresc" value="1"> Por ano
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bth-card__body">
+				<fusioncharts height="250" width="100%" type="scrollcolumn2d" datasource="{{possibilidadPrescrAno}}" ng-show="possibilidadePresc == '1'"></fusioncharts>
+				<fusioncharts height="250" width="100%" type="scrollcolumn2d" datasource="{{possibilidadPrescrMes}}" ng-show="possibilidadePresc == '2'"></fusioncharts>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<!-- Empresas x Dívida -->
+	<div class="col-md-6">
+		<div class="bth-card">
+			<div class="bth-card__header">
+				<h4 class="bth-card__title">Empresas x Dívida em protesto</h4>
+			</div>
+			<div class="bth-card__body">
+				<table class="table table-unstriped table-unfixed">
+					<thead>
+						<tr>
+							<th width="30"></th>
+							<th>
+								<a href="">
+									Empresa
+									<i class="material-icons">arrow_upward</i>
+								</a>
+							</th>
+							<th>
+								<a href="">
+									Valor
+									<i class="material-icons">arrow_upward</i>
+								</a>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="empresa in empresasProtestos track by $index">
+							<td class="col-fit col-arrow">
+								{{$index+1}}º
+							</td>
+							<td>
+								{{empresa.nome}}
+							</td>
+							<td class="col-fit text-right">
+								<a href="#" title="Clique para ver as dívidas dessa empresa">{{empresa.valor}}</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

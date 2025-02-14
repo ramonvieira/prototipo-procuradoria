@@ -1,0 +1,143 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="bth-img-illustration semregistros" ng-hide="(documentos |	filter: {tipo: doctSelect} |
+																				filter: filtrarPor == 'Não integrado'	? {erro: true} :
+																						filtrarPor == 'Integrado'		? {erro: false} :
+																						filtrarPor == 'Ignorado'		? {erro: true, ignorado: true} :
+																						filtrarPor == 'Cancelado'			? {situacao: false} : {}).length > 0">
+			<div class="illustration-title">Nenhum documento encontrado</div>
+		</div>
+		<table class="table table-unstriped table-unfixed" ng-show="(documentos |	filter: {tipo: doctSelect} |
+																					filter: filtrarPor == 'Não integrado'	? {erro: true} :
+																							filtrarPor == 'Integrado'		? {erro: false} :
+																							filtrarPor == 'Ignorado'		? {erro: true, ignorado: true} :
+																							filtrarPor == 'Cancelado'			? {situacao: false} : {}).length > 0">
+			<thead>
+				<tr>
+					<th class="col-fit" ng-if="!hist">
+						<div class="bth-checkbox">
+							<input id="checkAll" type="checkbox" ng-model="checkAll">
+							<label for="checkAll">&nbsp;</label>
+						</div>
+					</th>
+					<th width="150">
+						<a href="">
+							Documento
+							<i class="material-icons">arrow_upward</i>
+						</a>
+					</th>
+					<th>
+						<a href="">
+							Emissão
+							<i class="material-icons">arrow_upward</i>
+						</a>
+					</th>
+					<th>
+						<a href="">
+							Contribuinte
+							<i class="material-icons">arrow_upward</i>
+						</a>
+					</th>
+					<th class="col-fit" ng-hide="tipoPend == 'PENDENTE' || tipoPend == 'ERRO' || tipoPend == 'ERROINTEGRA'" ng-if="doctSelect > 1 && doctSelect != 3">
+						<a href="">
+							Protocolo
+							<i class="material-icons">arrow_upward</i>
+						</a>
+					</th>
+					<th class="col-fit" ng-show="tipoPend != 'PENDENTE'">
+						<a href="">
+							Descrição do erro
+							<i class="material-icons">arrow_upward</i>
+						</a>
+					</th>
+					<th class="col-fit"><span>Anexos</span></th>
+					<th width="100" ng-hide="tipoPend == 'PENDENTE' || tipoPend == 'ERRO' || tipoPend == 'ERROINTEGRA'">
+						<a href="">
+							Situação
+							<i class="material-icons">arrow_upward</i>
+						</a>
+					</th>
+					<th width="30"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="documento in documentos |	filter: {tipo: doctSelect} |
+															filter: filtrarPor == 'Não integrado'	? {erro: true} :
+																	filtrarPor == 'Integrado'		? {erro: false} :
+																	filtrarPor == 'Ignorado'		? {erro: true, ignorado: true} :
+																	filtrarPor == 'Ativo'			? {situacao: true} :
+																	filtrarPor == 'Cancelado'		? {situacao: false} : {}">
+					<td ng-if="!hist">
+						<div class="bth-checkbox">
+							<input id="cb{{$index}}" type="checkbox">
+							<label for="cb{{$index}}">&nbsp;</label>
+						</div>
+					</td>
+					<td>
+						<a href="">
+							<span class="badge" title="Clique para fazer o download do documento"><i class="fa fa-fw fa-download"></i> {{documento.numero}} / {{documento.ano}}</span>
+							<i class="fa fa-fw fa-check-circle-o tx__green" bf-tooltip="Assinado digitalmente" ng-if="documento.assinado"></i>
+						</a>
+					</td>
+					<td>{{documento.dataEmissao}}</td>
+					<td class="ellipsis">
+						<a href="" ng-controller="ContribuintesCtrl" ng-click="adicionar()">{{contribuintes[documento.contribuinte].nome}}</a><br>
+					</td>
+					<td class="col-fit" ng-hide="tipoPend == 'PENDENTE' || tipoPend == 'ERRO' || tipoPend == 'ERROINTEGRA'" ng-if="doctSelect > 1 && doctSelect != 3">
+						<span ng-hide="documento.erro || documento.protocolo == ''">
+							<a href="" data-bf-popover="'gerenciador-documentos/popover-protocolo.html'" class="popover-active" data-placement="bottom" bf-popover-size="med-popover"><i class="fa fa-fw fa-info-circle"></i></a> {{documento.protocolo}}
+						</span>
+						<a href="" data-bf-popover="'gerenciador-documentos/popover-erro.html'" class="popover-active tx__red" data-placement="left" bf-popover-size="med-popover" ng-show="documento.erro && vm.modulo == 'INTEGRACAO'">
+							<i class="fa fa-fw tx__red" ng-class="!documento.ignorado ? 'fa-exclamation-triangle' : 'fa-ban'"></i>{{!documento.ignorado ? 'Erro de integração' : 'Integração ignorada'}}
+						</a>
+					</td>
+					<td class="col-fit ellipsis" title="Informação completa do erro que ocorreu na integração" ng-show="tipoPend != 'PENDENTE'">
+						Informação completa do erro que ocorreu na integração
+					</td>
+					<td>
+						<div class="btn-group">
+							<button type="button" class="btn btn-link btn-xs" title="Anexar/Anexos" ng-click="anexos({})"><i class="fa fa-fw fa-paperclip"></i> (1)</button>
+						</div>
+					</td>
+					<td ng-hide="tipoPend == 'PENDENTE' || tipoPend == 'ERRO' || tipoPend == 'ERROINTEGRA'">
+						<span class="label show" ng-class="{
+							'label-success'      :documento.situacao,
+							'label-danger'		:!documento.situacao
+							}">{{
+								documento.situacao ? 'Ativo' 	:
+								!documento.situacao ? 'Cancelado': ''
+							}}
+							<a href="" data-bf-popover="'gerenciador-documentos/cancelamento-documentos/popover-cancelamento.html'" class="popover-active" data-placement="left" bf-popover-size="med-popover" ng-if="!documento.situacao"><i class="fa fa-fw fa-info-circle tx__white"></i></a>
+						</span>
+					</td>
+					<td class="text-right">
+						<div class="btn-group btn-group-xs">
+							<a href="" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-fw fa-ellipsis-v"></i>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li ng-if="!hist" ng-show="doctSelect > 1 && doctSelect < 8" class="dropdown-header">Abrir protesto</li>
+								<li ng-show="doctSelect > 1 && doctSelect < 8"><a data-ui-sref="main.gerenciadorProtestos" target="_blank" class="has-icon" title="Abre o protesto em uma nova aba">Abrir em nova aba</a></li>
+								
+								<li ng-if="!hist" ng-show="doctSelect > 7" class="dropdown-header">Abrir execução</li>
+								<li ng-show="doctSelect > 7"><a data-ui-sref="main.gerenciadorExecucoes.execucao-fiscal-ficha" target="_blank" class="has-icon" title="Abre a execução em uma nova aba">Abrir em nova aba</a></li>
+
+								<li ng-if="!hist" class="dropdown-header">Ações</lin>
+								<li ng-if="!hist" ng-show="doctSelect == 1"><a href="">Enviar para protesto</a></li>
+								<li ng-if="!hist" ng-show="doctSelect == 1"><a href="">Enviar para execução</a></li>
+								<li ng-if="!hist"><a href="">Reenviar</a></li>
+								<li ng-if="!hist"><a href="">Anexar</a></li>
+								<li ng-if="!hist" ng-show="!documento.assinado"><a href="" ng-controller="dividasAtivasCtrl" ng-click="assinar({})">Assinar digitalmente</a></li>
+								<li ng-if="!hist"><a href="" ng-if="documento.erro || documento.erroIntegra">Ignorar erro</a></li>
+								<li ng-if="!hist"><a href="" ng-if="documento.erro || documento.erroIntegra">Filtrar erros iguais</a></li>
+								<li ng-if="!hist"><a href="">Fazer download</a></li>
+								<li ng-if="!documento.situacao || !hist"><a href="">Reativar</a></li>
+								<li ng-if="documento.situacao || !hist" ng-controller="GerenciadorDocumentosCtrl"><a href="" ng-click="cancelarDocumento({})">Cancelar documento</a></li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

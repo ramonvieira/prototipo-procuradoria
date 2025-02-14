@@ -1,0 +1,253 @@
+<div class="toolbar-formulas">
+    <ul class="list-inline pull-left refazer-desfazer">
+        <li><i class="fa fa-undo"></i></li>
+        <li><i class="fa fa-repeat"></i></li>
+    </ul>
+    <ul class="list-inline itens-formula operadores" id="{{id}}" ng-model="operadores"
+        dnd-list="operadores"
+        dnd-drop="dropListaCampos(event, index, item, external, type, 'operadores')">
+        <li id="operadores-{{id}}-{{registro.id}}" class="{{registro.class}}" ng-repeat="registro in operadores | filter:{showMore: false}" ng-app="string"
+            ng-mouseenter="registro.mouseover=true" ng-mouseleave="registro.mouseover=false"
+            dnd-draggable="registro"
+            dnd-effect-allowed="move"
+            dnd-type="'campo.type'" bf-tooltip="{{registro.descricao}}">
+            {{registro.id == 'texto' ? '': registro.id}}
+        </li>
+        <li class="pull-right" data-bf-show-hide="group-{{id}}" data-bf-show-hide-render="bfShowHideRender">Ver {{bfShowHideRender ? 'menos' : 'mais'}}</li>
+    </ul>
+</div>
+<div class="toolbar-formulas u-margin-top-minus-3" id="group-{{id}}" style="display: none">
+    <ul class="list-inline itens-formula operadores" id="{{id}}-showMore" ng-model="operadores"
+        dnd-list="operadores"
+        dnd-drop="dropListaCampos(event, index, item, external, type, 'operadores')">
+        <li id="operadores-{{id}}-{{registro.id}}-showMore" class="item-arrastavel" ng-repeat="registro in operadores | filter:{showMore: true}" ng-app="string"
+            ng-mouseenter="registro.mouseover=true" ng-mouseleave="registro.mouseover=false"
+            dnd-draggable="registro"
+            dnd-effect-allowed="move"
+            dnd-type="'campo.type'" bf-tooltip="{{registro.descricao}}">
+            {{registro.id}}
+        </li>
+    </ul>
+</div>
+<div class="editor-formulas" data-bf-loading="tracker.carregando">
+    <div class="row" data-ng-repeat="expressao in list track by $index" context-menu="menuOptions">
+        <div class="col-md-12 cart">
+            <ul class="list-inline-sortable"
+                ng-model="expressao.itens"
+                dnd-list="expressao.itens"
+                dnd-drop="dropCallback(event, index, item, external, type, expressao)"
+                id="expressao-lista-{{expressao.id}}">
+                <li id="expressao-$index" class="droppado"
+                    data-ng-class="{'componente_alerta' : mostraConflitos && campo.alerta,  componente_erro : mostraConflitos && campo.erro}"
+                    ng-repeat="campo in expressao.itens track by $index"
+                    ng-class-odd="'linhaImpar'"
+                    ng-class-even="'linhaPar'"
+                    dnd-draggable="campo"
+                    dnd-type="'campoAgrupamento.type'"
+                    dnd-effect-allowed="move"
+                    dnd-moved="expressao.itens.splice($index, 1);atualizar(expressao)">
+                    <span data-ng-class="{'item-formula funcao': campo.parametros.length, 'item-formula variavel': campo.id == 'texto'}"></span>
+                    {{getEditorElement(campo)}}
+                    <div data-ng-if="campo.alerta" class="list-alert-group" style="top: -4px; right: -3px;">
+                        <span class="label label-warning list-alert" data-bf-tooltip="{{campo.alerta}}" data-container="body" data-original-title="" title="">!</span>
+                    </div>
+                    <span data-ng-repeat="parametro in campo.parametros" >
+                        <a ng-class="parametro.value == null ? 'u-light-gray' : 'u-black-7'" href=""  bf-tooltip="{{parametro.value == null ? 'Clique para informar o parâmetro' : parametro.value}}"  bf-popover="'configuracoes/formulas-calculo/formulas-parametro-data.html'" bf-popover-size="{{parametro.type != 'date' ? 'big-popover' : ''}}"  ng-click="parameter = parametro">
+                            <b data-ng-if="campo.id !== 'texto'">{{parametro.titulo + ($last ? '' : ', ')}}</b>
+                            <b data-ng-if="campo.id == 'texto'">{{parametro.value ? parametro.value : 'Valor não informado'}}</b>
+                        </a>
+                    </span>
+                    <span data-ng-click="removeItem($parent.$index, $index)" class='removeTag pointer'><i class='fa fa-times'></i></span>
+                </li>
+                <li class="acoes-formula mLeft5">
+                    <span class="add-item pointer" data-bf-tooltip="Arraste e solte aqui um dos itens ao lado ou um dos operadores acima ou clique para adicionar" ng-click="mostrarSelect = !mostrarSelect">
+                        <i class="fa fa-plus"></i>
+                    </span>
+                    <span class="select-add-item" ng-show="mostrarSelect">
+                        <input type="hidden" class="itensSelect" ng-model="funcoes">
+                    </span>
+                    <span data-ng-click="addLine($index)" class="outra-linha"><i class="fa fa-level-down"></i></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row" ng-if="exemploFormula == true">
+        <div class="col-md-12">
+            <ul class="list-inline-sortable">
+                <!-- Exemplo de funções do sistema que foram arrastadas -->
+                <li class="droppado big-popover">
+                    <span class="item-formula funcao"></span>
+                    Acumular indexador: <a ng-class="dataInicial == null ? 'u-light-gray' : 'u-black-7'" href="" bf-tooltip="{{dataInicial == null ? 'Clique para informar o parâmetro' : dataInicial}}" bf-popover="'configuracoes/formulas-calculo/formulas-parametro-data.html'" ng-click="parametro = 0"><b>Data inicial,</b></a>
+                    <a ng-class="dataFinal == null ? 'u-light-gray' : 'u-black-7'" href="" bf-tooltip="{{dataFinal == null ? 'Clique para informar o parâmetro' : dataFinal}}" bf-popover="'configuracoes/formulas-calculo/formulas-parametro-data.html'" ng-click="parametro = 1"><b>Data final,</b></a>
+                    <a ng-class="indexador == null ? 'u-light-gray' : 'u-black-7'" href="" bf-tooltip="{{indexador == null ? 'Clique para informar o parâmetro' : 'Indexador ' + indexador}}" ng-click="parametro = 2" bf-popover="'configuracoes/formulas-calculo/formulas-parametro-data.html'" ><b>Indexador</b></a>
+                    <span class='removeTag pointer'><i class='fa fa-times'></i></span>
+                </li>
+                <li class="droppado big-popover">
+                    <span class="item-formula funcao"></span>
+                    Quantidade de unidades: <a ng-class="inscricaoImobiliaria == null ? 'u-light-gray' : 'u-black-7'" href="" bf-tooltip="{{inscricaoImobiliaria == null ? 'Clique para informar o parâmetro' : inscricaoImobiliaria}}" bf-popover="'configuracoes/formulas-calculo/formulas-parametro-data.html'" ng-click="parametro = 3"><b>Inscrição imobiliária</b></a>
+                    <span class='removeTag pointer'><i class='fa fa-times'></i></span>
+                </li>
+                <li class="acoes-formula mLeft5">
+                    <span class="add-item" data-bf-tooltip="Arraste e solte aqui um dos itens ao lado ou um dos operadores acima ou clique para adicionar"><i class="fa fa-plus"></i></span>
+                    <span class="outra-linha"><i class="fa fa-level-down"></i></span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12">
+            <ul class="list-inline-sortable">
+                <li class="droppado">
+                    SE
+                    <span class='removeTag pointer'><i class='fa fa-times'></i></span>
+                </li>
+                <li class="droppado {{mostraConflitos ? 'componente_alerta' : ''}}">
+                    <span class="item-formula variavel"></span>
+                    Ocupação do lote
+                    <div class="list-alert-group" style="top: -4px; right: -3px;">
+                        <span class="label label-warning list-alert" data-bf-tooltip="A variável 'Ocupação do lote' não possui valor!" data-container="body" data-original-title="" title="">!</span>
+                    </div>
+                    <span class='removeTag pointer'><i class='fa fa-times'></i></span>
+                </li>
+                <li class="droppado">
+                    =
+                    <span class='removeTag pointer'><i class='fa fa-times'></i></span>
+                </li>
+                <li class="droppado {{mostraConflitos ? 'componente_erro' : ''}}">
+                    <span class="item-formula fonte-de-dados"></span>
+                    Construído
+                    <div class="list-alert-group" style="top: -4px; right: -3px;">
+                        <span class="label label-danger list-alert" data-bf-tooltip="O item 'Construído' é nulo!" data-container="body" data-original-title="" title="">!</span>
+                    </div>
+                    <span class='removeTag pointer'><i class='fa fa-times'></i></span>
+                </li>
+                <li class="droppado">
+                    ENTÃO
+                    <span class='removeTag pointer'><i class='fa fa-times'></i></span>
+                </li>
+                <li class="acoes-formula mLeft5">
+                    <span class="add-item" data-bf-tooltip="Arraste e solte aqui um dos itens ao lado ou um dos operadores acima ou clique para adicionar"><i class="fa fa-plus"></i></span>
+                    <span class="outra-linha"><i class="fa fa-level-down"></i></span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12">
+            <ul class="list-inline-sortable">
+                <li class="droppado {{mostraConflitos ? 'componente_alerta' : ''}}">
+                    <span class="item-formula componente"></span>
+                    Fração ideal do terreno
+                    <div class="list-alert-group" style="top: -4px; right: -3px;">
+                        <span class="label label-warning list-alert" data-bf-tooltip="O componente 'Fração ideal do terreno' não resulta em um valor válido!" data-container="body" data-original-title="" title="">!</span>
+                    </div>
+                    <span class='removeTag pointer'><i class='fa fa-times'></i></span>
+                </li>
+                <li class="acoes-formula mLeft5">
+                    <span class="add-item" data-bf-tooltip="Arraste e solte aqui um dos itens ao lado ou um dos operadores acima ou clique para adicionar"><i class="fa fa-plus"></i></span>
+                    <span class="outra-linha"><i class="fa fa-level-down"></i></span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12">
+            <ul class="list-inline-sortable">
+                <li class="droppado">
+                    SENÃO
+                    <span class='removeTag pointer'><i class='fa fa-times'></i></span>
+                </li>
+                <li class="acoes-formula mLeft5">
+                    <span class="add-item" data-bf-tooltip="Arraste e solte aqui um dos itens ao lado ou um dos operadores acima ou clique para adicionar"><i class="fa fa-plus"></i></span>
+                    <span class="outra-linha"><i class="fa fa-level-down"></i></span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12">
+            <ul class="list-inline-sortable">
+                <li class="droppado {{mostraConflitos ? 'componente_alerta' : ''}}">
+														<span>
+															<span class="item-formula componente"></span>
+															Fração ideal do terreno
+															<div class="list-alert-group" style="top: -4px; right: -3px;">
+                                                                <span class="label label-warning list-alert" data-bf-tooltip="O componente 'Fração ideal do terreno' não resulta em um valor válido!" data-container="body" data-original-title="" title="">!</span>
+                                                            </div>
+														<span class='removeTag pointer'><i class='fa fa-times'></i></span>
+                </li>
+                <li class="droppado">
+                    =
+                    <span class='removeTag pointer'><i class='fa fa-times'></i></span>
+                </li>
+                <li class="droppado {{mostraConflitos ? 'componente_erro' : ''}}">
+                    <span class="item-formula tabela"></span>
+                    Área do terreno
+                    <div class="list-alert-group" style="top: -4px; right: -3px;">
+                        <span class="label label-danger list-alert" data-bf-tooltip="Esta variável ainda não foi definida" data-container="body" data-original-title="" title="">!</span>
+                    </div>
+                </li>
+                <li class="acoes-formula mLeft5">
+                    <span class="add-item" data-bf-tooltip="Arraste e solte aqui um dos itens ao lado ou um dos operadores acima ou clique para adicionar"><i class="fa fa-plus"></i></span>
+                    <span class="outra-linha"><i class="fa fa-level-down"></i></span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12">
+            <ul class="list-inline-sortable">
+                <li class="droppado">
+                    FIMSE
+                    <span class='removeTag pointer'><i class='fa fa-times'></i></span>
+                </li>
+                <li class="acoes-formula mLeft5">
+                    <span class="add-item" data-bf-tooltip="Arraste e solte aqui um dos itens ao lado ou um dos operadores acima ou clique para adicionar"><i class="fa fa-plus"></i></span>
+                    <span class="outra-linha"><i class="fa fa-level-down"></i></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 barra-info-editor">
+            <button class="btn btn-default btn-xs" data-bf-tooltip="{{info.avisos}} alertas, {{info.erros}} erros" ng-click="custom=!custom">
+                <i class="fa fa-exclamation-triangle text-yellow7"></i> <span>{{info.avisos}}</span>
+                &nbsp;
+                <i class="fa fa-times-circle text-red7"></i> <span>{{info.erros}}</span>
+            </button>
+            &nbsp;
+            <button class="btn btn-default btn-xs" ng-click="mostraConflitos=!mostraConflitos">
+                <i class="fa fa-eye{{mostraConflitos ? '-slash' : ''}}"></i> <span>{{mostraConflitos ? 'Ocultar destaque' : 'Destacar conflitos'}}</span>
+            </button>
+            &nbsp;
+            <!-- Checkbox utilizado somente para exemplificação, deverá ser apagado na versão oficial -->
+            <label class="checkbox-inline">
+                <small>
+                    <input type="checkbox" ng-model="exemploFormula">
+                    Protótipo exemplo
+                </small>
+            </label>
+            <!-- Fim - Checkbox utilizado somente para exemplificação, deverá ser apagado na versão oficial -->
+            <ul class="list-inline pull-right">
+                <!-- <li class="text-muted"><i class="icon-circle text-violetA6"></i> Variável</li> -->
+                <li class="text-muted"><i class="icon-circle text-greenA6"></i> Componente</li>
+                <li class="text-muted"><i class="icon-circle text-greenB4"></i> Função</li>
+                <li class="text-muted"><i class="icon-circle text-orange5"></i> Fonte de dados</li>
+                <li class="text-muted"><i class="icon-circle text-blueC4"></i> Tabela</li>
+                <li class="text-muted"><i class="icon-circle text-red6"></i> Receita</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="cabecalho" style="margin-top: -1px;" ng-show="custom">
+    <p class="mBottom0">
+        <small><i class="fa fa-exclamation-triangle text-yellow7"></i> A variável 'Ocupação do lote' não possui valor! (Linha 2)</small>
+    </p>
+    <p class="mBottom0">
+        <small><i class="fa fa-exclamation-triangle text-yellow7"></i> O componente 'Fração ideal do terreno' não resulta em um valor válido! (Linha 3)</small>
+    </p>
+    <p class="mBottom0">
+        <small><i class="fa fa-exclamation-triangle text-yellow7"></i> O componente 'Fração ideal do terreno' não resulta em um valor válido! (Linha 5)</small>
+    </p>
+    <p class="mBottom0">
+        <small><i class="fa fa-times-circle text-red7"></i> O item 'Construído' é nulo! (Linha 2)</small>
+    </p>
+    <p class="mBottom0">
+        <small><i class="fa fa-times-circle text-red7"></i> O item 'Área do terreno' possui valor negativo! (Linha 5)</small>
+    </p>
+</div>
+<pre class="mTop10" data-ng-show="registro.script">
+    <strong>Resultado</strong>
+    <br>
+    {{registro.script}}
+</pre>

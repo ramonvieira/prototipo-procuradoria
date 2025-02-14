@@ -1,0 +1,87 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">Adicionando conta bancária</h3>
+		</div>
+		<div class="modal-body">
+			<form role="form">
+				<div class="row bottom">
+					<div class="col-md-1 text-center">
+						<i class="fa fa-university fa-2x text-muted mTop10"></i>
+					</div>
+					<div class="col-md-11">
+						<h4>Informações de conta bancária</h4>
+						<div class="row">
+							<div class="col-md-8">
+								<label for="banco">Banco</label>
+								<select bf-select2="{}" ng-model="banco" class="form-control">
+									<option value="1">Item 1</option>
+									<option value="2">Item 2</option>
+									<option value="3">Item 3</option>
+								</select>
+							</div>
+							<div class="col-md-4">
+								<label>Agência</label>
+								<select bf-select2="{}" ng-disabled="banco == null" ng-model="agencia" class="form-control">
+									<option value="1">Item 1</option>
+									<option value="2">Item 2</option>
+									<option value="3">Item 3</option>
+								</select>
+							</div>
+						</div>
+						<div class="row bottom">
+							<div class="col-md-3">
+								<label>Número da conta</label>
+								<input type="text" class="form-control" maxlength="15" data-ng-model="conta.numero" />
+							</div>
+							<div class="col-md-1">
+								<label><abbr title="Dígito Verificador">DV</abbr></label>
+								<input type="text" class="form-control" maxlength="2" data-ng-model="conta.digito" />
+							</div>
+							<div class="col-md-2">
+								<label>Tipo</label>
+								<select data-bf-select2="{}" data-ng-model="conta.tipo">
+									<option></option>
+									<option value="1">Corrente</option>
+									<option value="2">Poupança</option>
+									<option value="3">Salário</option>
+								</select>
+							</div>
+							<div class="col-md-2">
+								<label>Aberta em</label>
+								<div class="input-group">
+									<input type="text" class="form-control" data-ng-model="conta.dtAbertura" data-bf-date />
+								</div>
+							</div>
+							<div class="col-md-2">
+								<label>Status</label>
+								<select data-bf-select2="{}" data-ng-model="conta.status">
+									<option></option>
+									<option value="1">Aberta</option>
+									<option value="2">Encerrada</option>
+								</select>
+							</div>
+							<div class="col-md-2">
+								<label>Encerrada em</label>
+								<div class="input-group">
+									<input type="text" class="form-control" data-ng-model="conta.dtEncerramento" data-bf-date data-ng-disabled="conta.status != 2" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</form>
+		</div>
+		<div class="modal-footer">
+			<div class="bth-checkbox bth-checkbox-info pull-left">
+				<input id="checkbox-info" type="checkbox" checked="">
+				<label for="checkbox-info">Conta bancária principal</label>
+			</div>
+			<button class="btn btn-primary" ng-click="save()" data-dismiss="modal">Salvar</button>
+			<button class="btn btn-default" data-dismiss="modal" tabindex="-1">Salvar e adicionar novo</button>
+			<button class="btn btn-default" data-dismiss="modal" tabindex="-1">Cancelar</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,209 @@
+<div class="modal-dialog modal-sm">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">{{!isEditing ? 'Adicionando' : 'Editando'}} {{tipo == 'COMPROMISSO' ? ' compromisso' : 'tarefa'}}</h3>
+		</div>
+		<div class="modal-body" ng-init="vinculos = [{}]">
+			<div class="row row-flex">
+				<div class="col-md-8">
+					<div ng-show="tipo == 'COMPROMISSO'">
+						<div class="row">
+							<div class="col-md-12">
+								<label class="required" for="titulo">Título</label>
+								<input type="text" class="form-control input-lg" id="titulo" ng-model="titulo">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<label class="required" for="descricao">Descrição</label>
+							<textarea class="form-control" rows="6" id="descricao" ng-model="descricao"></textarea>
+						</div>
+					</div>
+					<div class="bth-card" ng-show="tipo == 'COMPROMISSO'">
+						<div class="bth-card__header">
+							<div class="row bottom">
+								<div class="col-md-8">
+									<h4 class="top">
+										<span class="fa-stack" style="margin-top: -8px">
+											<i class="fa fa-circle fa-stack-2x tx__green--l30"></i>
+											<i class="fa fa-calendar fa-stack-1x tx__green--d10"></i>
+										</span>
+										<span>Data</span>
+									</h4>
+								</div>
+								<div class="col-md-4 text-right">
+									<div class="bth-switch">
+										<input id="diaTodo" type="checkbox" ng-model="diaTodo">
+										<label for="diaTodo">Dia todo</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="bth-card__body" style="padding-left: 52px">
+							<div class="row">
+								<div class="col-md-5">
+									<label for="agendarPara" class="required">Agendar para</label>
+									<div class="input-group">
+										<input type="text" class="form-control" id="agendarPara" ng-model="agendarPara" bf-date />
+									</div>
+								</div>
+								<div class="col-md-7" uib-collapse="diaTodo">
+									<label for="">Hora</label>
+									<div class="input-group date-range">
+										<div class="input-group">
+											<select bf-select2="{}" id="horaInic" class="form-control" ng-model="horaInic" ng-init="horaInic = '10:30'">
+												<option value="{{hora}}" ng-repeat="hora in horarios track by $index">{{hora}}</option>
+											</select>
+										</div>
+										<span class="input-group-addon">até</span>
+										<div class="input-group">
+											<select bf-select2="{}" id="horaFim" class="form-control" ng-model="horaFim" ng-init="horaFim = '11:00'">
+												<option value="{{hora}}" ng-repeat="hora in horarios track by $index">{{hora}}</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="row">
+						<div class="col-md-6">
+							<label for="">Agendar para</label>
+							<div class="input-group">
+							   <input type="text" class="form-control" ng-model="configDateTime" bf-date="{showDate: true,showTime: true}" />
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label for="">Agendar para</label>
+							<div class="input-group">
+							   <input type="text" class="form-control" ng-model="configDateTime" bf-date="{showTime: true}" />
+							</div>
+						</div>
+					</div> -->
+					<!-- Procuradores/Assessores -->
+					<div ng-show="procuradoresSelecionados.length > 0">
+						<div class="bth-card">
+							<div class="bth-card__header">
+								<h4 class="top">
+									<span class="fa-stack" style="margin-top: -8px">
+										<i class="fa fa-circle fa-stack-2x tx__aqua--l30"></i>
+										<i class="fa fa-user fa-stack-1x tx__aqua--d10"></i>
+									</span>
+									<span>Procuradores/Assessores</span>
+								</h4>
+							</div>
+							<div class="bth-card__body" style="padding-left: 52px">
+								<ul class="list-unstyled bottom">
+									<li ng-repeat="procurador in procuradoresSelecionados" class="mBottom5 hover-visibility">
+										<img ng-src="{{procuradores[procurador].procurador.img}}" class="img-circle" width="25px" title="{{procuradores[procurador].procurador.nome}}"> {{procuradores[procurador].procurador.nome}} <i class="fa fa-fw fa-close tx__gray pointer hover-visibility-child" ng-click="procuradoresSelecionados.splice($index, 1)"></i>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- Etiquetas -->
+					<div ng-show="marcadoresSelecionados.length > 0">
+						<hr class="bottom top">
+						<div class="bth-card">
+							<div class="bth-card__header">
+								<h4 class="top">
+									<span class="fa-stack" style="margin-top: -8px">
+										<i class="fa fa-circle fa-stack-2x tx__orange--l30"></i>
+										<i class="fa fa-tag fa-stack-1x tx__orange--d10"></i>
+									</span>
+									<span>Etiquetas</span>
+								</h4>
+							</div>
+							<div class="bth-card__body" style="padding-left: 52px">
+								<ul class="nav nav-pills nav-marks bottom">
+									<li role="presentation" ng-repeat="marcador in marcadoresSelecionados">
+										<span class="badge badge-default"><i class="fa fa-fw fa-tag" ng-class="'tx__' + marcadores[marcador].bColor"></i> {{marcadores[marcador].descricao}} <a href="" class="bth-tag__close" ng-click="marcadoresSelecionados.splice($index, 1)">✕</a></span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- Vínculos -->
+					<div ng-show="vincDividas || vincProcessos || vincProtestos">
+						<hr class="bottom top">
+						<div class="bth-card">
+							<div class="bth-card__header">
+								<h4 class="top">
+									<span class="fa-stack" style="margin-top: -8px">
+										<i class="fa fa-circle fa-stack-2x tx__blue--l30"></i>
+										<i class="fa fa-link fa-stack-1x tx__blue--d10"></i>
+									</span>
+									<span>Vínculos</span>
+								</h4>
+							</div>
+							<div class="bth-card__body" style="padding-left: 52px">
+								<div class="row" ng-show="vincDividas">
+									<div class="col-md-12">
+										<label for="divida">Dívida(s)</label>
+										<select bf-select2="{}" ng-model="dividas" id="divida" multiple>
+											<option value="123456">123456</option>
+											<option value="234567">234567</option>
+											<option value="345678">345678</option>
+										</select>
+									</div>
+								</div>
+								<div class="row" ng-show="vincProcessos">
+									<div class="col-md-12">
+										<label for="processo">Processo(s)</label>
+										<select bf-select2="{}" ng-model="processos" id="processo" multiple>
+											<option value="456789">456789</option>
+											<option value="567890">567890</option>
+											<option value="678901">678901</option>
+										</select>
+									</div>
+								</div>
+								<div class="row" ng-show="vincProtestos">
+									<div class="col-md-12">
+										<label for="protestos">Protesto(s)</label>
+										<select bf-select2="{}" ng-model="protestos" id="protestos" multiple>
+											<option value="789012">789012</option>
+											<option value="890123">890123</option>
+											<option value="901234">901234</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="bth-card bth-card--filled" style="min-height: 300px;">
+						<div class="bth-card__header">
+							<h4>Adicionar a tarefa</h4>
+						</div>
+						<div class="bth-card__body">
+							<button type="button" class="btn btn-default btn-block btn-sm" title="Adiciona membros a tarefa" data-bf-popover="'agenda/tarefa/popover-membros.html'" class="popover-active" data-placement="bottom" bf-popover-size="sm-popover"><i class="fa fa-fw fa-user tx__aqua--d10"></i> Membros</button>
+							<button type="button" class="btn btn-default btn-block btn-sm" title="Adiciona etiquetas a tarefa" data-bf-popover="'agenda/tarefa/popover-marcadores.html'" class="popover-active" data-placement="bottom" bf-popover-size="sm-popover"><i class="fa fa-fw fa-tag tx__orange"></i> Etiqueta</button>
+							<button type="button" class="btn btn-default btn-block btn-sm" title="Adiciona vínculos a tarefa" data-bf-popover="'agenda/tarefa/popover-vinculos.html'" class="popover-active" data-placement="bottom" bf-popover-size="sm-popover" ng-hide="source == 'PROCESSO'"><i class="fa fa-fw fa-link tx__blue"></i> Vínculo</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal" ng-if="tipo == 'COMPROMISSO'"	ng-disabled="titulo == null || titulo == '' || descricao == null || descricao == ''" ng-click="">Agendar</button>
+			<button type="button" class="btn btn-primary" data-dismiss="modal" ng-if="tipo == 'TAREFA'"			ng-disabled="descricao == null || descricao == ''"
+																				ng-click="setTarefas(
+																										{ id: (tarefas.length + 1),descricao: descricao,pendente:true,agendado:false,
+																											vinculos: [
+																												{ procuradores: procuradoresSelecionados },
+																												{ contribuintes: [1,2] },
+																												{ dividas: dividas },
+																												{ processos: processos },
+																												{ protestos: protestos },
+																											],
+																											marcadores: marcadoresSelecionados
+																										}
+																									)">Salvar</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Salvar e adicionar nova</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		</div>
+	</div>
+</div>

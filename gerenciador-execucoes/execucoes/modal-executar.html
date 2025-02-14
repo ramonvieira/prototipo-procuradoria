@@ -1,0 +1,33 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">×</span>
+	</button>
+	<ul class="modal-header__actions">
+		<li>
+			<a href="" class="pull-right"><i class="fa fa-fw fa-question-circle"></i></a>
+		</li>
+	</ul>
+	<h3 class="modal-title">Emitindo petição inicial</h3>
+</div>
+<div class="modal-body">
+	<modelo-documento-form ng-model="registro.peticao" documento="Petição" correcao="true" />
+	<switch-valor-minimo ng-model="registro.peticao" label="Valor mínimo para petição" help="Permite que a petição seja emitida somente quando a soma dos valores atingir o valor mínimo" />
+	<switch-assinar ng-model="registro.assinatura" ng-disabled="!registro.peticao.modelo" />
+	<switch-enviar-tribunal ng-model="registro.executar" ng-disabled="!registro.assinatura.assinar" ng-if="options.enviarTribunal" />
+
+	<!-- <div class="alert alert-danger">
+		Uma ou mais CDA's existentes na seleção informada serão desconsideradas na emissão pelo(s) seguinte(s) motivo(s):
+		<ul>
+			<li>(Petição) Já possuem Petição Inicial ativa</li>
+			<li>(Protesto) Já possuem Protesto ativo </li>
+			<li>(Protesto/Envio tribunal) já possuem todas as dívidas vinculadas quitadas e\ou quitadas e canceladas</li>
+			<li>(Protesto/Envio tribunal) já possuem todas as dívidas vinculadas parceladas e\ou parceladas e canceladas</li>
+		</ul>
+	</div> -->
+	<alerta-movimentacao tipo-emissao="EXECUTAR" />
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Emitir</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Simular emissão</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Cancelar</button>
+</div>

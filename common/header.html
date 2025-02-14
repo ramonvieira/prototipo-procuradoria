@@ -1,0 +1,289 @@
+<header>
+	<div id="header" class="megamenu-container">
+		<div class="container iv">
+			<ul class="megamenu" ng-init="megamenu = 'Visão geral'">
+				<li>
+					<a href="#" class="drop">
+						<!-- <i class="icone-modulo arr"></i>  -->
+						<div class="bth-logo bth-logo--brand-lime">
+							<div class="bth-logo__image"></div>
+						</div>
+						<span class="megamenu-title">Procuradoria</span>
+					</a>
+					<div class="megamenu-dropdown tiles-container solucoes" style="width: 457px">
+						<!-- <h1 class="inline-block">Seleção atual</h1> -->
+					
+						<a href="#" class="pull-right btn-fixar" title="Fixar no menu"></a>
+
+						<div class="megamenu-context">
+							
+							<div class="row">
+								<div class="col-md-12">
+									<label>
+										Entidade
+									</label>
+									<a href="/entidades" class="pull-right" title="Ir para a seleção de entidades"><small>Ver todas</small></a>
+									<select bf-select2="{}" ng-model="entidade">
+										<option value="1">PREFEITURA MUNICIPAL DE CRICIÚMA</option>
+										<option value="2">CÂMARA MUNICIPAL DE LAGES</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<label class="inline-block">Mais soluções</label>
+						<a href="/sistemas" class="pull-right" title="Ir para a seleção de sistemas"><small>Ver todas</small></a>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="nano" style="height: 261px; margin: 0">
+									<div class="notificacoes nano-content">
+										<ul ng-sortable="panelConfig" class="mega-fluxos noselect">
+											<li class="{{produto.categoria}}" data-ng-repeat="produto in produtos">
+												<a>
+													<div class="b-icon-modulo"></div>
+													<span>{{produto.nome}}</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li data-ui-sref="main.visao-geral" data-ui-sref-active="megamenu-active">
+					<a href="#">Visão geral</a>
+				</li>
+				<!-- <li data-ui-sref="main.agenda.compromissos" data-ui-sref-active="megamenu-active">
+					<a href="#">Agenda</i></a>
+				</li> -->
+				<li data-ui-sref="main.tarefas" data-ui-sref-active="megamenu-active">
+					<a href="#">Agenda</i></a>
+				</li>
+				<li data-ui-sref="main.gerenciadorDividas.visao-geral" data-ui-sref-active="megamenu-active">
+					<a href="#">Dívidas</i></a>
+				</li>
+				<li data-ui-sref="main.gerenciadorProtestos.visaogeral-protestos" data-ui-sref-active="megamenu-active">
+					<a href="#">Protestos</i></a>
+				</li>
+				<li data-ui-sref="main.gerenciadorExecucoes.visaogeral-execucoes" data-ui-sref-active="megamenu-active">
+					<a href="#">Execuções</i></a>
+				</li>
+				<li data-ui-sref="main.gerenciadorCadastros.gerais.areasAssuntos" data-ui-sref-active="megamenu-active">
+					<a href="#">Cadastros</i></a>
+				</li>
+				<li data-ui-sref="main.gerenciadorDocumentos.cda" data-ui-sref-active="megamenu-active">
+					<a href="#">Documentos</i></a>
+				</li>
+
+				<li class="menu-right">
+					<a href="#" class="drop"><i class="fa fa-user"></i></a>
+					<div class="megamenu-dropdown usuario-dropdown">
+						<div class="perfil-usuario">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="foto arr">
+										<!-- <img ng-src="{{AppContextCtrl.usuario.foto}}" title="{{AppContextCtrl.usuario.nome}}" alt="{{AppContextCtrl.usuario.id}}" /> -->
+									</div>
+									<h1 class="nome-completo">Fulano de Tal</h1>
+									<span class="nome-usuario">@fulano.detal</span>
+								</div>
+							</div>
+						</div>
+						<div class="barra-acoes">
+							<a ><i class="fa fa-key rotate-90"></i> Conta</a>
+							<a href="#"><i class="fa fa-magic"></i> Personalizar</a>
+							<a href="#"><i class="fa fa-wheelchair"></i> Acessibilidade</a>
+							<a href="/login"><i class="fa fa-sign-out"></i> Sair</a>
+						</div>
+					</div>
+				</li>
+				<li class="menu-right"><a href="#" class="drop"><i class="fa fa-bell"></i><div class="bolha-notificacao">8</div></a>
+					<div class="megamenu-dropdown notificacoes-dropdown">
+						<div class="title">
+							<h1>Notificações</h1>
+							<a href="#" class="pull-right">Marcar todas como lidas</a>
+						</div>
+						<div class="nano">
+							<div class="notificacoes nano-content" tabindex="0" style="right: -17px;">
+								<ul>
+									<li class="">
+										<div class="round-thumb">
+											<img src="http://test.betha.com.br//base/g4/design/2.0//img/avatar2.png">
+										</div>
+										<strong>Fulano de Tal</strong> mencionou você em um comentário
+										<div class="notificacao-footer">
+											<div class="tempo">
+												agora há pouco 
+												<i class="fa fa-folder-o btn-archive" title="Arquivar"></i>
+											</div>
+										</div>
+									</li>
+									<li class="unread has-action">
+										<div class="round-thumb">
+											<i class="fa fa-cogs arr" title="Relatório"></i>
+										</div>
+										<strong>Cálculo da Folha</strong> em andamento.
+										<div class="progress progress-sm">
+											<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;" title="25%"></div>
+										</div>
+										<div class="notificacao-footer">
+											<a href="#" title="Interromper o cálculo da Folha">Interromper</a>
+											<div class="tempo">
+												há 1 minuto
+												<i class="fa fa-folder-o btn-archive" title="Arquivar"></i>
+											</div>
+										</div>
+									</li>
+									<li class="">
+										<div class="round-thumb">
+											<i class="fa fa-shopping-cart com" title="Compras"></i>
+										</div>
+										Sua <strong>solicitação de compra</strong> foi aprovada por Letícia Ribeiro.
+										<div class="notificacao-footer">
+											<div class="tempo">
+												há 2 minutos
+												<i class="fa fa-folder-o btn-archive" title="Arquivar"></i>
+											</div>
+										</div>
+									</li>
+									<li class="">
+										<div class="round-thumb">
+											<img src="http://test.betha.com.br//base/g4/design/2.0//img/avatar2.png">
+										</div>
+										<strong>Fulano de Tal</strong> compartilhou um relatório com você.
+										<div class="notificacao-footer">
+											<div class="tempo">
+												há 5 minutos
+												<i class="fa fa-folder-o btn-archive" title="Arquivar"></i>
+											</div>
+										</div>
+									</li>
+									<li class="unread has-action">
+										<div class="round-thumb">
+											<i class="fa fa-cogs arr" title="Relatório"></i>
+										</div>
+										<strong>Relatório de Cargos e Salários</strong> em andamento.
+										<div class="progress progress-sm">
+											<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;" title="60%"></div>
+										</div>
+										<div class="notificacao-footer">
+											<div class="tempo">
+												há 1 hora
+												<i class="fa fa-folder-o btn-archive" title="Arquivar"></i>
+											</div>
+										</div>
+									</li>
+									<li class="">
+										<div class="round-thumb">
+											<i class="fa fa-user arr" title="Servidor"></i>
+										</div>
+										Seu <strong>comprovante de rendimentos</strong> já está disponível para consulta.
+										<div class="notificacao-footer">
+											<div class="tempo">
+												09/04/2014 às 13h42min
+												<i class="fa fa-folder-o btn-archive" title="Arquivar"></i>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="round-thumb">
+											<i class="fa fa-car com" title="Servidor"></i>
+										</div>
+										O <strong>veículo</strong> solicitado já está disponível.
+										<div class="notificacao-footer">
+											<div class="tempo">
+												08/04/2014 às 09h35min
+												<i class="fa fa-folder-o btn-archive" title="Arquivar"></i>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="round-thumb">
+											<i class="fa fa-check-square-o pla" title="Prestação de contas"></i>
+										</div>
+										É necessário revisar sua <strong>prestação de contas</strong>.
+										<div class="notificacao-footer">
+											<div class="tempo">
+												06/04/2014 às 14h02min
+												<i class="fa fa-folder-o btn-archive" title="Arquivar"></i>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						<div class="nano-pane"><div class="nano-slider" style="height: 301px; transform: translate(0px, 0px);"></div></div></div>
+						<div class="megamenu-dropdown-btn">
+							<a href="" class="dropdown-btn text-center">Ver todas </a>
+						</div>
+					</div>
+				</li>
+				<li class="menu-right sort"><a href="#" class="drop"><i class="fa fa-cogs"></i></a>
+					<div class="megamenu-dropdown tiles-container">
+						<div class="title" style="margin-top: -10px">
+							<h1>Utilitários</h1>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<ul class="mega-fluxos ui-sortable" ng-sortable="panelConfig">
+									<li class="gen">
+										<a data-ui-sref="main.centralConfiguracoes">
+											<i class="fa fa-cogs"></i>
+											<span>Central de configurações</span>
+										</a>
+									</li>
+									<li class="gen">
+										<a>
+											<i class="fa fa-copy"></i>
+											<span>Gerenciador de relatórios</span>
+										</a>
+									</li>
+									<li class="gen">
+										<a>
+											<i class="fa fa-code"></i>
+											<span>Gerenciador de scripts</span>
+										</a>
+									</li>
+									<li class="gen">
+										<a>
+											<i class="fa fa-key"></i>
+											<span>Gerenciador de acessos</span>
+										</a>
+									</li>
+									<li class="gen">
+										<a>
+											<i class="fa fa-pencil-square-o"></i>
+											<span>Ferramenta de assinatura</span>
+										</a>
+									</li>
+									<li class="gen">
+										<a>
+											<i class="fa fa-puzzle-piece"></i>
+											<span>Gerenciador de extensões</span>
+										</a>
+									</li>
+									<li class="gen">
+										<a>
+											<i class="material-icons">dvr</i>
+											<span>Cadastro único</span>
+										</a>
+									</li>
+									<li class="gen">
+										<a>
+											<i class="fa fa-th"></i>
+											<span>Gráficos</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</li>
+				<bth-megamenu-search scripts="scripts" recursos="recursos" relatorios="relatorios" consultas="consultas"></bth-megamenu-search>
+				<li class="menu-right megamenu-search">
+					<a href="#" class="drop" ng-mouseover="vm.setTab(1)"><i class="fa fa-search"></i></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</header>

@@ -1,0 +1,69 @@
+<div class="modal-dialog">
+    <div class="modal-content" data-bf-loading="vm.tracker.carregandoRegistro">
+        <form name="form">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">{{vm.registro.id ? 'Editando': 'Adicionando'}} seção</h3>
+            </div>
+            <div class="modal-body">
+                <ul id="myTab" role="tablist" class="nav nav-tabs">
+                    <li role="presentation" class="active">
+                        <a data-toggle="tab" role="tab" href="#infoSecoes" target="_self">Seção</a>
+                    </li>
+                    <li role="presentation">
+                        <a data-toggle="tab" role="tab" href="#infoComplementares" target="_self" ng-click="vm.carregaCamposAdicionais();">Campos adicionais</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="infoSecoes" class="tab-pane active" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="required">Logradouro</label>
+                                <select name="" id="" bf-select2="{}"  ng-model="logradouro">
+                                    <option value=""></option>
+                                    <option value="1">Logradouro 1</option>
+                                    <option value="2">Logradouro 2</option>
+                                    <option value="3">Logradouro 3</option>
+                                    <option value="4">Logradouro 4</option>
+                                    <option value="5">Logradouro 5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="required" for="secao">Seção</label>
+                                <input type="text" id="secao" class="form-control" maxlength="8" data-ng-model="vm.registro.secao" bf-restrict-number data-bf-required="true">
+                            </div>
+                                <div class="col-md-6">
+                                <label for="">Face</label>
+                                <select name="" id="" bf-select2="{}"  ng-model="face">
+                                     <option value=""></option>
+                                     <option value="1">Face 1</option>
+                                     <option value="2">Face 2</option>
+                                     <option value="3">Face 3</option>
+                                     <option value="4">Face 4</option>
+                                     <option value="5">Face 5</option>
+                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="infoComplementares" class="tab-pane" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="required">Ano base</label>
+                                <spinner id="anoCorrente" ng-model="vm.registro.anoCorrente" min="0" max="9999" step="1" data-ng-change="vm.atualizaCamposAdicionais()" data-ng-disabled="vm.isConsulta" bf-required="true"></spinner>
+                            </div>
+                        </div>
+                        <campos-adicionais list="vm.camposAdicionais"/>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="vm.salvar(false)" ng-disabled="form.$invalid || vm.registro.anoCorrente < 1900 || vm.hasTrackerActive()" data-bf-loading="vm.tracker.salvandoRegistro">Salvar</button>
+                <button class="btn btn-default" data-ng-if="!vm.registro.id" ng-click="vm.salvar(true)" data-ng-disabled="form.$invalid || vm.hasTrackerActive()" data-bf-loading="vm.tracker.salvarAdicionarRegistro">Salvar e adicionar novo</button>
+                <button class="btn btn-default" data-ng-if="vm.registro.id"  ng-click="vm.excluir(vm.registro)" data-bf-permissions operation="excluir"><i class="fa fa-fw fa-trash"></i> Excluir</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="modal-dialog">
+	<div class="modal-content">
+		<form name="form">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 class="modal-title">Adicionando movimentação do Simples Nacional</h3>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-2">
+						<label class="required">Optante?</label>
+						<select class="form-control" data-bf-select2="{}" ng-model="optante">
+							<option value="1">Sim</option>
+							<option value="2">Não</option>
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label class="required">Data inicial</label>
+						<div class="input-group">
+							<input class="form-control" data-bf-date="{}" ng-model="dataInicial">
+						</div>
+					</div>
+					<div class="col-md-3">
+						<label class="required">Data do efeito</label>
+						<div class="input-group">
+							<input class="form-control" data-bf-date="{}" ng-model="dataEfeito">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<label class="required">Órgão</label>
+						<select class="form-control" data-bf-select2="{}" ng-model="orgao">
+							<option value="1">Municipal</option>
+							<option value="2">Estadual</option>
+							<option value="3">Federal</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label>Motivo</label>
+						<select class="form-control" data-bf-select2="{}" ng-model="motivo">
+							<option value="1">Motivo 1</option>
+							<option value="2">Motivo 2</option>
+							<option value="3">Motivo 3</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary">Salvar</button>
+				<button class="btn btn-default">Salvar e adicionar novo</button>
+				<button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			</div>
+		</form>
+	</div>
+</div>	

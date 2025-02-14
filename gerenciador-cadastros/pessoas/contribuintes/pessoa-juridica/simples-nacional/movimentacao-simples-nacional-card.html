@@ -1,0 +1,37 @@
+<div class="bth-card__header">
+    <div class="row">
+        <div class="col-md-8">
+            <h4>
+                <i class="fa fa-money fa-fw"></i>
+                Movimentações do Simples Nacional
+            </h4>
+        </div>
+        <div class="col-md-4 text-right">
+            <button class="btn btn-xs btn-success btn-add" title="Adiciona uma nova movimentação do Simples Nacional" ng-click="adicionarMovimentacaoSimplesNacional()">Movimentação</button>
+        </div>
+    </div>
+</div>
+<div class="bth-card__body">
+	<div ng-show="empty">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<i class="fa fa-money fa-5x tx__gray--l10"></i>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<strong class="text-muted">Nenhum dado informado</strong>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<p>
+					<span class="text-muted">
+						Permite lançar movimentações para o simples nacional
+					</span>
+				</p>
+			</div>
+		</div>
+	</div>
+    <div ng-include="'gerenciador-cadastros/pessoas/contribuintes/pessoa-juridica/simples-nacional/movimentacao-simples-nacional-lista.html'" ng-hide="empty"></div>
+</div>

@@ -1,0 +1,5 @@
+<div class="list-group">
+    <a href="" class="list-group-item" ng-repeat="t in vm.tabs" ng-click="vm.setCurrentState(t)" ng-class="{'active': vm.isCurrentState(t.state)}" ng-hide="t.isHidden">
+        {{t.name}}
+    </a>
+</div>

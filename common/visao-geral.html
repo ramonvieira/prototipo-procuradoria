@@ -1,0 +1,287 @@
+<div class="container container-fluid">
+	<div class="row row-flex">
+		<div class="col-md-12">
+			<div class="bth-card" ng-controller="AgendaCtrl">
+				<div class="bth-card__body">
+					<div class="row bottom row-flex">
+						<!-- Compromissos -->
+						<div class="col-md-6 col-divider-right">
+							<div class="row bottom">
+								<div class="col-md-8">
+									<h4 class="top">
+										<span class="fa-stack" style="margin-top: -8px">
+											<i class="fa fa-circle fa-stack-2x tx__aqua--l30"></i>
+											<i class="fa fa-calendar fa-stack-1x tx__aqua--d10"></i>
+										</span>
+										<span>Compromissos <button type="button" id="novo" class="btn btn-default btn-xs btn-add" data-ng-click="adicionar({tipo:'COMPROMISSO'})" title="Adiciona um novo compromisso para sua agenda"></button></span>
+									</h4>
+								</div>
+								<div class="col-md-4 text-right">
+									<button type="button" class="btn btn-default btn-xs" title="Compromissos do dia">Hoje</button>
+									<div class="btn-group">
+										<button type="button" class="btn btn-link btn-xs" title="30/03/2020"><i class="fa fa-fw fa-chevron-left"></i></button>
+										<button type="button" class="btn btn-link btn-xs" title="01/04/2020"><i class="fa fa-fw fa-chevron-right"></i></button>
+									</div>
+									<small class="text-muted">31/03/2020</small>
+								</div>
+							</div>
+
+							<div ng-repeat="day in events | limitTo: 1">
+								<div ng-hide="day.events.length > 0">
+									<div class="row">
+										<div class="col-md-12 text-center">
+											<span class="fa-stack fa-5x">
+												<i class="fa fa-circle fa-stack-2x tx__aqua--l30"></i>
+												<i class="fa fa-calendar fa-stack-1x tx__aqua--d10"></i>
+											</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12 text-center">
+											<p><strong class="text-muted">Não há compromissos pendentes para hoje</strong></p>
+											<button type="button" class="btn btn-success btn-sm btn-add" ng-click="adicionar({tipo:'COMPROMISSO'})" title="Adiciona um novo compromisso para sua agenda">Adicionar compromisso</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div ng-include="'common/agenda/agenda-eventos.html'" ng-init="eventConsult = true; limitEvents = 9"></div>
+						</div>
+						<!-- Tarefas -->
+						<div class="col-md-6">
+							<h4 class="top">
+								<span class="fa-stack" style="margin-top: -8px">
+									<i class="fa fa-circle fa-stack-2x tx__yellow--l30"></i>
+									<i class="fa fa-tasks fa-stack-1x tx__yellow--d10"></i>
+								</span>
+								<span>Tarefas <button type="button" id="novo" class="btn btn-default btn-xs btn-add" data-ng-click="adicionar({tipo:'TAREFA'})" title="Adiciona uma nova tarefa"></button></span>
+							</h4>
+							<div class="row">
+								<div class="col-md-12">
+									<div ng-hide="(tarefas | filter: {pendente: true}).length > 0">
+										<div class="row">
+											<div class="col-md-12 text-center">
+												<span class="fa-stack fa-5x">
+													<i class="fa fa-circle fa-stack-2x tx__yellow--l30"></i>
+													<i class="fa fa-tasks fa-stack-1x tx__yellow--d10"></i>
+												</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12 text-center">
+												<p><strong class="text-muted">Não há tarefas pendentes</strong></p>
+												<button type="button" class="btn btn-success btn-sm btn-add" ng-click="adicionar({tipo:'TAREFA'})" title="Adiciona uma tarefa">Adicionar tarefa</button>
+											</div>
+										</div>
+									</div>
+									<table class="table table-unfixed table-unstriped table-hover table-unbordered" ng-show="(tarefas | filter: {pendente: tabPendente}).length > 0">
+										<tbody>
+											<tr ng-repeat="tarefa in tarefas | filter: {descricao:descricao,pendente:true} | limitTo: 4 track by $index" ng-show="filtraMarcador(tarefa.marcadores)" ng-dblclick="adicionar({isEditing:true,item:$index})">
+												<td class="ellipsis">
+													{{tarefa.descricao}}
+												</td>
+												<td class="col-30">
+													<div class="cell-wrapper">
+														<span class="info">
+															<ul class="list-inline mBottom5 mTop5">
+																<li ng-repeat="procurador in tarefa.vinculos[0].procuradores | limitTo: 3 track by $index">
+																	<img alt="" ng-src="{{procuradores[procurador].procurador.img}}" class="img-circle" width="25px" title="{{procuradores[procurador].procurador.nome}}">
+																</li>
+																<li ng-if="tarefa.vinculos[0].procuradores.length > 3"><a href="" ng-click="adicionar({isEditing:true,item:$index})"><span class="badge badge-default">+{{tarefa.vinculos[0].procuradores.length-3}}</span></a></li>
+															</ul>
+															<span ng-if="tarefa.vinculos[2].dividas.length > 0"> Dívida: <span ng-repeat="divida in tarefa.vinculos[2].dividas"><a href="">{{divida}}</a><span ng-if="($index+1) < tarefa.vinculos[2].dividas.length">,</span> </span><br></span>
+															<span ng-if="tarefa.vinculos[3].processos.length > 0"> Processo: <span ng-repeat="processo in tarefa.vinculos[3].processos"><a href="" title="Abre o processo em uma nova aba" data-ui-sref="main.gerenciadorExecucoes.execucao-fiscal-ficha" target="_blank">{{processo}}</a><span ng-if="($index+1) < tarefa.vinculos[3].processos.length">,</span> </span><br></span>
+															<span ng-if="tarefa.vinculos[4].protestos.length > 0"> Protesto: <span ng-repeat="protesto in tarefa.vinculos[4].protestos"><a href="" title="Abre o protesto em uma nova aba" data-ui-sref="main.gerenciadorProtestos.protesto-ficha" target="_blank">{{protesto}}</a><span ng-if="($index+1) < tarefa.vinculos[4].protestos.length">,</span> </span><br></span>
+														</span>
+													</div>
+												</td>
+												<td class="text-right col-15">
+													<!-- <span class="badge badge--inline badge--right" ng-class="marcadores[marcador].destaq ? 'bg__aqua--l30' : 'badge-default'" ng-repeat="marcador in tarefa.marcadores" ng-mouseover="mouseOver(marcador)" ng-mouseout="mouseOut(marcador)"><i class="fa fa-fw fa-tag" ng-class="marcadores[marcador].bColor"></i>{{marcadores[marcador].descricao}}</button> -->
+													<i class="fa fa-fw fa-tag" ng-class="marcadores[marcador].destaq ? 'tx__' + marcadores[marcador].bColor + '--d20': 'tx__' + marcadores[marcador].bColor" ng-repeat="marcador in tarefa.marcadores" ng-mouseover="mouseOver(marcador)" ng-mouseout="mouseOut(marcador)" bf-tooltip="{{marcadores[marcador].descricao}}"></i>
+												</td>
+												<td class="text-right" width="80">
+													<div class="btn-group btn-group-xs">
+														<a href="" class="btn btn-link" title="Marcar como finalizado" ng-click="updateTarefas({idx:tarefa.id,pendente: false})"><i class="fa fa-fw fa-check tx__green"></i></a>
+														<a href="" class="btn btn-link dropdown-toggle" title="Abre a lista de ações disponíveis" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+															<i class="fa fa-fw fa-ellipsis-v"></i>
+														</a>
+														<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+															<li class="dropdown-header">Ações disponíveis</li>
+															<li><a href="" title="Colocar na agenda" id="datepicker"><i class="fa fa-fw fa-calendar"></i> Agendar</a></li>
+															<li class="divider"></li>
+															<li><a href="" ng-click="adicionar({isEditing:true,item:$index})"><i class="fa fa-fw fa-pencil"></i> Editar</a></li>
+															<li><a href="" ng-click="excluiTarefas({idx:tarefa.id})"><i class="fa fa-fw fa-trash-o"></i> Excluir</a></li>
+														</ul>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="bth-card__footer text-center">
+					<div class="row bottom">
+						<div class="col-md-6">
+							
+							<a href="" data-ui-sref="main.agenda.compromissos"><span ng-repeat="day in events | limitTo: 1"><span ng-show="(day.events.length - 9) > 0">+ {{day.events.length - 9}} itens</span><span ng-hide="(day.events.length - 9) > 0">Ver todos</span></span></a>
+						</div>
+						<div class="col-md-6">
+							<a href="" data-ui-sref="main.agenda.tarefa" ng-show="(tarefas | filter: {pendente: true}).length > 0">{{
+																																		(tarefas | filter: {pendente: true}).length > 4 ?
+																																		'+ ' + ((tarefas | filter: {pendente: true}).length - 4) + ' itens' :
+																																		'Ver todos'
+																																	}}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="bth-card">
+				<div class="bth-card__body">
+					<div class="row bottom">
+						<!-- Pendentes de revisão -->
+						<div class="col-md-5 col-divider-right">
+							<div class="row">
+								<div class="col-md-8">
+									<h4 class="top">
+										<span class="fa-stack" style="margin-top: -8px">
+											<i class="fa fa-circle fa-stack-2x tx__green--l30"></i>
+											<i class="fa fa-dollar fa-stack-1x tx__green--d10"></i>
+										</span>
+										<span>Pendentes de revisão</span>
+									</h4>
+
+								</div>
+								<div class="col-md-4 text-right" ng-init="pagamentosView = '1'">
+									<div class="btn-group dropdown">
+										<button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown" title="Outras opções">
+											<i class="fa fa-fw fa-ellipsis-v"></i>
+										</button>
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li>
+												<a href="" ng-click=""><i class="fa fa-fw fa-download"></i> Download</a>
+												<a href="" ng-click=""><i class="fa fa-fw fa-print"></i> Imprimir</a>
+												<a href="" ng-click=" pagamentosView = '1'"><i class="fa fa-fw fa-pie-chart"></i> Exibir gráfico</a>
+												<a href="" ng-click=" pagamentosView = '2'"><i class="fa fa-fw fa-list"></i> Exibir lista</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<fusioncharts height="250" width="100%" type="pie2d" datasource="{{pagamentos}}" ng-show="pagamentosView == '1'"></fusioncharts>
+							<table class="table table-unstriped table-unfixed table-unbordered table-hover" ng-show="pagamentosView == '2'">
+								<thead>
+									<tr>
+										<th></th>
+										<th class="text-center">Quitadas/canceladas</th>
+										<th class="text-center">Parceladas/suspensas</th>
+										<th class="text-center">Suspensas com dívida</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Execuções fiscais</td>
+										<td class="text-center"><a href="">146</a></td>
+										<td class="text-center"><a href="">248</a></td>
+										<td class="text-center"><a href="">28</a></td>
+									</tr>
+									<tr>
+										<td>Contencioso</td>
+										<td class="text-center"><a href="">146</a></td>
+										<td class="text-center"><a href="">248</a></td>
+										<td class="text-center"><a href="">28</a></td>
+									</tr>
+									<tr>
+										<td>Administrativo</td>
+										<td class="text-center"><a href="">146</a></td>
+										<td class="text-center"><a href="">248</a></td>
+										<td class="text-center"><a href="">28</a></td>
+									</tr>
+									<tr>
+										<td>Protestos</td>
+										<td class="text-center"><a href="">146</a></td>
+										<td class="text-center"><a href="">248</a></td>
+										<td class="text-center"><a href="">28</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- Sem movimentações -->
+						<div class="col-md-7">
+							<div class="row">
+								<div class="col-md-8" ng-init="semMovimentoView = '1'">
+									<h4 class="top">
+										<span class="fa-stack" style="margin-top: -8px">
+											<i class="fa fa-circle fa-stack-2x tx__red--l30"></i>
+											<i class="fa fa-exchange fa-stack-1x tx__red--d10"></i>
+										</span>
+										<span>Sem movimentações</span>
+									</h4>
+								</div>
+								<div class="col-md-4 text-right">
+									<div class="btn-group dropdown">
+										<button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown" title="Outras opções">
+											<i class="fa fa-fw fa-ellipsis-v"></i>
+										</button>
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li>
+												<a href="" ng-click=""><i class="fa fa-fw fa-download"></i> Download</a>
+												<a href="" ng-click=""><i class="fa fa-fw fa-print"></i> Imprimir</a>
+												<a href="" ng-click="trocaSemMovimentoView('1')"><i class="fa fa-fw fa-pie-chart"></i> Exibir gráfico</a>
+												<a href="" ng-click="trocaSemMovimentoView('2')"><i class="fa fa-fw fa-list"></i> Exibir lista</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<fusioncharts height="250" width="100%" type="scrollcolumn2d" datasource="{{semMovimentacoes}}" ng-show="semMovimentoView == '1'"></fusioncharts>
+							<table class="table table-unstriped table-unfixed table-unbordered table-hover" ng-show="semMovimentoView == '2'">
+								<thead>
+									<tr>
+										<th></th>
+										<th>6 meses</th>
+										<th>1 ano</th>
+										<th>2 anos</th>
+										<th>5 anos ou mais</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in [{tipo:'Execuções fiscais'},{tipo:'Contencioso'},{tipo:'Administrativo'},{tipo:'Protestos'}]">
+										<td>{{item.tipo}}</td>
+										<td>
+											<a href="">45</a>
+											<br>
+											<span class="info">R$ 146.383,45</span>
+										</td>
+										<td>
+											<a href="">248</a>
+											<br>
+											<span class="info">R$ 146.383,45</span>
+										</td>
+										<td>
+											<a href="">28</a>
+											<br>
+											<span class="info">R$ 146.383,45</span>
+										</td>
+										<td>
+											<a href="">28</a>
+											<br>
+											<span class="info">R$ 146.383,45</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,159 @@
+<div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 class="modal-title">
+                Editando dados pessoais
+                <span title="Código" class="badge">18</span>
+            </h3>
+        </div>
+        <div class="modal-body">
+			<div ng-include="'gerenciador-cadastros/pessoas/contribuintes/pessoa-fisica/pessoa-fisica-cad-form.html'"></div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<label>
+						Site
+					</label>
+					<input class="form-control" type="text" ng-model="site" placeholder="Ex.: http://www.site.com.br">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<h4>Documentos</h4>
+				</div>
+			</div>
+			<!-- Outros documentos -->
+			<div class="row">
+				<div class="col-md-4">
+					<label><abbr title="Registro Geral">RG</abbr></label>
+					<input type="text" class="form-control" data-ng-model="pessoaFisica.rg" maxlength="20">
+				</div>
+				<div class="col-md-3">
+					<label>Órgão emissor</label>
+					<input type="text" class="form-control" data-ng-model="pessoaFisica.rgorg" maxlength="8">
+				</div>
+				<div class="col-md-2">
+					<label><abbr title="Unidade Federativa">UF</abbr></label>
+					<select data-bf-select2="{}" data-ng-model="pessoa.ufRG">
+						<option></option>
+						<option data-ng-repeat="uf in unidadesFederativas">{{uf}}</option>
+					</select>
+				</div>
+				<div class="col-md-3">
+					<label>Data da emissão</label>
+					<div class="input-group">
+						<input type="text" class="form-control" data-ng-model="pessoa.dtEmissaoRG" data-bf-date />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<label><abbr title="Registro de Identidade Civil">RIC</abbr></label>
+					<input type="text" class="form-control" data-ng-model="pessoaFisica.ric" maxlength="11">
+				</div>
+				<div class="col-md-3">
+					<label>Órgão Emissor</label>
+					<input type="text" class="form-control" data-ng-model="pessoaFisica.orgaoRIC" maxlength="8">
+				</div>
+				<div class="col-md-2">
+					<label><abbr title="Unidade Federativa">UF</abbr></label>
+					<select data-bf-select2="{}" data-ng-model="pessoa.ufRIC">
+						<option></option>
+						<option data-ng-repeat="uf in unidadesFederativas">{{uf}}</option>
+					</select>
+				</div>
+				<div class="col-md-3">
+					<label>Data da emissão</label>
+					<div class="input-group">
+						<input type="text" class="form-control" data-ng-model="pessoa.dtEmissaoRIC" data-bf-date />
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<label>Naturalidade</label>
+					<input type="text" class="form-control" data-ng-model="pessoaFisica.munNasc">
+				</div>
+				<div class="col-md-6">
+					<label class="required">Nacionalidade</label>
+					<select data-bf-select2="{}" ng-model="pessoaFisica.nacionalidade">
+						<option></option>
+						<option value="1">Brasil</option>
+						<option value="2">Argentina</option>
+					</select>
+				</div>
+			</div>
+
+
+			<!-- Estrangeiro -->
+			<div uib-collapse="pessoaFisica.nacionalidade == null || pessoaFisica.nacionalidade < 2">
+				<div class="bth-card bth-card--filled">
+					<div class="bth-card__header">
+						<h4>Dados do estrangeiro</h4>
+					</div>
+					<div class="bth-card__body">
+						<div class="row">
+							<div class="col-md-4">
+								<label>Naturalizado?</label>
+								<select data-bf-select2="{}" data-ng-model="pessoaFisica.naturalizado">
+									<option value="0">&nbsp;</option>
+									<option value="1">Sim</option>
+									<option value="2">Não</option>
+								</select>
+							</div>	
+							<div class="col-md-4">
+								<label>Chegou ao Brasil em</label>
+								<div class="input-group">
+									<input type="text" class="form-control" data-ng-model="pessoa.dtChegadaBrasil" data-bf-date />
+								</div>
+							</div>
+							<div class="col-md-4">
+								<label>Visto</label>
+								<select data-bf-select2="{}" data-ng-model="pessoaFisica.visto">
+									<option></option>
+									<option value="1">Temporário</option>
+									<option value="2">Permanente</option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-3">
+								<label class="required">Identidade estrangeira</label>
+								<input type="text" class="form-control" maxlength="20">
+							</div>
+							<div class="col-md-3">
+								<label>Órgão emissor</label>
+								<input type="text" class="form-control" data-ng-model="pessoaFisica.orgaoIdEstrangeira" maxlength="8">
+							</div>
+							<div class="col-md-3">
+								<label>Data da expedição</label>
+								<div class="input-group">
+									<input type="text" class="form-control" data-ng-model="pessoa.dtExpedicaoIdExtrangeiro" data-bf-date />
+								</div>
+							</div>
+							<div class="col-md-3">
+								<label>Data de validade</label>
+								<div class="input-group">
+									<input type="text" class="form-control" data-ng-model="pessoa.dtValidadeIdExtrangeiro" data-bf-date />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+        </div>
+        <div class="modal-footer">
+            <div class="bth-checkbox bth-checkbox-info pull-left">
+                <input id="checkbox-info" type="checkbox" checked="false" ng-model="desativar" ng-change="alterarSituacao({})">
+                <label for="checkbox-info">Desativar pessoa</label>
+            </div>
+            <button type="button" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>

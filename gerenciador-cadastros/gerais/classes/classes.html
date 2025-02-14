@@ -1,0 +1,229 @@
+<div class="row">
+	<div class="col-md-3">
+		<div class="btn-group">
+			<button type="button" class="btn btn-success btn-sm btn-add" data-ng-click="adicionar(true)" title="Adiciona uma nova classe">Classe</button>
+		</div>
+	</div>
+	<div class="col-md-9">
+		<div class="pull-right">
+			<form class="form-inline">
+				<button type="button" class="btn btn-default btn-sm" title="Atualizar">
+					<i class="fa fa-refresh"></i>
+				</button>
+
+				<!-- Pesquisa inline -->
+				<div class="input-group">
+					<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+
+					<!-- Pesquisa avançada -->
+
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+
+						<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
+							<li class="dropdown-header">
+								<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+								<h1>Pesquisa avançada</h1>
+							</li>
+							<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+							<li>
+								<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true">
+									<option value="1">Código</option>
+									<option value="2">Descrição</option>
+								</select>
+							</li>
+							<li class="dropdown-header">Utilizando como critério</li>
+							<li>
+								<div class="bth-radio bth-radio-inline">
+									<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+									<label for="rdAlguns">Alguns dos termos digitados</label>
+								</div>
+								<div class="bth-radio bth-radio-inline">
+									<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+									<label for="rdTodos">Todos os termos digitados</label>
+								</div>
+								<div class="bth-radio bth-radio-inline">
+									<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+									<label for="rdNenhum">Nenhum dos termos digitados</label>
+								</div>
+							</li>
+							<li class="dropdown-footer pull-right">
+								<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="row bottom">
+	<div class="col-md-12">
+		<div class="group-list">
+			<div class="group-heading" data-ng-class="{open:groupOpen1}" data-ng-click="groupOpen1=!groupOpen1">
+				<div class="group-title" >
+					<div class="row">
+						<div class="col-md-9">
+							<div class="ellipsis">
+								<i class="fa fa-fw m-right-10" ng-class="groupOpen1 ? 'fa-folder-open-o' : 'fa-folder-o'"></i>
+								<span bf-tooltip="Código da classe"><strong>0001</strong></span>
+								Minima nemo, optio quas accusantium dolorem consectetur adipisicing elit
+							</div>
+						</div>
+						<div class="col-md-2 text-right">
+							<span for="" class="label label-success">Ativado</span>
+						</div>
+						<div class="col-md-1 text-right">
+							<a href="" data-ng-click="adicionar(false)" title="Editar"><i class="fa fa-fw fa-pencil text-muted"></i></a>
+							<a href="" title="Excluir"><i class="fa fa-fw fa-trash-o text-muted"></i></a>
+							<div class="btn-group dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" title="Outras opções" href="">
+									<i class="fa fa-fw fa-cogs"></i>
+								</a>
+								<ul class="dropdown-menu dropdown-menu-right">
+									<li class="dropdown-header">Outras opções</li>
+									<li>
+										<a href="" ng-click="adicionar(true)">Adicionar classe</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="group-list-itens" uib-collapse="!groupOpen1">
+				<div class="group-list nao-expande">
+					<div class="group-heading">
+						<div class="group-title">
+							<div class="row">
+								<div class="col-md-9">
+									<div class="ellipsis">
+										<i class="fa fa-file-text-o fa-fw m-right-10"></i>
+										<span bf-tooltip="Código da classe"><strong>65987</strong></span>
+										Consectetur adipisicing elit. Dolorum suscipit, praesentium, aliquam atque consectetur voluptatem in nemo quo incidunt deleniti.
+									</div>
+								</div>
+								<div class="col-md-2 text-right">
+									<span for="" class="label label-default">Desativado</span>
+								</div>
+								<div class="col-md-1 text-right">
+									<a href="" data-ng-click="adicionar(false)" title="Editar"><i class="fa fa-fw fa-pencil text-muted"></i></a>
+									<a href="" title="Excluir"><i class="fa fa-fw fa-trash-o text-muted"></i></a>
+									<div class="btn-group dropdown">
+										<a class="dropdown-toggle" data-toggle="dropdown" title="Outras opções" href="">
+											<i class="fa fa-fw fa-cogs"></i>
+										</a>
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li class="dropdown-header">Outras opções</li>
+											<li>
+												<a href="" ng-click="adicionar(true)">Adicionar classe</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="group-list">
+					<div class="group-heading" data-ng-class="{open:groupOpen2}" data-ng-click="groupOpen2=!groupOpen2">
+						<div class="group-title" >
+							<div class="row">
+								<div class="col-md-9">
+									<div class="ellipsis">
+										<i class="fa fa-fw m-right-10" ng-class="groupOpen2 ? 'fa-folder-open-o' : 'fa-folder-o'"></i>
+										<span bf-tooltip="Código da classe"><strong>5454</strong></span>
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio sint, laboriosam! Nulla quae, consectetur repudiandae soluta, officia deserunt itaque adipisci.
+									</div>
+								</div>
+								<div class="col-md-2 text-right">
+									<span for="" class="label label-success">Ativado</span>
+								</div>
+								<div class="col-md-1 text-right">
+									<a href="" data-ng-click="adicionar(false)" title="Editar"><i class="fa fa-fw fa-pencil text-muted"></i></a>
+									<a href="" title="Excluir"><i class="fa fa-fw fa-trash-o text-muted"></i></a>
+									<div class="btn-group dropdown">
+										<a class="dropdown-toggle" data-toggle="dropdown" title="Outras opções" href="">
+											<i class="fa fa-fw fa-cogs"></i>
+										</a>
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li class="dropdown-header">Outras opções</li>
+											<li>
+												<a href="" ng-click="adicionar(true)">Adicionar classe</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="group-list-itens" uib-collapse="!groupOpen2">
+						<div class="group-list nao-expande">
+							<div class="group-heading">
+								<div class="group-title">
+									<div class="row">
+										<div class="col-md-9">
+											<div class="ellipsis">
+												<i class="fa fa-file-text-o fa-fw m-right-10"></i>
+												<span bf-tooltip="Código da classe"><strong>65987</strong></span>
+												Consectetur adipisicing elit. Dolorum suscipit, praesentium, aliquam atque consectetur voluptatem in nemo quo incidunt deleniti.
+											</div>
+										</div>
+										<div class="col-md-2 text-right">
+											<span for="" class="label label-success">Ativado</span>
+										</div>
+										<div class="col-md-1 text-right">
+											<a href="" data-ng-click="adicionar(false)" title="Editar"><i class="fa fa-fw fa-pencil text-muted"></i></a>
+											<a href="" title="Excluir"><i class="fa fa-fw fa-trash-o text-muted"></i></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="list-item-pagination row">
+					<div class="col-md-6">
+						<small>1-20 de 126</small>
+					</div>
+					<div class="col-md-6 text-right">
+						<button class="btn btn-default btn-pagination btn-xs disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+						<button class="btn btn-default btn-pagination btn-xs active">1</button>
+						<button class="btn btn-default btn-pagination btn-xs">2</button>
+						<button class="btn btn-default btn-pagination btn-xs">3</button>
+						<button class="btn btn-default btn-pagination btn-xs">4</button>
+						<button class="btn btn-default btn-pagination btn-xs">Próxima <i class="fa fa-angle-right"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		<form class="form-inline">
+			1-20 de 126
+			<select class="form-control input-sm" ng-model="numberOfResults">
+				<option value="20">20</option>
+				<option value="50">50</option>
+				<option value="100">100</option>
+			</select>
+			resultados por página
+		</form>
+	</div>
+	<div class="col-md-6">
+		<div class="pull-right">
+			<button class="btn btn-default btn-sm disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+			<button class="btn btn-default btn-sm active">1</button>
+			<button class="btn btn-default btn-sm">2</button>
+			<button class="btn btn-default btn-sm">3</button>
+			<button class="btn btn-default btn-sm">4</button>
+			<button class="btn btn-default btn-sm">Próxima <i class="fa fa-angle-right"></i></button>
+		</div>
+	</div>
+</div>

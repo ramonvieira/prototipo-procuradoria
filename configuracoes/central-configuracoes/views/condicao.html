@@ -1,0 +1,288 @@
+<div class="modal-dialog modal-xl">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">Definindo condição</h3>
+		</div>
+
+    	<div class="modal-body well-editor-filtros">         
+            <form class="form-horizontal">
+                <!-- Nome dos campos do filtro -->
+                <div class="row bottom">
+                    <div class="col-md-5">
+                        <label for="">Coluna / valor</label>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label for="">Operador</label>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="">Coluna / valor</label>
+                    </div>
+
+                    <div class="col-md-1">
+                        <label for="">Junção</label>
+                    </div>
+                </div>  
+                
+                <!-- Grupo principal  -->
+                <div class="well ">
+                    <!-- Linha de filtro -->
+                    <div class="row">
+                        <div class="col-md-5">
+                            <!-- Input auto complete (Os outros também deverão ser desta forma) -->
+                            <div class="input-auto-complete ">
+                                <input type="text" bf-required="{}" class="form-control" ng-model="descricao" ng-keyup="selecionaDicaTeclado($event)" autocomplete="off">
+
+                                <ul class="list-unstyled shadow-2dp " ng-model="showAutoComplete" ng-show="showAutoComplete == true">
+                                    <li ng-repeat="valor in inputValores | filter: {nomeValor:descricao}" >
+                                        <a href="" ng-click="definindoAutoComplete(valor)" >
+                                            {{valor.nomeValor}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <select bf-select2="{}" ng-init="operador = 3" ng-model="operador">
+                                <option value="1">></option>
+                                <option value="2">Maior</option>
+                                <option value="3">Igual</option>
+                                <option value="4">Diferente</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <!-- Input auto complete 02 -->
+                            <div class="input-auto-complete ">
+                                <input type="text" bf-required="{}" class="form-control" ng-model="descricao2" ng-keyup="selecionaDicaTeclado2($event)" autocomplete="off">
+
+                                <ul class="list-unstyled shadow-2dp " ng-model="showAutoComplete" ng-show="showAutoComplete2 == true">
+                                    <li ng-repeat="valor in inputValores | filter: {nomeValor:descricao2}" >
+                                        <a href="" ng-click="definindoAutoComplete2(valor)" >
+                                            {{valor.nomeValor}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1">
+                            <select bf-select2="{}" ng-init="juncao = 3" ng-model="juncao">
+                                <option value="1"> </option>
+                                <option value="2" >e</option>
+                                <option value="3">ou</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Botões para adicionar um nova linha ou grupo de filtro -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button class="btn btn-xs btn-success btn-add">
+                                    Grupo
+                                </button>
+                                
+                                <button class="btn btn-xs btn-success btn-add">
+                                    Linha
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Grupo de filtro -->
+                    <div class="row">
+                        <div class="col-md-12">
+                             <div class="well bottom">
+                                <!-- Linha de filtro -->
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" value="Qt. passageiros">
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <select bf-select2="{}" ng-init="operadorr = 2" ng-model="operadorr">
+                                            <option value="1">Maior que</option>
+                                            <option value="2">Contido em</option>
+                                            <option value="3">Igual</option>
+                                            <option value="4">Diferente</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" value="5">
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <select bf-select2="{}" ng-init="juncaoo = 2" ng-model="juncaoo">
+                                            <option value="1"> </option>
+                                            <option value="2" >e</option>
+                                            <option value="3" >ou</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <!-- Linha de filtro -->
+                                <div class="row ">
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" value="Cor">
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <select bf-select2="{}" ng-init="operadorrr = 2" ng-model="operadorrr">
+                                            <option value="1">Menor que</option>
+                                            <option value="2">Maior que</option>
+                                            <option value="3">Igual</option>
+                                            <option value="4">Diferente</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" value="Preto">
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <select bf-select2="{}" ng-model="juncao4">
+                                            <option value="1"> </option>
+                                            <option value="2" >e</option>
+                                            <option value="3" >ou</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <!-- Botões para nova linha ou grupo -->
+                                <div class="row bottom">
+                                    <div class="col-md-12">
+                                        <div class="pull-right">
+                                            <button class="btn btn-xs btn-success btn-add">
+                                                Grupo
+                                            </button>
+                                            
+                                            <button class="btn btn-xs btn-success btn-add">
+                                                Linha
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Grupo de filtro -->
+                    <div class="row bottom">
+                        <div class="col-md-12">
+                            <div class="well bottom">
+                                <!-- Linha de filtro -->
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" value="Cor">
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <select bf-select2="{}" ng-init="operadorrr = 3" ng-model="operadorrr">
+                                            <option value="1">Menor que</option>
+                                            <option value="2">Maior que</option>
+                                            <option value="3">Igual</option>
+                                            <option value="4">Diferente</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" value="Preto">    
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <select bf-select2="{}" ng-init="juncaooo = 2" ng-model="juncaooo">
+                                            <option value="1"> </option>
+                                            <option value="2" >e</option>
+                                            <option value="3" >ou</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <!-- Botões para nova linha ou grupo -->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="pull-right">
+                                            <button class="btn btn-xs btn-success btn-add">
+                                                Grupo
+                                            </button>
+                                            
+                                            <button class="btn btn-xs btn-success btn-add">
+                                                Linha
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Grupo de filtro -->
+                                <div class="well bottom">
+                                    <!-- Linha de filtro -->
+                                    <div class="row ">
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control" value="Qt. passageiros">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <select bf-select2="{}" ng-init="operadorrrr = 1" ng-model="operadorrrr">
+                                                <option value="1">Menor que</option>
+                                                <option value="2">Maior que</option>
+                                                <option value="3">Igual</option>
+                                                <option value="4">Diferente</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" value="4">
+                                        </div>
+
+                                        <div class="col-md-1">
+                                            <select bf-select2="{}" ng-model="juncaooo">
+                                                <option value="1"> </option>
+                                                <option value="2" >e</option>
+                                                <option value="3" >ou</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Botões para nova linha ou grupo -->
+                                    <div class="row bottom">
+                                        <div class="col-md-12">
+                                            <div class="pull-right">
+                                                <button class="btn btn-xs btn-success btn-add">
+                                                    Grupo
+                                                </button>
+                                                
+                                                <button class="btn btn-xs btn-success btn-add">
+                                                    Linha
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+                <!-- Demonstração de como o filtro está ficando  -->
+                <div class="row bottom">
+                    <div class="col-md-12">
+                        <label>Filtro</label>
+                        <textarea class="form-control" readonly>
+tipo == carro || ((qt.passageiros > 5 && cor == preto) || (cor == preto && (qt.passageiros > 4)));
+                        </textarea>
+                    </div>
+                </div>
+            </form> 
+    	</div>
+        
+        <div class="modal-footer">
+        	<a href ng-click="addFormula()" class="btn btn-primary" data-dismiss="modal" data-ui-sref="main.geral.gerenciador-consultas-editor" >Definir</a>
+            <button class="btn btn-default" data-dismiss="modal" tabindex="-1">Cancelar</button>
+        </div>
+	</div>
+</div>

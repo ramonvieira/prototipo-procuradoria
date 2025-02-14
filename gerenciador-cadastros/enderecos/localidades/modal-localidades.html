@@ -1,0 +1,27 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <form name="form" novalidate>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">Adicionando localidade</h3>
+            </div>
+            <div class="modal-body">
+                <uib-tabset class="procAdm">
+                    <uib-tab class="pointer" heading="Localidade">
+                        <div ng-include="'gerenciador-cadastros/enderecos/localidades/modal-localidades-localidades.html'"></div>
+                    </uib-tab>
+                    <uib-tab class="pointer" heading="Campos adicionais">
+                        <div ng-include="'gerenciador-cadastros/enderecos/localidades/modal-localidades-campos-adicionais.html'"></div>
+                    </uib-tab>
+                </uib-tabset>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-ng-disabled="form.$invalid" ng-click="salvar()">Salvar</button>
+                <button class="btn btn-default" data-ng-if="!editando" ng-click="salvar(true)" data-ng-disabled="form.$invalid" data-bf-loading="registro.tracker.salvandoContinuar">
+                    Salvar e adicionar novo
+                </button>
+                <button class="btn btn-default btn-delete" data-ng-disabled="form.$invalid" data-ng-if="!excluindo" ng-click="remover()">Excluir</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

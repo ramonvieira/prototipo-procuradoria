@@ -1,0 +1,22 @@
+<div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 class="modal-title">
+                Editando dados gerais
+                <span title="Código" class="badge">18</span>
+            </h3>
+        </div>
+        <div class="modal-body">
+            <div ng-include="'gerenciador-cadastros/pessoas/contribuintes/pessoa-juridica/pessoa-juridica-cad-form.html'"></div>
+        </div>
+        <div class="modal-footer">
+            <div class="bth-checkbox bth-checkbox-info pull-left">
+                <input id="checkbox-info" type="checkbox" checked="false" ng-model="desativar" ng-change="alterarSituacao({})">
+                <label for="checkbox-info">Desativar pessoa</label>
+            </div>
+            <button type="button" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>

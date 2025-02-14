@@ -1,0 +1,190 @@
+<div class="bth-card">
+	<div class="bth-card__body">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="btn-group">
+					<button type="button" class="btn btn-success btn-sm btn-add" ng-click="adicionar()" title="Adiciona uma nova publicidade">Publicidade</button>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="pull-right">
+					<form class="form-inline">
+						<div class="btn-group">
+							<button id="dropdownExportar" type="button" class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" title="Fazer download">
+								<i class="fa fa-fw fa-download"></i> Exportar
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li class="dropdown-header">Formato do arquivo
+								</li>
+								<li>
+									<a href="">PDF</a>
+								</li>
+								<li>
+									<a href="">CSV</a>
+								</li>
+								<li>
+									<a href="">Excel</a>
+								</li>
+							</ul>
+						</div>
+	
+						<!-- Pesquisa inline -->
+						<div class="input-group">
+							<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+	
+							<!-- Pesquisa avançada -->
+	
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+								<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
+	
+								<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
+									<li class="dropdown-header">
+										<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+										<h1>Pesquisa avançada</h1>
+									</li>
+									<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+									<li>
+										<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true">
+											<option value="1">Código</option>
+											<option value="2">Data</option>
+											<option value="3">Responsável</option>
+										</select>
+									</li>
+									<li class="dropdown-header">Utilizando como critério</li>
+									<li>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdAlguns" type="radio" value="1" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdAlguns">Alguns dos termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdTodos" type="radio" value="2" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdTodos">Todos os termos digitados</label>
+										</div>
+										<div class="bth-radio bth-radio-inline">
+											<input id="rdNenhum" type="radio" value="3" name="bthRadioCriterio" ng-model="tipoPesquisa">
+											<label for="rdNenhum">Nenhum dos termos digitados</label>
+										</div>
+									</li>
+									<li role="separator" class="divider"></li>
+									<li class="dropdown-header">
+										<h1>Outras opções</h1>
+									<li>
+									<li class="dropdown-header">
+										Tipo
+									</li>
+									<li>
+										<select bf-select2="{}" ng-model="tipo" multiple="multiple">
+											<option value="1">Tipo de publicidade 01</option>
+											<option value="2">Tipo de publicidade 02</option>
+											<option value="3">Tipo de publicidade 03</option>
+											<option value="4">Tipo de publicidade 04</option>
+											<option value="5">Tipo de publicidade 05</option>
+										</select>
+									</li>
+									<li class="dropdown-footer pull-right">
+										<button class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="filtrar-por" ng-init="filtrarPor = 'Todas'">
+					<li ng-class="{'active': filtrarPor == 'Todas'}" ng-click="filtrarPor = 'Todas'">
+						<a href="">Todas</a>
+					</li>
+					<li ng-class="{'active': filtrarPor == 'Ativas'}" ng-click="filtrarPor = 'Ativas'">
+						<a href="">Ativas</a>
+					</li>
+					<li ng-class="{'active': filtrarPor == 'Inativas'}" ng-click="filtrarPor = 'Inativas'">
+						<a href="">Inativas</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-unfixed table-unstriped">
+					<thead>
+					<tr>
+							<th width="10%">
+								<a href="">Código</a>
+							</th>
+							<th width="10%">
+								<a href="">Data</a>
+							</th>
+							<th width="35%">
+								<a href="">Tipo</a>
+							</th>
+							<th>
+								<a href="">Responsável</a>
+							</th>
+							<th width="10%">
+								<a href="">Situação</a>
+							</th>
+							<th width="7%">
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>0001</td>
+							<td>10/01/2017</td>
+							<td>Tipo de publicidade 01</td>
+							<td>Ramon Vieira Viquetti</td>
+							<td>
+								<label class="label label-success center-block">Ativa</label>
+							</td>
+							<td class="text-center">
+								<a href title="Editar">
+									<i class="fa fa-pencil fa-fw"></i>
+								</a>
+								<a href title="Excluir"><i class="fa fa-trash-o fa-fw"></i></a>
+								<div class="btn-group">
+									<a href="" class="dropdown-toggle" data-toggle="dropdown" title="Outras opções">
+										<i class="fa fa-fw fa-ellipsis-v"></i>
+									</a>
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li class="dropdown-header">Opções disponíveis</li>
+										<li ><a href="" ng-click="openAnexos();">Anexos</a></li>
+										<li ><a href="" ng-click="openAverbacao();">Averbações</a></li>
+										<li ><a href="" ng-click="openMovimentacao();">Movimentações</a></li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row bottom">
+			<div class="col-md-6">
+				<form class="form-inline">
+					1-20 de 126
+					<select class="form-control input-sm" ng-model="numberOfResults">
+						<option value="20">20</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+					</select>
+					resultados por página
+				</form>
+			</div>
+			<div class="col-md-6">
+				<div class="pull-right">
+					<button class="btn btn-default btn-sm disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+					<button class="btn btn-default btn-sm active">1</button>
+					<button class="btn btn-default btn-sm">2</button>
+					<button class="btn btn-default btn-sm">3</button>
+					<button class="btn btn-default btn-sm">4</button>
+					<button class="btn btn-default btn-sm">Próxima <i class="fa fa-angle-right"></i></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

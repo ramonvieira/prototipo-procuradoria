@@ -1,0 +1,12 @@
+<div class="row" ng-controller="EnderecosCtrl">
+    <div class="col-md-3">
+        <div class="list-group">
+            <a href="" class="list-group-item" ng-repeat="cadastro in cadastros | orderBy: 'descricao'" ng-click="cadSelect({cad: cadastro.descricao})" ng-class="contentCad== cadastro.descricao ? 'active' : ''">
+                {{cadastro.descricao}}
+            </a>
+        </div>
+    </div>
+    <div class="col-md-9" ng-repeat="cadastro in cadastros">
+        <div ng-include="cadastro.caminho" ng-if="contentCad == cadastro.descricao"></div>
+    </div>
+</div>

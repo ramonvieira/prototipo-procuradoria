@@ -1,0 +1,28 @@
+<div class="container container-fluid">
+	<div class="row mTop10">
+		<div class="col-md-12">
+			<div class="bth-card">
+				<div class="bth-card__header">
+					<h4 class="bth-card__title">Central de configurações</h4>
+				</div>
+				<div class="bth-card__body">
+					<div class="row">
+						<div class="col-md-3">
+							<ul class="list-group bottom" style="margin-right: 5px">
+								<li class="header list-group-item">
+									<input type="text" ng-model="search" placeholder="Pesquisar">
+								</li>
+								<li class="list-group-item" ng-repeat="cadastro in cadastros | filter: search | orderBy:'descricao'" data-ui-sref="{{cadastro.sref}}" data-ui-sref-active="active">
+									<a href="">{{cadastro.descricao}}</a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-md-9">
+							<div ui-view="child"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

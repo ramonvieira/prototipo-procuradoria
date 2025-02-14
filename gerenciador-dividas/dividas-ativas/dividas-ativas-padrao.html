@@ -1,0 +1,866 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="bth-card">
+			<div class="bth-card__body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="pull-right">
+							<form class="form-inline">
+								<div class="btn-group">
+									<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Mais" ng-if="dividasObj.filtro.versao == 'NOVA'">
+										Mais <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li class="dropdown-header">Mais opções</li>
+										<li>
+											<a href="" ng-controller="AgendaCtrl" ng-click="adicionar({tipo:'COMPROMISSO'})">Agendar compromisso</a>
+										</li>
+										<li>
+											<a href="" ng-controller="AgendaCtrl" ng-click="adicionar({tipo:'TAREFA'})">Adicionar a tarefa</a>
+										</li>
+									</ul>
+								</div>
+								<div class="btn-group">
+									<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fa fa-fw fa-cog"></i> <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li class="dropdown-header"><i class="fa fa-fw fa-object-group"></i> Agrupamento</li>
+										<li><a href="" class="btn-check" ng-class="{active : agruparDiv == 'credito'}" ng-click="agruparDivPor('credito')">Crédito</a></li>
+										<li><a href="" class="btn-check" ng-class="{active : agruparDiv == 'creditoAno'}" ng-click="agruparDivPor('creditoAno')">Crédito e ano</a></li>
+										<li><a href="" class="btn-check" ng-class="{active : agruparDiv == 'valor'}" ng-click="agruparDivPor('valor')">Valor</a></li>
+										<li><a href="" class="btn-check" ng-class="{active : agruparDiv == 'contribuinte'}" ng-click="agruparDivPor('contribuinte')">Contribuinte</a></li>
+										<li class="divider"></li>
+										<li><a href="" ng-click="configAgrupadorValor()"><i class="fa fa-fw fa-sort-numeric-asc"></i> Configurar faixa de valores</a></li>
+									</ul>
+								</div>
+								<!-- Dívidas -->
+								<button type="button" class="btn btn-primary btn-sm" ng-click="emitirCertidao({})" ng-show="filtraDivida == 'Sem certidão'">
+									Emitir certidão
+								</button>
+								<botao-executar class="btn btn-primary btn-sm" ng-show="filtraDivida == 'Emitida' || filtraDivida == 'Protestada'" />
+								<botao-protestar class="btn btn-primary btn-sm" ng-show="filtraDivida == 'Emitida' || filtraDivida == 'Executada'" />
+								<botao-assinar class="btn btn-primary btn-sm" ng-show="filtraDivida == 'Emitida'" />
+								<!-- Dívidas com certidão cancelada -->
+								<button type="button" class="btn btn-primary btn-sm" ng-show="filtraDivida == 'Emitida'">
+									Reativar
+								</button>
+			
+								<!-- Pesquisa inline - ATUAL -->
+								<div class="input-group" ng-if="dividasObj.filtro.versao == 'ATUAL'">
+									<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+										<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i><span class="badge badge-primary" ng-if="fullFilter.length && filtro.filtrando">{{fullFilter.length}}</span> <span class="caret"></span></button>
+										<ul class="dropdown-menu dropdown-menu-right dropdown-pesquisas-avancada" keep-open>
+											<li class="dropdown-header">
+												<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+												<h1>Pesquisa avançada</h1>
+											</li>
+											<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+											<li>
+												<a href="" data-value="col1Filter">
+													<select id="filtroColunas" bf-select2="{}" ng-model="dividasObj.filtro.campo.colunasSelect" multiple="true" class="select2-offscreen" tabindex="-1" ng-init="dividasObj.filtro.campo.colunasSelect = [1,2]">
+														<option value="1">Nome</option>
+														<option value="2">CPF</option>
+													</select>
+												</a>
+											</li>
+											<li class="dropdown-header">Utilizando como critério</li>
+											<li>
+												<a href="">
+													<div class="radio-inline">
+														<div class="bth-radio">
+															<input id="rdAlguns" type="radio" value="1" ng-model="dividasObj.filtro.campo.tipoPesquisa" class=" " name="5">
+															<label for="rdAlguns">
+																Alguns dos termos digitados
+															</label>
+														</div>
+													</div>
+													<div class="radio-inline">
+														<div class="bth-radio">
+															<input id="rdTodos" type="radio" value="2" ng-model="dividasObj.filtro.campo.tipoPesquisa" class=" " name="6">
+															<label for="rdTodos">
+																Todos os termos digitados
+															</label>
+														</div>
+													</div>
+													<div class="radio-inline">
+														<div class="bth-radio">
+															<input id="rdNenhum" type="radio" value="2" ng-model="dividasObj.filtro.campo.tipoPesquisa" class=" " name="7">
+															<label for="rdTodos">
+																Nenhum dos termos digitados
+															</label>
+														</div>
+													</div>
+												</a>
+											</li>
+											<li role="separator" class="divider"></li>
+											<li class="dropdown-header">
+												<h1>Informações da dívida</h1>
+											</li>
+											<li class="dropdown-header">
+												<div class="row bottom">
+													<div class="col-md-9">
+														Contribuinte(s)
+													</div>
+													<div class="col-md-3">
+														Notificada?
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="row bottom">
+													<div class="col-md-9">
+														<contribuintes-select ng-model="dividasObj.filtro.campo.contribuintes" multiple="true"/>
+													</div>
+													<div class="col-md-3">
+														<select bf-select2="{allowClear:true}" id="notificada" class="form-control" ng-model="dividasObj.filtro.campo.notificada">
+															<option value=""></option>
+															<option value="SIM">Sim</option>
+															<option value="NAO">Não</option>
+														</select>
+													</div>
+												</div>
+											</li>
+											<li class="dropdown-header">
+												<div class="row bottom">
+													<div class="col-md-6">
+														Crédito(s)
+													</div>
+													<div class="col-md-3">
+														Tipo referente
+													</div>
+													<div class="col-md-3">
+														Código referente
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="row bottom">
+													<div class="col-md-6">
+														<select bf-select2="{}" ng-model="dividasObj.filtro.campo.creditos" multiple="true">
+															<option value="1">IPTU</option>
+															<option value="2">ISS</option>
+															<option value="3">Receitas diversas</option>
+															<option value="4">Notas avulsas</option>
+														</select>
+													</div>
+													<div class="col-md-3">
+														<select bf-select2="{allowClear:true}" ng-model="dividasObj.filtro.campo.tipoReferente">
+															<option value=""></option>
+															<option value="1">Pessoa</option>
+															<option value="2">Imóvel</option>
+															<option value="3">Econômico</option>
+														</select>
+													</div>
+													<div class="col-md-3">
+														<input type="text" class="form-control" id="codigoReferente" bf-restrict-number="" ng-model="dividasObj.filtro.campo.codigoReferente">
+													</div>
+												</div>
+											</li>
+											<li class="dropdown-header">
+												<div class="row bottom">
+													<div class="col-md-4">
+														Intervalo da dívida por:
+													</div>
+													<div class="col-md-8" ng-if="dividasObj.filtro.campo.intervalos != null">
+														{{
+															filtro.intervalos == 1 ? 'Ano da dívida' :
+															filtro.intervalos == 2 ? 'Data de vencimento' :
+															filtro.intervalos == 3 ? 'Data de inscrição' : 'Data de emissão da CDA'
+														}}
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="row bottom">
+													<div class="col-md-4">
+														<select bf-select2="{}" ng-model="dividasObj.filtro.campo.intervalos">
+															<option value=""></option>
+															<option value="1">Ano da dívida</option>
+															<option value="2">Data de vencimento</option>
+															<option value="3">Data de inscrição</option>
+															<option value="4">Data de emissão da CDA</option>
+														</select>
+													</div>
+													<div class="col-md-8" ng-if="dividasObj.filtro.campo.intervalos == 1">
+														<div class="input-group">
+															<input class="form-control" type="text" ng-model="dividasObj.filtro.campo.anoDe">
+															<span class="input-group-addon">até</span>
+															<input class="form-control" type="text" ng-model="dividasObj.filtro.campo.anoAte">
+														</div>
+													</div>
+													<div class="col-md-8" ng-if="dividasObj.filtro.campo.intervalos && filtro.intervalos != 1">
+														<div class="input-group date-range">
+															<div class="input-group">
+																<input class="form-control" type="text" bf-date="" ng-model="dividasObj.filtro.campo.vencDe">
+															</div>
+															<span class="input-group-addon">até</span>
+															<div class="input-group">
+																<input class="form-control" type="text" bf-date="" ng-model="dividasObj.filtro.campo.vencAte">
+															</div>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li class="dropdown-header">
+												<h1>Outras opções</h1>
+											</li>
+											<li class="dropdown-header" ng-repeat-start="USADO in dividasObj.filtro.tiposDocumentos_USADOS">
+												<div class="row bottom">
+													<div class="col-md-3">
+														Informações da:
+													</div>
+													<div class="col-md-4" ng-show="USADO.tipoDoc">
+														{{USADO.tipoDoc == 'EXECUCAO_FISCAL' ? 'Código' : 'Número'}}
+													</div>
+													<div class="col-md-4" ng-show="USADO.tipoDoc">
+														Ano
+													</div>
+												</div>
+											</li>
+											<li ng-repeat-end>
+												<div class="row bottom">
+													<div class="col-md-3">
+														<select bf-select2="{}" id="tipoDoc" class="form-control" ng-model="USADO.tipoDoc" ng-change="dividasObj.filtro.campo.adicionarUsado(USADO.tipoDoc, true)">
+															<option value="{{tipo.key}}" ng-repeat="tipo in tiposDocumentos" ng-show="!tipo.usado">{{tipo.desc}}</option>
+														</select>
+													</div>
+													<div class="col-md-4" >
+														<intervalo-select ng-model="USADO.nInscr" ng-show="USADO.tipoDoc == 'INSC_DIVIDA'" />
+														<intervalo-select ng-model="USADO.nCDA" ng-show="USADO.tipoDoc == 'CDA'" />
+														<intervalo-select ng-model="USADO.nPeticaoInicial" ng-show="USADO.tipoDoc == 'PETICAO_INICIAL'" />
+														<intervalo-select ng-model="USADO.nExecucao" ng-show="USADO.tipoDoc == 'EXECUCAO_FISCAL'" />
+													</div>
+													<div class="col-md-4" ng-show="USADO.tipoDoc">
+														<intervalo-select ng-model="USADO.ano" />
+													</div>
+													<div class="col-md-1" ng-show="USADO.tipoDoc">
+														<div class="btn-group">
+															<button type="button" class="btn btn-default" title="Exclui o filtro" ng-click="dividasObj.filtro.campo.adicionarDisponivel(USADO.tipoDoc)" ng-if="USADO.tipoDoc != undefined" ng-disabled="dividasObj.filtro.campo.tiposDocumentos_USADOS.length >= tiposDocumentos.leng
+																"><i class="fa fa-fw fa-trash"></i></button>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li class="text-right" ng-show="dividasObj.filtro.tiposDocumentos_USADOS[0].tipoDoc">
+												<div class="btn-group">
+													<button type="button" class="btn btn-success btn-xs btn-add" title="Adiciona mais um filtro" ng-click="dividasObj.filtro.adicionar()" ng-if="dividasObj.filtro.tiposDocumentos_USADOS.length < tiposDocumentos.length" ng-disabled="dividasObj.filtro.tiposDocumentos_USADOS.length < tiposDocumentos.length && dividasObj.filtro.tiposDocumentos_USADOS[dividasObj.filtro.tiposDocumentos_USADOS.length-1].tipoDoc == null">Filtro</button>
+												</div>
+											</li>
+											
+											<li role="separator" class="divider"></li>
+											<li class="dropdown-footer pull-right">
+												<button class="btn btn-primary" ng-click="dividasObj.filtro.pesquisar(dividasObj.filtro.campo)"><i class="fa fa-search"></i> Pesquisar</button>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<!-- Pesquisa inline - NOVO -->
+								<div class="input-group" ng-if="dividasObj.filtro.versao == 'NOVO'">
+									<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
+										<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i><span class="badge badge-primary" ng-if="fullFilter.length && filtro.filtrando">{{fullFilter.length}}</span> <span class="caret"></span></button>
+										<ul class="dropdown-menu dropdown-menu-right dropdown-pesquisas-avancada" keep-open>
+											<li class="dropdown-header">
+												<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
+												<h1>Pesquisa avançada</h1>
+											</li>
+											<li class="dropdown-header">Pesquisar na(s) coluna(s)</li>
+											<li>
+												<a href="" data-value="col1Filter">
+													<select id="filtroColunas" bf-select2="{}" ng-model="colunasSelect" multiple="true" class="  select2-offscreen" tabindex="-1" ng-init="colunasSelect = [1,2]">
+														<option value="1">Nome</option>
+														<option value="2">CPF</option>
+													</select>
+												</a>
+											</li>
+											<li class="dropdown-header">Utilizando como critério</li>
+											<li>
+												<a href="">
+													<div class="radio-inline">
+														<div class="bth-radio">
+															<input id="rdAlguns" type="radio" value="1" ng-model="tipoPesquisa" class=" " name="5">
+															<label for="rdAlguns">
+																Alguns dos termos digitados
+															</label>
+														</div>
+													</div>
+													<div class="radio-inline">
+														<div class="bth-radio">
+															<input id="rdTodos" type="radio" value="2" ng-model="tipoPesquisa" class=" " name="6">
+															<label for="rdTodos">
+																Todos os termos digitados
+															</label>
+														</div>
+													</div>
+													<div class="radio-inline">
+														<div class="bth-radio">
+															<input id="rdNenhum" type="radio" value="2" ng-model="tipoPesquisa" class=" " name="7">
+															<label for="rdTodos">
+																Nenhum dos termos digitados
+															</label>
+														</div>
+													</div>
+												</a>
+											</li>
+											<li role="separator" class="divider"></li>
+											<!-- <li class="dropdown-header">
+												<h1>Informações da dívida</h1>
+											</li>
+											<li class="dropdown-header">
+												<div class="row bottom">
+													<div class="col-md-9">
+														Contribuinte(s)
+													</div>
+													<div class="col-md-3">
+														Notificada?
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="row bottom">
+													<div class="col-md-9">
+														<contribuintes-select ng-model="dividasObj.filtro.campo.contribuintes" multiple="true"/>
+													</div>
+													<div class="col-md-3">
+														<select bf-select2="{allowClear:true}" id="notificada" class="form-control" ng-model="registro.notificada">
+															<option value=""></option>
+															<option value="SIM">Sim</option>
+															<option value="NAO">Não</option>
+														</select>
+													</div>
+												</div>
+											</li>
+											<li class="dropdown-header">
+												<div class="row bottom">
+													<div class="col-md-6">
+														Crédito(s)
+													</div>
+													<div class="col-md-3">
+														Tipo referente
+													</div>
+													<div class="col-md-3">
+														Código referente
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="row bottom">
+													<div class="col-md-6">
+														<select bf-select2="{}" ng-model="dividasObj.filtro.campo.creditos" multiple="true">
+															<option value="1">IPTU</option>
+															<option value="2">ISS</option>
+															<option value="3">Receitas diversas</option>
+															<option value="4">Notas avulsas</option>
+														</select>
+													</div>
+													<div class="col-md-3">
+														<select bf-select2="{allowClear:true}" ng-model="dividasObj.filtro.campo.tipoReferente">
+															<option value=""></option>
+															<option value="1">Pessoa</option>
+															<option value="2">Imóvel</option>
+															<option value="3">Econômico</option>
+														</select>
+													</div>
+													<div class="col-md-3">
+														<input type="text" class="form-control" id="codigoReferente" bf-restrict-number="" ng-model="dividasObj.filtro.campo.codigoReferente">
+													</div>
+												</div>
+											</li>
+											<li class="dropdown-header">
+												<div class="row bottom">
+													<div class="col-md-4">
+														Intervalo da dívida por:
+													</div>
+													<div class="col-md-8" ng-if="dividasObj.filtro.campo.intervalos != null">
+														{{
+															filtro.intervalos == 1 ? 'Ano da dívida' :
+															filtro.intervalos == 2 ? 'Data de vencimento' :
+															filtro.intervalos == 3 ? 'Data de inscrição' : 'Data de emissão da CDA'
+														}}
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="row bottom">
+													<div class="col-md-4">
+														<select bf-select2="{}" ng-model="dividasObj.filtro.campo.intervalos">
+															<option value=""></option>
+															<option value="1">Ano da dívida</option>
+															<option value="2">Data de vencimento</option>
+															<option value="3">Data de inscrição</option>
+															<option value="4">Data de emissão da CDA</option>
+														</select>
+													</div>
+													<div class="col-md-8" ng-if="dividasObj.filtro.campo.intervalos == 1">
+														<div class="input-group">
+															<input class="form-control" type="text" ng-model="anoDe">
+															<span class="input-group-addon">até</span>
+															<input class="form-control" type="text" ng-model="anoAte">
+														</div>
+													</div>
+													<div class="col-md-8" ng-if="dividasObj.filtro.campo.intervalos && filtro.intervalos != 1">
+														<div class="input-group date-range">
+															<div class="input-group">
+																<input class="form-control" type="text" bf-date="" ng-model="vencDe">
+															</div>
+															<span class="input-group-addon">até</span>
+															<div class="input-group">
+																<input class="form-control" type="text" bf-date="" ng-model="vencAte">
+															</div>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li class="dropdown-header">
+												<h1>Outras opções</h1>
+											</li> -->
+											<li class="dropdown-header hide">
+												<h1>Filtros salvos</h1>
+											</li>
+											<li class="hide">
+												<div class="btn-group btn-group-xs tilt-shaking" ng-repeat="filtroSalvo in filtrosSalvos | orderBy: 'order'" id="filtroSalvo{{$index}}" ng-init="TEMP = filtroSalvo.descricao == 'Filtro temporário'">
+													<button type="button" class="btn {{filtroSalvo.active && TEMP ? 'btn-info' : filtroSalvo.active && !TEMP ? 'btn-primary' : 'btn-default'}}" ng-click="!filtroSalvo.active ? filtros.set(filtroSalvo) : ''" title="{{filtroSalvo.ajuda ? filtroSalvo.ajuda : filtroSalvo.descricao}}">
+														{{TEMP ? '*' : ''}} {{filtroSalvo.descricao | truncatedText:20}}
+													</button>
+													<!-- <button type="button" class="btn btn-link showOnEdit">
+														<i class="fa fa-fw fa-arrows"></i>
+													</button>
+													<button type="button" class="btn btn-link showOnEdit" ng-click="filtros.excluir(filtroSalvo)">
+														<i class="fa fa-fw fa-trash"></i>
+													</button> -->
+													<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-if="filtroSalvo.active">
+														<span class="caret"></span>
+													</button>
+													<ul class="dropdown-menu" ng-if="filtroSalvo.active">
+														<li><a href="" ng-click="filtros.editar({action: 'EDIT', filtro:filtroSalvo})"><i class="fa fa-fw fa-pencil"></i> Editar</a></li>
+														<li><a href="" ng-click="filtros.salvar(filtroSalvo)"><i class="fa fa-fw fa-save"></i> Salvar alterações</a></li>
+														<li ng-if="!filtroSalvo.temp"><a href="" ng-click="filtros.renomear(filtroSalvo)"><i class="fa fa-fw fa-i-cursor"></i> Renomear</a></li>
+														<li ng-if="!filtroSalvo.temp"><a href="" ng-click="filtros.adicionar()"><i class="fa fa-fw fa-clone"></i> Clonar</a></li>
+														<li><a href="" ng-click="filtros.excluir(filtroSalvo)"><i class="fa fa-fw fa-trash"></i> Excluir</a></li>
+													</ul>
+												</div>
+											</li>
+											<li>
+												<full-filter ng-model="fullFilter" source="'DIVIDAS'" resource="filtraDivida" />
+											</li>
+											<!-- 											
+											<li class="dropdown-header" ng-repeat-start="USADO in filtro.tiposDocumentos_USADOS">
+												<div class="row bottom">
+													<div class="col-md-3">
+														Informações da:
+													</div>
+													<div class="col-md-4" ng-show="USADO.tipoDoc">
+														{{USADO.tipoDoc == 'EXECUCAO_FISCAL' ? 'Código' : 'Número'}}
+													</div>
+													<div class="col-md-4" ng-show="USADO.tipoDoc">
+														Ano
+													</div>
+												</div>
+											</li>
+											<li ng-repeat-end>
+												<div class="row bottom">
+													<div class="col-md-3">
+														<select bf-select2="{}" id="tipoDoc" class="form-control" ng-model="USADO.tipoDoc" ng-change="dividasObj.filtro.campo.adicionarUsado(USADO.tipoDoc, true)">
+															<option value="{{tipo.key}}" ng-repeat="tipo in tiposDocumentos" ng-show="!tipo.usado">{{tipo.desc}}</option>
+														</select>
+													</div>
+													<div class="col-md-4" >
+														<input type="hidden" class="selectCodigoOptions" bf-restrict-number="" ng-model="USADO.nInscr" ng-show="USADO.tipoDoc == 'INSC_DIVIDA'" />
+														<input type="hidden" class="selectCodigoOptions" bf-restrict-number="" ng-model="USADO.nCDA" ng-show="USADO.tipoDoc == 'CDA'" />
+														<input type="hidden" class="selectCodigoOptions" bf-restrict-number="" ng-model="USADO.nPeticaoInicial" ng-show="USADO.tipoDoc == 'PETICAO_INICIAL'" />
+														<input type="hidden" class="selectCodigoOptions" bf-restrict-number="" ng-model="USADO.nExecucao" ng-show="USADO.tipoDoc == 'EXECUCAO_FISCAL'" />
+													</div>
+													<!- <div class="col-md-4" ng-show="USADO.tipoDoc">
+														<div class="input-group">
+															<input class="form-control" type="text" ng-model="USADO.anoDe">
+															<span class="input-group-addon">até</span>
+															<input class="form-control" type="text" ng-model="USADO.anoAte">
+														</div>
+													</div> ->
+													<div class="col-md-4" ng-show="USADO.tipoDoc">
+														<input type="hidden" class="selectAnoOptions" bf-restrict-number="" ng-model="USADO.ano" />
+													</div>
+													<div class="col-md-1" ng-show="USADO.tipoDoc">
+														<div class="btn-group">
+															<button type="button" class="btn btn-default" title="Exclui o filtro" ng-click="dividasObj.filtro.campo.adicionarDisponivel(USADO.tipoDoc)" ng-if="USADO.tipoDoc != undefined" ng-disabled="dividasObj.filtro.campo.tiposDocumentos_USADOS.length >= tiposDocumentos.leng
+																"><i class="fa fa-fw fa-trash"></i></button>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li class="text-right" ng-show="dividasObj.filtro.campo.tiposDocumentos_USADOS[0].tipoDoc">
+												<div class="btn-group">
+													<button type="button" class="btn btn-success btn-xs btn-add" title="Adiciona mais um filtro" ng-click="dividasObj.filtro.campo.adicionar()" ng-if="dividasObj.filtro.campo.tiposDocumentos_USADOS.length < tiposDocumentos.length" ng-disabled="dividasObj.filtro.campo.tiposDocumentos_USADOS.length < tiposDocumentos.length && filtro.tiposDocumentos_USADOS[filtro.tiposDocumentos_USADOS.length-1].tipoDoc == null">Filtro</button>
+												</div>
+											</li>
+											-->
+											<li role="separator" class="divider"></li>
+											<li class="dropdown-footer pull-right">
+												<button class="btn btn-primary" ng-click="dividasObj.filtro.filtrar()"><i class="fa fa-search"></i> Pesquisar</button>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-12">
+						<bth-tag-list ng-model="dividasObj" />
+					</div>
+				</div>
+				<div class="row" ng-if="dividasObj.filtro.versao == 'ATUAL'">
+					<div class="col-md-12">
+						<ul class="filtrar-por">
+							<li ng-class="{'active' : filtraDivida == 'Sem certidão'}"><a href="" ng-click="setFiltrarDivida('Sem certidão')">Sem certidão</a></li>
+							<li ng-class="{'active' : filtraDivida == 'Emitida'}"><a href="" ng-click="setFiltrarDivida('Emitida')">Com certidão</a></li>
+							<li ng-class="{'active' : filtraDivida == 'Com petição'}"><a href="" ng-click="setFiltrarDivida('Com petição')">Com petição</a></li>
+							<li ng-class="{'active' : filtraDivida == 'Protestada'}"><a href="" ng-click="setFiltrarDivida('Protestada')">Protestada</a></li>
+							<li ng-class="{'active' : filtraDivida == 'Protestada com certidão'}"><a href="" ng-click="setFiltrarDivida('Protestada com certidão')">Protestada com certidão</a></li>
+							<li ng-class="{'active' : filtraDivida == 'Executada'}"><a href="" ng-click="setFiltrarDivida('Executada')">Executada</a></li>
+							<li ng-class="{'active' : filtraDivida == 'Executada e protestada'}"><a href="" ng-click="setFiltrarDivida('Executada e protestada')">Executada e protestada</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="row" ng-if="dividasObj.filtro.versao == 'NOVO'">
+					<div class="col-md-12">
+						<ul role="tablist" class="nav nav-tabs nav-atend">
+							<li role="presentation" ng-class="{'active': filtraDivida == 'Sem certidão'}" ng-click="setFiltrarDivida('Sem certidão')">
+								<a data-toggle="tab" role="tab" href="#Aba1" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x tx__gray--d10"></i>
+												<i class="fa fa-file-o fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom top">Sem certidão</h5>
+											<h6 class="bottom top tx__gray--d10" title="Total em dívidas sem certidão emitida">R$ 25.493,62</h6>
+										</li>
+									</ul> 
+								</a>
+							</li>
+							<li role="presentation" ng-class="{'active': filtraDivida == 'Emitida'}" ng-click="setFiltrarDivida('Emitida')">
+								<a data-toggle="tab" role="tab" href="#Aba2" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x tx__green"></i>
+												<i class="fa fa-file-text-o fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom top">Certidão emitida</h5>
+											<h6 class="bottom top tx__green--d10" title="Total em dívidas com certidão emitida">R$ 25.493,62</h6>
+										</li>
+									</ul> 
+								</a>
+							</li>
+							<li role="presentation" ng-class="{'active': filtraDivida == 'Cancelada'}" ng-click="setFiltrarDivida('Cancelada')">
+								<a data-toggle="tab" role="tab" href="#Aba3" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x tx__red--l20"></i>
+												<i class="fa fa-ban fa-stack-1x tx__red--d10"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom top">Certidão cancelada</h5>
+											<h6 class="bottom top tx__red--d10" title="Total em dívidas com certidão cancelada">R$ 2.705.350,00</h6>
+										</li>
+									</ul> 
+								</a>
+							</li>
+							<li role="presentation" ng-class="{'active': filtraDivida == 'Cancelada'}" ng-click="setFiltrarDivida('Cancelada')">
+								<a data-toggle="tab" role="tab" href="#Aba3" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x tx__orange--d10"></i>
+												<i class="fa fa-file-text fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom top">Peticionada</h5>
+											<h6 class="bottom top tx__orange--d10" title="Total em dívidas com certidão cancelada">R$ 2.705.350,00</h6>
+										</li>
+									</ul> 
+								</a>
+							</li>
+							<li role="presentation" ng-class="{'active': filtraDivida == 'Protestada'}" ng-click="setFiltrarDivida('Protestada')">
+								<a data-toggle="tab" role="tab" href="#Aba3" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x tx__blue--d10"></i>
+												<i class="fa fa-check-square-o fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom top">Protestada</h5>
+											<h6 class="bottom top" title="Total em dívidas protestadas">R$ 2.705.350,00</h6>
+										</li>
+									</ul> 
+								</a>
+							</li>
+							<li role="presentation" ng-class="{'active': filtraDivida == 'Executada'}" ng-click="setFiltrarDivida('Executada')">
+								<a data-toggle="tab" role="tab" href="#Aba3" target="_self">
+									<ul class="list-tabs-value">
+										<li>
+											<span class="fa-stack fa-lg">
+												<i class="fa fa-circle fa-stack-2x"></i>
+												<i class="fa fa-balance-scale fa-stack-1x fa-inverse"></i>
+											</span>
+										</li>
+										<li>
+											<h5 class="bottom top">Executada</h5>
+											<h6 class="bottom top" title="Total em dívidas protestadas">R$ 2.705.350,00</h6>
+										</li>
+									</ul> 
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="row bottom" ng-init="anos=[{},{},{},{},{},{}]">
+					<div class="col-md-3" ng-if="agruparDiv == 'credito' || agruparDiv == 'valor'">
+						<div class="list-group" ng-init="vm.filtrarPor = 0">
+							<button type="button" ng-if="agruparDiv != 'creditoAno'" class="list-group-item" ng-repeat="ano in anos" ng-click="vm.filtrarPor = $index" ng-class="{'active' : vm.filtrarPor == $index, 'list-group-item-warn ing' : $index == 3}">
+								<h4 class="list-group-item-heading bottom">
+									<div class="bth-checkbox bth-checkbox-inline">
+										<input id="cbAno{{$index}}" type="checkbox" ng-model="cbAno$index" keep-open  ng-click="setTotalSelecionado()">
+										<label for="cbAno{{$index}}">&nbsp;</label>
+									</div>
+										{{anoAtual - $index}}<small class="pull-right">R$ 313.165,88</small>
+								</h4>
+								<!-- <p class="alert alert-warning alert-small bottom" ng-show="$index == 3"><small>Lembre-se que essas dívidas serão prescritas em breve.</small></p>
+								<p class="alert alert-danger alert-small bottom" ng-show="$index == 3"><small>Em 20 dias essas dívidas serão prescritas.</small></p> -->
+							</button>
+						</div>
+					</div>
+					<div class="{{agruparDiv == 'creditoAno'  ? 'col-md-12' : 'col-md-9'}}" ng-if="agruparDiv == 'credito' || agruparDiv == 'valor' || agruparDiv == 'creditoAno'" data-bf-loading="loadingAgrupador">
+						<div class="group-list" ng-repeat="item in itens">
+							<div class="group-heading hover-visibility" data-ng-class="{open:groupOpen}" data-ng-click="groupOpen=!groupOpen">
+								<div class="bth-checkbox">
+									<input id="checkbox" type="checkbox" keep-open>
+									<label for="checkbox">&nbsp;</label>
+								</div>
+								<div class="group-title">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="group-title-header">
+												<div class="ellipsis" title="{{item.descricao}}">
+													<strong>{{item.descricao}}</strong> <a href="" class="btn btn-link btn-xs hover-visibility-child" ng-click="configAgrupadorValor()" ng-if="agruparDiv == 'valor'" title="Edita a faixa de valores dos agrupadores" keep-open><i class="fa fa-fw fa-pencil"></i></a>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-2 text-right">
+											<span ng-if="filtraDivida == 'Sem certidão' || filtraDivida == 'Emitida' || filtraDivida == 'Cancelada' ">{{itens.length}} dívidas</span>
+											<span ng-if="filtraDivida == 'Executada'">{{peticoes.length}} petições</span>
+											<span ng-if="filtraDivida == 'Protestada'">{{protestos.length}} protestos</span>
+										</div>
+										<div class="col-md-3 text-right">
+											R$ 12.984,777
+										</div>
+										<div class="col-md-1 text-right">
+											<div class="btn-group dropdown">
+												<a class="dropdown-toggle" data-toggle="dropdown" title="Outras opções" href keep-open>
+													<i class="fa fa-fw fa-ellipsis-v"></i>
+												</a>
+												
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="group-list-itens" uib-collapse="!groupOpen">
+								<div class="group-list" ng-repeat="subIten in subItens" ng-if="groupOpen">
+									<div class="group-heading" data-ng-class="{open:subGroupOpen}" data-ng-click="subGroupOpen=!subGroupOpen">
+										<div class="bth-checkbox">
+											<input id="checkbox" type="checkbox" keep-open>
+											<label for="checkbox">&nbsp;</label>
+										</div>
+										<div class="group-title">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="group-title-header">
+														{{subIten.descricao}}
+													</div>
+												</div>
+												<div class="col-md-2 text-right">
+													<span ng-if="filtraDivida == 'Sem certidão' || filtraDivida == 'Emitida' || filtraDivida == 'Cancelada' "><small>{{itens.length}} dívidas</small></span>
+													<span ng-if="filtraDivida == 'Executada'"><small>{{peticoes.length}} petições</small></span>
+													<span ng-if="filtraDivida == 'Protestada'"><small>{{protestos.length}} protestos</small></span>
+												</div>
+												<div class="col-md-3 text-right">
+													<small>R$ 12.984,777</small>
+												</div>
+												<div class="col-md-1 text-right">
+													<div class="btn-group dropdown">
+														<a class="dropdown-toggle" data-toggle="dropdown" title="Outras opções" href keep-open>
+															<i class="fa fa-fw fa-ellipsis-v"></i>
+														</a>
+														<ul class="dropdown-menu dropdown-menu-right">
+															<!-- Dívidas sem certidão -->
+															<li ng-if="filtraDivida == 'Sem certidão'">
+																<a href="" ng-click="emitirCertidao({})">Emitir certidão</a>
+															</li>
+															<!-- Dívidas com certidão -->
+															<li ng-if="filtraDivida == 'Emitida'">
+																<a href="" ng-click="cancelarCertidao({})">Cancelar certidão</a>
+															</li>
+															<li ng-if="filtraDivida == 'Emitida'">
+																<a href="" ng-click="protestar({})">Protestar</a>
+															</li>
+															<li ng-if="filtraDivida == 'Emitida'">
+																<a href="" ng-click="executar({})">Executar</a>
+															</li>
+															<!-- Dívidas canceladas -->
+															<li ng-if="filtraDivida == 'Cancelada'">
+																<a href="">Visualizar cancelamento</a>
+															</li>
+															<li ng-if="filtraDivida == 'Cancelada'">
+																<a href="">Reativar certidão</a>
+															</li>
+															<!-- Em protesto -->
+															<li ng-if="filtraDivida == 'Protestada'">
+																<a href="" ng-click="cancelaProtesto({})">Cancelar protesto</a>
+															</li>
+															<!-- Em execução -->
+															<li ng-if="filtraDivida == 'Executada'">
+																<a href="" ng-click="cancelaExecucao({})">Cancelar execução</a>
+															</li>
+					
+															<li ng-if="filtraDivida == 'Emitida' || filtraDivida == 'Protestada' || filtraDivida == 'Executada'">
+																<a href="" ng-click="assinar({})">Assinar digitalmente</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="group-list-itens" uib-collapse="!subGroupOpen">
+										<div class="row">
+											<div class="col-md-12">
+												<!-- Não emitidas -->
+												<div ng-include="'gerenciador-dividas/dividas-ativas/dividas/lista-dividas.html'" ng-if="filtraDivida == 'Sem certidão'"></div>
+			
+												<!-- Dívidas emitidas e canceladas -->
+												<div ng-include="'gerenciador-dividas/dividas-ativas/certidoes/lista-certidoes.html'" ng-if="filtraDivida == 'Emitida' || filtraDivida == 'Cancelada'"></div>
+			
+												<!-- Protestos -->
+												<div ng-include="'gerenciador-protestos/protestos/lista-protestos.html'" ng-if="filtraDivida == 'Protestada' || filtraDivida == 'Protestada com certidão'"></div>
+			
+												<!-- Execuções -->
+												<div ng-include="'gerenciador-execucoes/execucoes/lista-execucoes.html'" ng-if="filtraDivida == 'Executada' || filtraDivida == 'Com petição'"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12" ng-if="agruparDiv == 'contribuinte'">
+						<div class="group-list" ng-repeat="item in itens">
+							<div class="group-heading" data-ng-class="{open:item.groupOpen}" data-ng-click="item.groupOpen=!item.groupOpen">
+								<div class="bth-checkbox">
+									<input id="checkbox" type="checkbox" keep-open>
+									<label for="checkbox">&nbsp;</label>
+								</div>
+								<div class="group-title">
+									<div class="row">
+										<div class="col-md-5">
+											<div class="group-title-header">
+												<div class="ellipsis" title="{{item.descricao}}">
+													<a href="" ng-click="verContribuinte({})">{{item.descricao}}</a><span class="text-muted"> - 014.658.448-55</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3 text-right">
+											<span ng-if="filtraDivida == 'Sem certidão' || filtraDivida == 'Emitida' || filtraDivida == 'Cancelada' ">{{item.qtd}} dívidas</span>
+											<span ng-if="filtraDivida == 'Executada'">{{item.qtd}} petições</span>
+											<span ng-if="filtraDivida == 'Protestada'">{{item.qtd}} protestos</span>
+										</div>
+										<div class="col-md-3 text-right">
+											<simula-calculo item="item"></simula-calculo>
+										</div>
+										<div class="col-md-1 text-right">
+											<div class="btn-group dropdown">
+												<a class="dropdown-toggle" data-toggle="dropdown" title="Outras opções" href keep-open>
+													<i class="fa fa-fw fa-ellipsis-v"></i>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="group-list-itens" uib-collapse="!item.groupOpen">
+								filtraDivida:{{filtraDivida}}
+								<!-- Não emitidas -->
+								<div ng-include="'gerenciador-dividas/dividas-ativas/dividas/lista-dividas.html'" ng-if="filtraDivida == 'Sem certidão'"></div>
+			
+								<!-- Dívidas emitidas e canceladas -->
+								<div ng-include="'gerenciador-dividas/dividas-ativas/certidoes/lista-certidoes.html'" ng-if="filtraDivida == 'Emitida' || filtraDivida == 'Cancelada'"></div>
+
+								<!-- Protestos -->
+								<div ng-include="'gerenciador-protestos/protestos/lista-protestos.html'" ng-if="filtraDivida == 'Protestada'"></div>
+
+								<!-- Execuções -->
+								<div ng-include="'gerenciador-execucoes/execucoes/lista-execucoes.html'" ng-if="filtraDivida == 'Executada'"></div>
+							</div>
+						</div>
+						<div class="row mTop10">
+							<div class="col-md-6">
+								<form class="form-inline">
+									1-20 de 126
+									<select class="form-control input-sm" ng-model="numberOfResults">
+										<option value="20">20</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+									</select>
+									resultados por página
+								</form>
+							</div>
+							<div class="col-md-6">
+								<div class="pull-right">
+									<button class="btn btn-default btn-sm disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+									<button class="btn btn-default btn-sm active">1</button>
+									<button class="btn btn-default btn-sm">2</button>
+									<button class="btn btn-default btn-sm">3</button>
+									<button class="btn btn-default btn-sm">4</button>
+									<button class="btn btn-default btn-sm">Próxima <i class="fa fa-angle-right"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="opcoes-tela">
+	<div class="row">
+		<div class="col-md-12">
+			<label>Versão do filtro</label>
+			<div class="btn-group">
+				<label class="btn btn-default" ng-class="{active: dividasObj.filtro.versao == 'ATUAL'}">
+					<input type="radio" ng-model="dividasObj.filtro.versao" value="ATUAL" ng-change="dividasObj.filtro.setVersao(dividasObj.filtro.versao)"> Atual
+				</label>
+				<label class="btn btn-default" ng-class="{active: dividasObj.filtro.versao == 'NOVO'}">
+					<input type="radio" ng-model="dividasObj.filtro.versao" value="NOVO" ng-change="dividasObj.filtro.setVersaodividasObj.filtro.versao()"> Novo
+				</label>
+			</div>
+		</div>
+	</div>
+</div>

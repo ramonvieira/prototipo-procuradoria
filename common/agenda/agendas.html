@@ -1,0 +1,79 @@
+<div class="row row-flex bottom">
+	<!-- Menu esquerdo -->
+	<div class="col-md-3">
+		<div class="bth-card">
+			<div class="bth-card__body">
+				<div ng-include="'common/agenda/filtro.html'"></div>
+			</div>
+		</div>
+	</div>
+	<!-- Agendas -->
+	<div class="col-md-9">
+		<div class="bth-card">
+			<div class="bth-card__body">
+				<div class="row">
+					<div class="col-md-12" ng-init="modo = 1">
+						<div class="row bottom">
+							<div class="col-md-8">
+								<div class="btn-group" style="margin-right: 10px;">
+									<button type="button" class="btn btn-default btn-sm" title="Title" ng-click="setViewObras({view:'hoje'})" ng-class="{'active' : viewAgenda=='hoje'}">Hoje</button>
+								</div>
+								<div class="btn-group">
+									<button type="button" class="btn btn-link btn-sm" title="Title"><i class="fa fa-angle-left"></i></button>
+									<button type="button" class="btn btn-link btn-sm" title="Title"><i class="fa fa-angle-right"></i></button>
+								</div>
+								<div class="btn-group" style="margin-left: 10px;">
+									{{modo == 0 || modo == 4 ? '02 de abril de 2017' : modo == 1 ? '02 a 08 de abril de 2017' : modo == 2 ? 'Abril de 2017' : '2017'}}
+								</div>
+							</div>
+							<div class="col-md-4 text-right">
+								<div class="btn-group btn-group-sm">
+									<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Mais">
+										{{
+											viewAgenda=='dia'     ? 'Dia':
+											viewAgenda=='semana'  ? 'Semana':
+											viewAgenda=='mes'     ? 'Mês':
+											viewAgenda=='ano'     ? 'Ano':
+											viewAgenda=='eventos' ? 'Eventos': ''
+										}} <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-right">
+										<!-- <li><a href="" class="btn-check" id="teste" ng-click="setViewAgenda({view:'teste'})" ng-class="{'active' : viewAgenda=='teste'}">Teste <span class="pull-right text-muted">T</span></a></li> -->
+										<li><a href="" class="btn-check" id="dia" ng-click="setViewAgenda({view:'dia'})" ng-class="{'active' : viewAgenda=='dia'}">Dia <span class="pull-right text-muted">D</span></a></li>
+										<li><a href="" class="btn-check" id="semana" ng-click="setViewAgenda({view:'semana'})" ng-class="{'active' : viewAgenda=='semana'}">Semana <span class="pull-right text-muted">S</span></a></li>
+										<li><a href="" class="btn-check" id="mes" ng-click="setViewAgenda({view:'mes'})" ng-class="{'active' : viewAgenda=='mes'}">Mês <span class="pull-right text-muted">M</span></a></li>
+										<li><a href="" class="btn-check" id="ano" ng-click="setViewAgenda({view:'ano'})" ng-class="{'active' : viewAgenda=='ano'}">Ano <span class="pull-right text-muted">A</span></a></li>
+										<li><a href="" class="btn-check" id="eventos" ng-click="setViewAgenda({view:'eventos'})" ng-class="{'active' : viewAgenda=='eventos'}">Eventos <span class="pull-right text-muted">E</span></a></li>
+										<li class="divider"></li>
+										<li><a href ng-click="setListOnlyComercial(!listOnlyComercial)" class="btn-check" ng-class="{'active' : listOnlyComercial}" ng-click="modo=3">Mostrar somente horário comercial</a></li>
+									</ul>
+								</div>
+								<!-- <div class="btn-group btn-group-sm">
+									<button type="button" class="btn btn-default btn-sm" id="filtroAvancado" title="Filtros" ng-click="setFilter({float:true})" ng-hide="filterFixed == 1 || filterFloat == 1"><i class="fa fa-fw fa-filter"></i> Filtro</button>
+								</div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<!-- Visão de dia (semana com apenas uma coluna) -->
+				<div ng-include="'common/agenda/agenda-teste.html'" ng-if="viewAgenda=='teste'"></div>
+				
+				<!-- Visão de dia (semana com apenas uma coluna) -->
+				<div ng-include="'common/agenda/agenda-dia.html'" ng-if="viewAgenda=='dia'"></div>
+				
+				<!-- Visão de semana -->
+				<div ng-include="'common/agenda/agenda-semana.html'" ng-if="viewAgenda=='semana'"></div>
+				
+				<!-- Visão de mês -->
+				<div ng-include="'common/agenda/agenda-mes.html'" ng-if="viewAgenda=='mes'"></div>
+				
+				<!-- Visão de ano -->
+				<div ng-include="'common/agenda/agenda-ano.html'" ng-if="viewAgenda=='ano'"></div>
+				
+				<!-- Visão de eventos -->
+				<div ng-include="'common/agenda/agenda-eventos.html'" ng-if="viewAgenda=='eventos'"></div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,95 @@
+<div class="container container-fluid">
+	<div class="row mTop10">
+		<div class="col-md-12">
+			<div class="bth-card">
+				<div class="bth-card__header">
+					<h4 class="bth-card__title">Agenda</h4>
+				</div>
+				<ul role="tablist" class="nav nav-tabs bottom">
+					<li ng-click="setNav({view:'Situação'})" ng-class="{'active': nav == 'Situação'}">
+						<a href=""><i class="fa fa-fw fa-circle"></i> Situação</a>
+					</li>
+					<li ng-click="setNav({view:'Grupo de trabalho'})" ng-class="{'active': nav == 'Grupo de trabalho'}">
+						<a href=""><i class="fa fa-fw fa-users"></i> Grupo de trabalho</a>
+					</li>
+					<li ng-click="setNav({view:'Responsável'})" ng-class="{'active': nav == 'Responsável'}">
+						<a href=""><i class="fa fas fa-user"></i> Responsável</a>
+					</li>
+					<li ng-click="setNav({view:'Calendário'})" ng-class="{'active': nav == 'Calendário'}">
+						<a href=""><i class="fa fas fa-calendar"></i> Calendário</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="section-content">
+		<div class="bth-card">
+			<div class="bth-card__body" style="min-height: calc(100vh - 185px)">
+				<div class="bth-filter-container">
+					<!-- Resultado dos filtros -->
+					<div class="bth-filter-container__result">
+						<div ng-include="'gerenciador-tarefas/tarefas-lista.html'"></div>
+					</div>
+		
+					<!-- Filtros -->
+					<div class="bth-filter-container__sidebar" ng-class="{'bth-filter--floating': filterFloat == 1};" ng-if="(filterFixed == 1 && filterFloat == 0) || (filterFixed == 0 && filterFloat == 1)">
+						<div class="bth-filter__header">
+							<div class="row">
+								<div class="col-md-4 col-sm-4 col-xs-9">
+									<label for="">PESQUISAR<span class="text-muted">(P)</span></label>
+								</div>
+								<div class="col-md-8 col-sm-8 col-xs-3 text-right">
+									<!-- <button class="btn btn-xs btn-link" ng-click="filterFixed == 0 ? setFilter({float:false}) : filterFloat = filterFloat == 0"> -->
+									<button class="btn btn-xs btn-link" ng-click="setFilter({fixed:true,float:false})" ng-show="filterFloat == 1">
+										<i class="fa fa-thumb-tack"></i>
+										Fixar
+									</button>		
+									<button class="btn btn-xs btn-link" ng-click="setFilter({fixed:false,float:true})" ng-hide="filterFloat == 1">
+										<i class="fa fa-thumb-tack"></i>
+										Desafixar
+									</button>		
+									<button class="btn btn-xs btn-link" ng-click="setFilter({float:false})" ng-show="filterFloat == 1">
+										<i class="fa fa-close"></i>
+									</button>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group input-group-sm search" ng-init="refine = false" ng-class="refine ? 'refine-active': ''">
+										<input id="searchInput" type="text" placeholder="Digite o que está buscando e tecle ENTER" class="form-control input-sm search-field">
+										<div class="input-group-btn">
+											<div ng-include="'common/refinar-busca.html'" class="input-group-btn" uib-dropdown dropdown-append-to-body></div>
+										</div>
+										<button type="button" class="btn btn-default btn-sm" title="Pesquisar (ENTER)">
+											<i class="fa fa-search"></i>
+										</button>
+										<button type="button" class="btn btn-default btn-sm" title="Filtros" ng-click="setFilter({float:false})" ng-hide="filterFixed == 1 || filterFloat == 1"><i class="fa fa-fw fa-filter"></i> Filtro</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="bth-filter__body">
+							<div ng-include="'gerenciador-tarefas/filtro.html'"></div>
+						</div>
+						<div class="bth-filter__footer">
+							<div class="row">
+								<div ng-class="pesquisando ? 'col-md-8' : 'col-md-12'">
+									<button class="btn btn-block btn-primary" id="pesquisar" ng-click="setPesquisando(true)">
+										Pesquisar (ENTER)
+									</button>
+								</div>
+								<div class="col-md-4" ng-show="pesquisando">
+									<button class="btn btn-block btn-default" ng-click="setPesquisando(false)">
+										Limpar
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="bth-filter-backdrop bth-filter-backdrop--inverse" ng-if="filterFloat == 1" ng-click="setFilter({float:false})"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

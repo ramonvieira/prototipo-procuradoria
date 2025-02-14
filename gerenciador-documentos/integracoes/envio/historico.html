@@ -1,0 +1,48 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="bth-timeline bth-timeline--vertical">
+			<ul class="bth-timeline__list">
+				<li class="bth-timeline__month">
+					<span class="badge badge-default">Janeiro/2019</span>
+				</li>
+				<li class="bth-timeline__date">
+					<div>Sáb, 02/05</div>
+				</li>
+				<!-- Sincronizado -->
+				<li class="bth-timeline__item" ng-repeat="item in [{},{},{},{},{},{},{}]">
+					<span class="bth-timeline">
+					</span>
+					<span class="bth-timeline__time">
+						16:57:07
+					</span>
+					<div class="bth-card bth-card--collapse bth-card--bordered" ng-click="groupHist$index = !groupHist$index">
+						<div class="bth-card__header" ng-class="groupHist$index ? 'bth-card__header--opened' : 'bth-card--collapse'">
+							<h5>
+								<i class="fa fa-user fa-fw text-muted" title="Por ramon.viquetti"></i> Enviado ao tribunal
+							</h5>
+						</div>
+						<div class="bth-card__body" uib-collapse="!groupHist$index">
+							<table class="table table-unfixed table-hover table-unstriped table-unbordered bottom">
+								<tbody>
+									<tr>
+										<td><a href="" ng-click="envioTrib({tipoPend: 'ENVIADO', hist: true})" keep-open>Enviado</a></td>
+										<td class="text-right"><span class="badge">896</span></td>
+									</tr>
+									<tr>
+										<td><a href="" ng-click="envioTrib({tipoPend: 'ERRO', hist: true})" keep-open>Com erro</a></td>
+										<td class="text-right"><span class="badge">4</span></td>
+									</tr>
+									<tr>
+										<td><a href="" ng-click="envioTrib({tipoPend: 'ERROINTEGRA', hist: true})" keep-open>Com erro na integração</a></td>
+										<td class="text-right"><span class="badge">4</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

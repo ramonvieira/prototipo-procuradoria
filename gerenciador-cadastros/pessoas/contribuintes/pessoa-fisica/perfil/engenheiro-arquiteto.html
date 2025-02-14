@@ -1,0 +1,115 @@
+
+<div class="modal-dialog modal-xxl">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h3 class="modal-title">
+                Adicionando perfil de engenheiro/arquiteto</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-1 text-center">
+                    <i class="fa fa-info-circle fa-2x text-muted mTop10"></i>
+                </div>
+                <div class="col-md-11">
+                    <h4>Informações gerais</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-11 col-md-offset-1">
+                    <div class="bth-card bth-card--filled">
+                        <div class="bth-card__body">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <i class="fa fa-user fa-fw text-muted"></i>
+                                    <strong title="Nome">Ramon Vieira Viquetti</strong> <small title="Nome social">(João)</small>
+                                </div>
+                                <div class="col-md-5">
+                                    <i class="fa fa-id-card fa-fw text-muted"></i>
+                                    <small title="CPF">000.000.000-00</small>
+                                </div>
+                            </div>
+                            <div class="row bottom">
+                                <div class="col-md-11">
+                                    <i class="fa fa-map-marker fa-fw text-muted"></i>
+                                    <small title="Endereço">Rua Antônio Nart, 240, Alto Rio Maina - Siderópolis - SC (Brasil)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-1">
+                        <label class="required" for="nroCREA">
+                            Nº do <abbr title="Conselho Regional de Engenharia e Agronomia">CREA</abbr>/<abbr title="Conselho de Arquitetura e Urbanismo">CAU</abbr>
+                        </label>
+                        <input id="nroCREA" type="text" class="form-control" maxlength="20" data-ng-model="vm.registro.nroRegistro" data-bf-required="true" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="required" for="dtRegistro">
+                            Data de registro
+                        </label>
+                        <div class="input-group">
+                            <input class="form-control" type="text" bf-date ng-model="d">
+                        </div>
+                    </div>
+                </div>
+    
+                <div ng-init="arr = [{}]">
+    
+                    <div class="row" ng-show="!arr.length">
+                        <div class="col-md-12 text-center">
+                            <h4>Ainda não há cbo(s) por aqui</h4>
+                        </div>
+                    </div>
+    
+                    <div class="row" data-ng-if="arr.length">
+                        <div class="col-md-11 col-md-offset-1">
+                            <table class="table table-unfixed table-unstriped">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <label for="" class="required"><abbr title="Classificação Brasileira de Ocupações">CBO</abbr></label>
+                                    </th>
+                                    <th width="25px"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr data-ng-repeat="item in arr">
+                                    <td class="has-edit">
+                                        <select bf-select2="{allowClear:true}" ng-model="cbo">
+                                            <option value=""></option>
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                        </select>
+                                        <!-- <input id="cbo-{{$index}}" type="hidden" data-ng-model="item.cbo.id" data-bf-select2="vm.cboSelectOptions" data-bf-required="true"/> -->
+                                    </td>
+                                    <td class="text-center">
+                                        <a title="Excluir" href="" ng-click="arr.splice($index, 1)">
+                                            <i class="fa fa-trash-o text-muted"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row bottom">
+                        <div class="col-md-12">
+                            <button class="btn btn-sm btn-success btn-add pull-right" ng-click="arr.push({})" title="Adiciona um novo CBO (Classificação Brasileira de Ocupações)">CBO</button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Salvar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>

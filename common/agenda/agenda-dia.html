@@ -1,0 +1,59 @@
+<!-- Visão de dia (semana com apenas uma coluna) -->
+<div class="bth-schedule bth-schedule--week">
+	<ul class="bth-schedule__header">
+		<li class="bth-schedule__corner"></li>
+		<li class="bth-schedule__day-week" ng-repeat="key in ['ter']">
+			<span>{{key}}</span>
+			<h3>02</h3>
+			<ul class="bth-schedule__events" ng-show="daysWeek[key].events.length">
+				<li class="bth-schedule__event" tabindex="1" ng-focus="setFocus(event, true)" ng-blur="setFocus(event, false)" ng-style="getEventStylePosition(hour, event, $parent.$index, 1, true)" ng-class="[event.isFocus ? 'bth-schedule__event--focus' : '']" ng-repeat="event in daysWeek[key].events">
+					<!-- <a href="" class="label" ng-class="event.class" bf-popover="'gerenciador-documentos/popover-erro.html'" bf-popover-size="med-popover" data-placement="top">
+						<i ng-class="event.icon"></i>
+						{{event.desc}}
+					</a> -->
+				</li>
+				<!-- <li class="bth-schedule__event bth-schedule__event--more">
+					<a href="" bf-popover="'gerenciador-documentos/popover-erro.html'" bf-popover-size="med-popover" data-placement="bottom">
+						Mais 7
+					</a>
+				</li> -->
+			</ul>
+		</li>
+	</ul>
+	<div class="bth-schedule__container">
+
+		<ul class="bth-schedule__legend">
+			<li ng-repeat="hour in (listOnlyComercial == '1' ? comercialHours : hours)">
+				<span>{{hour + ':00'}}</span>
+			</li>
+		</ul>
+
+		<ul class="bth-schedule__week">
+			<li class="bth-schedule__day" ng-repeat="day in week.days | limitTo:1:2 track by $index">
+				<ul class="bth-schedule__hours">
+					<li class="bth-schedule__current-time" ng-style="getStyleCurrentTimeRelative()"></li>
+					<li class="bth-schedule__hour" ng-repeat="hour in (listOnlyComercial == '1' ? comercialHours : hours)">
+						<ul class="bth-schedule__events" ng-show="day.events[hour].length">
+							<li class="bth-schedule__event" tabindex="1" ng-focus="setFocus(event, true)" ng-blur="setFocus(event, false)" ng-style="getEventStylePosition(hour, event, $index, 1, false, day.events[hour])" ng-class="[event.isFocus ? 'bth-schedule__event--focus' : '']" ng-repeat="event in day.events[hour]">
+								<a href="" class="label" ng-class="event.class" bf-popover="'gerenciador-documentos/popover-erro.html'" bf-popover-size="med-popover" data-placement="top">
+									<i ng-class="event.icon"></i>
+									{{event.desc}}
+									<span ng-show="!isDurationMoreThanOneHour(hour, event)">, 09:00</span>
+									<ul class="bth-schedule__details" ng-show="isDurationMoreThanOneHour(hour, event)">
+										<li>05:00 - 06:00</li>
+										<li>Sala 3</li>
+									</ul>
+								</a>
+							</li>
+							<!-- <li class="bth-schedule__event bth-schedule__event--more">
+								<a href="" bf-popover="'gerenciador-documentos/popover-erro.html'" bf-popover-size="med-popover" data-placement="bottom">
+									Mais 7
+								</a>
+							</li> -->
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,50 @@
+<div data-ng-controller="TributosCoreSecoesCtrl as vm">
+    <div class="row">
+        <div class="col-md-6">
+            <div ng-include src="'gerenciador-cadastros/enderecos/add.html'"></div>
+        </div>
+        <div class="col-md-6">
+            <div class="pull-right">
+                <form action="" class="form-inline">
+                    <finder total-registros="true" grid-config="gridConfig" filter-by="descricao, abreviatura" filter-cond="like" finder-value="textobusca" is-carregando="false" fields="columns"></finder>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-unfixed table-unstriped" id="secoesTable">
+                <thead>
+                    <tr>
+                        <th width="15%">
+                            <a href="">Código da seção</a>
+                        </th>
+                        <th>
+                            <a href="">Logradouro</a>
+                        </th>
+                        <th width="6%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>6454564</td>
+                        <td>João Pessoa</td>
+                        <td class="text-center">
+                            <a href="" title="Editar">
+                                <i class="fa fa-fw fa-pencil" title="Editar"></i>
+                            </a>
+                            <a href="" title="Excluir">
+                                <i class="fa fa-fw fa-trash-o"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <navigator grid-config="gridConfig" loading-tracker="tracker.carregandoRegistros"></navigator>
+        </div>
+    </div>
+</div>

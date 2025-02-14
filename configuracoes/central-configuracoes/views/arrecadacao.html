@@ -1,0 +1,51 @@
+<h1 class="titulo-configuracoes">Ordem de pagamento dos créditos tributários</h1>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-sortable">
+            <thead>
+                <tr>
+                    <th class="text-center" width="27"></th>
+                    <th>Crédito tributário</th>
+                    <th width="169">Cadastro vinculado</th>
+                    <th width="31"></th>
+                </tr>
+            </thead>
+            <tbody ng-model="linhas" ui-sortable="{handle: '.handle', axis: 'y', containment: '.table-sortable'}">
+                <tr ng-repeat="linha in linhas">
+                    <td class="text-center handle" width="27">
+                        <a href="" class="pull-left dots-drag" title="Clique, segure e arraste para reordenar o crédito">
+                          <i class="fa fa-fw text-muted"></i>
+                        </a>
+                    </td>
+                    <td class="has-edit">
+                        <select bf-select2="{}" ng-model="linha.tipo">
+                            <option value="1">0035 - Imposto Predial e Territorial Urbano (IPTU)</option>
+                            <option value="2">0036 - Imposto Sobre Serviço (ISS)</option>
+                        </select>
+                    </td>
+                    <td width="169">
+                        {{linha.referente}}
+                    </td>
+                    <td width="31">
+                        <a href="" title="Excluir">
+                            <i class="fa fa-fw fa-trash-o"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-sm btn-success btn-add pull-right">Crédito</button>
+    </div>
+</div>
+<div class="row">
+<div class="col-md-12">
+    <div class="pull-right">
+        <button class="btn btn-primary" ng-click="salvarConfiguracao();">Salvar</button>
+        <button class="btn btn-default" title="Restaura a configuração para a última versão salva">Restaurar</button>
+    </div>
+</div>
+</div>

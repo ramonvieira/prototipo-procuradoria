@@ -1,0 +1,28 @@
+<!-- Visão de mês -->
+<div class="bth-schedule bth-schedule--month">
+	<ul class="bth-schedule__header">
+		<li class="bth-schedule__day-week" ng-repeat="dayWeek in ['dom','seg','ter','qua','qui','sex','sab']">
+			<span>{{dayWeek}}</span>
+		</li>
+	</ul>
+	<ul class="bth-schedule__week" ng-repeat="week in month.weeks">
+		<li class="bth-schedule__day" ng-class="{'bth-schedule__day--active': day.active, 'bth-schedule__day--weekend': day.weekend}" ng-repeat="day in week.days">
+			<div class="bth-schedule__desc">
+				<span>{{day.desc}}</span>
+			</div>
+			<ul class="bth-schedule__events" ng-show="day.events.length">
+				<li class="bth-schedule__event" ng-class="['bth-schedule__event--span-' + event.range, 'bth-schedule__event--offset-' + event.offset]" ng-repeat="event in day.events | limitTo:2">
+					<a href="" class="label" ng-class="event.class">
+						<i ng-class="event.icon"></i>
+						{{event.desc}}
+					</a>
+				</li>
+				<li class="bth-schedule__event bth-schedule__event--more">
+					<a href="" bf-popover="'gerenciador-documentos/popover-erro.html'" bf-popover-size="med-popover" data-placement="bottom">
+						Mais 7
+					</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>

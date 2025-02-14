@@ -1,0 +1,25 @@
+<div class="modal-dialog modal-sm modal-auto-height">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="modal-title">Histórico</h3>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="filtrar-por" ng-model="filtrarHistoPor" ng-init="filtrarHistoPor = 'Todos'">
+						<li class="{{filtrarHistoPor == 'Todos' ? 'active' : ''}}"><a href="" ng-click="filtrarHistoPor = 'Todos'">Todos</a></li>
+						<li class="{{filtrarHistoPor == 'Status' ? 'active' : ''}}"><a href="" ng-click="filtrarHistoPor = 'Status'">Status</a></li>
+						<li class="{{filtrarHistoPor == 'Pareceres' ? 'active' : ''}}"><a href="" ng-click="filtrarHistoPor = 'Pareceres'">Pareceres</a></li>
+						<li class="{{filtrarHistoPor == 'Documentos' ? 'active' : ''}}"><a href="" ng-click="filtrarHistoPor = 'Documentos'">Documentos</a></li>
+						<li class="{{filtrarHistoPor == 'Comentários' ? 'active' : ''}}"><a href="" ng-click="filtrarHistoPor = 'Comentários'">Comentários</a></li>
+					</ul>
+				</div>
+			</div>
+			<div ng-include="'gerenciador-documentos/integracoes/historico.html'"></div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+		</div>
+	</div>
+</div>

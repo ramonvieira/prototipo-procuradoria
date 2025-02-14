@@ -1,0 +1,267 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="bth-checkbox bth-checkbox-inline" style="margin-left: 15px">
+            <input type="checkbox" ng-click="checkAll();">
+            <label for=""></label>
+        </div>
+        <div style="display: inline-block">
+            <span class="badge pull-left">
+                0 execução(ões) fiscal(is) selecionada(s)
+            </span>
+            &nbsp;
+            <small>
+                <a href="">Selecionar todos os outros 126 resultados</a>
+            </small>
+        </div>
+    </div>
+</div>
+<div class="row">	
+    <div class="col-md-12" ng-if="agruparDiv != 'nenhum'">
+        <div class="group-list" ng-repeat="ef in execucoesFiscais track by $index" ng-if="agruparDiv!= 'nenhum' && sumExecucoes($index, filtrarPor) > 0">
+            <div class="group-heading" data-ng-class="{open:c.groupOpen}" data-ng-click="c.groupOpen=!c.groupOpen">
+                <div class="bth-checkbox">
+                    <input data-ng-model="check2" type="checkbox">
+                    <label>&nbsp;</label>
+                </div>
+                <div class="group-title">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <strong bf-tooltip="Ano">
+                                {{agruparDiv == 'ano' ? ef.ano: ef.mediaValor}}
+                            </strong>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <small>
+                                {{countExecucoes($index, filtrarPor)}} execuções fiscais
+                            </small>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <small>
+                                <strong bf-tooltip="Total das causas">
+                                    {{sumExecucoes($index, filtrarPor)| currency}} 
+                                </strong>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="group-list-itens" uib-collapse="!c.groupOpen" style="height: auto;">
+                <div class="list-item-flex" ng-repeat=" efl in ef.listExecucoesFiscais" ng-if="filtrarPor == 'Todas em aberto' || filtrarPor == efl.situacao">
+                    <div class="item-content-flex">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="list-item-title">
+                                    <div class="bth-checkbox">
+                                        <input data-ng-model="check11" type="checkbox">
+                                        <label>&nbsp;</label>
+                                    </div>
+                                    <div class="ellipsis" title="Número do processo">
+                                        <a href=""><strong>{{efl.numProcesso}}</strong></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3" title="Local de tramitação">
+                                <span class="ellipsis">{{efl.comarca}} - {{efl.vara}}</span>
+                            </div>
+                            <div class="col-md-4" title="Área - Assunto">
+                                <span class="ellipsis"> {{efl.area}} - {{efl.assunto}}</span>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <label class="label" title="Situação" 
+                                    ng-class="{'label-success': efl.situacao == 'Encerrada', 
+                                                    'label-default': efl.situacao == 'A ajuizar', 
+                                                    'label-warning': efl.situacao == 'Suspensa',
+                                                    'label-danger': efl.situacao == 'Cancelada',
+                                                    'label-info': efl.situacao == 'Em tramitação'}">
+                                    {{efl.situacao}}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ellipsis" title="Executado">
+                                <small>Executado </small><strong class="text-muted"> {{efl.executado}}</strong>
+                            </div>
+                            <div class="col-md-3 ellipsis" title="Exequente">
+                                <small>Exequente </small><strong class="text-muted"> {{efl.exequente}}</strong>
+                            </div>
+                            <div class="col-md-3 ellipsis" title="Procurador">
+                                <small>Procurador </small><strong class="text-muted">{{efl.procurador}}</strong>
+                            </div>
+                            <div class="col-md-2" title="Valor da causa">
+                                <strong class="ellipsis text-muted"> {{efl.valorCausa | currency}}</strong>
+                            </div>
+                            <div class="col-md-1 text-right">
+                                <a href="" title="Editar" ng-click="openExecucaoEdit();">
+                                    <i class="fa fa-pencil fa-fw"></i>
+                                </a>
+                                <a href="" title="Excluir">
+                                    <i class="fa fa-trash-o fa-fw"></i>
+                                </a>
+                                <div class="btn-group">
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-fw fa-ellipsis-v text-muted"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-header">Opções disponíveis</li>
+                                        <li ng-click="openMovimentacao();"><a href="">Movimentação</a></li>
+                                        <li ng-click="openEmitirPeticaoIntermediaria();"><a href="" ng-class="{'link-disabled': efl.situacao != 'Em tramitação' && efl.situacao != 'Suspensa'}">Emitir petição intermediária</a></li>
+                                        <li ng-click="enviarTribunal()"><a href="" ng-class="{'link-disabled': efl.situacao == 'Cancelada' || efl.situacao == 'Suspensa'  || efl.situacao == 'Encerrada'}">Enviar para o tribunal</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mTop10">
+                    <div class="col-md-6">
+                    <small>1-20 de 100</small>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="pull-right">
+                        <button class="btn btn-default btn-xs" disabled="">
+                        <i class="material-icons">keyboard_arrow_left
+                        </i> Anterior
+                        </button>
+                        <button class="btn btn-xs btn-default active">1</button>
+                        <button class="btn btn-xs btn-default">2</button>
+                        <button class="btn btn-xs btn-default">3</button>
+                        <button class="btn btn-xs btn-default">4</button> 
+                        <button class="btn btn-default btn-xs">Próxima 
+                        <i class="material-icons">keyboard_arrow_right
+                        </i>
+                        </button>
+                    </div>
+                    </div>
+                </div>
+					
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <table class="table" ng-if="agruparDiv == 'nenhum'">
+            <thead>
+                <tr>
+                    <th width="35px">
+                    </th>
+                    <th width="165px"><span>Número do processoo</span>
+                    </th>
+                    <th width="230px"><span>Local de tramitação</span>
+                    </th>
+                    <th width="150px"><span>Área e assunto</span>
+                    </th>
+                    <th><span>Executado</span>
+                    </th>
+                    <th><span>Exequente</span>
+                    </th>
+                    <th><span>Procurador</span>
+                    </th>
+                    <th width="150px"><span>Valor da causa(R$)</span>
+                    </th>
+                    <th width="100px" ng-show="filtrarPor == 'Todas em aberto'"><span>Situação</span></th>
+                    <th width="35px">
+                    </th>
+                </tr>
+            </thead>
+            <tbody >
+            <!-- <tr ng-repeat="efl in execucoesFiscais" ng-show="filtrarPor == 'Todas em aberto' ? efl.situacao != 'Encerrada' && efl.situacao != 'Cancelada' : filtrarPor == efl.situacao"> -->
+            <tr ng-repeat="efl in execucoesFiscais | filter: {situacao: filtrarPor}">
+                <td>
+                    <div class="bth-checkbox">
+                        <input id="chbox" type="checkbox">
+                        <label for="chbox">
+                        </label>
+                    </div>
+                </td>
+                <td><a href="">{{efl.numProcesso}}</a></td>
+                <td>
+                    <div class="cell-wrapper">
+                        <span>{{efl.tribunal}}</span>
+                        <br>
+                        <span class="info">{{efl.comarca}}</span>
+                        <br>
+                        <span class="info">{{efl.vara}}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-wrapper">
+                        <span>{{efl.area}}</span>
+                        <br>
+                        <span class="info">{{efl.assunto}}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-wrapper">
+                        <span>{{efl.executado}}</span>
+                        <br>
+                        <span class="info">(000.000.000-00)</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-wrapper">
+                        <span>{{efl.exequente}}</span>
+                        <br>
+                        <span class="info">(000.000.000-00)</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-wrapper">
+                        <span>{{efl.procurador}}</span>
+                        <br>
+                        <span class="info">(000.000.000-00)</span>
+                    </div>
+                </td>
+                <td>{{efl.valorCausa | currency}}</td>
+                <td ng-show="filtrarPor == 'Todas em aberto'">
+                    <label class="label center-block" title="Situação" ng-class="{'label-success': efl.situacao == 'Encerrada', 
+                                                    'label-default': efl.situacao == 'A ajuizar', 
+                                                    'label-warning': efl.situacao == 'Suspensa',
+                                                    'label-danger': efl.situacao == 'Cancelada',
+                                                    'label-info': efl.situacao == 'Em tramitação'}">
+                        {{efl.situacao}}
+                    </label>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-fw fa-ellipsis-v"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li class="dropdown-header">Opções disponíveis</li>
+                            <li ng-click="openUrlEdit();"><a href="">Editar</a></li>
+                            <li ng-click=""><a href="">Excluir</a></li>
+                            <li ng-click="openMovimentacao();"><a href="">Movimentação</a></li>
+                            <li ng-click="openEmitirPeticaoIntermediaria();"><a href="" ng-class="{'link-disabled': efl.situacao != 'Em tramitação' && efl.situacao != 'Suspensa'}">Emitir
+                                    petição intermediária</a></li>
+                            <li ng-click="enviarTribunal();"><a href="" ng-class="{'link-disabled': efl.situacao == 'Cancelada' || efl.situacao == 'Suspensa'  || efl.situacao == 'Encerrada'}">Enviar
+                                    para o tribunal</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>	
+</div>	
+<div class="row">
+    <div class="col-md-6">
+        <form class="form-inline">
+            1-20 de 126
+            <select class="form-control input-sm" ng-model="numberOfResults">
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+            resultados por página
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="pull-right">
+            <button class="btn btn-default btn-sm disabled"><i class="fa fa-angle-left"></i> Anterior</button>
+            <button class="btn btn-default btn-sm active">1</button>
+            <button class="btn btn-default btn-sm">2</button>
+            <button class="btn btn-default btn-sm">3</button>
+            <button class="btn btn-default btn-sm">4</button>
+            <button class="btn btn-default btn-sm">Próxima <i class="fa fa-angle-right"></i></button>
+        </div>
+    </div>
+</div>

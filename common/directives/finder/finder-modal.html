@@ -1,0 +1,22 @@
+<div class="modal-dialog">
+	<div class="modal-content">
+		<form name="form">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 class="modal-title">{{vm.isEditando ? 'Editando': 'Salvando'}} pesquisa</h3>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<label for="descricao" class="required"> Descrição </label>
+						<input class="form-control" type="text" name="descricao" id="descricao" ng-model="vm.registro.descricao" data-bf-required="true">
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" data-bf-loading="vm.tracker.salvandoRegistro" data-ng-disabled="form.$invalid" data-ng-click="vm.salvar(vm.registro)">Salvar</button>
+				<button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			</div>
+		</form>
+	</div>
+</div>

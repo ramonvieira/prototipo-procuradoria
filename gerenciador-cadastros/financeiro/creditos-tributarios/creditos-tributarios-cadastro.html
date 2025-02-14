@@ -1,0 +1,163 @@
+<div class="row">
+	<div class="col-md-12">
+		<label for="desc" class="required">Descrição</label>
+		<input class="form-control" id="descricao" type="text" ng-model="registro.descricao" ng-required="true" maxlength="100">
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-3">
+		<label class="required">Abreviatura</label>
+		<input type="text" name="desc" class="form-control" ng-model="registro.desc" maxlength="6" ng-required="true" ng-disabled="registro.possuiCalculo" />
+	</div>
+	<div class="col-md-3">
+		<label class="required">Indexador</label>
+		<select bf-select2="{}" ng-model="registro.indexador" ng-required="true">
+			<option value="{{indexador.id}}" ng-repeat="indexador in indexadores track by $index">{{indexador.sigla}} - {{indexador.descricao}}</option>
+		</select>
+	</div>
+	<div class="col-md-6">
+		<vinculos-creditos-tributarios-select label="Vincular com" ng-model="registro.vinculo" ng-required="true" ng-change="setVinculo((registro.vinculo | vinculosCreditosTributarios:'key'))"></vinculos-creditos-tributarios-select>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="bth-switch">
+			<input id="lancIss" type="checkbox" ng-model="registro.lancIss" ng-change="checkReceitas()">
+			<label for="lancIss">Utilizar crédito para lançamentos de notificações de lançamento de ISS</label>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="bth-switch">
+			<input id="refProtocolo" type="checkbox" ng-model="registro.refProtocolo" ng-disabled="(registro.vinculo | vinculosCreditosTributarios:'key') != 'CONTRIBUINTES'">
+			<label for="refProtocolo" bf-tooltip="{{(registro.vinculo | vinculosCreditosTributarios:'key') != 'CONTRIBUINTES' ? 'Esta opção é habilitada apenas se o crédito for vinculado com contribuintes' : ''}}">Referenciar crédito com Fly Protocolo</label>
+		</div>
+	</div>
+</div>
+<div class="row" ng-show="registro.vinculo == 4">
+	<div class="col-md-12">
+		<div class="bth-checkbox">
+			<input id="chboxGerarLancamento" type="checkbox" ng-model="registro.calculaImoveisRurais" ng-true-value="'SIM'" ng-false-value="'NAO'">
+			<label for="chboxGerarLancamento">
+				Gerar lançamento de crédito para imóveis rurais
+			</label>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<h4 class="bottom">Transferência para dívida</h4>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-3">
+		<label for="inscreveParc">Inscrever parcela(s) do lançamento</label>
+		<select bf-select2="{}" id="inscreveParc" class="form-control" ng-model="registro.inscreveParc" ng-model-options="{debounce: 700}">
+			<option value="1">Individual</option>
+			<option value="2">Agrupadas em uma dívida</option>
+		</select>
+	</div>
+	<div class="col-md-3" ng-show="registro.inscreveParc == 2">
+		<label for="vencimentoDiv">Vencimento</label>
+		<select bf-select2="{}" id="vencimentoDiv" class="form-control" ng-model="registro.vencimentoDiv">
+			<option value="1">Primeira parcela aberta</option>
+			<option value="2">Primeira parcela</option>
+			<option value="3" ng-if="registro.inscreveParc == 1">Por parcela</option>
+		</select>
+	</div>
+	<div class="col-md-4">
+		<label for="dividaAutomatica">Inscrever em dívida automaticamente</label>
+		<select bf-select2="{}" id="dividaAutomatica" class="form-control" ng-model="registro.dividaAutomatica">
+			<option value="SIM">Sim</option>
+			<option value="NAO">Não</option>
+		</select>
+	</div>
+	<div class="col-md-2" ng-if="registro.dividaAutomatica == 'SIM'">
+		<label class="required" for="dividaAutomaticaDias">Inscrever após:</label>
+		<div class="input-group">
+			<input type="number" class="form-control" id="dividaAutomaticaDias" bf-restrict-number="" min="5" ng-model="registro.dividaAutomaticaDias" ng-model-options="{debounce: 700}">
+			<span class="input-group-addon">Dias</span>
+		</div>
+	</div>
+</div>
+<div class="alert alert-info alert-icon mBottom10" ng-if="registro.dividaAutomatica == 'SIM' && registro.dividaAutomaticaDias != '' && (registro.dividaAutomaticaDias < 30 || registro.inscreveParc == 2)">
+	<ul>
+		<li ng-if="(registro.dividaAutomaticaDias != '' && registro.dividaAutomaticaDias < 30)">
+			É recomendável a que a inscrição seja configurada para mais que 30 dias. Isso evita que parcelas sejam pagas ou ainda que não tenham sido efetuadas pelas baixas automáticas.
+		</li>
+		<li ng-if="registro.inscreveParc == 2">
+			Ao <i>inscrever parcelas do lancamento <strong>agrupadas em uma dívida</strong></i>, estas serão inscritas somente quando a parcela aberta com maior vencimento ultrapassar os <strong>{{registro.dividaAutomaticaDias}}</strong> dias configurados.
+		</li>
+	</ul>
+</div>
+<!-- <div class="alert alert-info alert-icon mBottom10" ng-if="registro.dividaAutomatica == 'SIM' && registro.inscreveParc == 2">
+	Serão inscritas somente parcelas quando as parcelas abertas de maior vencimento ultrapassar os <strong>{{registro.dividaAutomaticaDias}}</strong> dias configurados.
+</div> -->
+<div class="row">
+	<div class="col-md-12">
+		<h4 class="bottom">Receitas</h4>
+	</div>
+</div>
+<div class="alert alert-icon" ng-class="all ? 'alert-success' : 'alert-warning'" ng-show="(registro.lancIss && !isEditing) || (registro.lancIss && isEditing && !all && form.$dirty)">
+	Para o crédito ser utilizado em notificações de lancamento de ISS é necessário adicionar receitas com as seguintes classificações:
+	<span class="badge" ng-class="receitasAdicionadas.imposto ? 'badge-success' : 'badge-warning'">Imposto <i class="fa fa-fw fa-check" ng-show="receitasAdicionadas.imposto"></i></span>,
+	<span class="badge" ng-class="receitasAdicionadas.multa ? 'badge-success' : 'badge-warning'">Multa de infração <i class="fa fa-fw fa-check" ng-show="receitasAdicionadas.multa"></i></span>,
+	<span class="badge" ng-class="receitasAdicionadas.correcao ? 'badge-success' : 'badge-warning'">Correção de notificação <i class="fa fa-fw fa-check" ng-show="receitasAdicionadas.correcao"></i></span>,
+	<span class="badge" ng-class="receitasAdicionadas.juros ? 'badge-success' : 'badge-warning'">Juro de notificação <i class="fa fa-fw fa-check" ng-show="receitasAdicionadas.juros"></i></span> e
+	<span class="badge" ng-class="receitasAdicionadas.multaNofica ? 'badge-success' : 'badge-warning'">Multa de notificação <i class="fa fa-fw fa-check" ng-show="receitasAdicionadas.multaNofica"></i></span>.
+</div>
+<!-- Utilizar quando não houverem registros cadastrados ainda -->
+
+<div class="row" ng-show="registro.receitas.length == 0">
+	<div class="col-md-12">
+		<div class="col-md-12 text-center">
+			<h4>Ainda não há receitas por aqui</h4>
+		</div>
+	</div>
+</div>
+<div class="row" ng-hide="registro.receitas.length == 0">
+	<div class="col-md-12">
+		<table class="table bottom">
+			<thead>
+			<tr>
+				<th class="text-center" width="5%">#</th>
+				<th><label class="required">Descrição</label></th>
+				<th width="11%">Abreviatura</th>
+				<th width="14%">Classificação</th>
+				<th width="9%">Dívida? <i class="fa fa-question-circle" bf-tooltip="Passível de inscrição em dívida ativa"></i></th>
+				<th width="10.5%">Ativa?</th>
+				<th width="8%"></th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="receita in registro.receitas track by $index">
+					<td class="text-center">{{$index}}</td>
+					<td class="has-edit">
+						<receitas-select ng-model="receita.receita" ng-change="checkReceitas()" ng-required="true"></receitas-select>
+					</td>
+					<td>{{receita.receita | receitas:'abreviatura'}}</td>
+					<td>{{receita.receita ? ((receita.receita | receitas:'classificacao') | classificacaoReceitas) : null}}</td>
+					<td>{{receita.receita ? ((receita.receita | receitas:'inscDividaAtiva') ? 'Sim' : 'Não') : null}}</td>
+					<td class="has-edit">
+						<select bf-select2="{}" ng-model="receita.ativa">
+							<option value="1">Sim</option>
+							<option value="0">Não</option>
+						</select>
+					</td>
+					<td class="text-center">
+						<a href="" title="Editar" ng-click="editarReceita((receita.receita | receitas:'object'))"><i class="fa fa-fw fa-pencil text-muted"></i></a>
+						<a href="" title="Excluir" ng-click="registro.receitas.splice($index, 1);checkReceitas();form.$setDirty()" ng-class="{'link-disabled': registro.receitas.length < 2}"><i class="fa fa-fw fa-trash-o text-muted"></i></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="row bottom">
+	<div class="col-md-12">
+		<button class="btn btn-success btn-sm btn-add pull-right" title="Adiciona uma nova receita" ng-click="registro.receitas.push({})">Receita</button>
+	</div>
+</div>

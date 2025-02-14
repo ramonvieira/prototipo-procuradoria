@@ -1,0 +1,53 @@
+<div class="modal-dialog modal-sm">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<h3 class="modal-title">Adicionando comarca</h3>
+		</div>
+		<div class="modal-body">
+			<div>
+				<div class="row">
+					<div class="col-md-3">
+						<label class="required">Código</label>
+						<input type="text" class="form-control" ng-model="codigo" bf-restrict-number=""/>
+					</div>
+					<div class="col-md-7">
+						<label class="required">Município</label>
+						<select bf-select2="{}" ng-model="municipio">
+							<option value="">Criciúma</option>
+							<option value="1">Içara</option>
+							<option value="2">Araranguá</option>
+						</select>
+					</div>
+					<div class="col-md-2">
+						<label>UF</label>
+						<select bf-select2="{}" ng-model="uf" disabled>
+							<option value="">SC</option>
+							<option value="1">RS</option>
+							<option value="2">SP</option>
+						</select>
+					</div>
+				</div>
+				<div class="row bottom">
+					<div class="col-md-12">
+						<label class="required">Descrição</label>
+						<textarea class="form-control" row="3"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="bth-checkbox-group pull-left">
+				<div class="bth-checkbox bth-checkbox-inline bth-checkbox-danger">
+					<input id="checkbox" type="checkbox"/>
+					<label for="checkbox">Registro desativado</label>
+				</div>
+			</div>
+			<button type="button" class="btn btn-primary">Salvar</button>
+			<button type="button" class="btn btn-default">Salvar e adicionar novo</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		</div>
+	</div>
+</div>

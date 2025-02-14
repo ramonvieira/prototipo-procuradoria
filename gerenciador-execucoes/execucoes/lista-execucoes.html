@@ -1,0 +1,62 @@
+<table class="table">
+	<thead>
+		<tr>
+			<th width="30" ng-if="!consult"></th>
+			<th ng-hide="agruparDiv == 'contribuinte'"><span>Contribuinte</th>
+			<th ng-show="agruparDiv == 'contribuinte'"><span>Ano</span></th>
+			<th ng-show="agruparDiv == 'contribuinte'"><span>Crédito</span></th>
+			<th width="100"><span>Referente</span></th>
+			<th width="80"><span>Inscrição</span></th>
+			<th width="105"><span>Certidão</span></th>
+			<th width="105"><span>Petição</span></th>
+			<th width="100"><span>Vencimento</span></th>
+			<th class="nowrap" width="40"><i class="fa fa-fw fa-info-circle tx__gray--d10" bf-tooltip="Informações adicionais"></i></th>
+			<th class="text-right" width="100"><span>Total</span></th>
+			<th width="35" ng-if="!consult"><span></span></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="divida in peticoes">
+			<td ng-if="!consult">
+				<div class="bth-checkbox">
+					<input id="checkbox" type="checkbox">
+					<label for="checkbox">&nbsp;</label>
+				</div>
+			</td>
+			
+			<td ng-if="!consult" ng-hide="agruparDiv == 'contribuinte'" bf-ellipsis><a href="" ng-click="verContribuinte({})">{{divida.contrib}}</a><span class="text-muted"> - 014.658.448-55</span></td>
+			<td ng-show="agruparDiv == 'contribuinte'">{{divida.ano}}</td>
+			<td ng-show="agruparDiv == 'contribuinte'">{{creditos[0].descricao}}</td>
+			<td><a href="">{{divida.referente}}</a></td>
+			<td><span class="badge badge-default show"><a href="" bf-popover="'gerenciador-dividas/dividas-ativas/dividas/popover-detalhes-inscicao.html'" class="popover-active" data-placement="bottom" bf-popover-size="med-popover">1234</a></span></td>
+			<td><cda divida="divida"></cda></td>
+			<td><span class="badge badge-default show"><a href="" bf-popover="'gerenciador-dividas/dividas-ativas/dividas/popover-detalhes-execucao.html'" class="popover-active" data-placement="bottom" bf-popover-size="med-popover">1234 / 2020</a> <i class="fa fa-fw fa-check-circle-o text-greenA7" bf-tooltip="Assinado digitalmente" ng-if="divida.assinado"></i></span></td>
+			<td>16/12/2020</td>
+			<td>
+				<span class="badge badge-alt badge-alt-o badge-info ng-scope ng-isolate-scope" bf-tooltip="Notificado" ng-if="divida.notific">
+					<i class="fa fa-fw fa-file"></i>
+				</span>
+			</td>
+			<td class="text-right"><a href="" bf-popover="'gerenciador-dividas/dividas-ativas/dividas/popover-detalhes-valor.html'" class="popover-active" data-placement="left" bf-popover-size="popover-xs">{{divida.valor | currency}}</a></td>
+			
+			<td class="text-right" ng-if="!consult">
+				<div class="btn-group dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" title="Outras opções" href>
+						<i class="fa fa-fw fa-ellipsis-v"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li>
+							<a href="">Visualizar petição</a>
+						</li>
+						<li>
+							<a href="" ng-click="cancelaExecucao({})">Cancelar execução</a>
+						</li>
+						<li ng-if="!divida.assinado">
+							<a href="" ng-click="assinar({})">Assinar digitalmente</a>
+						</li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
