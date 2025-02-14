@@ -19,6 +19,11 @@
                 vm.selectedCount = vm.peticoes.filter(function(peticao) {
                     return peticao.selected;
                 }).length;
+                vm.selectAll = vm.selectedCount === vm.peticoes.length;
+            };
+                vm.selectedCount = vm.peticoes.filter(function(peticao) {
+                    return peticao.selected;
+                }).length;
             };
 
 			vm.tipo = $state.current.url.split('-')[1]
