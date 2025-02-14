@@ -7,18 +7,18 @@
 						<botao-enviar-tribunal class="btn btn-primary btn-sm" />
 						<botao-assinar class="btn btn-primary btn-sm" />
                         <div class="btn-group">
-
+	
                             <!-- Colunas a exibir -->
-
+        
                             <div class="btn-group">
                                 <button id="dropdownColunas" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Definir colunas a exibir">
                                     <i class="fa fa-columns"></i> 
                                     <span class="caret"></span>
                                 </button>
                             </div>
-
+        
                             <!-- Altura das linhas -->
-
+        
                             <div class="btn-group">
                                 <button id="dropdownAltura" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Definir altura das linhas">
                                     <i class="fa fa-reorder"></i> 
@@ -55,13 +55,13 @@
                         </button>
 						<div class="input-group">
 							<input id="searchInput" type="text" placeholder="Pesquisar" class="form-control input-sm search-field" data-toggle="dropdown">
-
+		
 							<!-- Pesquisa avançada -->
-
+		
 							<div class="input-group-btn">
 								<button type="button" class="btn btn-default btn-sm" title="Pesquisar"><i class="fa fa-search"></i></button>
 								<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Pesquisa avançada"><i class="fa fa-filter"></i> <span class="caret"></span></button>
-
+		
 								<ul class="dropdown-menu dropdown-pesquisas-avancada dropdown-menu-right">
 									<li class="dropdown-header">
 										<button type="button" class="close" data-dismiss="dropdown" title="Fechar"><span aria-hidden="true">&times;</span></button>
@@ -193,20 +193,20 @@
 				</div>
 			</div>
 		</div>
-
+		
 		<div class="row">
 			<div class="col-md-12">
 				<div class="bth-checkbox bth-checkbox-inline">
-					<input type="checkbox" ng-model="selectAll" ng-change="checkAll()">
+					<input type="checkbox" ng-click="checkAll();">
 					<label for=""></label>
 				</div>
 				<div style="display: inline-block">
 					<span class="badge pull-left">
-						{{selectedCount}} documento(s) selecionado(s)
+						0 documento(s) selecionado(s)
 					</span>
 					&nbsp;
 					<small>
-						<a href="">Selecionar todos os outros {{peticoes.length - selectedCount}} resultados</a>
+						<a href="">Selecionar todos os outros {{peticoes.length}} resultados</a>
 					</small>
 				</div>
 			</div>
@@ -230,8 +230,9 @@
 						<tr ng-repeat="peticao in peticoes">
 							<td>
 								<div class="bth-checkbox">
-									<input id="chbox-{{$index}}" type="checkbox" ng-model="peticao.selected" ng-change="updateSelectedCount()">
-									<label for="chbox-{{$index}}"></label>
+									<input id="chbox" type="checkbox">
+										<label for="chbox">
+									</label>
 								</div>
 							</td>
 							<td>
