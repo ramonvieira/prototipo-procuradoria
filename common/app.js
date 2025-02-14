@@ -30,9 +30,9 @@
 	.constant('UNDO_TIMEOUT', 8 * 1000 /* 8 segundos */)
 
 	.constant('TRIBUTOS', {
-        'BASE_API_TRIBUTOS': 'http://localhost:8080/tributos/api/',
-        'BASE_API_ARRECADACAO' : 'http://localhost:8080/arrecadacao/api/',
-        'URL_APP': 'http://localhost:3000/',
+        'BASE_API_TRIBUTOS': 'http://0.0.0.0:8080/tributos/api/',
+        'BASE_API_ARRECADACAO' : 'http://0.0.0.0:8080/arrecadacao/api/',
+        'URL_APP': 'http://0.0.0.0:8082/',
         'ENUM_CAMPO_INSCRICAO': 'undefined',
         'URL_GLB_TEMPLATE': 'http://dev.betha.com.br/glb/v0.1/ui'
 	})
@@ -43,7 +43,7 @@
 			var vm = $rootScope;
 			moment.locale('pt-br');
 
-			$rootScope.pathDB = 'http://localhost:9004'
+			$rootScope.pathDB = 'http://0.0.0.0:9004'
 		
 			// ------------------------------------------------------
 			// Filtro

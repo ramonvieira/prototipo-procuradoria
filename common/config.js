@@ -25,6 +25,7 @@
 		// Restangular
 		.config(['RestangularProvider', 'TRIBUTOS', function(RestangularProvider, TRIBUTOS){
 			RestangularProvider.setBaseUrl(TRIBUTOS.BASE_API_TRIBUTOS);
+			RestangularProvider.setDefaultHttpFields({withCredentials: true});
 		}])
     
         .factory('RestangularArrecadacao', ['Restangular', 'TRIBUTOS', function(restangular, TRIBUTOS){
