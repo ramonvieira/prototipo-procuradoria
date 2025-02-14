@@ -10,12 +10,17 @@
 
             vm.checkAll = function() {
                 vm.peticoes.forEach(function(peticao) {
-                    peticao.selected = vm.selectAll;
+                    peticao.selected = !vm.selectAll;
                 });
+                vm.selectAll = !vm.selectAll;
                 vm.selectedCount = vm.selectAll ? vm.peticoes.length : 0;
             };
 
             vm.updateSelectedCount = function() {
+                vm.selectedCount = vm.peticoes.filter(function(peticao) {
+                    return peticao.selected;
+                }).length;
+                vm.selectAll = vm.selectedCount === vm.peticoes.length;
                 vm.selectedCount = vm.peticoes.filter(function(peticao) {
                     return peticao.selected;
                 }).length;
